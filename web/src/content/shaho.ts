@@ -4,7 +4,7 @@
 
 import type { SourceKey } from "./sources";
 
-/** official = ANKF；guide = 日本武道館指導書；local = 地方連盟／學校；folk = 坊間常見說法；demo = 3D 示範觀察；note = 本站整理 */
+/** official = ANKF；guide = 日本武道協議會《少年少女武道指導書 弓道》；local = 地方連盟／學校；folk = 坊間常見說法；demo = 3D 示範觀察；note = 本站整理 */
 export type Tag = "official" | "guide" | "local" | "folk" | "demo" | "note";
 
 export interface Point {
@@ -61,7 +61,7 @@ export const PRELUDE: ShahoSection = {
       title: "要點",
       points: [
         { text: "官方辭典的定義只有一句：拿著弓與箭的正確姿勢。具體細節來自全弓連參與編寫的指導書。", tag: "official", src: ["terminology"] },
-        { text: "雙腳併攏（指導書寫男子約 3 公分、女子併攏）；視線落在前方約 4 公尺處。", tag: "guide", src: ["b4", "b6"] },
+        { text: "雙腳靠攏（指導書寫男子約 3 公分、女子併攏）；視線落在前方約 4 公尺處。", tag: "guide", src: ["b4", "b6"] },
         { text: "雙肘向兩側微微撐開，不要跑到身體側線的後方。", tag: "guide", src: ["b5"] },
         {
           text: "持箭有兩種方式：把箭頭藏在手中，或握在箭頭後約 10 公分、讓箭頭露出。持法會連動足踏み（分兩步或一步踏開）與搭箭的方式，選一種並保持一致。",
@@ -381,7 +381,7 @@ export const SECTIONS: ShahoSection[] = [
         points: [
           { text: "早気（はやけ）：還沒進入会就放箭，或剛進入就立刻放。", tag: "official", src: ["terminology"] },
           { text: "もたれ：進入会之後錯過放箭的時機，放不出去。", tag: "official", src: ["terminology"] },
-          { text: "縮み（ちぢみ）：会中氣力或肩、肘鬆掉。", tag: "official", src: ["terminology"] },
+          { text: "縮み（全弓連辭典讀作ちじみ，一般常寫ちぢみ）：会中氣力或肩、肘鬆掉。", tag: "official", src: ["terminology"] },
           {
             text: "問卷研究中，有早気經驗的人在 5～8 成之間，依對象而不同；目前沒有隨機對照試驗驗證過任何矯正法。",
             tag: "note",
@@ -393,7 +393,7 @@ export const SECTIONS: ShahoSection[] = [
         title: "坊間說法 vs 官方",
         points: [
           { text: "「会要撐 5～7 秒」：常聽到，但全弓連沒有規定秒數。", tag: "folk" },
-          { text: "日本武道館的學校授課指導書建議練習時維持約 5 秒，這是教學指引，不是射法規定。", tag: "guide", src: ["b5"] },
+          { text: "指導書（學校授課篇）建議練習時維持約 5 秒，這是教學指引，不是射法規定。", tag: "guide", src: ["b5"] },
           { text: "這次示範從会開始到離れ約 4.3 秒。", tag: "demo", src: ["demo"] },
         ],
       },
@@ -479,7 +479,7 @@ export const SECTIONS: ShahoSection[] = [
         title: "坊間說法 vs 官方",
         points: [
           { text: "「残心要停 2～3 秒」：常聽到，但官方沒有規定秒數。", tag: "folk" },
-          { text: "日本武道館的社團活動指導書寫離れ的姿勢「約 2 秒」維持，屬於教學指引。", tag: "guide", src: ["b6"] },
+          { text: "指導書（社團活動篇）寫離れ的姿勢「約 2 秒」維持，屬於教學指引。", tag: "guide", src: ["b6"] },
         ],
       },
       {
@@ -596,7 +596,7 @@ export const PAGE_SOURCES: SourceKey[] = ["syaho", "terminology", "tool", "impro
 /**
  * 「這一節要注意的地方」shown under the 3D viewer, keyed by motion segment id.
  * Plain reminders drawn from the sections above (ANKF〈射法について〉, 用語辞典 and the
- * 日本武道館 指導書); no numbers beyond the ones those sources give.
+ * 日本武道協議會 指導書); no numbers beyond the ones those sources give.
  */
 export const CUES: Record<string, string[]> = {
   torimi: [

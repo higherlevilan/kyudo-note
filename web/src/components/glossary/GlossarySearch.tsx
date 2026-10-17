@@ -18,11 +18,11 @@ export default function GlossarySearch({ entries, categories }: { entries: Gloss
   }, [byQuery]);
 
   const chip = (on: boolean) =>
-    `rounded-full border px-3 py-1 text-sm transition-colors ${on ? "border-ink bg-ink text-paper" : "border-line bg-surface text-ink hover:bg-surface-2"}`;
+    `rounded-full border px-3 py-1 text-sm transition-colors ${on ? "border-ink bg-ink text-paper" : "border-field-border bg-surface text-ink hover:bg-surface-2"}`;
 
   return (
     <div>
-      <div className="sticky top-[57px] z-20 -mx-4 border-b border-line bg-paper/95 px-4 pt-2 pb-3 backdrop-blur">
+      <div className="sticky top-[var(--header-h)] z-20 -mx-4 border-b border-line bg-paper/95 px-4 pt-2 pb-3 backdrop-blur">
         <label htmlFor="glossary-q" className="sr-only">
           搜尋詞彙
         </label>
@@ -34,7 +34,7 @@ export default function GlossarySearch({ entries, categories }: { entries: Gloss
           placeholder="漢字、假名、羅馬拼音或中文"
           autoComplete="off"
           spellCheck={false}
-          className="w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-base text-ink placeholder:text-muted/80 focus:border-wood focus:outline-none"
+          className="w-full rounded-xl border border-field-border bg-surface px-4 py-2.5 text-base text-ink placeholder:text-muted/80 focus:border-wood focus:outline-none"
         />
         <div role="group" aria-label="分類" className="mt-2.5 flex flex-wrap gap-1.5">
           <button type="button" aria-pressed={category === null} onClick={() => setCategory(null)} className={chip(category === null)}>

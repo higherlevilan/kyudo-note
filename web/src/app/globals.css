@@ -8,12 +8,16 @@
   --ink: #2a2520;
   --muted: #6d6357;
   --line: #ddd1bd;
+  /* Form-control borders: darker than --line so inputs meet 3:1 non-text contrast. */
+  --field-border: #8f806d;
   --wood: #8a5a2e;
   --wood-soft: #ead9bd;
   --vermilion: #b4442b;
   --indigo: #34507a;
   --stage-a: #f7f5f1;
   --stage-b: #d8d4cc;
+  /* Sticky site header height; sticky sub-bars sit just below it. */
+  --header-h: 3.6rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,6 +28,7 @@
     --ink: #ece4d6;
     --muted: #a99d8c;
     --line: #3b342c;
+    --field-border: #776a5a;
     --wood: #d4a46c;
     --wood-soft: #3b2f22;
     --vermilion: #e0735a;
@@ -40,6 +45,7 @@
   --color-ink: var(--ink);
   --color-muted: var(--muted);
   --color-line: var(--line);
+  --color-field-border: var(--field-border);
   --color-wood: var(--wood);
   --color-wood-soft: var(--wood-soft);
   --color-vermilion: var(--vermilion);
@@ -72,6 +78,16 @@ a {
 :focus-visible {
   outline: 2px solid var(--wood);
   outline-offset: 2px;
+}
+
+/* Keep fixed bottom bars (journal tab bar, editor save bar) from covering the footer. */
+body:has([data-fixed-bottom="always"]) > footer {
+  padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 639px) {
+  body:has([data-fixed-bottom]) > footer {
+    padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
 }
 
 details > summary {

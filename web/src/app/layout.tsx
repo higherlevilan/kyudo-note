@@ -23,7 +23,8 @@ export const metadata: Metadata = {
     default: "弓道學習筆記 Kyudo Note",
     template: "%s｜弓道學習筆記 Kyudo Note",
   },
-  description: "以繁體中文整理的弓道學習資料：射法八節 3D 示範、日文詞彙庫。內容以全日本弓道連盟（ANKF）公開資料為準。",
+  description:
+    "以繁體中文整理的弓道學習資料：入門指南、射法八節、禮法與體配、裝備百科、文化與哲學、日文詞彙庫、問題研究中心與個人學習日誌。內容以全日本弓道連盟（ANKF）公開資料為準。",
 };
 
 export const viewport: Viewport = {

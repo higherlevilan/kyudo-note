@@ -30,17 +30,17 @@ export const SOURCES = {
     kind: "official",
   },
   b4: {
-    label: "日本武道館《少年少女武道指導書 弓道》第Ⅳ章",
+    label: "日本武道協議會《少年少女武道指導書 弓道》第Ⅳ章",
     url: "https://www.nipponbudokan.or.jp/pdf/shidosho/kyudo/Kyudo-04.pdf",
     kind: "guide",
   },
   b5: {
-    label: "日本武道館《少年少女武道指導書 弓道》第Ⅴ章",
+    label: "日本武道協議會《少年少女武道指導書 弓道》第Ⅴ章",
     url: "https://www.nipponbudokan.or.jp/pdf/shidosho/kyudo/Kyudo-05.pdf",
     kind: "guide",
   },
   b6: {
-    label: "日本武道館《少年少女武道指導書 弓道》第Ⅵ章",
+    label: "日本武道協議會《少年少女武道指導書 弓道》第Ⅵ章",
     url: "https://www.nipponbudokan.or.jp/pdf/shidosho/kyudo/Kyudo-06.pdf",
     kind: "guide",
   },

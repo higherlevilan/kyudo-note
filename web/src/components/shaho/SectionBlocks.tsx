@@ -1,7 +1,6 @@
 import { TAG_LABEL, type Point, type ShahoSection, type Tag } from "@/content/shaho";
 import { SOURCES, type SourceKey } from "@/content/sources";
 import { videoAt, type MotionMeta } from "@/lib/shaho/motion";
-import { JumpButton } from "./SeekContext";
 
 const TAG_STYLE: Record<Tag, string> = {
   official: "bg-indigo/15 text-indigo border-indigo/30",
@@ -113,12 +112,6 @@ export function SectionCard({ s, meta }: { s: ShahoSection; meta: MotionMeta }) 
       </details>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        {seg && <JumpButton segmentId={seg.id}>在 3D 中看「{seg.label}」</JumpButton>}
-        {s.extraSegments?.map((x) => (
-          <JumpButton key={x.id} segmentId={x.id}>
-            在 3D 中看「{x.label}」
-          </JumpButton>
-        ))}
         {seg && ref && (
           <a
             href={videoAt(ref.url, seg.start)}
