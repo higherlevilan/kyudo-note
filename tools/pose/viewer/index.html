@@ -86,7 +86,7 @@ const params = new URLSearchParams(location.search);
 const CLIPS = {
   miyako: { dir: "../../../data/private/miyako/", video: "shaho_hassetsu.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
   "gen-v1": { dir: "../../../data/generated/v1/", video: "wan30.mp4", landmarks: "wan30_landmarks.json", analysis: "wan30_analysis.json" },
-  "gen-ashibumi": { dir: "../../../data/generated/v2_ashibumi/", video: "ashibumi.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
+  "gen-ashibumi": { dir: "../../../data/generated/v4_ashibumi_ff/b/", video: "ashibumi.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
 };
 const clip = CLIPS[params.get("clip")] || CLIPS.miyako;
 const paths = {
