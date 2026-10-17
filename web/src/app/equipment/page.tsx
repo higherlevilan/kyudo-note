@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Callout, Cites, FaqList, PageHeader, PointList, Section, SourceList, TagBadge, TocChips } from "@/components/content/Blocks";
@@ -35,11 +36,13 @@ import {
 } from "@/content/equipment/topics";
 import type { Tag } from "@/content/types";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/equipment/",
   title: "裝備百科",
   description:
     "弓道裝備的中文整理：矢束怎麼量、箭長與弓長計算器（各來源並列）、弓力、弓材、箭、弦、弽、服裝、初學者預算試算與保養。以全日本弓道連盟規則為準，弓具店建議另行標示。",
-};
+  og: "equipment",
+});
 
 const TOC = [
   { id: "start", label: "先借再買" },

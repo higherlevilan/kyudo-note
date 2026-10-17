@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Callout, Cites, FaqList, LayeredCard, PageHeader, PointList, Section, SourceList, TagBadge, TocChips } from "@/components/content/Blocks";
 import ClubList from "@/components/guide/ClubList";
@@ -34,11 +35,13 @@ import { QUICKCHECKS } from "@/content/practice/quickchecks";
 import { CHECKED_ON, JPY_TWD_RATE, PRICE, TW_X } from "@/content/guide/sources";
 import type { LayeredSection, Point, Source } from "@/content/types";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/guide/",
   title: "入門指南",
   description:
     "給完全初學者的弓道入門：第一年的練習進程、第一次去道場要準備什麼、在台灣哪裡學、安全守則、費用試算、初段審查與海外受審。資料以全日本弓道連盟與臺灣弓道協會公開資料為準。",
-};
+  og: "guide",
+});
 
 const TOC = [
   { id: "first-year", label: "第一年" },

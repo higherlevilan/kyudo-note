@@ -8,6 +8,8 @@ export interface Opt<K extends string = string> {
   /** Japanese form (rendered with lang="ja"). */
   ja?: string;
   hint?: string;
+  /** In-site link with more about this option (e.g. a 射癖 section on /shaguse/). */
+  href?: string;
 }
 
 export const TYPE_META: Record<EntryType, { label: string; ja: string; short: string; dot: string; badge: string }> = {
@@ -32,16 +34,16 @@ export const PRACTICE_KIND_OPTS: Opt<PracticeKind>[] = [
 
 /** Common 射癖. Free-text faults are allowed too. */
 export const FAULTS: Opt[] = [
-  { key: "hayake", label: "早気", ja: "早気", hint: "未達會就放" },
-  { key: "motare", label: "もたれ", ja: "もたれ", hint: "會過久、離不出去" },
-  { key: "yurumi", label: "緩み", ja: "緩み", hint: "離時往前鬆回" },
-  { key: "biku", label: "びく", ja: "びく", hint: "會中無意識地突然往回拉" },
+  { key: "hayake", label: "早気", ja: "早気", hint: "未達會就放", href: "/shaguse/#hayake" },
+  { key: "motare", label: "もたれ", ja: "もたれ", hint: "會過久、離不出去", href: "/shaguse/#motare" },
+  { key: "yurumi", label: "緩み", ja: "緩み", hint: "離時往前鬆回", href: "/shaguse/#yurumi" },
+  { key: "biku", label: "びく", ja: "びく", hint: "會中無意識地突然往回拉", href: "/shaguse/#biku" },
   { key: "hikitarazu", label: "引き不足", ja: "引き不足", hint: "未引滿矢束" },
-  { key: "yugaeri", label: "弓返り不成", ja: "弓返り", hint: "離後弓沒有轉" },
-  { key: "hazukobore", label: "筈こぼれ", ja: "筈こぼれ", hint: "箭筈脫弦" },
-  { key: "tsuru-face", label: "弦打到臉／耳" },
-  { key: "tsuru-arm", label: "弦打到手臂" },
-  { key: "oshide", label: "弓手が負ける", ja: "弓手が負ける", hint: "押手被弓推回、手腕下垂" },
+  { key: "yugaeri", label: "弓返り不成", ja: "弓返り", hint: "離後弓沒有轉", href: "/shaguse/#yugaeri" },
+  { key: "hazukobore", label: "筈こぼれ", ja: "筈こぼれ", hint: "箭筈脫弦", href: "/shaguse/#hazukobore" },
+  { key: "tsuru-face", label: "弦打到臉／耳", href: "/shaguse/#harau" },
+  { key: "tsuru-arm", label: "弦打到手臂", href: "/shaguse/#harau" },
+  { key: "oshide", label: "弓手が負ける", ja: "弓手が負ける", hint: "押手被弓推回、手腕下垂", href: "/shaguse/#tenouchi" },
   { key: "katasaki", label: "肩上がり", ja: "肩上がり", hint: "肩膀聳起" },
 ];
 

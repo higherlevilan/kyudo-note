@@ -5,6 +5,7 @@ import { todayISO } from "@/lib/journal/date";
 import { compareEntries } from "@/lib/journal/model";
 import { isSample, sampleEntries } from "@/lib/journal/sample";
 import { clearDrafts, createMemoryStore, openJournalStore, writeDraft, type ImportResult, type JournalStore, type StoreKind } from "@/lib/journal/store";
+import { isLinked } from "@/lib/journal/sync/state";
 import type { Entry, EntryType } from "@/lib/journal/types";
 
 export interface JournalState {
@@ -23,9 +24,18 @@ export interface JournalState {
   loadSample(): Promise<number>;
   removeSample(): Promise<number>;
   exportAll(): Promise<Entry[]>;
+  /** Increments on every local write (the sync hook debounces an upload on it). */
+  localRev: number;
+  /** The underlying store (sync engine only). */
+  getStore(): JournalStore | null;
+  /** Re-read the store after someone else (the sync engine) changed it, and tell other tabs. */
+  refresh(): Promise<void>;
 }
 
-const CHANNEL = "kyudo-note-journal";
+const storeOpts = { trackDeletes: isLinked };
+
+/** BroadcastChannel other pages post "changed" on after writing to the store (e.g. 射形分析). */
+export const CHANNEL = "kyudo-note-journal";
 
 /** Owns the store and the in-memory entry list. All writes go through here. */
 export function useJournal(): JournalState {
@@ -36,6 +46,8 @@ export function useJournal(): JournalState {
   const [today, setToday] = useState("");
   const [storeKind, setStoreKind] = useState<StoreKind | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [localRev, setLocalRev] = useState(0);
+  const bump = () => setLocalRev((n) => n + 1);
 
   const reload = useCallback(async () => {
     const s = storeRef.current;
@@ -52,16 +64,16 @@ export function useJournal(): JournalState {
     (async () => {
       let s: JournalStore;
       try {
-        s = await openJournalStore();
+        s = await openJournalStore(storeOpts);
       } catch {
-        s = createMemoryStore();
+        s = createMemoryStore([], storeOpts);
       }
       let list: Entry[] = [];
       let loadError: string | null = null;
       try {
         list = await s.list();
       } catch {
-        s = createMemoryStore();
+        s = createMemoryStore([], storeOpts);
         loadError = "讀取既有紀錄失敗，目前只暫存在這個分頁。";
       }
       if (!alive) return;
@@ -121,6 +133,7 @@ export function useJournal(): JournalState {
       if (ok) {
         setEntries((cur) => [...cur.filter((x) => x.id !== e.id), e].sort(compareEntries));
         notify();
+        bump();
       }
       return !!ok;
     },
@@ -135,6 +148,7 @@ export function useJournal(): JournalState {
       writeDraft(id, null); // an unsaved edit of a deleted entry must not linger
       setEntries((cur) => cur.filter((x) => x.id !== id));
       notify();
+      bump();
       return found;
     },
     [entries, withStore],
@@ -142,7 +156,9 @@ export function useJournal(): JournalState {
 
   const restore = useCallback(
     async (e: Entry) => {
-      await save(e);
+      // A fresh timestamp makes the restored copy newer than the deletion it undoes, so the
+      // undo also wins when the deletion has already been synced.
+      await save({ ...e, updatedAt: new Date().toISOString() });
     },
     [save],
   );
@@ -153,6 +169,7 @@ export function useJournal(): JournalState {
       if (r && mode === "replace") clearDrafts();
       await reload();
       notify();
+      bump();
       return r;
     },
     [withStore, reload],
@@ -163,6 +180,7 @@ export function useJournal(): JournalState {
     if (ok) clearDrafts();
     await reload();
     notify();
+    bump();
   }, [withStore, reload]);
 
   const loadSample = useCallback(async () => {
@@ -189,6 +207,12 @@ export function useJournal(): JournalState {
 
   const exportAll = useCallback(async () => (await withStore((s) => s.list(), "讀取資料失敗。")) ?? entries, [withStore, entries]);
 
+  const getStore = useCallback(() => storeRef.current, []);
+  const refresh = useCallback(async () => {
+    await reload();
+    notify();
+  }, [reload]);
+
   return {
     ready,
     entries,
@@ -204,6 +228,9 @@ export function useJournal(): JournalState {
     loadSample,
     removeSample,
     exportAll,
+    localRev,
+    getStore,
+    refresh,
   };
 }
 

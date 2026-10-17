@@ -33,6 +33,9 @@ jobs:
       - run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /kyudo-note
+          # Optional cloud sync for 稽古帳 (docs/supabase-setup.md). Unset secrets → empty → sync off.
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
       # Without this, Pages runs Jekyll and drops the _next/ directory.
       - run: touch out/.nojekyll
       - uses: actions/upload-pages-artifact@v3

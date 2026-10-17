@@ -7,7 +7,9 @@ import { buildExport, LIMITS, parseImport, type ParsedImport } from "@/lib/journ
 import { isSample } from "@/lib/journal/sample";
 import { isPersisted, readPref, requestPersistence, writePref, type StoreKind } from "@/lib/journal/store";
 import type { Entry } from "@/lib/journal/types";
+import SyncPanel from "./SyncPanel";
 import { btn, cardCls } from "./ui";
+import type { SyncState } from "./useSync";
 
 export const LAST_EXPORT_PREF = "journal:lastExport";
 
@@ -44,6 +46,7 @@ export default function DataPanel({
   loadSample,
   removeSample,
   announce,
+  sync,
 }: {
   entries: Entry[];
   today: string;
@@ -54,6 +57,7 @@ export default function DataPanel({
   loadSample: () => Promise<number>;
   removeSample: () => Promise<number>;
   announce: (msg: string) => void;
+  sync: SyncState;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [parsed, setParsed] = useState<(ParsedImport & { fileName: string }) | null>(null);
@@ -62,6 +66,7 @@ export default function DataPanel({
   const [persisted, setPersisted] = useState<boolean | null>(null);
   const [lastExport, setLastExport] = useState<string | null>(() => readPref(LAST_EXPORT_PREF));
   const sampleCount = entries.filter(isSample).length;
+  const signedIn = sync.enabled && !!sync.email && sync.phase !== "conflict";
   const practiceCount = entries.filter((e) => e.type === "practice").length;
 
   useEffect(() => {
@@ -117,7 +122,15 @@ export default function DataPanel({
 
   const doImport = async () => {
     if (!parsed) return;
-    if (mode === "replace" && !window.confirm(`確定要用「${parsed.fileName}」取代目前全部 ${entries.length} 筆紀錄嗎？這個動作無法復原。`)) return;
+    if (
+      mode === "replace" &&
+      !window.confirm(
+        `確定要用「${parsed.fileName}」取代目前全部 ${entries.length} 筆紀錄嗎？這個動作無法復原。${signedIn ? "\n\n已登入同步：雲端與其他裝置上的紀錄也會改成檔案的內容。" : ""}`,
+      )
+    )
+      return;
+    // Pull first so a replace also tombstones entries this device has not seen yet.
+    if (signedIn && mode === "replace") await sync.syncNow();
     const r = await importEntries(parsed.entries, mode);
     if (r) announce(`匯入完成：新增 ${r.added} 筆、更新 ${r.updated} 筆${r.unchanged ? `、${r.unchanged} 筆已是最新` : ""}`);
     setParsed(null);
@@ -133,14 +146,25 @@ export default function DataPanel({
           資料存放在哪裡？
         </h3>
         <ul className="mt-2 list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed">
-          <li>
-            所有紀錄只存在<strong>這台裝置的這個瀏覽器</strong>裡，不會上傳到任何伺服器；換手機、換瀏覽器看不到彼此的資料。
-          </li>
-          <li>
-            <strong className="text-vermilion">清除瀏覽資料（Cookie 與網站資料）會一併刪除紀錄</strong>
-            ，請定期匯出 JSON 備份。iOS Safari 對很久沒開的網站也可能清除資料。
-          </li>
-          <li>之後若推出帳號同步，可以用匯出的 JSON 檔搬家。</li>
+          {signedIn ? (
+            <>
+              <li>
+                紀錄存在<strong>這個瀏覽器</strong>裡，並同步到你的帳號（<span className="break-all">{sync.email}</span>）的雲端資料庫；在其他裝置登入同一個帳號就能看到。離線時照常記錄，恢復連線後會自動同步。
+              </li>
+              <li>清除這個瀏覽器的網站資料只會刪掉這台裝置上的副本，雲端上的紀錄仍會保留。範例資料不會同步。</li>
+            </>
+          ) : (
+            <>
+              <li>
+                所有紀錄只存在<strong>這台裝置的這個瀏覽器</strong>裡{sync.enabled ? "，登入前不會上傳" : "，不會上傳到任何伺服器"}；換手機、換瀏覽器看不到彼此的資料。
+              </li>
+              <li>
+                <strong className="text-vermilion">清除瀏覽資料（Cookie 與網站資料）會一併刪除紀錄</strong>
+                ，請定期匯出 JSON 備份。iOS Safari 對很久沒開的網站也可能清除資料。
+              </li>
+              <li>{sync.enabled ? "想在不同裝置之間同步，可以在下方「帳號與雲端同步」登入。" : "雲端同步尚未開放；要換裝置，請用匯出的 JSON 檔搬家。"}</li>
+            </>
+          )}
         </ul>
         <dl className="mt-3 grid gap-1 text-sm">
           <div className="flex flex-wrap gap-x-2">
@@ -178,6 +202,8 @@ export default function DataPanel({
         )}
         {persisted === true && <p className="mt-2 text-sm text-wood">✓ 瀏覽器已同意保留本站資料（仍建議定期匯出）。</p>}
       </section>
+
+      <SyncPanel sync={sync} announce={announce} onExport={() => void exportJson()} />
 
       <section aria-labelledby="data-export" className={cardCls}>
         <h3 id="data-export" className="text-lg font-bold">
@@ -233,7 +259,10 @@ export default function DataPanel({
                 <label className="flex min-h-10 items-start gap-2">
                   <input type="radio" name="import-mode" checked={mode === "replace"} onChange={() => setMode("replace")} className="mt-1 h-4 w-4 accent-[var(--wood)]" />
                   <span>
-                    取代<span className="block text-xs text-muted">先刪除這個瀏覽器裡的全部紀錄，再匯入檔案內容。</span>
+                    取代
+                    <span className="block text-xs text-muted">
+                      {signedIn ? "以檔案內容為準：刪除檔案裡沒有的紀錄（雲端與其他裝置也會同步刪除），再匯入檔案內容。" : "先刪除這個瀏覽器裡的全部紀錄，再匯入檔案內容。"}
+                    </span>
                   </span>
                 </label>
               </fieldset>
@@ -261,7 +290,9 @@ export default function DataPanel({
         <h3 id="data-sample" className="text-lg font-bold">
           範例資料
         </h3>
-        <p className="mt-1 text-sm text-muted">載入約三個月的虛構紀錄，看看圖表與各頁長什麼樣子。範例都標有「範例」，可以隨時一鍵移除，不會動到你自己的紀錄。</p>
+        <p className="mt-1 text-sm text-muted">
+          載入約三個月的虛構紀錄，看看圖表與各頁長什麼樣子。範例都標有「範例」，可以隨時一鍵移除，不會動到你自己的紀錄。{sync.enabled ? "範例資料只留在這個瀏覽器，不會同步到雲端。" : ""}
+        </p>
         <div className="mt-3 flex flex-wrap gap-2">
           <button
             type="button"
@@ -292,14 +323,21 @@ export default function DataPanel({
         <h3 id="data-danger" className="text-lg font-bold text-vermilion">
           清除全部紀錄
         </h3>
-        <p className="mt-1 text-sm text-muted">刪除這個瀏覽器裡的所有稽古帳紀錄（包含範例）。建議先匯出備份。</p>
+        <p className="mt-1 text-sm text-muted">
+          {signedIn
+            ? "刪除全部稽古帳紀錄（包含範例）。已登入同步，雲端與其他裝置上的紀錄也會一併刪除。若只想讓這台裝置忘記資料，請改用「登出」並選擇從這個瀏覽器清除。建議先匯出備份。"
+            : "刪除這個瀏覽器裡的所有稽古帳紀錄（包含範例）。建議先匯出備份。"}
+        </p>
         <button
           type="button"
           className={`${btn.danger} mt-3`}
           disabled={!entries.length}
           onClick={async () => {
-            const msg = exportAge == null || exportAge > 0 ? `確定要刪除全部 ${entries.length} 筆紀錄嗎？今天還沒有匯出備份，刪除後無法復原。` : `確定要刪除全部 ${entries.length} 筆紀錄嗎？刪除後無法復原。`;
+            const base = exportAge == null || exportAge > 0 ? `確定要刪除全部 ${entries.length} 筆紀錄嗎？今天還沒有匯出備份，刪除後無法復原。` : `確定要刪除全部 ${entries.length} 筆紀錄嗎？刪除後無法復原。`;
+            const msg = signedIn ? `${base}\n\n已登入同步：雲端與其他裝置上的紀錄也會一起刪除。` : base;
             if (!window.confirm(msg)) return;
+            // Pull first so entries created on other devices are deleted too.
+            if (signedIn) await sync.syncNow();
             await clearAll();
             announce("已清除全部紀錄");
           }}

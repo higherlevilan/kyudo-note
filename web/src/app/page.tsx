@@ -1,10 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata, SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo";
 import Kasumi from "@/components/home/Kasumi";
 import WordOfDay from "@/components/home/WordOfDay";
 import BrushDivider from "@/components/illustrations/icons/BrushDivider";
 import {
   ArcherIcon,
+  ArrowMarkIcon,
   BowingIcon,
+  CameraPoseIcon,
   GateIcon,
   GearIcon,
   type IconProps,
@@ -16,11 +20,14 @@ import {
 } from "@/components/illustrations/icons/ModuleIcons";
 import type { ReactNode } from "react";
 
+export const metadata: Metadata = pageMetadata({ path: "/", title: SITE_NAME, description: SITE_DESCRIPTION, og: "home" });
+
 type Module = { href: string; title: string; ja: string; desc: string; Icon: (p: IconProps) => ReactNode };
 
 const MODULES: Module[] = [
   { href: "/guide/", title: "入門指南", ja: "はじめに", desc: "第一次去道場、在台灣哪裡學、練習進程、安全、費用與審查。", Icon: GateIcon },
   { href: "/shaho/", title: "射法八節", ja: "射法八節", desc: "足踏み到残心的八個步驟，每一節分入門與深入兩層。", Icon: ArcherIcon },
+  { href: "/shaguse/", title: "射癖與矢所", ja: "射癖", desc: "早気、もたれ、緩み等九種射癖的定義與研究證據，附矢所診斷工具。", Icon: ArrowMarkIcon },
   { href: "/etiquette/", title: "禮法與體配", ja: "体配", desc: "基本姿勢與動作、坐射與立射流程、矢取り、道場禮儀。", Icon: BowingIcon },
   { href: "/equipment/", title: "裝備百科", ja: "弓具", desc: "弓、矢、弽、弦、服裝與保養，附矢尺計算與預算試算。", Icon: GearIcon },
   { href: "/culture/", title: "文化與哲學", ja: "射の心", desc: "歷史年表、流派系譜、射義與真善美、弓與禪的真相。", Icon: ScrollIcon },
@@ -28,6 +35,7 @@ const MODULES: Module[] = [
   { href: "/faq/", title: "問題研究中心", ja: "問答", desc: "各單元的常見問題集中在這裡，每一題都附資料來源。", Icon: QuestionIcon },
   { href: "/journal/", title: "個人學習日誌", ja: "稽古帳", desc: "記錄練習、課程筆記、審查、裝備採購與文化體驗。", Icon: NotebookIcon },
   { href: "/practice/", title: "互動練習", ja: "練習", desc: "八節排序、詞彙閃卡、迷思是非題、體配情境題與初段學科練習。", Icon: TargetCheckIcon },
+  { href: "/form-check/", title: "射形分析（實驗）", ja: "射形", desc: "上傳自己的練習影片，在瀏覽器裡比對八節姿勢；影片不會離開你的裝置。", Icon: CameraPoseIcon },
 ];
 
 const PATHS = [

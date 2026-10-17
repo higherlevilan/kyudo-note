@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "lint": "eslint",
-    "glossary": "node scripts/build-glossary.mjs"
+    "glossary": "node scripts/build-glossary.mjs",
+    "og": "node scripts/og/generate.mjs"
   },
   "dependencies": {
+    "@mediapipe/tasks-vision": "1.1.1",
+    "@supabase/supabase-js": "^2.118.0",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0"

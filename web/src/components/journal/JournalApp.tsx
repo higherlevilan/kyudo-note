@@ -12,9 +12,11 @@ import EntryEditor from "./EntryEditor";
 import type { EditorContext } from "./EntryFields";
 import GearView from "./GearView";
 import GoalsView from "./GoalsView";
+import { SYNC_SECTION_ID, SyncChip } from "./SyncPanel";
 import Timeline from "./Timeline";
 import { btn, cardCls } from "./ui";
 import { useJournal, useRoute, type Tab } from "./useJournal";
+import { useSync } from "./useSync";
 
 const TAB_LABEL: Record<Tab, string> = { overview: "總覽", timeline: "紀錄", gear: "裝備", goals: "目標", data: "資料" };
 const TAB_ORDER: Tab[] = ["overview", "timeline", "gear", "goals", "data"];
@@ -127,6 +129,7 @@ export default function JournalApp() {
   }, [toast, toastPaused]);
 
   const announce = (msg: string, action?: Toast["action"]) => setToast({ id: ++toastSeq.current, msg, action });
+  const sync = useSync(j, announce);
 
   const gearMap = useMemo(() => new Map(entries.filter((e) => e.type === "purchase").map((e) => [e.id, e])), [entries]);
   const gearName = (id: string) => {
@@ -171,6 +174,14 @@ export default function JournalApp() {
     setAddFrom(null);
     navigate({ tab });
     window.scrollTo({ top: 0 });
+  };
+  const goSync = () => {
+    goTab("data");
+    setTimeout(() => {
+      const el = document.getElementById(SYNC_SECTION_ID);
+      el?.scrollIntoView({ block: "start" });
+      el?.querySelector<HTMLElement>("h3")?.focus({ preventScroll: true });
+    }, 50);
   };
   const openNew = (type: EntryType) => {
     setAddFrom(null);
@@ -304,7 +315,9 @@ export default function JournalApp() {
   // ---------- main views ----------
   const realCount = entries.filter((e) => !isSample(e)).length;
   const exportDays = lastExportDays(today);
-  const needsBackup = realCount >= 5 && (exportDays == null || exportDays > 30);
+  // While synced to the cloud the journal no longer lives only in this browser.
+  const synced = sync.enabled && !!sync.email && sync.phase !== "conflict";
+  const needsBackup = !synced && realCount >= 5 && (exportDays == null || exportDays > 30);
   const todayPractice = entries.filter((e): e is PracticeEntry => e.type === "practice" && e.date === today);
 
   let view;
@@ -364,6 +377,7 @@ export default function JournalApp() {
           loadSample={j.loadSample}
           removeSample={j.removeSample}
           announce={(m) => announce(m)}
+          sync={sync}
         />
       );
       break;
@@ -407,7 +421,8 @@ export default function JournalApp() {
         <nav aria-label="稽古帳分頁" className="flex flex-wrap gap-1 rounded-full border border-line bg-surface p-1">
           {TAB_ORDER.map((t) => tabBtn(t, false))}
         </nav>
-        <div className="relative">
+        <div className="relative flex items-center gap-2">
+          <SyncChip sync={sync} onClick={goSync} />
           <button
             ref={desktopAddRef}
             type="button"
@@ -422,7 +437,10 @@ export default function JournalApp() {
         </div>
       </div>
 
-      <h2 className="mb-3 text-xl font-bold sm:sr-only">{TAB_LABEL[route.tab]}</h2>
+      <div className="mb-3 flex items-center justify-between gap-2 sm:mb-0">
+        <h2 className="text-xl font-bold sm:sr-only">{TAB_LABEL[route.tab]}</h2>
+        <SyncChip sync={sync} onClick={goSync} className="sm:hidden" />
+      </div>
       {view}
 
       {/* Phone: bottom navigation with a central add button. */}

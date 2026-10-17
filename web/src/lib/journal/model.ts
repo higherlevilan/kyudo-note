@@ -255,6 +255,11 @@ const iso = (v: unknown, fallback: string): string => {
 /** Ids become object keys in some backends; refuse the ones that alias Object.prototype. */
 const RESERVED_IDS = new Set(["__proto__", "constructor", "prototype"]);
 
+/** Entry ids: 1–100 chars of [A-Za-z0-9_.:-] (UUIDs, "sample-000", …), never an Object.prototype key. */
+export function isValidEntryId(id: unknown): id is string {
+  return typeof id === "string" && id.length > 0 && id.length <= 100 && /^[\w.:-]+$/.test(id) && !RESERVED_IDS.has(id);
+}
+
 /**
  * Coerce an unknown value into a valid Entry, or return null if it cannot be one
  * (unknown type, missing id, invalid date). Unknown fields are dropped.
@@ -264,7 +269,7 @@ export function normalizeEntry(raw: unknown, now: string = new Date().toISOStrin
   const type = raw.type as EntryType;
   if (!ENTRY_TYPES.includes(type)) return null;
   const id = str(raw.id, 100);
-  if (!id || !/^[\w.:-]+$/.test(id) || RESERVED_IDS.has(id)) return null;
+  if (!isValidEntryId(id)) return null;
   if (!isValidDay(raw.date)) return null;
   const e = blankEntry(type, raw.date, now, id) as Entry;
   e.notes = str(raw.notes);

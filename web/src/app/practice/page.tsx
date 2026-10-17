@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import PracticeApp from "@/components/practice/PracticeApp";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/practice/",
   title: "互動練習",
   description:
     "1～3 分鐘的弓道小練習：射法八節排序、這是哪一節、詞彙閃卡、迷思是非題、體配與審查情境題、初段學科自我檢查。題目取自本站內容並附出處，成績只存在自己的瀏覽器。",
-};
+  og: "practice",
+});
 
 export default function PracticePage() {
   return (

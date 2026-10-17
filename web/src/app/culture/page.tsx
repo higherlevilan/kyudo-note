@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Callout, FaqList, LayeredCard, PageHeader, PointList, Section, SourceList, TagBadge, TocChips } from "@/components/content/Blocks";
 import LineageTree from "@/components/culture/LineageTree";
@@ -18,11 +19,13 @@ import { RANK_HISTORY, RANK_RULES } from "@/content/culture/ranks";
 import { HISTORY_TOPICS, ISSHA, THOUGHT, TW_TODAY, WHAT_IS, ZEN, ZEN_BALANCE } from "@/content/culture/sections";
 import type { Tag } from "@/content/types";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/culture/",
   title: "文化與哲學",
   description:
     "弓道的歷史、流派系譜、真善美與正射必中、《禮記・射義》、弓道與禪的真相、段位與稱號、台灣弓道史與常見迷思。依全日本弓道連盟與學術研究整理，爭議處標示「說法不一」。",
-};
+  og: "culture",
+});
 
 const TOC = [
   { id: "intro", label: "入門" },

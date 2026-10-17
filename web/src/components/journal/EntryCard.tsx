@@ -27,9 +27,16 @@ export function money(n: number, currency: string): string {
   return currency === "TWD" ? `NT$${num}` : currency === "JPY" ? `¥${num}` : `${currency} ${num}`;
 }
 
-function Chip({ children, ja }: { children: ReactNode; ja?: boolean }) {
-  return (
-    <span lang={ja ? "ja" : undefined} className="inline-block rounded-full border border-line bg-surface-2 px-2 py-0.5 text-xs text-ink">
+const CHIP = "inline-block rounded-full border border-line bg-surface-2 px-2 py-0.5 text-xs text-ink";
+
+function Chip({ children, ja, href }: { children: ReactNode; ja?: boolean; href?: string }) {
+  const lang = ja ? "ja" : undefined;
+  return href ? (
+    <Link href={href} lang={lang} className={`${CHIP} no-underline hover:border-wood hover:text-wood`}>
+      {children}
+    </Link>
+  ) : (
+    <span lang={lang} className={CHIP}>
       {children}
     </span>
   );
@@ -260,7 +267,9 @@ export default function EntryCard({ e, onEdit, gearName }: { e: Entry; onEdit: (
             const o = faultOpt(f);
             return (
               <li key={f}>
-                <Chip ja={!!o?.ja && o.ja === o.label}>{o?.label ?? f}</Chip>
+                <Chip ja={!!o?.ja && o.ja === o.label} href={o?.href}>
+                  {o?.label ?? f}
+                </Chip>
               </li>
             );
           })}

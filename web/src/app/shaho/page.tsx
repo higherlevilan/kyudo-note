@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { FAQS, PAGE_SOURCES, POSTLUDE, PRELUDE, SECTIONS } from "@/content/shaho";
 import { KIND_LABEL, SOURCES } from "@/content/sources";
 import { PointList, SectionCard } from "@/components/shaho/SectionBlocks";
@@ -7,10 +8,13 @@ import QuickCheck from "@/components/practice/QuickCheck";
 import { QUICKCHECKS } from "@/content/practice/quickchecks";
 import HassetsuStrip from "@/components/illustrations/archer/HassetsuStrip";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/shaho/",
   title: "射法八節",
-  description: "弓道射法八節（足踏み、胴造り、弓構え、打起し、引分け、会、離れ、残心）的圖解與中文說明，以全日本弓道連盟公開資料為準。",
-};
+  description:
+    "弓道射法八節（足踏み、胴造り、弓構え、打起し、引分け、会、離れ、残心）的圖解與中文說明，以全日本弓道連盟公開資料為準。",
+  og: "shaho",
+});
 
 export default function ShahoPage() {
   return (

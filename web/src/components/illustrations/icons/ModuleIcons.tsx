@@ -131,3 +131,27 @@ export function NotebookIcon(p: IconProps) {
     </Icon>
   );
 }
+
+/** 射癖與矢所：靶與偏右上的箭痕。 */
+export function ArrowMarkIcon(p: IconProps) {
+  return (
+    <Icon {...p}>
+      <circle cx={11} cy={13} r={8} />
+      <circle cx={11} cy={13} r={4} />
+      <circle cx={11} cy={13} r={0.6} fill="currentColor" />
+      <path d="M16.5 7.5 21.5 2.5M19 2.5h2.5V5" />
+      <circle cx={16.5} cy={7.5} r={1} fill="currentColor" stroke="none" />
+    </Icon>
+  );
+}
+
+/** 射形分析：相機與人形骨架。 */
+export function CameraPoseIcon(p: IconProps) {
+  return (
+    <Icon {...p}>
+      <path d="M3 7.5h3.5l1.5-2h8l1.5 2H21v12H3z" />
+      <circle cx={12} cy={10.2} r={1.2} />
+      <path d="M12 11.4v4.1M9.2 13l2.8-.8 2.8.8M10.4 18.3 12 15.5l1.6 2.8" strokeWidth={1.2} />
+    </Icon>
+  );
+}

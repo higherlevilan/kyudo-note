@@ -11,7 +11,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
  */
 
 // Pages that are apps rather than articles, or too short to need it.
-const SKIP = ["/journal", "/practice"];
+const SKIP = ["/journal", "/practice", "/form-check"];
 const SIZES = [
   { key: "s", label: "小", scale: "93.75%" },
   { key: "m", label: "標準", scale: "100%" },

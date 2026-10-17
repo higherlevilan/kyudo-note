@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Callout, Cites, FaqList, LayeredCard, PageHeader, PointList, Section, SourceList, TagBadge, TocChips } from "@/components/content/Blocks";
 import Topic from "@/components/etiquette/Topic";
@@ -40,11 +41,13 @@ import {
   ZASHA_VS_RISSHA,
 } from "@/content/etiquette/sections";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/etiquette/",
   title: "禮法與體配",
   description:
     "弓道的禮法與體配（たいはい）：4 種基本姿勢與 8 種基本動作、執弓の姿勢、坐射一手的完整流程、審查 5 人立的弦音接力、矢取り與道場禮儀、失的處理。以全日本弓道連盟公開資料為準，標明出處與說法不一之處。",
-};
+  og: "etiquette",
+});
 
 const TOC = [
   { id: "intro", label: "什麼是體配" },

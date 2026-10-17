@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import glossary from "@/content/glossary.json";
 import GlossarySearch from "@/components/glossary/GlossarySearch";
 import { TERMINOLOGY_URL, type GlossaryEntry } from "@/lib/glossary";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: "/glossary/",
   title: "日文詞彙庫",
-  description: "弓道術語的漢字、假名、羅馬拼音與中文解釋，可用任一種寫法搜尋。讀音與定義以全日本弓道連盟〈弓道用語辞典〉為準。",
-};
+  description:
+    "弓道術語的漢字、假名、羅馬拼音與中文解釋，可用任一種寫法搜尋。讀音與定義以全日本弓道連盟〈弓道用語辞典〉為準。",
+  og: "glossary",
+});
 
 const entries = glossary as GlossaryEntry[];
 const categories = [...new Set(entries.map((e) => e.category))];
