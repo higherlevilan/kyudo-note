@@ -11,3 +11,4 @@ data/private/
 tools/pose/.venv/
 tools/pose/models/
 __pycache__/
+data/generated/
