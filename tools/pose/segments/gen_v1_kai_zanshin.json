@@ -1,0 +1,9 @@
+{
+  "source": "AI 生成（萬相 3.0 i2v，5 秒）：会→離れ→残心",
+  "note": "Boundaries from right-wrist speed: release at 2.87 s.",
+  "segments": [
+    { "id": "kai",     "label": "会",   "start": 0,    "end": 2.85 },
+    { "id": "hanare",  "label": "離れ", "start": 2.85, "end": 3.1 },
+    { "id": "zanshin", "label": "残心", "start": 3.1,  "end": 5 }
+  ]
+}

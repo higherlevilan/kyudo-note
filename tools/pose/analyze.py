@@ -46,8 +46,9 @@ def upright_rotation(world, t, seg):
     frame. 胴造り is a still, upright stance, so mid-ankle minus mid-shoulder
     there defines true down (+y in MediaPipe coordinates).
     """
-    s = next(s for s in seg["segments"] if s["id"] == "dozukuri")
-    idx = (t >= s["start"]) & (t <= s["end"])
+    # Short clips without 胴造り fall back to the whole clip (the stance stays upright).
+    s = next((s for s in seg["segments"] if s["id"] == "dozukuri"), None)
+    idx = (t >= s["start"]) & (t <= s["end"]) if s else np.ones_like(t, dtype=bool)
     down = ((world[idx, L_ANK] + world[idx, R_ANK]) / 2 - (world[idx, L_SH] + world[idx, R_SH]) / 2).mean(axis=0)
     a = down / np.linalg.norm(down)
     b = np.array([0.0, 1.0, 0.0])

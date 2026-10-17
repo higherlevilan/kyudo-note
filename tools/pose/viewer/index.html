@@ -34,6 +34,7 @@
   .metric { background: var(--panel); border-radius: 6px; padding: 8px 10px; }
   .metric b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
   .metric span { color: var(--muted); font-size: 12px; }
+  .metric em { display: block; font-style: normal; color: var(--accent); font-size: 13px; min-height: 1.2em; }
   .note { grid-column: 1 / -1; color: var(--muted); font-size: 12px; }
   .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin: 0 4px 0 10px; vertical-align: middle; }
 </style>
@@ -63,6 +64,8 @@
     <button data-rate="1" class="on">1×</button>
     <button id="prev">◀ 上一格</button>
     <button id="next">下一格 ▶</button>
+    <button data-num="beginner" class="on">初學者數值</button>
+    <button data-num="detail">詳細數值</button>
     <span style="flex:1"></span>
     <span id="keys"></span>
   </div>
@@ -85,11 +88,16 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 const params = new URLSearchParams(location.search);
-const base = "../../../data/private/miyako/";
+// ?clip=<name> picks a preset; ?video=&landmarks=&analysis= override individual files.
+const CLIPS = {
+  miyako: { dir: "../../../data/private/miyako/", video: "shaho_hassetsu.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
+  "gen-v1": { dir: "../../../data/generated/v1/", video: "wan30.mp4", landmarks: "wan30_landmarks.json", analysis: "wan30_analysis.json" },
+};
+const clip = CLIPS[params.get("clip")] || CLIPS.miyako;
 const paths = {
-  video: params.get("video") || base + "shaho_hassetsu.mp4",
-  landmarks: params.get("landmarks") || base + "landmarks.json",
-  analysis: params.get("analysis") || base + "analysis.json",
+  video: params.get("video") || clip.dir + clip.video,
+  landmarks: params.get("landmarks") || clip.dir + clip.landmarks,
+  analysis: params.get("analysis") || clip.dir + clip.analysis,
 };
 
 const [lm, an] = await Promise.all([fetch(paths.landmarks).then(r => r.json()), fetch(paths.analysis).then(r => r.json())]);
@@ -149,8 +157,22 @@ const METRICS = [
   ["腰線傾斜", (w, p) => tilt(p[24], p[23], lm.width / lm.height), "°", "+ = 左腰較高"],
 ];
 const metricsEl = document.getElementById("metrics");
-metricsEl.innerHTML = METRICS.map(([name, , , hint]) => `<div class="metric"><span>${name}</span><b>—</b><span>${hint}</span></div>`).join("");
+metricsEl.innerHTML = METRICS.map(([name, , , hint]) => `<div class="metric"><span>${name}</span><b>—</b><em></em><span>${hint}</span></div>`).join("");
 const metricVals = [...metricsEl.querySelectorAll("b")];
+const metricDescs = [...metricsEl.querySelectorAll("em")];
+// 初學者: round to the nearest 5 and add a plain-language reading; 詳細: whole numbers.
+let numberMode = "beginner";
+function formatMetric(v, unit) {
+  if (unit === " cm") return numberMode === "beginner" ? `約 ${Math.round(v)} cm` : `${v.toFixed(1)} cm`;
+  return numberMode === "beginner" ? `約 ${Math.round(v / 5) * 5}°` : `${Math.round(v)}°`;
+}
+function describeMetric(k, v) {
+  if (k <= 1) return v >= 165 ? "幾乎伸直" : v >= 80 && v <= 100 ? "約直角" : v < 80 ? "彎曲較深" : "微彎";
+  if (k <= 3) return v >= 80 && v <= 100 ? "手臂約水平" : v > 150 ? "手臂高舉" : v < 45 ? "手臂下垂" : "";
+  if (k <= 5) return Math.abs(v) <= 5 ? "與肩同高" : v > 45 ? "高舉過頭" : v > 5 ? "高於肩" : "低於肩";
+  if (k === 6) return Math.abs(v) <= 3 ? "左右同高" : v > 0 ? "弓手較高" : "妻手較高";
+  return Math.abs(v) <= 3 ? "水平" : "傾斜";
+}
 
 // ---- video + 2D overlay -------------------------------------------------
 const video = document.getElementById("video");
@@ -189,9 +211,10 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
-camera.position.set(0, 0.2, 4.2);
+// Far enough back to fit the 2.2 m bow above the archer's head.
+camera.position.set(0, 0.45, 5.6);
 const controls = new OrbitControls(camera, canvas3d);
-controls.target.set(0, 0, 0);
+controls.target.set(0, 0.25, 0);
 scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8f99, 1.1));
 const sun = new THREE.DirectionalLight(0xffffff, 1.6);
 sun.position.set(1.5, 4, 3);
@@ -290,9 +313,13 @@ const LIMBS = [
 const limbMeshes = LIMBS.map(() => makeTube(10, 16));
 const torso = makeTube(20, 32, 2);
 // Spheres that fill the gaps where limb tubes meet.
-const JOINT_BALLS = [[11, 0.052], [12, 0.052], [13, 0.042], [14, 0.042], [23, 0.075], [24, 0.075], [25, 0.058], [26, 0.058], [27, 0.042], [28, 0.042]];
+const JOINT_BALLS = [[11, 0.056], [12, 0.056], [13, 0.046], [14, 0.046], [15, 0.036], [16, 0.036],
+                     [23, 0.078], [24, 0.078], [25, 0.062], [26, 0.062], [27, 0.046], [28, 0.046]];
+const ballMat = new THREE.MeshStandardMaterial({ color: 0x9fb0d8, roughness: 0.45, metalness: 0.05 });
+const neckBall = new THREE.Mesh(new THREE.SphereGeometry(0.05, 20, 14), ballMat);
+neckBall.castShadow = true; scene.add(neckBall);
 const jointBalls = JOINT_BALLS.map(([, r]) => {
-  const m = new THREE.Mesh(new THREE.SphereGeometry(r, 20, 14), gridMaterial(2));
+  const m = new THREE.Mesh(new THREE.SphereGeometry(r, 20, 14), ballMat);
   m.castShadow = true; scene.add(m); return m;
 });
 const neck = makeTube(8, 12);
@@ -314,7 +341,7 @@ const boneMeshes = BONES.map(([a]) => {
   const m = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 1, 8), new THREE.MeshStandardMaterial({ color: colorOf(a === 0 ? 7 : a) }));
   stick.add(m); return m;
 });
-const mannequinParts = [...limbMeshes, ...jointBalls, torso, neck, head, ...handMeshes];
+const mannequinParts = [...limbMeshes, ...jointBalls, neckBall, torso, neck, head, ...handMeshes];
 let mode = "mannequin";
 function setMode(m) {
   mode = m;
@@ -327,12 +354,13 @@ const up = new THREE.Vector3(0, 1, 0);
 // MediaPipe world: +x image-right, +y down, +z away from camera → three.js: flip y and z.
 const toV3 = p => new THREE.Vector3(p[0], -p[1], -p[2]);
 
-function draw3D(w) {
+function draw3D(w, t) {
   if (!w) return;
   // Drop the figure so the lower of the two heels rests on the floor.
   const floor = Math.min(-w[29][1], -w[30][1]);
   const shift = new THREE.Vector3(0, FLOOR_Y - floor + 0.03, 0);
   const P = w.map(p => toV3(p).add(shift));
+  drawBow(P, t);
 
   if (mode === "stick") {
     for (const j of JOINTS) jointMeshes.get(j).position.copy(P[j]);
@@ -374,6 +402,7 @@ function draw3D(w) {
   const faceDir = V().subVectors(P[0], headC).normalize();
   head.quaternion.setFromRotationMatrix(new THREE.Matrix4().makeBasis(earAxis, headUp, V().crossVectors(earAxis, headUp).multiplyScalar(Math.sign(faceDir.dot(V().crossVectors(earAxis, headUp))) || 1)));
   neck.update(...limbRing(shC, V().copy(headC).addScaledVector(headUp, -0.06), 0.045, 0.04));
+  neckBall.position.copy(shC).addScaledVector(headUp, 0.02);
 
   // Hands: oriented from wrist toward the index/pinky knuckles.
   [[15, 17, 19], [16, 18, 20]].forEach(([wr, pk, ix], i) => {
@@ -382,6 +411,92 @@ function draw3D(w) {
     handMeshes[i].position.copy(P[wr]).addScaledVector(dir, 0.05);
     handMeshes[i].quaternion.setFromUnitVectors(up, dir);
   });
+}
+
+// --- bow (yumi) and arrow -----------------------------------------------
+// Dimensions in metres: 並寸 yumi 2.21 m with the grip ~1/3 from the bottom; arrow ≈ 矢束 + margin.
+const BOW_UPPER = 1.47, BOW_LOWER = 0.74, BRACE = 0.15, ARROW_LEN = 0.95;
+const bowMat = new THREE.MeshStandardMaterial({ color: 0xc89a52, roughness: 0.55 });
+const gripMat = new THREE.MeshStandardMaterial({ color: 0x5a3a22, roughness: 0.8 });
+const stringMat = new THREE.MeshStandardMaterial({ color: 0x3a3226, roughness: 0.9 });
+const shaftMat = new THREE.MeshStandardMaterial({ color: 0x8a8f96, metalness: 0.4, roughness: 0.4 });
+const featherMat = new THREE.MeshStandardMaterial({ color: 0xf2f2ee, side: THREE.DoubleSide, roughness: 0.9 });
+const bowMesh = new THREE.Mesh(new THREE.BufferGeometry(), bowMat); bowMesh.castShadow = true; scene.add(bowMesh);
+const gripMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.017, 0.017, 0.13, 12), gripMat); scene.add(gripMesh);
+const stringMesh = new THREE.Mesh(new THREE.BufferGeometry(), stringMat); scene.add(stringMesh);
+const arrow3d = new THREE.Group(); scene.add(arrow3d);
+{
+  const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.0045, 0.0045, ARROW_LEN, 8), shaftMat);
+  shaft.position.y = ARROW_LEN / 2; arrow3d.add(shaft);
+  const head = new THREE.Mesh(new THREE.ConeGeometry(0.007, 0.03, 8), shaftMat);
+  head.position.y = ARROW_LEN + 0.015; arrow3d.add(head);
+  for (let i = 0; i < 3; i++) {
+    const vane = new THREE.Mesh(new THREE.PlaneGeometry(0.018, 0.13), featherMat);
+    vane.position.set(0, 0.11, 0); vane.rotation.y = i * Math.PI * 2 / 3;
+    vane.geometry.translate(0.011, 0, 0);
+    arrow3d.add(vane);
+  }
+}
+const bowParts = [bowMesh, gripMesh, stringMesh, arrow3d];
+
+// Which state the bow and arrow are in at time t.
+//   carry: arrow held in the right hand (before 矢番え); nocked: arrow on the string; released: after 離れ (弓返り done).
+const NOCK_FROM = ["yugamae", "kai"];
+function bowState(t) {
+  if (t >= an.release_t) return "released";
+  const s = an.segments.find(s => NOCK_FROM.includes(s.id));
+  return s && t >= s.start ? "nocked" : "carry";
+}
+
+function tube(points, radius) {
+  return new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), 48, radius, 8, false);
+}
+
+function drawBow(P, t) {
+  const state = bowState(t);
+  const grip = V().addVectors(P[15], P[17]).add(P[19]).multiplyScalar(1 / 3);   // left hand centre
+  const nock = V().addVectors(P[16], P[22]).multiplyScalar(0.5);                 // right thumb / 取懸け
+  const target = new THREE.Vector3(1, 0, 0);
+  const pull = V().subVectors(grip, nock);                                       // nock → grip
+  const nocked = state === "nocked";
+  // Arrow direction while nocked; otherwise the bow's back faces the target.
+  const fwd = nocked && pull.length() > 0.12 ? pull.clone().normalize() : target.clone();
+  const up = V().copy(new THREE.Vector3(0, 1, 0)).addScaledVector(fwd, -fwd.y).normalize();
+  // Draw amount 0..1 from how far the string is pulled behind the grip.
+  const draw = nocked ? THREE.MathUtils.clamp((pull.length() - BRACE) / 0.7, 0, 1) : 0;
+  // Tips sit behind the grip (string side); after 弓返り the string has swung to the target side.
+  const side = state === "released" ? 1 : -1;
+  const bend = (BRACE + 0.22 * draw) * side;
+  const shrink = 1 - 0.06 * draw;
+  const at = (along, back) => V().copy(grip).addScaledVector(up, along * shrink).addScaledVector(fwd, back);
+  const upperTip = at(BOW_UPPER, bend), lowerTip = at(-BOW_LOWER, bend * 0.85);
+  bowMesh.geometry.dispose();
+  bowMesh.geometry = tube([lowerTip, at(-BOW_LOWER * 0.5, bend * 0.3), grip, at(BOW_UPPER * 0.5, bend * 0.3), upperTip], 0.011);
+  gripMesh.position.copy(grip);
+  gripMesh.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), up);
+
+  // String: straight between the tips, or bent at the nock while drawn.
+  const nockOnString = nocked && pull.length() > BRACE ? nock : null;
+  const path = new THREE.CurvePath();
+  if (nockOnString) {
+    path.add(new THREE.LineCurve3(upperTip, nock));
+    path.add(new THREE.LineCurve3(nock, lowerTip));
+  } else {
+    path.add(new THREE.LineCurve3(upperTip, lowerTip));
+  }
+  stringMesh.geometry.dispose();
+  stringMesh.geometry = new THREE.TubeGeometry(path, 16, 0.0025, 6, false);
+
+  // Arrow
+  arrow3d.visible = state !== "released";
+  if (state === "carry") {
+    // Held in the right fist, pointing at the bow's lower tip (執弓の姿勢の二等邊三角形).
+    arrow3d.position.copy(nock);
+    arrow3d.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), V().subVectors(lowerTip, nock).normalize());
+  } else if (nocked) {
+    arrow3d.position.copy(nockOnString || nock);
+    arrow3d.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), fwd);
+  }
 }
 
 function resize3D() {
@@ -438,6 +553,10 @@ document.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => {
   document.querySelectorAll("[data-rate]").forEach(x => x.classList.toggle("on", x === b));
 });
 document.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => setMode(b.dataset.mode));
+document.querySelectorAll("[data-num]").forEach(b => b.onclick = () => {
+  numberMode = b.dataset.num;
+  document.querySelectorAll("[data-num]").forEach(x => x.classList.toggle("on", x === b));
+});
 const stepBy = d => { video.pause(); const i = frameAt(video.currentTime) + d; video.currentTime = times[Math.max(0, Math.min(times.length - 1, i))]; };
 document.getElementById("prev").onclick = () => stepBy(-1);
 document.getElementById("next").onclick = () => stepBy(1);
@@ -454,8 +573,12 @@ function tick() {
   const i = frameAt(t);
   const p = smoothed("pose", i), w = smoothed("world", i);
   drawOverlay(p);
-  draw3D(w);
-  if (w && p) METRICS.forEach(([, fn, unit], k) => metricVals[k].textContent = fn(w, p).toFixed(1) + unit);
+  draw3D(w, t);
+  if (w && p) METRICS.forEach(([, fn, unit], k) => {
+    const v = fn(w, p);
+    metricVals[k].textContent = formatMetric(v, unit);
+    metricDescs[k].textContent = describeMetric(k, v);
+  });
   phaseEl.textContent = phaseAt(t);
   cursor.style.left = (t / duration * 100) + "%";
   controls.update();
