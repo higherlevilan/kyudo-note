@@ -386,13 +386,18 @@ const arrow3d = new THREE.Group(); scene.add(arrow3d);
 const bowParts = [bowMesh, gripMesh, stringMesh, arrow3d];
 
 // Which state the bow and arrow are in at time t.
-//   carry: arrow held in the right hand (before 矢番え); nocked: arrow on the string; released: after 離れ (弓返り done).
-const NOCK_FROM = ["yugamae", "kai"];
+//   carry:    arrows held in the right hand (before 矢番え)
+//   rest:     arrow nocked, right hand off the string (矢番え done, 胴造り)
+//   drawn:    right hand on the string, from 弓構え (取懸け) until 離れ
+//   released: after 離れ (弓返り done)
+const DRAW_FROM = ["yugamae", "uchiokoshi", "daisan", "hikiwake", "kai"];
 function bowState(t) {
   if (an.release_t != null && t >= an.release_t) return "released";
-  if (an.nock_t != null) return t >= an.nock_t ? "nocked" : "carry";
-  const s = an.segments.find(s => NOCK_FROM.includes(s.id));
-  return s && t >= s.start ? "nocked" : "carry";
+  const draw = an.segments.find(s => DRAW_FROM.includes(s.id));
+  if (draw && t >= draw.start) return "drawn";
+  const dozukuri = an.segments.find(s => s.id === "dozukuri");
+  if ((an.nock_t != null && t >= an.nock_t) || (dozukuri && t >= dozukuri.start)) return "rest";
+  return "carry";
 }
 
 function tube(points, radius) {
@@ -405,7 +410,7 @@ function drawBow(P, t) {
   const nock = V().addVectors(P[16], P[22]).multiplyScalar(0.5);                 // right thumb / 取懸け
   const target = new THREE.Vector3(1, 0, 0);
   const pull = V().subVectors(grip, nock);                                       // nock → grip
-  const nocked = state === "nocked";
+  const nocked = state === "drawn";
   // Arrow direction while nocked; otherwise the bow's back faces the target.
   const fwd = nocked && pull.length() > 0.12 ? pull.clone().normalize() : target.clone();
   const up = V().copy(new THREE.Vector3(0, 1, 0)).addScaledVector(fwd, -fwd.y).normalize();
@@ -436,6 +441,11 @@ function drawBow(P, t) {
 
   // Arrow
   arrow3d.visible = state !== "released";
+  if (state === "rest") {
+    // Nocked on the string just above the grip, pointing at the target; string straight.
+    arrow3d.position.copy(grip).addScaledVector(fwd, -BRACE).addScaledVector(up, 0.03);
+    arrow3d.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), fwd);
+  }
   if (state === "carry") {
     // Held in the right fist, pointing at the bow's lower tip (執弓の姿勢の二等邊三角形).
     arrow3d.position.copy(nock);
