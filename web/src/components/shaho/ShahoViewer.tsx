@@ -2,8 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode } from "react";
 import { PlaybackClock } from "@/lib/shaho/clock";
-import { describeMetric, formatMetric, METRICS, type NumberMode } from "@/lib/shaho/metrics";
-import { bowState, frameAt, parseMotion, phaseAt, videoAt, type Motion, type MotionFile } from "@/lib/shaho/motion";
+import { CUES } from "@/content/shaho";
+import { bowState, frameAt, parseMotion, segmentAt, videoAt, type Motion, type MotionFile } from "@/lib/shaho/motion";
 import { ShahoScene } from "@/lib/shaho/scene";
 import { useSeek, VIEWER_ID } from "./SeekContext";
 
@@ -36,7 +36,6 @@ export default function ShahoViewer({ dataUrl }: { dataUrl: string }) {
   const [error, setError] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
   const [rate, setRate] = useState<number>(1);
-  const [mode, setMode] = useState<NumberMode>("beginner");
   const [frame, setFrame] = useState(0);
   const { request } = useSeek();
 
@@ -106,7 +105,7 @@ export default function ShahoViewer({ dataUrl }: { dataUrl: string }) {
       const key = `${i}:${state}`;
       if (key !== lastKey) {
         lastKey = key;
-        scene.setPose(motion.poses[i], state);
+        scene.setPose(motion.poses[i], state, motion.floorY);
         setFrame(i);
       }
       if (cursorRef.current) cursorRef.current.style.left = `${(t / motion.duration) * 100}%`;
@@ -135,15 +134,12 @@ export default function ShahoViewer({ dataUrl }: { dataUrl: string }) {
     clock.time = seg.keyframe_t;
   }, [request, motion]);
 
-  const values = useMemo(() => {
-    const w = motion?.poses[frame];
-    return w ? METRICS.map((m) => m.fn(w, motion.tilts[frame])) : null;
-  }, [motion, frame]);
-
   const meta = motion?.meta;
   const duration = motion?.duration ?? 1;
   const t = motion?.times[frame] ?? 0;
-  const phase = meta ? phaseAt(meta, t) : "—";
+  const current = useMemo(() => (meta ? segmentAt(meta, t) : null), [meta, t]);
+  const phase = current?.label ?? "—";
+  const cues = current ? CUES[current.id] : undefined;
 
   const togglePlay = () => {
     const c = clockRef.current;
@@ -242,14 +238,6 @@ export default function ShahoViewer({ dataUrl }: { dataUrl: string }) {
         <button type="button" onClick={() => stepBy(1)} disabled={!motion} className={btn} aria-label="下一格">
           下一格 ▶
         </button>
-        <div role="group" aria-label="數值顯示方式" className="flex overflow-hidden rounded-full border border-line">
-          <ToggleButton on={mode === "beginner"} onClick={() => setMode("beginner")}>
-            初學者
-          </ToggleButton>
-          <ToggleButton on={mode === "detail"} onClick={() => setMode("detail")}>
-            詳細
-          </ToggleButton>
-        </div>
       </div>
 
       {meta && (
@@ -315,24 +303,25 @@ export default function ShahoViewer({ dataUrl }: { dataUrl: string }) {
         </>
       )}
 
-      <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
-        {METRICS.map((m, k) => {
-          const v = values?.[k];
-          return (
-            <div key={m.id} className="rounded-xl border border-line bg-surface px-3 py-2">
-              <span className="block text-xs text-muted">{m.label}</span>
-              <b className="block text-xl tabular-nums">{v == null ? "—" : formatMetric(v, m.unit, mode)}</b>
-              <em className="block min-h-[1.25em] text-[13px] not-italic text-wood">{v == null ? "" : describeMetric(m.kind, v)}</em>
-              {m.hint && <span className="block text-xs text-muted">{m.hint}</span>}
-            </div>
-          );
-        })}
+      <div aria-live="polite" className="mt-4 rounded-2xl border border-line bg-surface p-4 sm:p-5">
+        <h3 className="text-base font-bold">
+          <span lang="ja">{phase}</span>
+          <span className="ml-1 font-normal text-muted">要注意的地方</span>
+        </h3>
+        {cues ? (
+          <ul className="mt-2 list-disc space-y-1.5 pl-5 text-[15px] leading-relaxed">
+            {cues.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-2 text-sm text-muted">播放或點選上方的節，就會顯示該節的重點。</p>
+        )}
       </div>
 
       <p className="mt-3 text-xs leading-relaxed text-muted">
-        數值是單一示範者、單一次動作的 3D 推估，只能當參考，不是標準值。原影片只有正面鏡頭：手臂往前或往後的深度，是依上臂與前臂的固定長度、
-        再按各節的標準形（例如会時妻手肘在肩後）推算的；肩線、腰線傾斜取自畫面本身。袴遮住腳踝，足踏み的開腳寬度與角度不可靠；
-        手部（手の内、取懸け）因弽與弓遮擋未納入；弓與箭是依手的位置計算畫出的。時間軸上的紅線是依手腕速度偵測的離れ瞬間。
+        3D 人形依單一示範者的一次動作重建，用來理解動作順序，不是標準值。原影片只有正面鏡頭，手臂前後的深度依骨長與各節標準形推算；
+        軀幹保持垂直、腳步固定的部分也依弓道的身體原則做了校正。弓與箭是依手的位置計算畫出的；手の内、取懸け的細節未呈現。
       </p>
 
       {meta?.ref && (

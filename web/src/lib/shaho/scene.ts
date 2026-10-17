@@ -166,6 +166,10 @@ export class ShahoScene {
     this.controls.target.set(0, 0.25, 0);
     this.controls.minDistance = 2;
     this.controls.maxDistance = 10;
+    // Rotate only: the figure stays anchored at the centre, and the camera stays above the floor.
+    this.controls.enablePan = false;
+    this.controls.minPolarAngle = Math.PI * 0.1;
+    this.controls.maxPolarAngle = Math.PI * 0.49;
     // Wheel / pinch zoom only while the viewer is being used, so the page still scrolls.
     this.controls.enableZoom = false;
     canvas.addEventListener("pointerdown", this.enableZoom);
@@ -270,10 +274,9 @@ export class ShahoScene {
   }
 
   /** Pose the figure (33 landmarks, three.js coords) and the bow for the given state. */
-  setPose(w: Vec3[], state: BowState) {
-    // Drop the figure so the lower of the two heels rests on the floor.
-    const floor = Math.min(w[29][1], w[30][1]);
-    const dy = FLOOR_Y - floor + 0.03;
+  setPose(w: Vec3[], state: BowState, floorY: number) {
+    // One floor height for the whole clip, so the figure stays planted instead of bobbing.
+    const dy = FLOOR_Y - floorY + 0.03;
     const P = w.map((p) => new THREE.Vector3(p[0], p[1] + dy, p[2]));
     this.drawBow(P, state);
 

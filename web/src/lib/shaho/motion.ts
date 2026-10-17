@@ -25,8 +25,6 @@ export interface MotionFile {
   meta: MotionMeta;
   fps: number;
   frames: number[][];
-  /** [shoulder°, hip°] per frame, measured in the 2D image (+ = left side higher). */
-  tilt?: number[][];
 }
 
 export interface Motion {
@@ -35,8 +33,8 @@ export interface Motion {
   times: number[];
   /** poses[frame][landmark] — 33 MediaPipe landmarks */
   poses: Vec3[][];
-  /** [shoulder°, hip°] per frame, from the 2D image; null when the file has none. */
-  tilts: ([number, number] | null)[];
+  /** One floor height for the whole clip (median of the lower heel), so the figure never bobs. */
+  floorY: number;
   duration: number;
 }
 
@@ -45,17 +43,16 @@ export const LANDMARKS = 33;
 export function parseMotion(file: MotionFile): Motion {
   const times: number[] = [];
   const poses: Vec3[][] = [];
-  const tilts: ([number, number] | null)[] = [];
-  for (const [i, row] of file.frames.entries()) {
+  for (const row of file.frames) {
     if (row.length < 1 + LANDMARKS * 3) continue;
     times.push(row[0]);
-    const tl = file.tilt?.[i];
-    tilts.push(tl ? [tl[0], tl[1]] : null);
     const pts: Vec3[] = [];
     for (let j = 0; j < LANDMARKS; j++) pts.push([row[1 + j * 3], row[2 + j * 3], row[3 + j * 3]]);
     poses.push(pts);
   }
-  return { meta: file.meta, fps: file.fps, times, poses, tilts, duration: times[times.length - 1] ?? 0 };
+  const heels = poses.map((w) => Math.min(w[29][1], w[30][1])).sort((a, b) => a - b);
+  const floorY = heels[heels.length >> 1] ?? 0;
+  return { meta: file.meta, fps: file.fps, times, poses, floorY, duration: times[times.length - 1] ?? 0 };
 }
 
 /** Index of the frame nearest to time t (times sorted ascending). */
@@ -70,11 +67,17 @@ export function frameAt(times: number[], t: number): number {
   return lo > 0 && Math.abs(times[lo - 1] - t) < Math.abs(times[lo] - t) ? lo - 1 : lo;
 }
 
-/** Label of the 節 at time t (the release instant is flagged as 離れ for ±0.25 s). */
+/** The 節 at time t (the release instant counts as 離れ for ±0.25 s). */
+export function segmentAt(meta: MotionMeta, t: number): Segment | null {
+  if (meta.release_t != null && Math.abs(t - meta.release_t) < 0.25) {
+    return meta.segments.find((s) => s.id === "hanare") ?? null;
+  }
+  return meta.segments.find((s) => t >= s.start && t < s.end) ?? null;
+}
+
+/** Label of the 節 at time t. */
 export function phaseAt(meta: MotionMeta, t: number): string {
-  if (meta.release_t != null && Math.abs(t - meta.release_t) < 0.25) return "離れ";
-  const s = meta.segments.find((s) => t >= s.start && t < s.end);
-  return s ? s.label : "—";
+  return segmentAt(meta, t)?.label ?? "—";
 }
 
 /** Link to the original video at a given second. */
