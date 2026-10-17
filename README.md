@@ -35,6 +35,10 @@
 - Supabase（登入、個人日誌、照片／影片儲存）
 - 姿勢辨識：瀏覽器端 MediaPipe（第二階段）
 
-## 文件
+## 目錄
 
-- [`docs/research/`](docs/research/) — 研究資料
+- [`web/`](web/) — 網站（Next.js 靜態站）：射法八節 3D 示範、日文詞彙庫。開發方式見 `web/README.md`
+- [`tools/pose/`](tools/pose/) — 從示範影片擷取動作、推算深度、匯出網站用的 3D 動作資料
+- [`docs/research/`](docs/research/) — 研究資料（歷史與哲學、射法八節分析、禮儀與體配、裝備練習審查、詞彙表）
+
+射法八節的 3D 人形依 Miyako's Kyudo〈弓道入門：射法八節的連貫動作〉（YouTube）的動作重建，網站只發布關節座標，不使用影片畫面，並附原影片連結。

@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* Calm dojo palette: washi paper, warm wood, sumi ink. */
+:root {
+  --paper: #f6f1e7;
+  --surface: #fffbf3;
+  --surface-2: #efe6d6;
+  --ink: #2a2520;
+  --muted: #6d6357;
+  --line: #ddd1bd;
+  --wood: #8a5a2e;
+  --wood-soft: #ead9bd;
+  --vermilion: #b4442b;
+  --indigo: #34507a;
+  --stage-a: #f7f5f1;
+  --stage-b: #d8d4cc;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #181512;
+    --surface: #221e1a;
+    --surface-2: #2c2620;
+    --ink: #ece4d6;
+    --muted: #a99d8c;
+    --line: #3b342c;
+    --wood: #d4a46c;
+    --wood-soft: #3b2f22;
+    --vermilion: #e0735a;
+    --indigo: #9db7dd;
+    --stage-a: #4a4640;
+    --stage-b: #2a2723;
+  }
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-wood: var(--wood);
+  --color-wood-soft: var(--wood-soft);
+  --color-vermilion: var(--vermilion);
+  --color-indigo: var(--indigo);
+  --font-sans: var(--font-noto-sans-tc), "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --font-jp: var(--font-noto-serif-jp), "Noto Serif JP", "Hiragino Mincho ProN", serif;
+}
+
+html {
+  color-scheme: light dark;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Japanese terms */
+:lang(ja) {
+  font-family: var(--font-jp);
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--wood);
+  outline-offset: 2px;
+}
+
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details > summary .chev {
+  transition: transform 0.15s ease;
+}
+details[open] > summary .chev {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  details > summary .chev {
+    transition: none;
+  }
+}

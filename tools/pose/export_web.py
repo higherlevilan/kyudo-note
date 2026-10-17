@@ -8,6 +8,9 @@ Output JSON:
   fps       : sampling rate of the frames
   frames    : [[t, x0, y0, z0, x1, y1, z1, ...], ...]  three.js convention
               (metres, +y up, +z toward the camera, hip-centred)
+  tilt      : [[shoulder_deg, hip_deg], ...] per frame, measured in the image
+              (+ = left side higher). The detector's 3D y is off by ~10° at the
+              shoulders, so line tilts come from the 2D image instead.
 
 Usage:
   python export_web.py LANDMARKS.json ANALYSIS.json OUT.json [--title T --url U]
@@ -20,6 +23,13 @@ from pathlib import Path
 import numpy as np
 
 from refine_depth import refine
+
+
+def line_tilt(pose, right, left, k):
+    """Smoothed image-plane tilt of the right→left line, degrees (+ = left side higher)."""
+    d = pose[:, left] - pose[:, right]
+    deg = np.degrees(np.arctan2(-d[:, 1], np.abs(d[:, 0])))
+    return np.array([deg[max(0, i - k): i + k + 1].mean() for i in range(len(deg))])
 
 
 def main():
@@ -38,6 +48,8 @@ def main():
     frames = [f for f in lm["frames"] if f["world"]]
     t = np.array([f["t"] for f in frames])
     world = np.array([f["world"] for f in frames])
+    pose = np.array([[q[:2] for q in f["pose"]] for f in frames])
+    pose[..., 0] *= lm["width"] / lm["height"]
     if args.refine_depth:
         world, lengths = refine(world, t, an["segments"])
         print("bone lengths (m):", {f"{a}-{b}": round(float(v), 3) for (a, b), v in lengths.items()})
@@ -61,6 +73,7 @@ def main():
         },
         "fps": lm["fps"],
         "frames": [[round(float(ti), 3), *np.round(p.reshape(-1), 3).tolist()] for ti, p in zip(t, sm)],
+        "tilt": np.round(np.stack([line_tilt(pose, 12, 11, k), line_tilt(pose, 24, 23, k)], axis=1), 1).tolist(),
     }
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     Path(args.out).write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")))

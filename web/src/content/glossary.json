@@ -1,0 +1,3673 @@
+[
+  {
+    "id": "001",
+    "kanji": "射法八節",
+    "kana": "しゃほうはっせつ",
+    "romaji": "shahō hassetsu",
+    "romaji_plain": "shaho hassetsu",
+    "zh": "射箭的八個過程：足踏み、胴造り、弓構え、打起し、引分け、会、離れ、残心",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "002",
+    "kanji": "足踏み",
+    "kana": "あしぶみ",
+    "romaji": "ashibumi",
+    "romaji_plain": "ashibumi",
+    "zh": "第一節，拉弓時雙腳的踏法。寬度約等於自己的矢束，兩腳約成 60 度",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "003",
+    "kanji": "胴造り",
+    "kana": "どうづくり",
+    "romaji": "dōzukuri",
+    "romaji_plain": "dozukuri",
+    "zh": "第二節，拉弓時調整身體（軀幹）的方法",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "004",
+    "kanji": "弓構え",
+    "kana": "ゆがまえ",
+    "romaji": "yugamae",
+    "romaji_plain": "yugamae",
+    "zh": "第三節，持弓箭準備的方法：取懸け、手の内、物見",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "005",
+    "kanji": "打起し",
+    "kana": "うちおこし",
+    "romaji": "uchiokoshi",
+    "romaji_plain": "uchiokoshi",
+    "zh": "第四節，把弓箭舉起的方法",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "006",
+    "kanji": "引分け",
+    "kana": "ひきわけ",
+    "romaji": "hikiwake",
+    "romaji_plain": "hikiwake",
+    "zh": "第五節，把弓箭左右拉開的方法",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "007",
+    "kanji": "会",
+    "kana": "かい",
+    "romaji": "kai",
+    "romaji_plain": "kai",
+    "zh": "第六節，把矢束充分拉滿的狀態",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "008",
+    "kanji": "離れ",
+    "kana": "はなれ",
+    "romaji": "hanare",
+    "romaji_plain": "hanare",
+    "zh": "第七節，放箭的瞬間",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "009",
+    "kanji": "残心・残身",
+    "kana": "ざんしん",
+    "romaji": "zanshin",
+    "romaji_plain": "zanshin",
+    "zh": "第八節，箭離弦後身心的狀態",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "010",
+    "kanji": "弓倒し",
+    "kana": "ゆだおし",
+    "romaji": "yudaoshi",
+    "romaji_plain": "yudaoshi",
+    "zh": "離れ之後，把弓放回執弓姿勢的動作",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "011",
+    "kanji": "執り弓の姿勢",
+    "kana": "とりゆみのしせい",
+    "romaji": "toriyumi no shisei",
+    "romaji_plain": "toriyumi no shisei",
+    "zh": "拿著弓與箭的正確姿勢",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "012",
+    "kanji": "取懸け",
+    "kana": "とりかけ",
+    "romaji": "torikake",
+    "romaji_plain": "torikake",
+    "zh": "用弽扣弦的動作（官方辭典寫「取掛け」）",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "013",
+    "kanji": "手の内",
+    "kana": "てのうち",
+    "romaji": "tenouchi",
+    "romaji_plain": "tenouchi",
+    "zh": "左手握弓的方法",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "014",
+    "kanji": "物見",
+    "kana": "ものみ",
+    "romaji": "monomi",
+    "romaji_plain": "monomi",
+    "zh": "把臉轉向靶",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "015",
+    "kanji": "物見返し",
+    "kana": "ものみがえし",
+    "romaji": "monomigaeshi",
+    "romaji_plain": "monomigaeshi",
+    "zh": "把轉向靶的臉轉回來",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "016",
+    "kanji": "円相",
+    "kana": "えんそう",
+    "romaji": "ensō",
+    "romaji_plain": "enso",
+    "zh": "弓構え時兩肘不伸直、像畫圓一樣的構形",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "017",
+    "kanji": "弓懐",
+    "kana": "ゆみふところ",
+    "romaji": "yumifutokoro",
+    "romaji_plain": "yumifutokoro",
+    "zh": "弓構え時，箭與身體之間形成的圓形空間",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "018",
+    "kanji": "羽引き",
+    "kana": "はびき",
+    "romaji": "habiki",
+    "romaji_plain": "habiki",
+    "zh": "弓構え時，兩肘撐開，讓弓與弦之間約有一片羽的長度",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "019",
+    "kanji": "大三",
+    "kana": "だいさん",
+    "romaji": "daisan",
+    "romaji_plain": "daisan",
+    "zh": "拉開約箭長一半的狀態，又稱「肘力・中力（ちゅうりき）」",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "020",
+    "kanji": "押大目引三分一",
+    "kana": "おしだいもくひきさんぶんのいち",
+    "romaji": "oshi daimoku hiki sanbun no ichi",
+    "romaji_plain": "oshi daimoku hiki sanbun no ichi",
+    "zh": "大三時「推的一側多、拉的一側約三分之一」的口訣",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "021",
+    "kanji": "正面打起し",
+    "kana": "しょうめんうちおこし",
+    "romaji": "shōmen uchiokoshi",
+    "romaji_plain": "shomen uchiokoshi",
+    "zh": "從正面的弓構え，把兩臂舉到正上方再取大三的方法",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "022",
+    "kanji": "斜面打起し",
+    "kana": "しゃめんうちおこし",
+    "romaji": "shamen uchiokoshi",
+    "romaji_plain": "shamen uchiokoshi",
+    "zh": "從斜面的弓構え，往左斜上方舉起的方法",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "023",
+    "kanji": "三重十文字",
+    "kana": "さんじゅうじゅうもんじ",
+    "romaji": "sanjū jūmonji",
+    "romaji_plain": "sanju jumonji",
+    "zh": "從上方看，腳底、腰、肩三條線重疊成一條",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "024",
+    "kanji": "五重十文字",
+    "kana": "ごじゅうじゅうもんじ",
+    "romaji": "gojū jūmonji",
+    "romaji_plain": "goju jumonji",
+    "zh": "會時的五個十字：弓與箭、弓與手の内、弽的拇指與弦、胸的中筋與兩肩線、頸與箭",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "025",
+    "kanji": "縦横十文字",
+    "kana": "たてよこじゅうもんじ",
+    "romaji": "tateyoko jūmonji",
+    "romaji_plain": "tateyoko jumonji",
+    "zh": "腳、腰、脊椎、頸椎的縱線，與兩肩、兩臂、兩肘、兩手的橫線成十字",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "026",
+    "kanji": "基本體型",
+    "kana": "きほんたいけい",
+    "romaji": "kihon taikei",
+    "romaji_plain": "kihon taikei",
+    "zh": "縦横十文字加上五重十文字的體型",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "027",
+    "kanji": "五部の詰",
+    "kana": "ごぶのつめ",
+    "romaji": "gobu no tsume",
+    "romaji_plain": "gobu no tsume",
+    "zh": "左右拳、左右肩、胸五處依骨法正確「嵌合」",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "028",
+    "kanji": "八部の詰",
+    "kana": "はちぶのつめ",
+    "romaji": "hachibu no tsume",
+    "romaji_plain": "hachibu no tsume",
+    "zh": "五部の詰再加上腳、腰、腹，共八處",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "029",
+    "kanji": "詰合い",
+    "kana": "つめあい",
+    "romaji": "tsumeai",
+    "romaji_plain": "tsumeai",
+    "zh": "會中各關節咬合，進入可以伸合的狀態",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "030",
+    "kanji": "伸合い",
+    "kana": "のびあい",
+    "romaji": "nobiai",
+    "romaji_plain": "nobiai",
+    "zh": "會中充實氣力、持續不斷地伸展身體",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "031",
+    "kanji": "持満",
+    "kana": "じまん",
+    "romaji": "jiman",
+    "romaji_plain": "jiman",
+    "zh": "會中等待精氣充滿",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "032",
+    "kanji": "自満",
+    "kana": "じまん",
+    "romaji": "jiman",
+    "romaji_plain": "jiman",
+    "zh": "離れ瞬間的充滿狀態（與「持満」同音）",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "033",
+    "kanji": "引く矢束・引かぬ矢束・ただ矢束",
+    "kana": "ひくやづか・ひかぬやづか・ただやづか",
+    "romaji": "hiku yazuka / hikanu yazuka / tada yazuka",
+    "romaji_plain": "hiku yazuka / hikanu yazuka / tada yazuka",
+    "zh": "會的三種狀態：拉滿後還在拉／拉滿並有詰合伸合（理想）／只是拉滿、沒有詰合伸合",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "034",
+    "kanji": "彀",
+    "kana": "やごろ",
+    "romaji": "yagoro",
+    "romaji_plain": "yagoro",
+    "zh": "發射時機成熟的狀態",
+    "category": "射法",
+    "source": [
+      "—"
+    ],
+    "disputed": true,
+    "note": "讀音或定義各來源不同，或尚未確認"
+  },
+  {
+    "id": "035",
+    "kanji": "弓手・押手",
+    "kana": "ゆんで・おしで",
+    "romaji": "yunde / oshide",
+    "romaji_plain": "yunde / oshide",
+    "zh": "左手（握弓的手）",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "036",
+    "kanji": "馬手（妻手）・勝手",
+    "kana": "めて・かって",
+    "romaji": "mete / katte",
+    "romaji_plain": "mete / katte",
+    "zh": "右手（拉弦的手）",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "037",
+    "kanji": "角見",
+    "kana": "つのみ",
+    "romaji": "tsunomi",
+    "romaji_plain": "tsunomi",
+    "zh": "弓手拇指的根部",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "038",
+    "kanji": "天文筋",
+    "kana": "てんもんすじ",
+    "romaji": "tenmonsuji",
+    "romaji_plain": "tenmonsuji",
+    "zh": "彎曲食指到小指時，手掌出現的那條紋路",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "039",
+    "kanji": "虎口",
+    "kana": "ここう",
+    "romaji": "kokō",
+    "romaji_plain": "koko",
+    "zh": "左手拇指根與食指之間的虎口",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "040",
+    "kanji": "掌根",
+    "kana": "しょうこん",
+    "romaji": "shōkon",
+    "romaji_plain": "shokon",
+    "zh": "手掌根部",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "041",
+    "kanji": "手心",
+    "kana": "しゅしん",
+    "romaji": "shushin",
+    "romaji_plain": "shushin",
+    "zh": "手掌中心",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "042",
+    "kanji": "拇指",
+    "kana": "ぼし",
+    "romaji": "boshi",
+    "romaji_plain": "boshi",
+    "zh": "拇指",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "043",
+    "kanji": "爪揃え",
+    "kana": "つまそろえ",
+    "romaji": "tsumasoroe",
+    "romaji_plain": "tsumasoroe",
+    "zh": "左手中指、無名指、小指三指的指尖對齊",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "044",
+    "kanji": "矢枕",
+    "kana": "やまくら",
+    "romaji": "yamakura",
+    "romaji_plain": "yamakura",
+    "zh": "左手拇指末節上、箭擱著的位置",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "045",
+    "kanji": "上押し",
+    "kana": "うわおし",
+    "romaji": "uwaoshi",
+    "romaji_plain": "uwaoshi",
+    "zh": "手腕往上折、左拳往下推的手の内",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "046",
+    "kanji": "中押し",
+    "kana": "なかおし",
+    "romaji": "nakaoshi",
+    "romaji_plain": "nakaoshi",
+    "zh": "手腕不折，以中指和拇指為中心推的手の内",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "047",
+    "kanji": "下押し",
+    "kana": "したおし",
+    "romaji": "shitaoshi",
+    "romaji_plain": "shitaoshi",
+    "zh": "手腕往下折、左拳往上推的手の内",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "048",
+    "kanji": "べた押し",
+    "kana": "べたおし",
+    "romaji": "betaoshi",
+    "romaji_plain": "betaoshi",
+    "zh": "手腕折掉、用手掌推弓（不良的手の内）",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "049",
+    "kanji": "打ち切り",
+    "kana": "うちきり",
+    "romaji": "uchikiri",
+    "romaji_plain": "uchikiri",
+    "zh": "用力握緊弓、不讓弓返り",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "050",
+    "kanji": "弓返り",
+    "kana": "ゆがえり",
+    "romaji": "yugaeri",
+    "romaji_plain": "yugaeri",
+    "zh": "離れ時，弦轉到左手手背一側",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "051",
+    "kanji": "平付け",
+    "kana": "ひらづけ",
+    "romaji": "hirazuke",
+    "romaji_plain": "hirazuke",
+    "zh": "會時右手手背朝前的形",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "052",
+    "kanji": "胸弦",
+    "kana": "むなづる",
+    "romaji": "munazuru",
+    "romaji_plain": "munazuru",
+    "zh": "會時弦貼在胸前",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "053",
+    "kanji": "頬付け",
+    "kana": "ほうづけ",
+    "romaji": "hōzuke",
+    "romaji_plain": "hozuke",
+    "zh": "會時箭貼在臉頰",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "054",
+    "kanji": "口割",
+    "kana": "くちわり",
+    "romaji": "kuchiwari",
+    "romaji_plain": "kuchiwari",
+    "zh": "會時箭位在嘴唇的高度",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "055",
+    "kanji": "狙い",
+    "kana": "ねらい",
+    "romaji": "nerai",
+    "romaji_plain": "nerai",
+    "zh": "瞄準。弓道沒有瞄準器，靠弓與靶的相對位置",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "056",
+    "kanji": "半月の狙い",
+    "kana": "はんげつのねらい",
+    "romaji": "hangetsu no nerai",
+    "romaji_plain": "hangetsu no nerai",
+    "zh": "讓靶貼在矢摺籐左側的瞄法",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "057",
+    "kanji": "矢束",
+    "kana": "やづか",
+    "romaji": "yazuka",
+    "romaji_plain": "yazuka",
+    "zh": "合乎自己骨架的箭長；量法是從喉嚨中央到伸直左臂的中指尖",
+    "category": "射法",
+    "source": [
+      "A",
+      "K"
+    ],
+    "disputed": true,
+    "note": "坊間也讀やつか"
+  },
+  {
+    "id": "058",
+    "kanji": "引き尺",
+    "kana": "ひきじゃく",
+    "romaji": "hikijaku",
+    "romaji_plain": "hikijaku",
+    "zh": "實際拉開的長度",
+    "category": "射法",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "059",
+    "kanji": "矢筋",
+    "kana": "やすじ",
+    "romaji": "yasuji",
+    "romaji_plain": "yasuji",
+    "zh": "箭飛去的方向",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "060",
+    "kanji": "矢乗り",
+    "kana": "やのり",
+    "romaji": "yanori",
+    "romaji_plain": "yanori",
+    "zh": "箭射出後的路線；也指會中瞄準的箭線",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "061",
+    "kanji": "矢色",
+    "kana": "やいろ",
+    "romaji": "yairo",
+    "romaji_plain": "yairo",
+    "zh": "箭飛行時擺動",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "062",
+    "kanji": "矢所",
+    "kana": "やどころ",
+    "romaji": "yadokoro",
+    "romaji_plain": "yadokoro",
+    "zh": "射出的箭到達的落點",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "063",
+    "kanji": "掃き矢",
+    "kana": "はきや",
+    "romaji": "hakiya",
+    "romaji_plain": "hakiya",
+    "zh": "箭擦著靶前的地面才到安土",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "064",
+    "kanji": "弦道",
+    "kana": "つるみち",
+    "romaji": "tsurumichi",
+    "romaji_plain": "tsurumichi",
+    "zh": "從弓構え到會，弦所經過的路線",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "065",
+    "kanji": "掛口十文字",
+    "kana": "かけぐちじゅうもんじ",
+    "romaji": "kakeguchi jūmonji",
+    "romaji_plain": "kakeguchi jumonji",
+    "zh": "弽的帽子與弦成直角",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "066",
+    "kanji": "上弦を引く・下弦を引く",
+    "kana": "うわづるをひく・したづるをひく",
+    "romaji": "uwazuru o hiku / shitazuru o hiku",
+    "romaji_plain": "uwazuru o hiku / shitazuru o hiku",
+    "zh": "拉弦時偏向弦枕上方／下方施力",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "067",
+    "kanji": "自然の離れ",
+    "kana": "しぜんのはなれ",
+    "romaji": "shizen no hanare",
+    "romaji_plain": "shizen no hanare",
+    "zh": "時機成熟、自然發生的離れ",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "068",
+    "kanji": "四部の離れ",
+    "kana": "しべのはなれ",
+    "romaji": "shibe no hanare",
+    "romaji_plain": "shibe no hanare",
+    "zh": "左右拳、左右肩四處一致的理想離れ",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "069",
+    "kanji": "大離れ・小離れ",
+    "kana": "おおばなれ・こばなれ",
+    "romaji": "ōbanare / kobanare",
+    "romaji_plain": "obanare / kobanare",
+    "zh": "左右手大幅分開的離れ／右手只小幅移動的離れ",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "070",
+    "kanji": "片離れ",
+    "kana": "かたばなれ",
+    "romaji": "katabanare",
+    "romaji_plain": "katabanare",
+    "zh": "只用左手或只用右手一側放的離れ",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "071",
+    "kanji": "勝手離れ（馬手離れ）",
+    "kana": "かってばなれ（めてばなれ）",
+    "romaji": "katte-banare",
+    "romaji_plain": "katte-banare",
+    "zh": "右手比左手「勝」的離れ",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "072",
+    "kanji": "弓手の離れ",
+    "kana": "ゆんでのはなれ",
+    "romaji": "yunde no hanare",
+    "romaji_plain": "yunde no hanare",
+    "zh": "左手像往靶推進去一樣的離れ",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "073",
+    "kanji": "合わせ離れ",
+    "kana": "あわせはなれ",
+    "romaji": "awase-hanare",
+    "romaji_plain": "awase-hanare",
+    "zh": "沒有伸合、兩手配合節奏放的離れ",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "074",
+    "kanji": "送り離れ",
+    "kana": "おくりばなれ",
+    "romaji": "okuri-banare",
+    "romaji_plain": "okuri-banare",
+    "zh": "右手一邊往靶的方向回去一邊放",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "075",
+    "kanji": "上離れ",
+    "kana": "うわばなれ",
+    "romaji": "uwa-banare",
+    "romaji_plain": "uwa-banare",
+    "zh": "雙手或右手往上離",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "076",
+    "kanji": "落ちる離れ",
+    "kana": "おちるはなれ",
+    "romaji": "ochiru hanare",
+    "romaji_plain": "ochiru hanare",
+    "zh": "比肩膀低、往下離",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "077",
+    "kanji": "切り下げ",
+    "kana": "きりさげ",
+    "romaji": "kirisage",
+    "romaji_plain": "kirisage",
+    "zh": "離れ時雙手或單手大幅往下掉",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "078",
+    "kanji": "払う離れ",
+    "kana": "はらうはなれ",
+    "romaji": "harau hanare",
+    "romaji_plain": "harau hanare",
+    "zh": "像撥開前方東西一樣的離れ（不是「被弦打到」的意思）",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "079",
+    "kanji": "退く離れ",
+    "kana": "のくはなれ",
+    "romaji": "noku hanare",
+    "romaji_plain": "noku hanare",
+    "zh": "身體往後逃、兩手往前出的離れ",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "080",
+    "kanji": "射癖",
+    "kana": "しゃぐせ",
+    "romaji": "shaguse",
+    "romaji_plain": "shaguse",
+    "zh": "射法上的不良習慣",
+    "category": "射法",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "081",
+    "kanji": "早気",
+    "kana": "はやけ",
+    "romaji": "hayake",
+    "romaji_plain": "hayake",
+    "zh": "還沒進入會就放，或剛進入會就立刻放",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "082",
+    "kanji": "もたれ",
+    "kana": "もたれ",
+    "romaji": "motare",
+    "romaji_plain": "motare",
+    "zh": "進入會後錯過放箭時機，放不出去",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "083",
+    "kanji": "びく",
+    "kana": "びく",
+    "romaji": "biku",
+    "romaji_plain": "biku",
+    "zh": "會的狀態中，無意識地突然往回拉",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": true,
+    "note": "研究定義不同，見 04 號文件"
+  },
+  {
+    "id": "084",
+    "kanji": "縮み",
+    "kana": "ちぢみ",
+    "romaji": "chijimi",
+    "romaji_plain": "chijimi",
+    "zh": "會的狀態中，氣力或肩、肘等鬆掉（官方辭典假名作「ちじみ」）",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "085",
+    "kanji": "緩み",
+    "kana": "ゆるみ",
+    "romaji": "yurumi",
+    "romaji_plain": "yurumi",
+    "zh": "放箭時右手往前鬆回，拉長變短（官方辭典無此詞條）",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": true,
+    "note": "讀音或定義各來源不同，或尚未確認"
+  },
+  {
+    "id": "086",
+    "kanji": "筈こぼれ・矢こぼれ",
+    "kana": "はずこぼれ・やこぼれ",
+    "romaji": "hazukobore / yakobore",
+    "romaji_plain": "hazukobore / yakobore",
+    "zh": "搭箭後、放箭前，箭從弦上脫落",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "087",
+    "kanji": "空筈",
+    "kana": "からはず",
+    "romaji": "karahazu",
+    "romaji_plain": "karahazu",
+    "zh": "引分け時筈從弦上脫開，雖沒掉箭但放出去箭不飛",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "088",
+    "kanji": "引き込み",
+    "kana": "ひきこみ",
+    "romaji": "hikikomi",
+    "romaji_plain": "hikikomi",
+    "zh": "拉過頭、箭頭進到弓內側（社團用語，用法不一）",
+    "category": "射法",
+    "source": [
+      "—"
+    ],
+    "disputed": true,
+    "note": "讀音或定義各來源不同，或尚未確認"
+  },
+  {
+    "id": "089",
+    "kanji": "暴発",
+    "kana": "ぼうはつ",
+    "romaji": "bōhatsu",
+    "romaji_plain": "bohatsu",
+    "zh": "非預期地放出箭",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "090",
+    "kanji": "照る",
+    "kana": "てる",
+    "romaji": "teru",
+    "romaji_plain": "teru",
+    "zh": "拉弓時弓不垂直、往後仰著引分",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "091",
+    "kanji": "五胴",
+    "kana": "ごどう",
+    "romaji": "godō",
+    "romaji_plain": "godo",
+    "zh": "身體的五種狀態：反る、屈む、懸かる、退く、中正",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "092",
+    "kanji": "中胴",
+    "kana": "ちゅうどう",
+    "romaji": "chūdō",
+    "romaji_plain": "chudo",
+    "zh": "拉弓的正確身體姿勢",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "093",
+    "kanji": "反り胴・屈む胴（伏し胴）・懸かる胴・退き胴",
+    "kana": "そりどう・かがむどう（ふしどう）・かかるどう・のきどう",
+    "romaji": "sori-dō / kagamu-dō / kakaru-dō / noki-dō",
+    "romaji_plain": "sori-do / kagamu-do / kakaru-do / noki-do",
+    "zh": "後仰／前屈／往靶傾／往靶的反方向傾的胴造り",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "094",
+    "kanji": "落肩・差肩・出肩・退肩",
+    "kana": "おちがた・さしがた・でかた・のきがた",
+    "romaji": "ochigata / sashigata / dekata / nokigata",
+    "romaji_plain": "ochigata / sashigata / dekata / nokigata",
+    "zh": "左肩比右肩低／左肩高／左肩往前／左肩往後",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "095",
+    "kanji": "背負い的・抱き的",
+    "kana": "せおいまと・だきまと",
+    "romaji": "seoi-mato / daki-mato",
+    "romaji_plain": "seoi-mato / daki-mato",
+    "zh": "足踏み時站得偏靶心前方／偏後方",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "096",
+    "kanji": "素引き",
+    "kana": "すびき",
+    "romaji": "subiki",
+    "romaji_plain": "subiki",
+    "zh": "不搭箭拉弓（不放弦，送回去）",
+    "category": "射法",
+    "source": [
+      "A",
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "097",
+    "kanji": "肩入れ",
+    "kana": "かたいれ",
+    "romaji": "kataire",
+    "romaji_plain": "kataire",
+    "zh": "不搭箭拉弓以測弓力，或暖肩時拉弓",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "098",
+    "kanji": "ゴム弓",
+    "kana": "ごむゆみ",
+    "romaji": "gomuyumi",
+    "romaji_plain": "gomuyumi",
+    "zh": "橡皮帶做的練習器材",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "099",
+    "kanji": "紐弓",
+    "kana": "ひもゆみ",
+    "romaji": "himoyumi",
+    "romaji_plain": "himoyumi",
+    "zh": "用繩子練習射法八節的器材",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "100",
+    "kanji": "徒手練習",
+    "kana": "としゅれんしゅう",
+    "romaji": "toshu renshū",
+    "romaji_plain": "toshu renshu",
+    "zh": "空手、不拿弓具練習射法八節",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "101",
+    "kanji": "巻藁",
+    "kana": "まきわら",
+    "romaji": "makiwara",
+    "romaji_plain": "makiwara",
+    "zh": "練習用、綁得很緊的草束靶",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "102",
+    "kanji": "的前",
+    "kana": "まとまえ",
+    "romaji": "matomae",
+    "romaji_plain": "matomae",
+    "zh": "對著靶射（通常是 28 m 近的）",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "103",
+    "kanji": "中て弓",
+    "kana": "あてゆみ",
+    "romaji": "ateyumi",
+    "romaji_plain": "ateyumi",
+    "zh": "只求射中、忽視基本的射手（負面說法）",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "104",
+    "kanji": "正射",
+    "kana": "せいしゃ",
+    "romaji": "seisha",
+    "romaji_plain": "seisha",
+    "zh": "合乎射法的正確的射",
+    "category": "射法",
+    "source": [
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "105",
+    "kanji": "気力",
+    "kana": "きりょく",
+    "romaji": "kiryoku",
+    "romaji_plain": "kiryoku",
+    "zh": "能承受活動的精神力",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "106",
+    "kanji": "生気体・死気体",
+    "kana": "せいきたい・しきたい",
+    "romaji": "seikitai / shikitai",
+    "romaji_plain": "seikitai / shikitai",
+    "zh": "充滿氣力的身體／沒有氣力的身體",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "107",
+    "kanji": "丹田",
+    "kana": "たんでん",
+    "romaji": "tanden",
+    "romaji_plain": "tanden",
+    "zh": "下腹部肚臍下方",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "108",
+    "kanji": "間合い",
+    "kana": "まあい",
+    "romaji": "maai",
+    "romaji_plain": "maai",
+    "zh": "行射時動作速度與間隔的拿捏",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "109",
+    "kanji": "目づかい",
+    "kana": "めづかい",
+    "romaji": "mezukai",
+    "romaji_plain": "mezukai",
+    "zh": "眼睛的用法",
+    "category": "射法",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "110",
+    "kanji": "体配",
+    "kana": "たいはい",
+    "romaji": "taihai",
+    "romaji_plain": "taihai",
+    "zh": "射場內起居進退的動作與禮法",
+    "category": "體配",
+    "source": [
+      "B",
+      "R"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "111",
+    "kanji": "基本体",
+    "kana": "きほんたい",
+    "romaji": "kihontai",
+    "romaji_plain": "kihontai",
+    "zh": "四個基本姿勢與八個基本動作",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "112",
+    "kanji": "行射",
+    "kana": "ぎょうしゃ",
+    "romaji": "gyōsha",
+    "romaji_plain": "gyosha",
+    "zh": "拉弓的一連串動作（正式的射）",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "113",
+    "kanji": "正坐",
+    "kana": "せいざ",
+    "romaji": "seiza",
+    "romaji_plain": "seiza",
+    "zh": "坐姿：雙膝著地、腳背貼地、臀部坐在腳跟上（與腳尖立起的「跪坐」不同）",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "114",
+    "kanji": "跪坐",
+    "kana": "きざ",
+    "romaji": "kiza",
+    "romaji_plain": "kiza",
+    "zh": "腳尖立起、膝蓋著地、腰坐下的姿勢",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "115",
+    "kanji": "蹲踞",
+    "kana": "そんきょ",
+    "romaji": "sonkyo",
+    "romaji_plain": "sonkyo",
+    "zh": "腳尖立起、膝蓋不著地、腰落下的姿勢",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "116",
+    "kanji": "膝を生かす",
+    "kana": "ひざをいかす",
+    "romaji": "hiza o ikasu",
+    "romaji_plain": "hiza o ikasu",
+    "zh": "跪坐時，把持主要物品那一側的膝蓋稍微抬離地面",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "117",
+    "kanji": "ひかがみ",
+    "kana": "ひかがみ",
+    "romaji": "hikagami",
+    "romaji_plain": "hikagami",
+    "zh": "膝窩（膝關節內側）",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "118",
+    "kanji": "揖",
+    "kana": "ゆう",
+    "romaji": "yū",
+    "romaji_plain": "yu",
+    "zh": "上身前屈約 10 cm 的禮",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "119",
+    "kanji": "指建礼",
+    "kana": "しけんれい",
+    "romaji": "shikenrei",
+    "romaji_plain": "shikenrei",
+    "zh": "前屈到指尖觸地程度的禮",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "120",
+    "kanji": "折手礼",
+    "kana": "せっしゅれい",
+    "romaji": "sesshurei",
+    "romaji_plain": "sesshurei",
+    "zh": "手掌貼地、指尖約在膝頭程度的禮",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "121",
+    "kanji": "礼",
+    "kana": "れい",
+    "romaji": "rei",
+    "romaji_plain": "rei",
+    "zh": "行禮",
+    "category": "體配",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "122",
+    "kanji": "下進上退",
+    "kana": "かしんじょうたい",
+    "romaji": "kashin jōtai",
+    "romaji_plain": "kashin jotai",
+    "zh": "前進時從下座側的腳先出，後退時從上座側的腳先退",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "123",
+    "kanji": "左進右退",
+    "kana": "さしんうたい",
+    "romaji": "sashin utai",
+    "romaji_plain": "sashin utai",
+    "zh": "前進從左腳、後退從右腳",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "124",
+    "kanji": "開き足",
+    "kana": "ひらきあし",
+    "romaji": "hirakiashi",
+    "romaji_plain": "hirakiashi",
+    "zh": "從跪坐轉向 90 度的步法",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "125",
+    "kanji": "半足",
+    "kana": "はんそく",
+    "romaji": "hansoku",
+    "romaji_plain": "hansoku",
+    "zh": "腳底長度的一半",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "126",
+    "kanji": "膝行・膝退",
+    "kana": "しっこう・しったい",
+    "romaji": "shikkō / shittai",
+    "romaji_plain": "shikko / shittai",
+    "zh": "跪姿前進／後退",
+    "category": "體配",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "127",
+    "kanji": "本座",
+    "kana": "ほんざ",
+    "romaji": "honza",
+    "romaji_plain": "honza",
+    "zh": "待機位置：立射在射位前 2 步，坐射在射位前 3 步",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "128",
+    "kanji": "射位",
+    "kana": "しゃい",
+    "romaji": "shai",
+    "romaji_plain": "shai",
+    "zh": "行射時射手站的位置",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "129",
+    "kanji": "坐射",
+    "kana": "ざしゃ",
+    "romaji": "zasha",
+    "romaji_plain": "zasha",
+    "zh": "在本座坐下行禮，起身進到射位，坐著搭箭、站起來射",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "130",
+    "kanji": "立射",
+    "kana": "りっしゃ",
+    "romaji": "rissha",
+    "romaji_plain": "rissha",
+    "zh": "站著進射位，站著搭箭、站著射",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "131",
+    "kanji": "矢番え動作",
+    "kana": "やつがえどうさ",
+    "romaji": "yatsugae dōsa",
+    "romaji_plain": "yatsugae dosa",
+    "zh": "把箭搭到弦上的動作",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "132",
+    "kanji": "繰り込み",
+    "kana": "くりこみ",
+    "romaji": "kurikomi",
+    "romaji_plain": "kurikomi",
+    "zh": "搭箭時持筈把箭送到弦附近的動作",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "133",
+    "kanji": "取矢",
+    "kana": "とりや",
+    "romaji": "toriya",
+    "romaji_plain": "toriya",
+    "zh": "射甲矢時，右手拿著乙矢",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "134",
+    "kanji": "弦調べ・箆調べ",
+    "kana": "つるしらべ・のしらべ",
+    "romaji": "tsurushirabe / noshirabe",
+    "romaji_plain": "tsurushirabe / noshirabe",
+    "zh": "弓構え時檢查弦的上下／接著檢查箭桿的動作",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "135",
+    "kanji": "甲矢",
+    "kana": "はや",
+    "romaji": "haya",
+    "romaji_plain": "haya",
+    "zh": "先射的箭；羽的正面朝外",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "136",
+    "kanji": "乙矢",
+    "kana": "おとや",
+    "romaji": "otoya",
+    "romaji_plain": "otoya",
+    "zh": "一手中後射的箭；搭弦時羽的正面朝內",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "137",
+    "kanji": "一手",
+    "kana": "ひとて",
+    "romaji": "hitote",
+    "romaji_plain": "hitote",
+    "zh": "甲矢與乙矢兩支",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "138",
+    "kanji": "四つ矢",
+    "kana": "よつや",
+    "romaji": "yotsuya",
+    "romaji_plain": "yotsuya",
+    "zh": "兩組一手，共四支",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "139",
+    "kanji": "片矢",
+    "kana": "かたや",
+    "romaji": "kataya",
+    "romaji_plain": "kataya",
+    "zh": "甲矢或乙矢其中一支",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "140",
+    "kanji": "肌脱ぎ・肌入れ",
+    "kana": "はだぬぎ・はだいれ",
+    "romaji": "hadanugi / hadaire",
+    "romaji_plain": "hadanugi / hadaire",
+    "zh": "穿和服時脫下左袖／穿回左袖",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "141",
+    "kanji": "襷さばき",
+    "kana": "たすきさばき",
+    "romaji": "tasuki-sabaki",
+    "romaji_plain": "tasuki-sabaki",
+    "zh": "綁襷的動作與作法",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "142",
+    "kanji": "隙がない",
+    "kana": "すきがない",
+    "romaji": "suki ga nai",
+    "romaji_plain": "suki ga nai",
+    "zh": "構形與動作沒有多餘、沒有破綻",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "143",
+    "kanji": "立（立ち）",
+    "kana": "たち",
+    "romaji": "tachi",
+    "romaji_plain": "tachi",
+    "zh": "一起上場行射的一組射手",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "144",
+    "kanji": "大前",
+    "kana": "おおまえ",
+    "romaji": "ōmae",
+    "romaji_plain": "omae",
+    "zh": "每一立中最前面的射手",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "145",
+    "kanji": "落",
+    "kana": "おち",
+    "romaji": "ochi",
+    "romaji_plain": "ochi",
+    "zh": "每一立中最後面的射手",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "146",
+    "kanji": "落前",
+    "kana": "おちまえ",
+    "romaji": "ochimae",
+    "romaji_plain": "ochimae",
+    "zh": "倒數第二位射手",
+    "category": "體配",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "147",
+    "kanji": "順立",
+    "kana": "じゅんだち",
+    "romaji": "jundachi",
+    "romaji_plain": "jundachi",
+    "zh": "多人行射時從一號開始一人一支依序往後射",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "148",
+    "kanji": "射礼",
+    "kana": "しゃれい",
+    "romaji": "sharei",
+    "romaji_plain": "sharei",
+    "zh": "展示射的基本態度、動作、射法射技的行射形式",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "149",
+    "kanji": "矢渡",
+    "kana": "やわたし",
+    "romaji": "yawatashi",
+    "romaji_plain": "yawatashi",
+    "zh": "射會一開始最先進行的射禮",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "150",
+    "kanji": "一つ的射礼",
+    "kana": "ひとつまとしゃれい",
+    "romaji": "hitotsumato sharei",
+    "romaji_plain": "hitotsumato sharei",
+    "zh": "三人（也有二人或四人）共射一個靶的射禮",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "151",
+    "kanji": "持的射礼",
+    "kana": "もちまとしゃれい",
+    "romaji": "mochimato sharei",
+    "romaji_plain": "mochimato sharei",
+    "zh": "每位射手各射自己專用靶的射禮",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "152",
+    "kanji": "介添え",
+    "kana": "かいぞえ",
+    "romaji": "kaizoe",
+    "romaji_plain": "kaizoe",
+    "zh": "射禮中輔佐射手的人",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "153",
+    "kanji": "定めの座",
+    "kana": "さだめのざ",
+    "romaji": "sadame no za",
+    "romaji_plain": "sadame no za",
+    "zh": "射禮時射手與介添向脇正面行禮的位置",
+    "category": "體配",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "154",
+    "kanji": "弓具",
+    "kana": "きゅうぐ",
+    "romaji": "kyūgu",
+    "romaji_plain": "kyugu",
+    "zh": "弓道用具的總稱",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "155",
+    "kanji": "弓矢",
+    "kana": "ゆみや",
+    "romaji": "yumiya",
+    "romaji_plain": "yumiya",
+    "zh": "弓與箭",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "156",
+    "kanji": "和弓",
+    "kana": "わきゅう",
+    "romaji": "wakyū",
+    "romaji_plain": "wakyu",
+    "zh": "日本弓：長、握把在中心以下",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "157",
+    "kanji": "竹弓",
+    "kana": "たけゆみ",
+    "romaji": "takeyumi",
+    "romaji_plain": "takeyumi",
+    "zh": "竹製（竹與木膠合）的弓",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "158",
+    "kanji": "グラスファイバー弓・カーボン弓",
+    "kana": "ぐらすふぁいばーゆみ・かーぼんゆみ",
+    "romaji": "gurasu faibā yumi / kābon yumi",
+    "romaji_plain": "gurasu faiba yumi / kabon yumi",
+    "zh": "玻璃纖維、碳纖維合成弓，初學者常用",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": true,
+    "note": "讀法有「〜きゅう」"
+  },
+  {
+    "id": "159",
+    "kanji": "並寸",
+    "kana": "なみすん",
+    "romaji": "namisun",
+    "romaji_plain": "namisun",
+    "zh": "標準長度七尺三寸（約 221 cm）",
+    "category": "弓具",
+    "source": [
+      "K",
+      "R"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "160",
+    "kanji": "伸び弓（伸寸）",
+    "kana": "のびゆみ（のびすん）",
+    "romaji": "nobiyumi (nobisun)",
+    "romaji_plain": "nobiyumi (nobisun)",
+    "zh": "比標準 2.21 m 長的弓",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "161",
+    "kanji": "二寸伸・四寸伸",
+    "kana": "にすんのび・よんすんのび",
+    "romaji": "nisun-nobi / yonsun-nobi",
+    "romaji_plain": "nisun-nobi / yonsun-nobi",
+    "zh": "比並寸長二寸（約 227 cm）／四寸（約 233 cm）",
+    "category": "弓具",
+    "source": [
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "162",
+    "kanji": "三寸詰",
+    "kana": "さんずんづまり",
+    "romaji": "sanzun-zumari",
+    "romaji_plain": "sanzun-zumari",
+    "zh": "比並寸短三寸（約 212 cm），讀法有「さんすんづめ」",
+    "category": "弓具",
+    "source": [
+      "K"
+    ],
+    "disputed": true,
+    "note": "讀音或定義各來源不同，或尚未確認"
+  },
+  {
+    "id": "163",
+    "kanji": "弓力",
+    "kana": "きゅうりょく",
+    "romaji": "kyūryoku",
+    "romaji_plain": "kyuryoku",
+    "zh": "弓的強度，以 kg 表示",
+    "category": "弓具",
+    "source": [
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "164",
+    "kanji": "外竹・内竹",
+    "kana": "とだけ・うちだけ",
+    "romaji": "todake / uchidake",
+    "romaji_plain": "todake / uchidake",
+    "zh": "張弦後弓外側的竹／內側（靠弦側）的竹，內竹又稱前竹",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "165",
+    "kanji": "側木",
+    "kana": "そばき",
+    "romaji": "sobaki",
+    "romaji_plain": "sobaki",
+    "zh": "夾在外竹與內竹兩側的木條",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "166",
+    "kanji": "末弭（上弭）",
+    "kana": "うらはず（うわはず）",
+    "romaji": "urahazu (uwahazu)",
+    "romaji_plain": "urahazu (uwahazu)",
+    "zh": "弓的上端，掛弦輪處",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "167",
+    "kanji": "本弭（下弭）",
+    "kana": "もとはず（しもはず）",
+    "romaji": "motohazu (shimohazu)",
+    "romaji_plain": "motohazu (shimohazu)",
+    "zh": "弓的下端，掛弦輪處",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "168",
+    "kanji": "弭",
+    "kana": "はず",
+    "romaji": "hazu",
+    "romaji_plain": "hazu",
+    "zh": "弓兩端掛弦輪處的總稱",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "169",
+    "kanji": "関板（上関板・下関板）",
+    "kana": "せきいた（うわせきいた・しもせきいた）",
+    "romaji": "sekiita",
+    "romaji_plain": "sekiita",
+    "zh": "黏在弓上下兩端內竹側的木片",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "170",
+    "kanji": "姫反り",
+    "kana": "ひめぞり",
+    "romaji": "himezori",
+    "romaji_plain": "himezori",
+    "zh": "上切詰籐以下、緩和彎曲的那一段",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "171",
+    "kanji": "鳥打ち",
+    "kana": "とりうち",
+    "romaji": "toriuchi",
+    "romaji_plain": "toriuchi",
+    "zh": "姫反り下方、反曲最大處的上緣",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "172",
+    "kanji": "握",
+    "kana": "にぎり",
+    "romaji": "nigiri",
+    "romaji_plain": "nigiri",
+    "zh": "握把",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "173",
+    "kanji": "弝",
+    "kana": "は",
+    "romaji": "ha",
+    "romaji_plain": "ha",
+    "zh": "握把部分（因纏握皮而得名）",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "174",
+    "kanji": "手下",
+    "kana": "てした",
+    "romaji": "teshita",
+    "romaji_plain": "teshita",
+    "zh": "握把下方的部分",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "175",
+    "kanji": "矢摺籐",
+    "kana": "やずりどう",
+    "romaji": "yazuridō",
+    "romaji_plain": "yazurido",
+    "zh": "纏在握把上方的籐",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "176",
+    "kanji": "籐頭",
+    "kana": "とうがしら",
+    "romaji": "tōgashira",
+    "romaji_plain": "togashira",
+    "zh": "握把與矢摺籐交接處",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "177",
+    "kanji": "上切詰籐・下切詰籐",
+    "kana": "かみきりつめどう・したきりずめどう",
+    "romaji": "kamikiri-tsumedō / shitakiri-zumedō",
+    "romaji_plain": "kamikiri-tsumedo / shitakiri-zumedo",
+    "zh": "固定外竹、內竹與關板所纏的籐",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "178",
+    "kanji": "矢口",
+    "kana": "やぐち",
+    "romaji": "yaguchi",
+    "romaji_plain": "yaguchi",
+    "zh": "弓與箭接觸的地方",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "179",
+    "kanji": "弓の節（上成節・下成節・姫反節・手下節）",
+    "kana": "うわなりぶし・したなりぶし・ひめぞりぶし・てしたぶし",
+    "romaji": "uwanari-bushi ほか",
+    "romaji_plain": "uwanari-bushi ほか",
+    "zh": "竹弓上作為部位名稱的竹節",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "180",
+    "kanji": "弓成り（張顔）",
+    "kana": "ゆみなり（はりがお）",
+    "romaji": "yuminari (harigao)",
+    "romaji_plain": "yuminari (harigao)",
+    "zh": "張弦後從側面看到的弓形",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "181",
+    "kanji": "裏反り",
+    "kana": "うらぞり",
+    "romaji": "urazori",
+    "romaji_plain": "urazori",
+    "zh": "卸弦後弓往外竹方向反翹",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "182",
+    "kanji": "入木弓・出木弓",
+    "kana": "いりきゆみ・できゆみ",
+    "romaji": "iriki-yumi / deki-yumi",
+    "romaji_plain": "iriki-yumi / deki-yumi",
+    "zh": "弦位於弓身偏右（理想）／偏左的弓；極端的出木弓不可使用",
+    "category": "弓具",
+    "source": [
+      "B"
+    ],
+    "disputed": true,
+    "note": "讀音或定義各來源不同，或尚未確認"
+  },
+  {
+    "id": "183",
+    "kanji": "張り込み",
+    "kana": "はりこみ",
+    "romaji": "harikomi",
+    "romaji_plain": "harikomi",
+    "zh": "新弓或久未使用的弓先張弦定型",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "184",
+    "kanji": "替弓・替弦・替矢",
+    "kana": "かえゆみ・かえづる・かえや",
+    "romaji": "kaeyumi / kaezuru / kaeya",
+    "romaji_plain": "kaeyumi / kaezuru / kaeya",
+    "zh": "為意外狀況準備的備用弓、弦、箭",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "185",
+    "kanji": "弦",
+    "kana": "つる",
+    "romaji": "tsuru",
+    "romaji_plain": "tsuru",
+    "zh": "弓弦",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "186",
+    "kanji": "上弦・下弦",
+    "kana": "うわづる・したづる",
+    "romaji": "uwazuru / shitazuru",
+    "romaji_plain": "uwazuru / shitazuru",
+    "zh": "中仕掛け以上／以下的弦",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "187",
+    "kanji": "麻弦・合成弦",
+    "kana": "あさづる・ごうせいげん",
+    "romaji": "asazuru / gōseigen",
+    "romaji_plain": "asazuru / goseigen",
+    "zh": "麻製弦／化學纖維弦",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": true,
+    "note": "合成弦也讀ごうせいづる"
+  },
+  {
+    "id": "188",
+    "kanji": "弦輪",
+    "kana": "つるわ",
+    "romaji": "tsuruwa",
+    "romaji_plain": "tsuruwa",
+    "zh": "弦兩端掛在弭上的圈（上為紅、下為白）",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "189",
+    "kanji": "中仕掛け",
+    "kana": "なかじかけ",
+    "romaji": "nakajikake",
+    "romaji_plain": "nakajikake",
+    "zh": "弦上搭箭處纏麻補強的部分",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "190",
+    "kanji": "道宝",
+    "kana": "どうほう",
+    "romaji": "dōhō",
+    "romaji_plain": "doho",
+    "zh": "做中仕掛け時用來纏緊麻的工具",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "191",
+    "kanji": "天鼠・薬煉",
+    "kana": "くすね",
+    "romaji": "kusune",
+    "romaji_plain": "kusune",
+    "zh": "松脂與油混合的黏劑，補強弦、做中仕掛け用",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "192",
+    "kanji": "弦巻",
+    "kana": "つるまき",
+    "romaji": "tsurumaki",
+    "romaji_plain": "tsurumaki",
+    "zh": "捲放備用弦的器具",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "193",
+    "kanji": "弦音",
+    "kana": "つるね",
+    "romaji": "tsurune",
+    "romaji_plain": "tsurune",
+    "zh": "離れ時弦打在弓的額木、姫反而發出的聲音",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "194",
+    "kanji": "箆",
+    "kana": "の",
+    "romaji": "no",
+    "romaji_plain": "no",
+    "zh": "箭桿",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "195",
+    "kanji": "矢尺",
+    "kana": "やじゃく",
+    "romaji": "yajaku",
+    "romaji_plain": "yajaku",
+    "zh": "箭的長度（一般是矢束加上安全餘量）",
+    "category": "弓具",
+    "source": [
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "196",
+    "kanji": "筈",
+    "kana": "はず",
+    "romaji": "hazu",
+    "romaji_plain": "hazu",
+    "zh": "箭尾扣弦處",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "197",
+    "kanji": "板付・矢尻",
+    "kana": "いたつき・やじり",
+    "romaji": "itatsuki / yajiri",
+    "romaji_plain": "itatsuki / yajiri",
+    "zh": "箭頭",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "198",
+    "kanji": "本矧・末矧",
+    "kana": "もとはぎ・うらはぎ",
+    "romaji": "motohagi / urahagi",
+    "romaji_plain": "motohagi / urahagi",
+    "zh": "固定箭羽時，箭頭側／筈側用線纏住的部分",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "199",
+    "kanji": "筈巻",
+    "kana": "はずまき",
+    "romaji": "hazumaki",
+    "romaji_plain": "hazumaki",
+    "zh": "在筈旁用線纏緊固定",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "200",
+    "kanji": "箭的節（射付節・箆中節・袖摺節・羽中節）",
+    "kana": "いつけぶし・のなかぶし・そですりぶし・はなかぶし",
+    "romaji": "itsuke-bushi ほか",
+    "romaji_plain": "itsuke-bushi ほか",
+    "zh": "竹箭上作為部位名稱的竹節",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "201",
+    "kanji": "走り羽",
+    "kana": "はしりば",
+    "romaji": "hashiriba",
+    "romaji_plain": "hashiriba",
+    "zh": "搭箭時朝上的那片羽",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "202",
+    "kanji": "外掛羽（向羽）",
+    "kana": "とがけば（むこうば）",
+    "romaji": "togakeba (mukōba)",
+    "romaji_plain": "togakeba (mukoba)",
+    "zh": "搭箭時朝外側的羽",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "203",
+    "kanji": "弓摺羽（頬摺羽）",
+    "kana": "ゆずりば（ほうずりば）",
+    "romaji": "yuzuriba (hōzuriba)",
+    "romaji_plain": "yuzuriba (hozuriba)",
+    "zh": "搭箭時朝內側的羽",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "204",
+    "kanji": "匁",
+    "kana": "もんめ",
+    "romaji": "monme",
+    "romaji_plain": "monme",
+    "zh": "重量單位，1 匁＝3.75 g，用來標示箭重",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "205",
+    "kanji": "巻藁矢",
+    "kana": "まきわらや",
+    "romaji": "makiwara-ya",
+    "romaji_plain": "makiwara-ya",
+    "zh": "巻藁專用、沒有羽的箭，不可上的前",
+    "category": "弓具",
+    "source": [
+      "K",
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "206",
+    "kanji": "弽",
+    "kana": "ゆがけ（かけ）",
+    "romaji": "yugake (kake)",
+    "romaji_plain": "yugake (kake)",
+    "zh": "右手戴的鹿皮手套",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "207",
+    "kanji": "三つ弽・四つ弽・諸弽",
+    "kana": "みつがけ・よつがけ・もろがけ",
+    "romaji": "mitsugake / yotsugake / morogake",
+    "romaji_plain": "mitsugake / yotsugake / morogake",
+    "zh": "三指／四指／五指的弽",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "208",
+    "kanji": "堅帽子・柔帽子",
+    "kana": "かたぼうし・やわぼうし",
+    "romaji": "katabōshi / yawabōshi",
+    "romaji_plain": "kataboshi / yawaboshi",
+    "zh": "拇指有硬芯／拇指柔軟的弽",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "209",
+    "kanji": "帽子",
+    "kana": "ぼうし",
+    "romaji": "bōshi",
+    "romaji_plain": "boshi",
+    "zh": "弽拇指部分上方的包覆",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "210",
+    "kanji": "弦枕",
+    "kana": "つるまくら",
+    "romaji": "tsurumakura",
+    "romaji_plain": "tsurumakura",
+    "zh": "弽拇指內側根部扣弦的溝",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "211",
+    "kanji": "掛口",
+    "kana": "かけぐち",
+    "romaji": "kakeguchi",
+    "romaji_plain": "kakeguchi",
+    "zh": "弦掛在弽弦枕上的地方",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "212",
+    "kanji": "捻皮",
+    "kana": "ひねりかわ",
+    "romaji": "hinerikawa",
+    "romaji_plain": "hinerikawa",
+    "zh": "貼在弽食指根部的皮",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "213",
+    "kanji": "下がけ",
+    "kana": "したがけ",
+    "romaji": "shitagake",
+    "romaji_plain": "shitagake",
+    "zh": "戴在弽裡面的布製手套",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "214",
+    "kanji": "ぎり粉",
+    "kana": "ぎりこ",
+    "romaji": "giriko",
+    "romaji_plain": "giriko",
+    "zh": "弽拇指止滑的粉（用時有吱吱聲）",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "215",
+    "kanji": "筆粉",
+    "kana": "ふでこ",
+    "romaji": "fudeko",
+    "romaji_plain": "fudeko",
+    "zh": "防止握把打滑的粉",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "216",
+    "kanji": "押手弽",
+    "kana": "おしでがけ",
+    "romaji": "oshidegake",
+    "romaji_plain": "oshidegake",
+    "zh": "左手戴的弽",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "217",
+    "kanji": "胸当て",
+    "kana": "むねあて",
+    "romaji": "muneate",
+    "romaji_plain": "muneate",
+    "zh": "保護胸部不被弦打到的護具（一般為女性使用）",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "218",
+    "kanji": "道着（弓道衣）",
+    "kana": "どうぎ（きゅうどうぎ）",
+    "romaji": "dōgi (kyūdōgi)",
+    "romaji_plain": "dogi (kyudogi)",
+    "zh": "沒有袂、筒袖的上衣",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": true,
+    "note": "「弓道衣」讀法有きゅうどうい"
+  },
+  {
+    "id": "219",
+    "kanji": "袴・角帯・足袋",
+    "kana": "はかま・かくおび・たび",
+    "romaji": "hakama / kakuobi / tabi",
+    "romaji_plain": "hakama / kakuobi / tabi",
+    "zh": "褲裙／硬質腰帶／白色分趾襪",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "220",
+    "kanji": "襷",
+    "kana": "たすき",
+    "romaji": "tasuki",
+    "romaji_plain": "tasuki",
+    "zh": "穿和服時綁起袖子的帶子",
+    "category": "弓具",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "221",
+    "kanji": "弓袋・弓巻",
+    "kana": "ゆぶくろ・ゆまき",
+    "romaji": "yubukuro / yumaki",
+    "romaji_plain": "yubukuro / yumaki",
+    "zh": "收納弓的袋子／捲在弓上收納的帶狀布",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "222",
+    "kanji": "矢筒",
+    "kana": "やづつ",
+    "romaji": "yazutsu",
+    "romaji_plain": "yazutsu",
+    "zh": "裝箭的器具",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "223",
+    "kanji": "弓立て・弓張板",
+    "kana": "ゆみたて・ゆみはりいた",
+    "romaji": "yumitate / yumihariita",
+    "romaji_plain": "yumitate / yumihariita",
+    "zh": "立弓的架子／上弦時頂住末弭的板",
+    "category": "弓具",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "224",
+    "kanji": "弓道場・射場",
+    "kana": "きゅうどうじょう・しゃじょう",
+    "romaji": "kyūdōjō / shajō",
+    "romaji_plain": "kyudojo / shajo",
+    "zh": "弓道練習場／射手所在的建築區",
+    "category": "道場",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "225",
+    "kanji": "矢道",
+    "kana": "やみち",
+    "romaji": "yamichi",
+    "romaji_plain": "yamichi",
+    "zh": "箭飛行經過的空間",
+    "category": "道場",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "226",
+    "kanji": "垜・安土",
+    "kana": "あづち",
+    "romaji": "azuchi",
+    "romaji_plain": "azuchi",
+    "zh": "掛靶的土堆",
+    "category": "道場",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "227",
+    "kanji": "侯串",
+    "kana": "ごぐし",
+    "romaji": "gogushi",
+    "romaji_plain": "gogushi",
+    "zh": "把靶固定在安土上的籤",
+    "category": "道場",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "228",
+    "kanji": "的・的枠・的紙",
+    "kana": "まと・まとわく・まとがみ",
+    "romaji": "mato / matowaku / matogami",
+    "romaji_plain": "mato / matowaku / matogami",
+    "zh": "靶／靶框／靶紙",
+    "category": "道場",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "229",
+    "kanji": "正鵠",
+    "kana": "せいこく（せいこう）",
+    "romaji": "seikoku",
+    "romaji_plain": "seikoku",
+    "zh": "靶的中心",
+    "category": "道場",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "230",
+    "kanji": "上座・下座",
+    "kana": "かみざ（じょうざ）・しもざ（げざ）",
+    "romaji": "kamiza / shimoza",
+    "romaji_plain": "kamiza / shimoza",
+    "zh": "上位／下位的座位與位置",
+    "category": "道場",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "231",
+    "kanji": "的正面・脇正面",
+    "kana": "まとしょうめん・わきしょうめん",
+    "romaji": "mato-shōmen / waki-shōmen",
+    "romaji_plain": "mato-shomen / waki-shomen",
+    "zh": "靶的方向／審判員席方向",
+    "category": "道場",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "232",
+    "kanji": "看的・矢取り・赤旗",
+    "kana": "かんてき・やとり・あかはた",
+    "romaji": "kanteki / yatori / akahata",
+    "romaji_plain": "kanteki / yatori / akahata",
+    "zh": "報靶／取箭／取箭時舉出的紅旗",
+    "category": "道場",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "233",
+    "kanji": "射手",
+    "kana": "いて",
+    "romaji": "ite",
+    "romaji_plain": "ite",
+    "zh": "射箭的人",
+    "category": "道場",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "234",
+    "kanji": "審査・級位・段位・称号",
+    "kana": "しんさ・きゅうい・だんい・しょうごう",
+    "romaji": "shinsa / kyūi / dan'i / shōgō",
+    "romaji_plain": "shinsa / kyui / dan'i / shogo",
+    "zh": "審查／五級～一級／初段～十段／錬士（れんし）・教士（きょうし）・範士（はんし）",
+    "category": "審查與競技",
+    "source": [
+      "R"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "235",
+    "kanji": "学科試験",
+    "kana": "がっかしけん",
+    "romaji": "gakka shiken",
+    "romaji_plain": "gakka shiken",
+    "zh": "審查中的筆試",
+    "category": "審查與競技",
+    "source": [
+      "R"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "236",
+    "kanji": "中り・外れ・的中・皆中",
+    "kana": "あたり・はずれ・てきちゅう・かいちゅう",
+    "romaji": "atari / hazure / tekichū / kaichū",
+    "romaji_plain": "atari / hazure / tekichu / kaichu",
+    "zh": "射中／沒中／射中（正式用語）／全部射中",
+    "category": "審查與競技",
+    "source": [
+      "A",
+      "R"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "237",
+    "kanji": "近的・遠的",
+    "kana": "きんてき・えんてき",
+    "romaji": "kinteki / enteki",
+    "romaji_plain": "kinteki / enteki",
+    "zh": "28 m 的比賽／60 m 的比賽",
+    "category": "審查與競技",
+    "source": [
+      "A",
+      "R"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "238",
+    "kanji": "霞的・星的・得点的",
+    "kana": "かすみまと・ほしまと・とくてんまと",
+    "romaji": "kasumi-mato / hoshi-mato / tokuten-mato",
+    "romaji_plain": "kasumi-mato / hoshi-mato / tokuten-mato",
+    "zh": "白底三個同心圓的靶／中心黑點的靶／彩色計分靶",
+    "category": "審查與競技",
+    "source": [
+      "A",
+      "R"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "239",
+    "kanji": "的中制・得点制・射詰・遠近競射",
+    "kana": "てきちゅうせい・とくてんせい・いづめ・えんきんきょうしゃ",
+    "romaji": "tekichū-sei / tokuten-sei / izume / enkin kyōsha",
+    "romaji_plain": "tekichu-sei / tokuten-sei / izume / enkin kyosha",
+    "zh": "只算中不中／依環計分／射到不中為止的決勝／比離靶心遠近的決勝",
+    "category": "審查與競技",
+    "source": [
+      "R"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "240",
+    "kanji": "失・射会",
+    "kana": "しつ・しゃかい",
+    "romaji": "shitsu / shakai",
+    "romaji_plain": "shitsu / shakai",
+    "zh": "弦斷、筈こぼれ、弓掉落等失誤／比賽大會",
+    "category": "審查與競技",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s01",
+    "kanji": "弓道・弓術",
+    "kana": "きゅうどう・きゅうじゅつ",
+    "romaji": "kyūdō / kyūjutsu",
+    "romaji_plain": "kyudo / kyujutsu",
+    "zh": "弓之道／弓的技術（明治以後才改稱「弓道」，見 01 號文件）",
+    "category": "思想與歷史",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s02",
+    "kanji": "真善美",
+    "kana": "しんぜんび",
+    "romaji": "shinzenbi",
+    "romaji_plain": "shinzenbi",
+    "zh": "全弓連提出的弓道目標",
+    "category": "思想與歷史",
+    "source": [
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s03",
+    "kanji": "正射必中",
+    "kana": "せいしゃひっちゅう",
+    "romaji": "seisha hitchū",
+    "romaji_plain": "seisha hitchu",
+    "zh": "正確的射必定射中",
+    "category": "思想與歷史",
+    "source": [
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s04",
+    "kanji": "射即人生・射即生活",
+    "kana": "しゃそくじんせい・しゃそくせいかつ",
+    "romaji": "sha soku jinsei",
+    "romaji_plain": "sha soku jinsei",
+    "zh": "射即是人生／射即是生活",
+    "category": "思想與歷史",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s05",
+    "kanji": "一射絶命",
+    "kana": "いっしゃぜつめい",
+    "romaji": "issha zetsumei",
+    "romaji_plain": "issha zetsumei",
+    "zh": "每一射都當作最後一射（出處問題見 01 號文件）",
+    "category": "思想與歷史",
+    "source": [
+      "—"
+    ],
+    "disputed": true,
+    "note": "讀音或定義各來源不同，或尚未確認"
+  },
+  {
+    "id": "s06",
+    "kanji": "三位一体",
+    "kana": "さんみいったい",
+    "romaji": "sanmi ittai",
+    "romaji_plain": "sanmi ittai",
+    "zh": "身、心、弓三者合而為一",
+    "category": "思想與歷史",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s07",
+    "kanji": "澄し",
+    "kana": "すまし",
+    "romaji": "sumashi",
+    "romaji_plain": "sumashi",
+    "zh": "拂去雜念、使心沉靜",
+    "category": "思想與歷史",
+    "source": [
+      "A"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s08",
+    "kanji": "射法訓",
+    "kana": "しゃほうくん",
+    "romaji": "shahōkun",
+    "romaji_plain": "shahokun",
+    "zh": "吉見順正（よしみじゅんせい）的射法教訓",
+    "category": "思想與歷史",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s09",
+    "kanji": "礼記射義",
+    "kana": "らいきしゃぎ",
+    "romaji": "raiki shagi",
+    "romaji_plain": "raiki shagi",
+    "zh": "《禮記・射義》，道場常掲示",
+    "category": "思想與歷史",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s10",
+    "kanji": "礼に始まり礼に終わる",
+    "kana": "れいにはじまりれいにおわる",
+    "romaji": "rei ni hajimari rei ni owaru",
+    "romaji_plain": "rei ni hajimari rei ni owaru",
+    "zh": "始於禮，終於禮",
+    "category": "思想與歷史",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s11",
+    "kanji": "射品・射格",
+    "kana": "しゃひん・しゃかく",
+    "romaji": "shahin / shakaku",
+    "romaji_plain": "shahin / shakaku",
+    "zh": "射的品格",
+    "category": "思想與歷史",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s12",
+    "kanji": "平常心・不動心",
+    "kana": "へいじょうしん・ふどうしん",
+    "romaji": "heijōshin / fudōshin",
+    "romaji_plain": "heijoshin / fudoshin",
+    "zh": "平常的心／不動搖的心",
+    "category": "思想與歷史",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s13",
+    "kanji": "守破離",
+    "kana": "しゅはり",
+    "romaji": "shuhari",
+    "romaji_plain": "shuhari",
+    "zh": "學習的三階段：守規、突破、離開形式",
+    "category": "思想與歷史",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s14",
+    "kanji": "至誠・克己・和敬",
+    "kana": "しせい・こっき・わけい",
+    "romaji": "shisei / kokki / wakei",
+    "romaji_plain": "shisei / kokki / wakei",
+    "zh": "《弓道教本》系提到的德目",
+    "category": "思想與歷史",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s15",
+    "kanji": "日置流・小笠原流・本多流",
+    "kana": "へきりゅう・おがさわらりゅう・ほんだりゅう",
+    "romaji": "Heki-ryū / Ogasawara-ryū / Honda-ryū",
+    "romaji_plain": "Heki-ryu / Ogasawara-ryu / Honda-ryu",
+    "zh": "主要弓術流派",
+    "category": "思想與歷史",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s16",
+    "kanji": "武射系・礼射系",
+    "kana": "ぶしゃけい・れいしゃけい",
+    "romaji": "busha-kei / reisha-kei",
+    "romaji_plain": "busha-kei / reisha-kei",
+    "zh": "武士戰陣系統／禮法系統的分類",
+    "category": "思想與歷史",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s17",
+    "kanji": "堂射・通し矢",
+    "kana": "どうしゃ・とおしや",
+    "romaji": "dōsha / tōshiya",
+    "romaji_plain": "dosha / toshiya",
+    "zh": "三十三間堂的長距離射",
+    "category": "思想與歷史",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s18",
+    "kanji": "流鏑馬",
+    "kana": "やぶさめ",
+    "romaji": "yabusame",
+    "romaji_plain": "yabusame",
+    "zh": "騎射",
+    "category": "思想與歷史",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s19",
+    "kanji": "全日本弓道連盟",
+    "kana": "ぜんにほんきゅうどうれんめい",
+    "romaji": "Zen Nihon Kyūdō Renmei",
+    "romaji_plain": "Zen Nihon Kyudo Renmei",
+    "zh": "ANKF，簡稱全弓連",
+    "category": "思想與歷史",
+    "source": [
+      "K"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s20",
+    "kanji": "国際弓道連盟",
+    "kana": "こくさいきゅうどうれんめい",
+    "romaji": "Kokusai Kyūdō Renmei",
+    "romaji_plain": "Kokusai Kyudo Renmei",
+    "zh": "IKYF",
+    "category": "思想與歷史",
+    "source": [
+      "—"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "s21",
+    "kanji": "弓道教本",
+    "kana": "きゅうどうきょうほん",
+    "romaji": "Kyūdō Kyōhon",
+    "romaji_plain": "Kyudo Kyohon",
+    "zh": "全弓連編的標準教科書（第一巻〈射法篇〉等）",
+    "category": "思想與歷史",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  }
+]
