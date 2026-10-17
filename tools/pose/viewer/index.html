@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>射法八節 骨架分析</title>
+<style>
+  :root {
+    --bg: #14161a; --panel: #1d2026; --line: #2c3038; --text: #e8e6e1; --muted: #9a9890;
+    --accent: #d9a441; --left: #4fa3e0; --right: #e0614f; --core: #e8e6e1;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.5 -apple-system, "Noto Sans TC", sans-serif; }
+  header { padding: 12px 16px; border-bottom: 1px solid var(--line); display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+  header h1 { font-size: 18px; margin: 0; }
+  header small { color: var(--muted); }
+  main { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px 16px; }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } }
+  .stage { position: relative; background: #000; border-radius: 8px; overflow: hidden; height: min(62vh, 640px); }
+  .stage video, .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  #three { background: radial-gradient(#22262d, #121418); }
+  .tag { position: absolute; top: 8px; left: 8px; background: #000a; padding: 2px 8px; border-radius: 4px; font-size: 12px; z-index: 2; }
+  #phase { position: absolute; top: 8px; right: 8px; background: var(--accent); color: #111; font-weight: 700; padding: 4px 12px; border-radius: 4px; font-size: 18px; z-index: 2; }
+  .controls { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button { background: var(--panel); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; font: inherit; }
+  button.on { border-color: var(--accent); color: var(--accent); }
+  #timeline { grid-column: 1 / -1; position: relative; height: 44px; background: var(--panel); border-radius: 6px; cursor: pointer; overflow: hidden; }
+  #timeline .seg { position: absolute; top: 0; bottom: 0; border-right: 1px solid var(--bg); display: flex; align-items: center; justify-content: center; font-size: 12px; color: #111; overflow: hidden; white-space: nowrap; }
+  #timeline .cursor { z-index: 1; position: absolute; top: 0; bottom: 0; width: 2px; background: #fff; pointer-events: none; }
+  #timeline .release { z-index: 1; position: absolute; top: 0; bottom: 0; width: 2px; background: var(--right); pointer-events: none; }
+  .metrics { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+  .metric { background: var(--panel); border-radius: 6px; padding: 8px 10px; }
+  .metric b { display: block; font-size: 20px; font-variant-numeric: tabular-nums; }
+  .metric span { color: var(--muted); font-size: 12px; }
+  .note { grid-column: 1 / -1; color: var(--muted); font-size: 12px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin: 0 4px 0 10px; vertical-align: middle; }
+</style>
+</head>
+<body>
+<header>
+  <h1>射法八節 骨架分析</h1>
+  <small id="source"></small>
+  <small class="legend"><i style="background:var(--left)"></i>左側（弓手）<i style="background:var(--right)"></i>右側（妻手）</small>
+</header>
+<main>
+  <div class="stage">
+    <span class="tag">真實影片＋2D 骨架</span>
+    <span id="phase">—</span>
+    <video id="video" playsinline muted preload="auto"></video>
+    <canvas id="overlay"></canvas>
+  </div>
+  <div class="stage">
+    <span class="tag">3D 骨架（可拖曳旋轉）</span>
+    <canvas id="three"></canvas>
+  </div>
+  <div class="controls">
+    <button id="play">▶ 播放</button>
+    <button data-rate="0.25">0.25×</button>
+    <button data-rate="0.5">0.5×</button>
+    <button data-rate="1" class="on">1×</button>
+    <button id="prev">◀ 上一格</button>
+    <button id="next">下一格 ▶</button>
+    <span style="flex:1"></span>
+    <span id="keys"></span>
+  </div>
+  <div id="timeline"><div class="release" id="releaseMark"></div><div class="cursor" id="cursor"></div></div>
+  <div class="metrics" id="metrics"></div>
+  <p class="note">
+    單一正面鏡頭：手臂前後（深度）方向的數值是模型推估，精度低於左右、上下方向。袴遮住腳踝，足踏的開腳角度不可靠。
+    手部（手の内、取懸け）因弽與弓遮擋未納入。紅線為依手腕速度偵測的離れ瞬間。
+  </p>
+</main>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const params = new URLSearchParams(location.search);
+const base = "../../../data/private/miyako/";
+const paths = {
+  video: params.get("video") || base + "shaho_hassetsu.mp4",
+  landmarks: params.get("landmarks") || base + "landmarks.json",
+  analysis: params.get("analysis") || base + "analysis.json",
+};
+
+const [lm, an] = await Promise.all([fetch(paths.landmarks).then(r => r.json()), fetch(paths.analysis).then(r => r.json())]);
+document.getElementById("source").textContent = an.source;
+
+// ---- data ---------------------------------------------------------------
+const frames = lm.frames;
+const times = frames.map(f => f.t);
+const LEFT = new Set([11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 1, 2, 3, 7, 9]);
+const RIGHT = new Set([12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 4, 5, 6, 8, 10]);
+const BONES = [[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28],
+               [27,29],[29,31],[27,31],[28,30],[30,32],[28,32],[15,17],[15,19],[16,18],[16,20],[0,7],[0,8]];
+const JOINTS = [0,7,8,11,12,13,14,15,16,23,24,25,26,27,28,29,30,31,32];
+const colorOf = i => LEFT.has(i) ? "#4fa3e0" : RIGHT.has(i) ? "#e0614f" : "#e8e6e1";
+
+// Moving-average smoothing (±2 samples) to remove detector jitter.
+function smoothed(key, i) {
+  const acc = [];
+  let n = 0;
+  for (let k = Math.max(0, i - 2); k <= Math.min(frames.length - 1, i + 2); k++) {
+    const pts = frames[k][key];
+    if (!pts) continue;
+    pts.forEach((p, j) => { acc[j] = acc[j] || [0, 0, 0]; acc[j][0] += p[0]; acc[j][1] += p[1]; acc[j][2] += p[2]; });
+    n++;
+  }
+  if (!n) return null;
+  const pts = acc.map(p => p.map(v => v / n));
+  // World points get the camera-pitch correction computed by analyze.py.
+  return key === "world" ? pts.map(rotate) : pts;
+}
+const R = an.up_rotation;
+const rotate = p => R.map(row => row[0] * p[0] + row[1] * p[1] + row[2] * p[2]);
+
+function frameAt(t) {
+  let lo = 0, hi = times.length - 1;
+  while (lo < hi) { const mid = (lo + hi) >> 1; times[mid] < t ? lo = mid + 1 : hi = mid; }
+  return lo > 0 && Math.abs(times[lo - 1] - t) < Math.abs(times[lo] - t) ? lo - 1 : lo;
+}
+
+// ---- metrics (same definitions as tools/pose/analyze.py) ----------------
+const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+const norm = a => Math.hypot(...a);
+const deg = r => r * 180 / Math.PI;
+const angle = (a, b, c) => { const u = sub(a, b), v = sub(c, b); return deg(Math.acos(Math.min(1, Math.max(-1, (u[0]*v[0]+u[1]*v[1]+u[2]*v[2]) / (norm(u) * norm(v)))))); };
+const elevation = (p, q) => { const d = sub(q, p); return deg(Math.atan2(-d[1], Math.hypot(d[0], d[2]))); };
+const tilt = (p, q, aspect) => deg(Math.atan2(-(q[1] - p[1]), Math.abs((q[0] - p[0]) * aspect)));
+
+const METRICS = [
+  ["弓手肘角（左）", w => angle(w[11], w[13], w[15]), "°", "180° = 完全伸直"],
+  ["妻手肘角（右）", w => angle(w[12], w[14], w[16]), "°", ""],
+  ["左肩開角", w => angle(w[23], w[11], w[13]), "°", "軀幹與上臂夾角"],
+  ["右肩開角", w => angle(w[24], w[12], w[14]), "°", ""],
+  ["左拳仰角", w => elevation(w[11], w[15]), "°", "肩→腕，相對水平"],
+  ["右拳仰角", w => elevation(w[12], w[16]), "°", ""],
+  ["左右腕高低差", w => (w[16][1] - w[15][1]) * 100, " cm", "+ = 弓手較高"],
+  ["肩線傾斜", (w, p) => tilt(p[12], p[11], lm.width / lm.height), "°", "+ = 左肩較高"],
+  ["腰線傾斜", (w, p) => tilt(p[24], p[23], lm.width / lm.height), "°", "+ = 左腰較高"],
+];
+const metricsEl = document.getElementById("metrics");
+metricsEl.innerHTML = METRICS.map(([name, , , hint]) => `<div class="metric"><span>${name}</span><b>—</b><span>${hint}</span></div>`).join("");
+const metricVals = [...metricsEl.querySelectorAll("b")];
+
+// ---- video + 2D overlay -------------------------------------------------
+const video = document.getElementById("video");
+video.src = paths.video;
+video.load();
+const overlay = document.getElementById("overlay");
+const ctx = overlay.getContext("2d");
+
+function drawOverlay(p) {
+  const rect = overlay.getBoundingClientRect();
+  overlay.width = rect.width * devicePixelRatio;
+  overlay.height = rect.height * devicePixelRatio;
+  ctx.clearRect(0, 0, overlay.width, overlay.height);
+  if (!p) return;
+  // Map normalized video coords through object-fit: cover.
+  const vw = lm.width, vh = lm.height;
+  const scale = Math.max(overlay.width / vw, overlay.height / vh);
+  const ox = (overlay.width - vw * scale) / 2, oy = (overlay.height - vh * scale) / 2;
+  const xy = q => [ox + q[0] * vw * scale, oy + q[1] * vh * scale];
+  ctx.lineWidth = 3 * devicePixelRatio;
+  for (const [a, b] of BONES) {
+    ctx.strokeStyle = colorOf(a === 0 ? b : a);
+    ctx.beginPath(); ctx.moveTo(...xy(p[a])); ctx.lineTo(...xy(p[b])); ctx.stroke();
+  }
+  for (const j of JOINTS) {
+    ctx.fillStyle = colorOf(j);
+    ctx.beginPath(); ctx.arc(...xy(p[j]), 4 * devicePixelRatio, 0, Math.PI * 2); ctx.fill();
+  }
+}
+
+// ---- 3D -----------------------------------------------------------------
+const canvas3d = document.getElementById("three");
+const renderer = new THREE.WebGLRenderer({ canvas: canvas3d, antialias: true, alpha: true });
+renderer.setPixelRatio(devicePixelRatio);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
+camera.position.set(0, 0.2, 4.2);
+const controls = new OrbitControls(camera, canvas3d);
+controls.target.set(0, 0, 0);
+scene.add(new THREE.AmbientLight(0xffffff, 0.8));
+const dir = new THREE.DirectionalLight(0xffffff, 1.2); dir.position.set(2, 3, 4); scene.add(dir);
+const grid = new THREE.GridHelper(4, 16, 0x444a55, 0x2a2f37); grid.position.y = -1.0; scene.add(grid);
+
+// Target direction marker (archer faces camera, target is on her left = +x).
+const arrow = new THREE.ArrowHelper(new THREE.Vector3(1, 0, 0), new THREE.Vector3(0, -0.98, 0), 1.6, 0xd9a441, 0.12, 0.06);
+scene.add(arrow);
+
+const jointMeshes = new Map();
+for (const j of JOINTS) {
+  const m = new THREE.Mesh(new THREE.SphereGeometry(j === 0 ? 0.05 : 0.028, 16, 12), new THREE.MeshStandardMaterial({ color: colorOf(j) }));
+  scene.add(m); jointMeshes.set(j, m);
+}
+const boneMeshes = BONES.map(([a]) => {
+  const m = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 1, 8), new THREE.MeshStandardMaterial({ color: colorOf(a === 0 ? 7 : a) }));
+  scene.add(m); return m;
+});
+const up = new THREE.Vector3(0, 1, 0);
+// MediaPipe world: +x image-right, +y down, +z away from camera → three.js: flip y and z.
+const toV3 = p => new THREE.Vector3(p[0], -p[1], -p[2]);
+
+function draw3D(w) {
+  if (!w) return;
+  // Drop the figure so the lower of the two heels rests on the grid.
+  const floor = Math.min(-w[29][1], -w[30][1]);
+  const shift = new THREE.Vector3(0, -1.0 - floor, 0);
+  const P = w.map(p => toV3(p).add(shift));
+  for (const j of JOINTS) jointMeshes.get(j).position.copy(P[j]);
+  BONES.forEach(([a, b], i) => {
+    const m = boneMeshes[i], d = new THREE.Vector3().subVectors(P[b], P[a]);
+    m.position.copy(P[a]).addScaledVector(d, 0.5);
+    m.scale.set(1, d.length(), 1);
+    m.quaternion.setFromUnitVectors(up, d.normalize());
+  });
+}
+
+function resize3D() {
+  const r = canvas3d.getBoundingClientRect();
+  renderer.setSize(r.width, r.height, false);
+  camera.aspect = r.width / r.height; camera.updateProjectionMatrix();
+}
+new ResizeObserver(resize3D).observe(canvas3d);
+
+// ---- timeline -----------------------------------------------------------
+const PHASE_COLORS = ["#8a8a8a","#c9b37e","#d9a441","#e3b85c","#9fc27a","#7fbf9f","#6fb0c8","#7f95d6","#e0614f","#b98ad6","#8a8a8a"];
+const timeline = document.getElementById("timeline");
+const duration = times[times.length - 1];
+an.segments.forEach((s, i) => {
+  const el = document.createElement("div");
+  el.className = "seg";
+  el.style.left = (s.start / duration * 100) + "%";
+  el.style.width = ((s.end - s.start) / duration * 100) + "%";
+  el.style.background = PHASE_COLORS[i % PHASE_COLORS.length];
+  el.textContent = s.label;
+  el.title = `${s.label}  ${s.start}–${s.end}s`;
+  timeline.appendChild(el);
+});
+document.getElementById("releaseMark").style.left = (an.release_t / duration * 100) + "%";
+timeline.addEventListener("click", e => {
+  const r = timeline.getBoundingClientRect();
+  video.currentTime = (e.clientX - r.left) / r.width * duration;
+});
+
+const keys = document.getElementById("keys");
+an.segments.forEach(s => {
+  const b = document.createElement("button");
+  b.textContent = s.label;
+  b.title = `關鍵影格 ${s.keyframe_t.toFixed(2)}s`;
+  b.onclick = () => { video.pause(); video.currentTime = s.keyframe_t; };
+  keys.appendChild(b);
+});
+
+const phaseEl = document.getElementById("phase");
+const phaseAt = t => {
+  if (Math.abs(t - an.release_t) < 0.25) return "離れ";
+  const s = an.segments.find(s => t >= s.start && t < s.end);
+  return s ? s.label : "—";
+};
+
+// ---- controls -----------------------------------------------------------
+const playBtn = document.getElementById("play");
+playBtn.onclick = () => video.paused ? video.play() : video.pause();
+video.addEventListener("play", () => playBtn.textContent = "❚❚ 暫停");
+video.addEventListener("pause", () => playBtn.textContent = "▶ 播放");
+document.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => {
+  video.playbackRate = +b.dataset.rate;
+  document.querySelectorAll("[data-rate]").forEach(x => x.classList.toggle("on", x === b));
+});
+const stepBy = d => { video.pause(); const i = frameAt(video.currentTime) + d; video.currentTime = times[Math.max(0, Math.min(times.length - 1, i))]; };
+document.getElementById("prev").onclick = () => stepBy(-1);
+document.getElementById("next").onclick = () => stepBy(1);
+addEventListener("keydown", e => {
+  if (e.key === " ") { e.preventDefault(); playBtn.click(); }
+  if (e.key === "ArrowLeft") stepBy(-1);
+  if (e.key === "ArrowRight") stepBy(1);
+});
+
+// ---- loop ---------------------------------------------------------------
+const cursor = document.getElementById("cursor");
+function tick() {
+  const t = video.currentTime;
+  const i = frameAt(t);
+  const p = smoothed("pose", i), w = smoothed("world", i);
+  drawOverlay(p);
+  draw3D(w);
+  if (w && p) METRICS.forEach(([, fn, unit], k) => metricVals[k].textContent = fn(w, p).toFixed(1) + unit);
+  phaseEl.textContent = phaseAt(t);
+  cursor.style.left = (t / duration * 100) + "%";
+  controls.update();
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+video.addEventListener("loadeddata", () => { video.currentTime = an.segments.find(s => s.id === "kai").keyframe_t; });
+tick();
+</script>
+</body>
+</html>

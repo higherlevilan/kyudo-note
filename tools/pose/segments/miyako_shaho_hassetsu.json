@@ -1,0 +1,17 @@
+{
+  "source": "Miyako's Kyudo — 弓道入門：射法八節的連貫動作 (https://www.youtube.com/watch?v=_3V4mznQLIs)",
+  "note": "Segment boundaries read from the video's burned-in captions at 1 s resolution.",
+  "segments": [
+    { "id": "torimi",      "label": "執弓の姿勢", "start": 3,  "end": 8 },
+    { "id": "ashibumi",    "label": "足踏み",     "start": 8,  "end": 16 },
+    { "id": "dozukuri",    "label": "胴造り",     "start": 16, "end": 37 },
+    { "id": "yugamae",     "label": "弓構え",     "start": 37, "end": 63 },
+    { "id": "uchiokoshi",  "label": "打起し",     "start": 63, "end": 67 },
+    { "id": "daisan",      "label": "大三",       "start": 67, "end": 71 },
+    { "id": "hikiwake",    "label": "引分け",     "start": 71, "end": 82 },
+    { "id": "kai",         "label": "会",         "start": 82, "end": 87 },
+    { "id": "hanare",      "label": "離れ",       "start": 87, "end": 89 },
+    { "id": "zanshin",     "label": "残心",       "start": 89, "end": 94 },
+    { "id": "yudaoshi",    "label": "弓倒し・足閉じ", "start": 94, "end": 108 }
+  ]
+}

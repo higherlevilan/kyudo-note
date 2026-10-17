@@ -5,3 +5,9 @@ out/
 !.env.example
 .DS_Store
 *.log
+
+# Local-only media & tool envs (third-party videos are not redistributable)
+data/private/
+tools/pose/.venv/
+tools/pose/models/
+__pycache__/
