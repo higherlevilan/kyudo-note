@@ -1,0 +1,13 @@
+{
+  "source": "AI 生成（萬相 3.0 首尾幀，480P，5 秒）：矢番え",
+  "segments": [
+    {
+      "id": "yatsugae",
+      "label": "矢番え",
+      "start": 0,
+      "end": 5
+    }
+  ],
+  "note": "nock_t: the arrow sits on the string from about 3.3 s (read from the frames).",
+  "nock_t": 3.3
+}

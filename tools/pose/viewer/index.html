@@ -86,6 +86,7 @@ const params = new URLSearchParams(location.search);
 const CLIPS = {
   miyako: { dir: "../../../data/private/miyako/", video: "shaho_hassetsu.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
   "gen-v1": { dir: "../../../data/generated/v1/", video: "wan30.mp4", landmarks: "wan30_landmarks.json", analysis: "wan30_analysis.json" },
+  "gen-yatsugae": { dir: "../../../data/generated/v5_yatsugae/", video: "yatsugae.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
   "gen-ashibumi": { dir: "../../../data/generated/v4_ashibumi_ff/b/", video: "ashibumi.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
 };
 const clip = CLIPS[params.get("clip")] || CLIPS.miyako;
@@ -389,6 +390,7 @@ const bowParts = [bowMesh, gripMesh, stringMesh, arrow3d];
 const NOCK_FROM = ["yugamae", "kai"];
 function bowState(t) {
   if (an.release_t != null && t >= an.release_t) return "released";
+  if (an.nock_t != null) return t >= an.nock_t ? "nocked" : "carry";
   const s = an.segments.find(s => NOCK_FROM.includes(s.id));
   return s && t >= s.start ? "nocked" : "carry";
 }

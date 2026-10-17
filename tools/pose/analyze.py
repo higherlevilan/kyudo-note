@@ -122,7 +122,7 @@ def main():
 
     out = {"source": seg["source"], "release_t": release_t,
            "kai_hold_s": round(release_t - kai["start"], 2) if release_t is not None else None,
-           "up_rotation": np.round(rot, 5).tolist(), "segments": []}
+           "up_rotation": np.round(rot, 5).tolist(), "nock_t": seg.get("nock_t"), "segments": []}
     for s in seg["segments"]:
         if s["id"] == "hanare":
             # 離れ is an instant: report the first frame after release.
