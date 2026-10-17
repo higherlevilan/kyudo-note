@@ -112,3 +112,20 @@ details[open] > summary .chev {
     transition: none;
   }
 }
+
+/* Illustration plate: the archer drawings keep their light-mode palette in dark mode too,
+   so the white 道衣 and dark 袴 read naturally instead of as a photo negative. */
+.ill-plate {
+  --paper: #f6f1e7;
+  --surface: #fffbf3;
+  --surface-2: #efe6d6;
+  --ink: #2a2520;
+  --muted: #6d6357;
+  --line: #ddd1bd;
+  --wood: #8a5a2e;
+  --wood-soft: #ead9bd;
+  --vermilion: #b4442b;
+  --indigo: #34507a;
+  background: #fbf7ef;
+  color: var(--ink);
+}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Callout, Cites, FaqList, PageHeader, PointList, Section, SourceList, TagBadge, TocChips } from "@/components/content/Blocks";
 import BudgetBuilder from "@/components/equipment/BudgetBuilder";
@@ -6,6 +7,10 @@ import DataTable from "@/components/equipment/DataTable";
 import TopicCard from "@/components/equipment/TopicCard";
 import YajakuCalculator from "@/components/equipment/YajakuCalculator";
 import YazukaDiagram from "@/components/equipment/YazukaDiagram";
+import BowLengthCompare from "@/components/illustrations/gear/BowLengthCompare";
+import KakeParts from "@/components/illustrations/gear/KakeParts";
+import { HayaOtoya, YaParts } from "@/components/illustrations/gear/YaParts";
+import YumiParts from "@/components/illustrations/gear/YumiParts";
 import { EQUIPMENT_FAQS } from "@/content/equipment/faqs";
 import QuickCheck from "@/components/practice/QuickCheck";
 import { QUICKCHECKS } from "@/content/practice/quickchecks";
@@ -60,6 +65,27 @@ const LEGEND: { tag: Tag; text: string }[] = [
   { tag: "note", text: "本站整理或建議" },
   { tag: "disputed", text: "說法不一、待查證" },
 ];
+
+/** Diagrams placed inside topic cards, by topic id. */
+const TOPIC_FIGURES: Record<string, ReactNode> = {
+  "yumi-length": <BowLengthCompare id="bow-length-fig" />,
+  "ya-rules": (
+    <div className="space-y-4">
+      <YaParts />
+      <HayaOtoya />
+    </div>
+  ),
+  tsuru: (
+    <p className="text-sm text-muted">
+      弦輪、中仕掛在弓上的位置，見上方
+      <a href="#yumi-parts" className="mx-1 text-wood underline">
+        〈和弓各部位〉圖
+      </a>
+      （點「弦」「中仕掛け」「弦輪」會標出來）。
+    </p>
+  ),
+  kake: <KakeParts />,
+};
 
 const RELATED = [
   { href: "/guide/", label: "入門指南", text: "台灣哪裡學、練習進程、審查、在台灣買弓具與搭機" },
@@ -183,30 +209,31 @@ export default function EquipmentPage() {
       </Section>
 
       {/* ───────── 弓 ───────── */}
-      <Section id="bow" title="弓" lead="弓長、弓力、弓材，以及比賽與審查的規定。">
+      <Section id="bow" title="弓" lead="先認識弓的各部位名稱，再看弓長、弓力、弓材，以及比賽與審查的規定。">
+        <YumiParts />
         {YUMI_TOPICS.map((t) => (
-          <TopicCard key={t.id} t={t} />
+          <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
       </Section>
 
       {/* ───────── 矢 ───────── */}
-      <Section id="arrow" title="矢" lead="箭的規定、箭桿規格、重量，以及羽的合法來源。">
+      <Section id="arrow" title="矢" lead="箭的部位與規定、甲矢與乙矢、箭桿規格、重量，以及羽的合法來源。">
         {YA_TOPICS.map((t) => (
-          <TopicCard key={t.id} t={t} />
+          <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
       </Section>
 
       {/* ───────── 弦 ───────── */}
       <Section id="string" title="弦" lead="合成弦與麻弦、粗細、換弦時機與中仕掛。">
         {TSURU_TOPICS.map((t) => (
-          <TopicCard key={t.id} t={t} />
+          <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
       </Section>
 
       {/* ───────── 弽 ───────── */}
       <Section id="glove" title="弽" lead="右手的鹿皮手套：規定、種類、尺寸、價格帶與相關小物。">
         {KAKE_TOPICS.map((t) => (
-          <TopicCard key={t.id} t={t} />
+          <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
       </Section>
 

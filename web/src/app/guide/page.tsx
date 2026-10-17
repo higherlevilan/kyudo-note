@@ -5,6 +5,9 @@ import ClubList from "@/components/guide/ClubList";
 import CompareTable from "@/components/guide/CompareTable";
 import CostEstimator from "@/components/guide/CostEstimator";
 import Roadmap from "@/components/guide/Roadmap";
+import ShajoLayout from "@/components/illustrations/dojo/ShajoLayout";
+import { TargetFaces, TargetMount } from "@/components/illustrations/dojo/Targets";
+import Yadokoro from "@/components/illustrations/dojo/Yadokoro";
 import { ANKF, RESEARCH, TAIWAN } from "@/content/common-sources";
 import {
   ASSOC_CLASSES,
@@ -40,6 +43,7 @@ export const metadata: Metadata = {
 const TOC = [
   { id: "first-year", label: "第一年" },
   { id: "first-visit", label: "第一次去道場" },
+  { id: "dojo-layout", label: "射場長什麼樣" },
   { id: "taiwan", label: "在台灣哪裡學" },
   { id: "safety", label: "安全守則" },
   { id: "injury", label: "傷害預防" },
@@ -82,6 +86,8 @@ const PAGE_SOURCES: Source[] = [
   ...VS_ARCHERY.flatMap((r) => r.kyudoSrc ?? []),
   ...SMALL_TOPICS.flatMap(layeredSrc),
   ...GUIDE_FAQS.flatMap((f) => pointSrc(f.a)),
+  ANKF.playRules,
+  ANKF.terminology,
   RESEARCH.equipment,
   RESEARCH.etiquette,
 ];
@@ -152,6 +158,31 @@ export default function GuidePage() {
             </article>
           ))}
         </div>
+      </Section>
+
+      {/* ---------------------------------------------------------- */}
+      <Section
+        id="dojo-layout"
+        title="射場長什麼樣"
+        lead={
+          <>
+            射手站的木地板是射場（しゃじょう），前方 28 m 是箭飛過的矢道，盡頭的土堆是安土（あづち），靶就立在安土前。圖中的數字是全弓連《弓道競技規則》近的的標準，各道場的實際尺寸與配置可能不同。
+            在射場裡怎麼走、怎麼行禮，見
+            <Link href="/etiquette/#flow" className="mx-1 text-wood underline">
+              禮法與體配
+            </Link>
+            。
+          </>
+        }
+      >
+        <div className="grid gap-5 md:grid-cols-2 md:items-start">
+          <ShajoLayout />
+          <div className="space-y-5">
+            <TargetMount />
+            <Yadokoro />
+          </div>
+        </div>
+        <TargetFaces />
       </Section>
 
       {/* ---------------------------------------------------------- */}

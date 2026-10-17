@@ -148,6 +148,13 @@ export default function EtiquettePage() {
       >
         <ZashaStepper steps={ZASHA_FLOW} />
         <ShajoDiagram />
+        <p className="text-sm text-muted">
+          整個射場的俯視圖（五個射位的間隔、矢道、安土與的、看的所、上座與下座），見入門指南
+          <Link href="/guide/#dojo-layout" className="mx-1 text-wood underline">
+            〈射場長什麼樣〉
+          </Link>
+          。
+        </p>
         <Callout title="整段要多久？">
           本站粗估單人約 3～4 分鐘（不計等待前人弦音的時間）。這是本站整理的估計，沒有官方的秒數。
           <TagBadge tag="note" />

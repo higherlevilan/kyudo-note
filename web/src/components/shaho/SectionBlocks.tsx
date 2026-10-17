@@ -2,6 +2,7 @@ import { TAG_LABEL, type Point, type ShahoSection, type Tag } from "@/content/sh
 import { SOURCES, type SourceKey } from "@/content/sources";
 import SharedCites from "@/components/content/Cites";
 import { videoAt, type MotionMeta } from "@/lib/shaho/motion";
+import SectionFigure from "@/components/illustrations/archer/SectionFigure";
 
 const TAG_STYLE: Record<Tag, string> = {
   official: "bg-indigo/15 text-indigo border-indigo/30",
@@ -72,13 +73,16 @@ export function SectionCard({ s, meta }: { s: ShahoSection; meta: MotionMeta }) 
           <Chevron />
           入門
         </summary>
-        <div className="mt-2 space-y-2 text-[15px] leading-relaxed">
-          {s.intro.map((p, i) => (
-            <p key={i}>{p}</p>
-          ))}
-          <p>
-            <Cites src={s.introSrc} />
-          </p>
+        <div className="mt-2 flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
+          <div className="min-w-0 flex-1 space-y-2 text-[15px] leading-relaxed">
+            {s.intro.map((p, i) => (
+              <p key={i}>{p}</p>
+            ))}
+            <p>
+              <Cites src={s.introSrc} />
+            </p>
+          </div>
+          <SectionFigure id={s.id} className="order-first rounded-xl bg-paper p-3 sm:order-last sm:max-w-[48%] sm:shrink-0" />
         </div>
       </details>
 

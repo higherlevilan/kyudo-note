@@ -5,6 +5,10 @@ import LineageTree from "@/components/culture/LineageTree";
 import MythCards from "@/components/culture/MythCards";
 import { Deep, QuickHistory, Shagi, Shahokun, ShinZenBi, ShootingTypes, TwColonial, ZenFacts } from "@/components/culture/Pieces";
 import RankLadder from "@/components/culture/RankLadder";
+import BowMaterialsFigure from "@/components/illustrations/culture/BowMaterialsFigure";
+import BowScaleFigure from "@/components/illustrations/culture/BowScaleFigure";
+import GripFigure from "@/components/illustrations/culture/GripFigure";
+import ToshiyaFigure from "@/components/illustrations/culture/ToshiyaFigure";
 import Timeline from "@/components/culture/Timeline";
 import { CULTURE_FAQS } from "@/content/culture/faqs";
 import QuickCheck from "@/components/practice/QuickCheck";
@@ -61,7 +65,7 @@ export default function CulturePage() {
             <Link href="/shaho/" className="mx-1 text-wood underline">
               射法八節
             </Link>
-            看 3D 示範。
+            看八節的圖解與說明。
           </p>
         </LayeredCard>
         <QuickHistory />
@@ -89,7 +93,21 @@ export default function CulturePage() {
       {/* ------------------------------------------------------ 歷史專題 */}
       <Section id="history" title="歷史專題" lead="年表裡的幾個關鍵轉折，展開來說。">
         {HISTORY_TOPICS.map((s) => (
-          <LayeredCard key={s.id} s={s} />
+          <LayeredCard
+            key={s.id}
+            s={s}
+            figure={
+              s.id === "wakyu" ? (
+                <>
+                  <GripFigure />
+                  <BowScaleFigure />
+                  <BowMaterialsFigure />
+                </>
+              ) : s.id === "toshiya" ? (
+                <ToshiyaFigure />
+              ) : undefined
+            }
+          />
         ))}
       </Section>
 

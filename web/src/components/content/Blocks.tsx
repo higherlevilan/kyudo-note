@@ -78,8 +78,8 @@ export function TocChips({ items }: { items: readonly { id: string; label: strin
   );
 }
 
-/** A topic card with 入門 (open) and 深入 (collapsed) layers. */
-export function LayeredCard({ s, children }: { s: LayeredSection; children?: ReactNode }) {
+/** A topic card with 入門 (open) and 深入 (collapsed) layers. `figure` sits between the two layers. */
+export function LayeredCard({ s, figure, children }: { s: LayeredSection; figure?: ReactNode; children?: ReactNode }) {
   return (
     <article id={s.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -111,6 +111,7 @@ export function LayeredCard({ s, children }: { s: LayeredSection; children?: Rea
           )}
         </div>
       </details>
+      {figure && <div className="mt-4 space-y-4">{figure}</div>}
       {s.deep && s.deep.length > 0 && (
         <details data-layer="deep" className="mt-3 border-t border-line pt-3">
           <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">

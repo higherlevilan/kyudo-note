@@ -7,6 +7,7 @@ import { PointList, SectionCard } from "@/components/shaho/SectionBlocks";
 import { MOTION_DATA_URL, readMotionMeta } from "@/lib/shaho/meta.server";
 import QuickCheck from "@/components/practice/QuickCheck";
 import { QUICKCHECKS } from "@/content/practice/quickchecks";
+import HassetsuStrip from "@/components/illustrations/archer/HassetsuStrip";
 
 export const metadata: Metadata = {
   title: "射法八節",
@@ -44,6 +45,8 @@ export default function ShahoPage() {
             </a>
           </nav>
         </header>
+
+        <HassetsuStrip />
 
         <details className="group rounded-2xl border border-line bg-surface p-4 sm:p-5">
           <summary className="flex items-center justify-between gap-3 font-semibold">

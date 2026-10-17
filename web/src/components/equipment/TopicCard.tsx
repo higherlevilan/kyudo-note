@@ -1,6 +1,7 @@
 // Topic card with 入門 (open) and 深入 (collapsed) layers; same look as the shared LayeredCard,
 // but each layer can also hold comparison tables.
 
+import type { ReactNode } from "react";
 import { Cites, PointList, TagBadge } from "@/components/content/Blocks";
 import type { EqTopic } from "@/content/equipment/types";
 import DataTable from "./DataTable";
@@ -13,7 +14,8 @@ function Chevron() {
   );
 }
 
-export default function TopicCard({ t }: { t: EqTopic }) {
+/** `figure` is shown in the 入門 layer, after the intro paragraphs and before the tables. */
+export default function TopicCard({ t, figure }: { t: EqTopic; figure?: ReactNode }) {
   return (
     <article id={t.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -42,6 +44,7 @@ export default function TopicCard({ t }: { t: EqTopic }) {
               <Cites src={p.src} />
             </p>
           ))}
+          {figure && <div className="pt-2">{figure}</div>}
           {t.introTables?.map((tb) => (
             <DataTable key={tb.caption} t={tb} />
           ))}

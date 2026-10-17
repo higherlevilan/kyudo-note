@@ -1,19 +1,33 @@
 import Link from "next/link";
 import Kasumi from "@/components/home/Kasumi";
 import WordOfDay from "@/components/home/WordOfDay";
+import BrushDivider from "@/components/illustrations/icons/BrushDivider";
+import {
+  ArcherIcon,
+  BowingIcon,
+  GateIcon,
+  GearIcon,
+  type IconProps,
+  KanjiIcon,
+  NotebookIcon,
+  QuestionIcon,
+  ScrollIcon,
+  TargetCheckIcon,
+} from "@/components/illustrations/icons/ModuleIcons";
+import type { ReactNode } from "react";
 
-type Module = { href: string; title: string; ja: string; desc: string };
+type Module = { href: string; title: string; ja: string; desc: string; Icon: (p: IconProps) => ReactNode };
 
 const MODULES: Module[] = [
-  { href: "/guide/", title: "入門指南", ja: "はじめに", desc: "第一次去道場、在台灣哪裡學、練習進程、安全、費用與審查。" },
-  { href: "/shaho/", title: "射法八節", ja: "射法八節", desc: "足踏み到残心的八個步驟，每一節分入門與深入兩層。" },
-  { href: "/etiquette/", title: "禮法與體配", ja: "体配", desc: "基本姿勢與動作、坐射與立射流程、矢取り、道場禮儀。" },
-  { href: "/equipment/", title: "裝備百科", ja: "弓具", desc: "弓、矢、弽、弦、服裝與保養，附矢尺計算與預算試算。" },
-  { href: "/culture/", title: "文化與哲學", ja: "射の心", desc: "歷史年表、流派系譜、射義與真善美、弓與禪的真相。" },
-  { href: "/glossary/", title: "日文詞彙庫", ja: "用語", desc: "約 260 條術語，漢字、假名、羅馬拼音、中文都能搜尋。" },
-  { href: "/faq/", title: "問題研究中心", ja: "問答", desc: "各單元的常見問題集中在這裡，每一題都附資料來源。" },
-  { href: "/journal/", title: "個人學習日誌", ja: "稽古帳", desc: "記錄練習、課程筆記、審查、裝備採購與文化體驗。" },
-  { href: "/practice/", title: "互動練習", ja: "練習", desc: "八節排序、詞彙閃卡、迷思是非題、體配情境題與初段學科練習。" },
+  { href: "/guide/", title: "入門指南", ja: "はじめに", desc: "第一次去道場、在台灣哪裡學、練習進程、安全、費用與審查。", Icon: GateIcon },
+  { href: "/shaho/", title: "射法八節", ja: "射法八節", desc: "足踏み到残心的八個步驟，每一節分入門與深入兩層。", Icon: ArcherIcon },
+  { href: "/etiquette/", title: "禮法與體配", ja: "体配", desc: "基本姿勢與動作、坐射與立射流程、矢取り、道場禮儀。", Icon: BowingIcon },
+  { href: "/equipment/", title: "裝備百科", ja: "弓具", desc: "弓、矢、弽、弦、服裝與保養，附矢尺計算與預算試算。", Icon: GearIcon },
+  { href: "/culture/", title: "文化與哲學", ja: "射の心", desc: "歷史年表、流派系譜、射義與真善美、弓與禪的真相。", Icon: ScrollIcon },
+  { href: "/glossary/", title: "日文詞彙庫", ja: "用語", desc: "約 260 條術語，漢字、假名、羅馬拼音、中文都能搜尋。", Icon: KanjiIcon },
+  { href: "/faq/", title: "問題研究中心", ja: "問答", desc: "各單元的常見問題集中在這裡，每一題都附資料來源。", Icon: QuestionIcon },
+  { href: "/journal/", title: "個人學習日誌", ja: "稽古帳", desc: "記錄練習、課程筆記、審查、裝備採購與文化體驗。", Icon: NotebookIcon },
+  { href: "/practice/", title: "互動練習", ja: "練習", desc: "八節排序、詞彙閃卡、迷思是非題、體配情境題與初段學科練習。", Icon: TargetCheckIcon },
 ];
 
 const PATHS = [
@@ -76,6 +90,8 @@ export default function Home() {
         </figure>
       </section>
 
+      <BrushDivider className="pb-8" />
+
       <section aria-labelledby="paths" className="pb-10">
         <h2 id="paths" className="mb-4 text-xl font-bold">
           從哪裡開始？
@@ -110,9 +126,14 @@ export default function Home() {
                 href={m.href}
                 className="block h-full rounded-2xl border border-line bg-surface p-5 text-ink no-underline shadow-sm transition hover:-translate-y-0.5 hover:border-wood hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0"
               >
-                <p lang="ja" className="text-sm text-wood">
-                  {m.ja}
-                </p>
+                <div className="flex items-center justify-between gap-3">
+                  <p lang="ja" className="text-sm text-wood">
+                    {m.ja}
+                  </p>
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-wood-soft/70 text-wood">
+                    <m.Icon className="h-6 w-6" />
+                  </span>
+                </div>
                 <h3 className="mt-1 text-lg font-bold">{m.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{m.desc}</p>
               </Link>
@@ -120,6 +141,8 @@ export default function Home() {
           ))}
         </ul>
       </section>
+
+      <BrushDivider className="pb-8" />
 
       <section className="grid gap-4 pb-6 md:grid-cols-2">
         <WordOfDay />

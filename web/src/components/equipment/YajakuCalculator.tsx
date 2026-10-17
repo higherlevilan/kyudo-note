@@ -17,6 +17,7 @@ import {
   type BowId,
 } from "@/content/equipment/calc";
 import { SHOP } from "@/content/equipment/sources";
+import BowLengthCompare from "@/components/illustrations/gear/BowLengthCompare";
 
 const YAZUKA_MIN = 55;
 const YAZUKA_MAX = 115;
@@ -348,6 +349,19 @@ function BowLength({
           <ResultChips results={heightResults} basisLabel="身高" />
         </div>
       )}
+
+      <div className="mt-4">
+        <BowLengthCompare
+          highlight={drawResults.flatMap((r) => (r.bow ? [r.bow] : []))}
+          heightCm={height}
+          title="你的結果放在弓長比較圖上"
+          caption={
+            <>
+              紅色是依你的矢束 {fmt(yazuka)} cm、各店矢束表對到的弓長；人形{height != null ? `是你輸入的身高 ${fmt(height)} cm` : "以身高 170 cm 示意"}。弓長與人形同一比例；六寸伸沒有店家標示的 cm 值，沒有畫。
+            </>
+          }
+        />
+      </div>
 
       {(distinct.size > 1 || anyEdge) && (
         <p className="mt-3 rounded-lg bg-vermilion/10 px-3 py-2 text-sm leading-relaxed text-vermilion">

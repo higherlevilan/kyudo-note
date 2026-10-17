@@ -7,6 +7,8 @@
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
 import { ORDER_CARDS, SHAHO_SOURCES, type OrderCard } from "@/content/practice/shaho";
+import { THUMB_POSE } from "@/content/illustrations/archer/poses";
+import ArcherFigure from "@/components/illustrations/archer/ArcherFigure";
 import { shuffle } from "@/lib/practice/random";
 import { recordSession, type SessionResult } from "@/lib/practice/stats";
 import { Btn, Panel, SourceLinks, Verdict } from "./ui";
@@ -138,6 +140,9 @@ export default function OrderGame({ onExit }: { onExit: () => void }) {
                       看「<span lang="ja">{c.term}</span>」的說明 →
                     </Link>
                   </div>
+                  {THUMB_POSE[c.id] && (
+                    <ArcherFigure pose={THUMB_POSE[c.id]} compact decorative className="h-24 w-auto shrink-0 sm:h-28" />
+                  )}
                 </div>
               </li>
             );
