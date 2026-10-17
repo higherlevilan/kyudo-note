@@ -1,23 +1,19 @@
 import type { Metadata } from "next";
 import { FAQS, PAGE_SOURCES, POSTLUDE, PRELUDE, SECTIONS } from "@/content/shaho";
 import { KIND_LABEL, SOURCES } from "@/content/sources";
-import { SeekProvider } from "@/components/shaho/SeekContext";
-import ViewerLoader from "@/components/shaho/ViewerLoader";
 import { PointList, SectionCard } from "@/components/shaho/SectionBlocks";
-import { MOTION_DATA_URL, readMotionMeta } from "@/lib/shaho/meta.server";
+import { SHAHO_VIDEO } from "@/content/shaho-video";
 import QuickCheck from "@/components/practice/QuickCheck";
 import { QUICKCHECKS } from "@/content/practice/quickchecks";
 import HassetsuStrip from "@/components/illustrations/archer/HassetsuStrip";
 
 export const metadata: Metadata = {
   title: "射法八節",
-  description: "弓道射法八節（足踏み、胴造り、弓構え、打起し、引分け、会、離れ、残心）的 3D 示範與中文說明，以全日本弓道連盟公開資料為準。",
+  description: "弓道射法八節（足踏み、胴造り、弓構え、打起し、引分け、会、離れ、残心）的圖解與中文說明，以全日本弓道連盟公開資料為準。",
 };
 
 export default function ShahoPage() {
-  const meta = readMotionMeta();
   return (
-    <SeekProvider>
       <div className="mx-auto max-w-5xl px-4">
         <header className="pt-10 pb-6">
           <p className="text-sm text-wood">基本動作</p>
@@ -48,33 +44,24 @@ export default function ShahoPage() {
 
         <HassetsuStrip />
 
-        <details className="group rounded-2xl border border-line bg-surface p-4 sm:p-5">
-          <summary className="flex items-center justify-between gap-3 font-semibold">
-            <span>
-              3D 動作參考 <span className="ml-1 rounded-full border border-line px-2 py-0.5 text-xs font-normal text-muted">實驗中</span>
-            </span>
-            <span aria-hidden="true" className="chev text-wood">
-              ›
-            </span>
-          </summary>
-          <p className="mt-2 text-sm leading-relaxed text-muted">
-            依一段真人示範的動作重建的人形，只用來理解八節的順序與大致姿勢；細節請以文字說明與指導者為準。
-          </p>
-          <div className="mt-4">
-            <ViewerLoader dataUrl={MOTION_DATA_URL} />
-          </div>
-        </details>
+        <p className="mt-4 text-sm leading-relaxed text-muted">
+          想看真人的連續動作，可以參考
+          <a href={SHAHO_VIDEO.url} target="_blank" rel="noopener noreferrer" className="mx-1 text-wood underline">
+            {SHAHO_VIDEO.title}
+          </a>
+          （YouTube，外部連結）；每一節下方也附了對應的秒數。
+        </p>
 
         <section aria-labelledby="steps" className="mt-12">
           <h2 id="steps" className="mb-4 text-2xl font-bold">
             八節說明
           </h2>
           <div className="space-y-5">
-            <SectionCard s={PRELUDE} meta={meta} />
+            <SectionCard s={PRELUDE} />
             {SECTIONS.map((s) => (
-              <SectionCard key={s.id} s={s} meta={meta} />
+              <SectionCard key={s.id} s={s} />
             ))}
-            <SectionCard s={POSTLUDE} meta={meta} />
+            <SectionCard s={POSTLUDE} />
           </div>
         </section>
 
@@ -122,6 +109,5 @@ export default function ShahoPage() {
           </ol>
         </section>
       </div>
-    </SeekProvider>
   );
 }

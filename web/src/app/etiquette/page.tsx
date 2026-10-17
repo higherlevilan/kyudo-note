@@ -60,7 +60,7 @@ const TOC = [
 ];
 
 const RELATED = [
-  { href: "/shaho/", label: "射法八節", note: "射一支箭的八個步驟與 3D 示範" },
+  { href: "/shaho/", label: "射法八節", note: "射一支箭的八個步驟與圖解" },
   { href: "/guide/", label: "入門指南", note: "怎麼開始學、去哪裡學" },
   { href: "/equipment/", label: "裝備", note: "弓、矢、弽與道衣" },
   { href: "/culture/", label: "文化與哲學", note: "禮的意義與段位制度" },

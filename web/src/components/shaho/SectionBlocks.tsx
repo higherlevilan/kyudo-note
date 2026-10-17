@@ -1,7 +1,7 @@
 import { TAG_LABEL, type Point, type ShahoSection, type Tag } from "@/content/shaho";
 import { SOURCES, type SourceKey } from "@/content/sources";
 import SharedCites from "@/components/content/Cites";
-import { videoAt, type MotionMeta } from "@/lib/shaho/motion";
+import { SHAHO_VIDEO, videoAt } from "@/content/shaho-video";
 import SectionFigure from "@/components/illustrations/archer/SectionFigure";
 
 const TAG_STYLE: Record<Tag, string> = {
@@ -47,9 +47,8 @@ function Chevron() {
   );
 }
 
-export function SectionCard({ s, meta }: { s: ShahoSection; meta: MotionMeta }) {
-  const seg = meta.segments.find((x) => x.id === s.segment);
-  const ref = meta.ref;
+export function SectionCard({ s }: { s: ShahoSection }) {
+  const start = SHAHO_VIDEO.starts[s.segment];
   return (
     <article id={s.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -103,14 +102,14 @@ export function SectionCard({ s, meta }: { s: ShahoSection; meta: MotionMeta }) 
       </details>
 
       <div className="mt-4 flex flex-wrap items-center gap-2">
-        {seg && ref && (
+        {start != null && (
           <a
-            href={videoAt(ref.url, seg.start)}
+            href={videoAt(SHAHO_VIDEO.url, start)}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm text-wood underline"
           >
-            在原影片看這一節（{Math.floor(seg.start)} 秒起）↗
+            在示範影片看這一節（{start} 秒起）↗
           </a>
         )}
       </div>

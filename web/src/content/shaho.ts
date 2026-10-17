@@ -4,7 +4,7 @@
 
 import type { SourceKey } from "./sources";
 
-/** official = ANKF；guide = 日本武道協議會《少年少女武道指導書 弓道》；local = 地方連盟／學校；folk = 坊間常見說法；demo = 3D 示範觀察；note = 本站整理 */
+/** official = ANKF；guide = 日本武道協議會《少年少女武道指導書 弓道》；local = 地方連盟／學校；folk = 坊間常見說法；demo = 示範影片觀察；note = 本站整理 */
 export type Tag = "official" | "guide" | "local" | "folk" | "demo" | "note";
 
 export interface Point {
@@ -26,7 +26,7 @@ export interface ShahoSection {
   kana: string;
   romaji: string;
   zh: string;
-  /** segment id in the motion data, for the 3D jump button and the video link */
+  /** segment id, for the illustration and the link into the demonstration video */
   segment: string;
   extraSegments?: { id: string; label: string }[];
   intro: string[];
@@ -39,7 +39,7 @@ export const TAG_LABEL: Record<Tag, string> = {
   guide: "指導書",
   local: "地方做法",
   folk: "坊間常見說法",
-  demo: "3D 示範觀察",
+  demo: "示範影片觀察",
   note: "本站整理",
 };
 
@@ -77,11 +77,11 @@ export const PRELUDE: ShahoSection = {
       ],
     },
     {
-      title: "關於 3D 示範",
+      title: "關於插圖",
       points: [
         {
-          text: "3D 示範的弓是依「握把在左腰、末弭在身體前方中央離地約 10 公分」計算出來的，人形本身的動作則來自示範影片；弓與箭的實際角度依身高與弓長而不同。",
-          tag: "demo",
+          text: "本頁插圖依上面的描述以程式繪製（握把在左腰、末弭在身體前方中央離地約 10 公分）；弓與箭的實際角度依身高與弓長而不同。",
+          tag: "note",
         },
       ],
     },
@@ -133,12 +133,11 @@ export const SECTIONS: ShahoSection[] = [
         ],
       },
       {
-        title: "關於 3D 示範",
+        title: "關於插圖",
         points: [
           {
-            text: "示範者穿著袴，膝蓋與腳踝被遮住；3D 的腳步是依影片推估後固定住的，腳的寬度與角度請以上面的文字說明為準。",
-            tag: "demo",
-            src: ["demo"],
+            text: "腳步俯視圖依官方說明繪製（約矢束寬、約 60 度、兩拇趾尖對準靶心），是示意圖，不是量測值。",
+            tag: "note",
           },
         ],
       },
@@ -185,16 +184,6 @@ export const SECTIONS: ShahoSection[] = [
             text: "肩線不水平：左肩比右肩低叫落肩、高叫差肩；左肩往前叫出肩、往後叫退肩。",
             tag: "official",
             src: ["terminology"],
-          },
-        ],
-      },
-      {
-        title: "關於 3D 示範",
-        points: [
-          {
-            text: "胴造り建立的直立軀幹會一直保持到残心，所以 3D 人形的軀幹依這個原則校正成垂直；足踏み之後到弓倒し之前，腳步也固定不動。",
-            tag: "demo",
-            src: ["demo"],
           },
         ],
       },
@@ -284,7 +273,7 @@ export const SECTIONS: ShahoSection[] = [
         points: [
           { text: "「打起し約 45 度」：常聽到，但官方只描述高度（比額頭稍高），沒有寫角度。", tag: "folk" },
           {
-            text: "3D 示範者的雙拳舉得比額頭明顯更高；「45 度」常指從側面看手臂與水平的夾角，量法不同，不能直接比較。",
+            text: "示範影片中，示範者的雙拳舉得比額頭明顯更高；「45 度」常指從側面看手臂與水平的夾角，量法不同，不能直接比較。",
             tag: "demo",
             src: ["demo"],
           },
@@ -394,7 +383,7 @@ export const SECTIONS: ShahoSection[] = [
         points: [
           { text: "「会要撐 5～7 秒」：常聽到，但全弓連沒有規定秒數。", tag: "folk" },
           { text: "指導書（學校授課篇）建議練習時維持約 5 秒，這是教學指引，不是射法規定。", tag: "guide", src: ["b5"] },
-          { text: "這次示範從会開始到離れ約 4.3 秒。", tag: "demo", src: ["demo"] },
+          { text: "示範影片中，從会開始到離れ約 4.3 秒。", tag: "demo", src: ["demo"] },
         ],
       },
     ],
@@ -440,10 +429,10 @@ export const SECTIONS: ShahoSection[] = [
         ],
       },
       {
-        title: "關於 3D 示範",
+        title: "關於示範影片",
         points: [
           {
-            text: "3D 中的離れ時間點（約 86.3 秒）是依右手腕速度的峰值偵測的；原影片的「離」字幕約晚 1 秒出現。",
+            text: "示範影片中，實際放箭約在 86 秒（依手腕速度判斷）；畫面上的「離」字幕約晚 1 秒才出現。",
             tag: "demo",
             src: ["demo"],
           },
@@ -483,10 +472,10 @@ export const SECTIONS: ShahoSection[] = [
         ],
       },
       {
-        title: "關於 3D 示範",
+        title: "關於示範影片",
         points: [
           {
-            text: "在 3D 中切換「会」與「残心」比較，可以看到妻手往後方大幅展開、右拳往下。",
+            text: "在示範影片中比較「会」與「残心」，可以看到妻手往後方大幅展開、右拳往下。",
             tag: "demo",
             src: ["demo"],
           },
@@ -540,7 +529,7 @@ export const FAQS: Faq[] = [
     a: [
       { text: "全弓連沒有規定秒數，說明的是等腹部的力量充滿到八、九分。", tag: "official", src: ["syaho"] },
       { text: "學校授課用的指導書建議練習時維持約 5 秒，這是給學生的練習指引。", tag: "guide", src: ["b5"] },
-      { text: "「5～7 秒」沒有官方出處；本站 3D 示範的会約 4.3 秒。實際長度依個人與呼吸而定。", tag: "folk", src: ["demo"] },
+      { text: "「5～7 秒」沒有官方出處；示範影片中的会約 4.3 秒。實際長度依個人與呼吸而定。", tag: "folk", src: ["demo"] },
     ],
   },
   {
@@ -575,16 +564,15 @@ export const FAQS: Faq[] = [
     q: "正面打起し和斜面打起し，哪一種才對？",
     a: [
       { text: "兩種都是全弓連承認的方式，官方辭典都有收錄。差別在弓構え的位置與舉弓的方向。", tag: "official", src: ["terminology"] },
-      { text: "實際採用哪一種，依所屬道場與指導者的系統。本站的 3D 示範是正面打起し。", tag: "note" },
+      { text: "實際採用哪一種，依所屬道場與指導者的系統。本站插圖與示範影片都是正面打起し。", tag: "note" },
     ],
   },
   {
-    q: "3D 示範的動作可以當標準嗎？",
+    q: "本站的插圖可以當標準嗎？",
     a: [
       {
-        text: "不行。它是單一示範者、單一次動作、單一正面鏡頭的重建，前後深度與腳部是推算的。請把它當成理解動作順序的輔助，標準以《弓道教本》與指導者為準。",
-        tag: "demo",
-        src: ["demo"],
+        text: "不行。插圖是依官方與指導書的描述以程式繪製的示意圖，部分角度與高度是本站估計；標準以《弓道教本》與指導者為準。",
+        tag: "note",
       },
     ],
   },
@@ -594,7 +582,7 @@ export const FAQS: Faq[] = [
 export const PAGE_SOURCES: SourceKey[] = ["syaho", "terminology", "tool", "improve02", "b4", "b5", "b6", "miyazaki", "twkyudo", "demo", "research04"];
 
 /**
- * 「這一節要注意的地方」shown under the 3D viewer, keyed by motion segment id.
+ * 「這一節要注意的地方」, keyed by segment id (used by the practice pages).
  * Plain reminders drawn from the sections above (ANKF〈射法について〉, 用語辞典 and the
  * 日本武道協議會 指導書); no numbers beyond the ones those sources give.
  */
