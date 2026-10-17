@@ -26,6 +26,8 @@ import {
 } from "@/content/guide/content";
 import { COST_ITEMS, COST_SOURCES } from "@/content/guide/cost";
 import { GUIDE_FAQS } from "@/content/guide/faqs";
+import QuickCheck from "@/components/practice/QuickCheck";
+import { QUICKCHECKS } from "@/content/practice/quickchecks";
 import { CHECKED_ON, JPY_TWD_RATE, PRICE, TW_X } from "@/content/guide/sources";
 import type { LayeredSection, Point, Source } from "@/content/types";
 
@@ -158,7 +160,7 @@ export default function GuidePage() {
         title="在台灣哪裡學"
         lead={`社會人士主要是臺灣弓道協會的弓道教室；學生可以看看學校有沒有弓道社。以下資料查詢日期 ${CHECKED_ON}，課程、時間與費用都可能改變，去之前請先聯絡對方確認。`}
       >
-        <article className="rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+        <article className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
           <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <h3 className="text-xl font-semibold">臺灣弓道協會</h3>
             <span className="text-sm text-muted">藏月弓道場・新北新莊・IKYF 會員</span>
@@ -398,6 +400,8 @@ export default function GuidePage() {
           ))}
         </div>
       </Section>
+
+      <QuickCheck set={QUICKCHECKS.guide} />
 
       <FaqList faqs={GUIDE_FAQS} />
 

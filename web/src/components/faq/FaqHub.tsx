@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useDeferredValue, useMemo, useState } from "react";
 import { foldText } from "@/lib/glossary";
-import { KIND_LABEL, TAG_LABEL, type Faq, type Tag } from "@/content/types";
+import Cites from "@/components/content/Cites";
+import { TAG_LABEL, type Faq, type Tag } from "@/content/types";
 
 export interface HubFaq extends Faq {
   id: string;
@@ -106,20 +107,7 @@ export default function FaqHub({ faqs, modules }: { faqs: HubFaq[]; modules: { k
                       </span>
                     )}
                     {p.text}
-                    {p.src && p.src.length > 0 && (
-                      <span className="ml-1 text-xs text-muted">
-                        〔
-                        {p.src.map((s, j) => (
-                          <span key={s.url + j}>
-                            {j > 0 && "、"}
-                            <a href={s.url} target="_blank" rel="noopener noreferrer" title={KIND_LABEL[s.kind]} className="underline decoration-line hover:text-wood">
-                              {s.label}
-                            </a>
-                          </span>
-                        ))}
-                        〕
-                      </span>
-                    )}
+                    <Cites src={p.src} />
                   </li>
                 ))}
               </ul>

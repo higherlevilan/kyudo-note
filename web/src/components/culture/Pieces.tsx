@@ -29,7 +29,7 @@ function Chev() {
 /** A collapsed 深入 layer, styled like LayeredCard's. */
 export function Deep({ title = "深入", children }: { title?: string; children: ReactNode }) {
   return (
-    <details className="mt-3 border-t border-line pt-3">
+    <details data-layer="deep" className="mt-3 border-t border-line pt-3">
       <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
         <Chev />
         {title}
@@ -42,7 +42,7 @@ export function Deep({ title = "深入", children }: { title?: string; children:
 /** 3 分鐘歷史：六個停靠站。 */
 export function QuickHistory() {
   return (
-    <article className="rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <h3 className="text-xl font-semibold">三分鐘看懂弓道史</h3>
       <ol className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {QUICK_HISTORY.map((q, i) => (
@@ -69,7 +69,7 @@ export function QuickHistory() {
 /** 真・善・美 */
 export function ShinZenBi() {
   return (
-    <article id="shinzenbi" className="scroll-mt-20 rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article id="shinzenbi" className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="text-xl font-semibold">真・善・美</h3>
         <span lang="ja" className="text-sm text-muted">
@@ -105,7 +105,7 @@ export function ShinZenBi() {
 /** 《禮記・射義》原文＋逐句白話 */
 export function Shagi() {
   return (
-    <article id="shagi" className="scroll-mt-20 rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article id="shagi" className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="text-xl font-semibold">《禮記・射義》</h3>
         <span lang="ja" className="text-sm text-muted">
@@ -163,7 +163,7 @@ export function Shagi() {
 /** 《射法訓》 */
 export function Shahokun() {
   return (
-    <article id="shahokun" className="scroll-mt-20 rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article id="shahokun" className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="text-xl font-semibold">《射法訓》</h3>
         <span lang="ja" className="text-sm text-muted">
@@ -192,7 +192,7 @@ export function Shahokun() {
 /** 《弓與禪》基本事實 */
 export function ZenFacts() {
   return (
-    <article className="rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <h3 className="text-xl font-semibold">《弓與禪》是怎樣的一本書</h3>
       <dl className="mt-4 divide-y divide-line text-[15px]">
         {ZEN_FACTS.map((f) => (
@@ -233,7 +233,7 @@ export function ZenFacts() {
 export function ShootingTypes() {
   const t = SHOOTING_TYPES;
   return (
-    <article className="rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <h3 className="text-xl font-semibold">射的分類：禮射與武射</h3>
       <p className="mt-2 text-[15px] leading-relaxed text-muted">
         教學上常把日本弓術分成兩大類。這是簡化：小笠原流也有騎射等武技，日置流也有禮法。
@@ -285,7 +285,7 @@ export function ShootingTypes() {
 /** 日治時期台灣弓道 */
 export function TwColonial() {
   return (
-    <article id="tw-colonial" className="scroll-mt-20 rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article id="tw-colonial" className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="text-xl font-semibold">日治時期（1895–1945）</h3>
         <TagBadge tag="research" />

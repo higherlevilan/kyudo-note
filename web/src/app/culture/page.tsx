@@ -7,6 +7,8 @@ import { Deep, QuickHistory, Shagi, Shahokun, ShinZenBi, ShootingTypes, TwColoni
 import RankLadder from "@/components/culture/RankLadder";
 import Timeline from "@/components/culture/Timeline";
 import { CULTURE_FAQS } from "@/content/culture/faqs";
+import QuickCheck from "@/components/practice/QuickCheck";
+import { QUICKCHECKS } from "@/content/practice/quickchecks";
 import { cultureSources } from "@/content/culture/index";
 import { RANK_HISTORY, RANK_RULES } from "@/content/culture/ranks";
 import { HISTORY_TOPICS, ISSHA, THOUGHT, TW_TODAY, WHAT_IS, ZEN, ZEN_BALANCE } from "@/content/culture/sections";
@@ -148,7 +150,7 @@ export default function CulturePage() {
         lead="全弓連的審查分三條：級位（五級～一級）、段位（初段～十段），以及錬士・教士・範士三個稱號。以下依《審査規程および内規》整理。"
       >
         <RankLadder />
-        <article className="rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+        <article className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
           <h3 className="text-xl font-semibold">規則重點</h3>
           <div className="mt-3 text-[15px]">
             <PointList points={RANK_RULES} />
@@ -174,6 +176,8 @@ export default function CulturePage() {
       <Section id="myths" title="迷思澄清" lead="每張卡片的正面是常見說法，按「看事實」翻面。">
         <MythCards />
       </Section>
+
+      <QuickCheck set={QUICKCHECKS.culture} />
 
       <FaqList faqs={CULTURE_FAQS} />
 

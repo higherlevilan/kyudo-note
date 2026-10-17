@@ -7,6 +7,8 @@ import TopicCard from "@/components/equipment/TopicCard";
 import YajakuCalculator from "@/components/equipment/YajakuCalculator";
 import YazukaDiagram from "@/components/equipment/YazukaDiagram";
 import { EQUIPMENT_FAQS } from "@/content/equipment/faqs";
+import QuickCheck from "@/components/practice/QuickCheck";
+import { QUICKCHECKS } from "@/content/practice/quickchecks";
 import { collectSources } from "@/content/equipment";
 import { PRICE_DATE } from "@/content/equipment/sources";
 import {
@@ -165,7 +167,7 @@ export default function EquipmentPage() {
           </>
         }
       >
-        <div className="grid items-center gap-5 rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+        <div className="grid items-center gap-5 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <figure>
             <YazukaDiagram />
             <figcaption className="mt-1 text-xs text-muted">示意圖：量矢束的姿勢（本站繪製）</figcaption>
@@ -217,7 +219,7 @@ export default function EquipmentPage() {
 
       {/* ───────── 其他用品 ───────── */}
       <Section id="goods" title="其他用品" lead={`弓袋、矢筒、弦巻、ゴム弓等。價格是小山、山武、平安 ${PRICE_DATE} 的含稅標價。`}>
-        <div className="rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+        <div className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
           <DataTable t={GOODS_TABLE} />
         </div>
       </Section>
@@ -244,7 +246,7 @@ export default function EquipmentPage() {
             。
           </p>
         </Callout>
-        <div className="rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+        <div className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
           <DataTable t={OTHER_BUDGETS_TABLE} />
         </div>
       </Section>
@@ -277,6 +279,8 @@ export default function EquipmentPage() {
           ))}
         </ul>
       </Section>
+
+      <QuickCheck set={QUICKCHECKS.equipment} />
 
       <FaqList faqs={EQUIPMENT_FAQS} />
 

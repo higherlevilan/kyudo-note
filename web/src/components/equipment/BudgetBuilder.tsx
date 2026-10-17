@@ -47,7 +47,7 @@ export default function BudgetBuilder() {
   const update = (id: string, patch: Partial<{ opt: number; qty: number }>) => setSel((s) => ({ ...s, [id]: { ...s[id], ...patch } }));
 
   return (
-    <div className="rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <div className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <div role="group" aria-label="套組預設" className="flex flex-wrap gap-2">
         {PRESETS.map((p) => (
           <button

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Noto_Sans_TC, Noto_Serif_JP } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import ReadingTools from "@/components/reading/ReadingTools";
 import "./globals.css";
 
 const notoSansTC = Noto_Sans_TC({
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
+        <ReadingTools />
       </body>
     </html>
   );

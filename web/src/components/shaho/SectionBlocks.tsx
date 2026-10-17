@@ -1,5 +1,6 @@
 import { TAG_LABEL, type Point, type ShahoSection, type Tag } from "@/content/shaho";
 import { SOURCES, type SourceKey } from "@/content/sources";
+import SharedCites from "@/components/content/Cites";
 import { videoAt, type MotionMeta } from "@/lib/shaho/motion";
 
 const TAG_STYLE: Record<Tag, string> = {
@@ -20,21 +21,7 @@ export function TagBadge({ tag }: { tag: Tag }) {
 }
 
 export function Cites({ src }: { src?: readonly SourceKey[] }) {
-  if (!src?.length) return null;
-  return (
-    <span className="ml-1 text-xs text-muted">
-      〔
-      {src.map((k, i) => (
-        <span key={k}>
-          {i > 0 && "、"}
-          <a href={SOURCES[k].url} target="_blank" rel="noopener noreferrer" className="underline decoration-line hover:text-wood">
-            {SOURCES[k].label}
-          </a>
-        </span>
-      ))}
-      〕
-    </span>
-  );
+  return <SharedCites src={src?.map((k) => SOURCES[k])} />;
 }
 
 export function PointList({ points }: { points: Point[] }) {
@@ -63,7 +50,7 @@ export function SectionCard({ s, meta }: { s: ShahoSection; meta: MotionMeta }) 
   const seg = meta.segments.find((x) => x.id === s.segment);
   const ref = meta.ref;
   return (
-    <article id={s.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article id={s.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         {s.no != null ? (
           <span className="rounded-full bg-ink px-2.5 py-0.5 text-xs font-medium text-paper">第 {s.no} 節</span>
@@ -95,7 +82,7 @@ export function SectionCard({ s, meta }: { s: ShahoSection; meta: MotionMeta }) 
         </div>
       </details>
 
-      <details className="mt-3 border-t border-line pt-3">
+      <details data-layer="deep" className="mt-3 border-t border-line pt-3">
         <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
           <Chevron />
           深入

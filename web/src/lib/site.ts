@@ -8,5 +8,6 @@ export const NAV = [
   { href: "/culture/", label: "文化" },
   { href: "/glossary/", label: "詞彙" },
   { href: "/faq/", label: "問題研究" },
+  { href: "/practice/", label: "練習" },
   { href: "/journal/", label: "稽古帳" },
 ] as const;

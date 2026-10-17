@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { KIND_LABEL, TAG_LABEL, type Faq, type LayeredSection, type Point, type Source, type Tag } from "@/content/types";
+import Cites from "./Cites";
 
 const TAG_STYLE: Record<Tag, string> = {
   official: "bg-indigo/15 text-indigo border-indigo/30",
@@ -22,23 +23,7 @@ export function TagBadge({ tag }: { tag: Tag }) {
   );
 }
 
-export function Cites({ src }: { src?: readonly Source[] }) {
-  if (!src?.length) return null;
-  return (
-    <span className="ml-1 text-xs text-muted">
-      〔
-      {src.map((s, i) => (
-        <span key={s.url + i}>
-          {i > 0 && "、"}
-          <a href={s.url} target="_blank" rel="noopener noreferrer" className="underline decoration-line hover:text-wood">
-            {s.label}
-          </a>
-        </span>
-      ))}
-      〕
-    </span>
-  );
-}
+export { default as Cites } from "./Cites";
 
 export function PointList({ points }: { points: readonly Point[] }) {
   return (
@@ -83,9 +68,9 @@ export function PageHeader({ kicker, title, ja, children }: { kicker: string; ti
 /** In-page table of contents chips. */
 export function TocChips({ items }: { items: readonly { id: string; label: string }[] }) {
   return (
-    <nav aria-label="本頁目錄" className="mb-6 flex flex-wrap gap-1.5 text-sm">
+    <nav aria-label="本頁目錄" className="-mx-4 mb-6 flex gap-1.5 overflow-x-auto px-4 pb-1 text-sm whitespace-nowrap sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
       {items.map((s) => (
-        <a key={s.id} href={`#${s.id}`} className="rounded-full border border-line bg-surface px-3 py-1 text-ink no-underline hover:bg-surface-2">
+        <a key={s.id} href={`#${s.id}`} className="shrink-0 rounded-full border border-line bg-surface px-3 py-1 text-ink no-underline hover:bg-surface-2">
           {s.label}
         </a>
       ))}
@@ -96,7 +81,7 @@ export function TocChips({ items }: { items: readonly { id: string; label: strin
 /** A topic card with 入門 (open) and 深入 (collapsed) layers. */
 export function LayeredCard({ s, children }: { s: LayeredSection; children?: ReactNode }) {
   return (
-    <article id={s.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article id={s.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="text-xl font-semibold">{s.title}</h3>
         {s.ja && (
@@ -127,8 +112,8 @@ export function LayeredCard({ s, children }: { s: LayeredSection; children?: Rea
         </div>
       </details>
       {s.deep && s.deep.length > 0 && (
-        <details className="mt-3 border-t border-line pt-3">
-          <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
+        <details data-layer="deep" className="mt-3 border-t border-line pt-3">
+          <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
             <Chevron />
             深入
           </summary>

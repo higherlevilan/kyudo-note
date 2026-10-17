@@ -13,6 +13,7 @@ const MODULES: Module[] = [
   { href: "/glossary/", title: "日文詞彙庫", ja: "用語", desc: "約 260 條術語，漢字、假名、羅馬拼音、中文都能搜尋。" },
   { href: "/faq/", title: "問題研究中心", ja: "問答", desc: "各單元的常見問題集中在這裡，每一題都附資料來源。" },
   { href: "/journal/", title: "個人學習日誌", ja: "稽古帳", desc: "記錄練習、課程筆記、審查、裝備採購與文化體驗。" },
+  { href: "/practice/", title: "互動練習", ja: "練習", desc: "八節排序、詞彙閃卡、迷思是非題、體配情境題與初段學科練習。" },
 ];
 
 const PATHS = [

@@ -77,7 +77,7 @@ export default function YajakuCalculator() {
         `初學者常見建議 ${fmt(yazuka + 10)}〜${fmt(yazuka + 15)} cm。弓長依各店矢束表：${drawBows.join("、")}。`;
 
   return (
-    <div className="rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <div className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <form className="grid gap-4 sm:grid-cols-2" onSubmit={(e) => e.preventDefault()} aria-label="矢尺・弓長計算器">
         <div>
           <label htmlFor={`${uid}-yazuka`} className="block font-semibold">

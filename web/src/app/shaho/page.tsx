@@ -5,6 +5,8 @@ import { SeekProvider } from "@/components/shaho/SeekContext";
 import ViewerLoader from "@/components/shaho/ViewerLoader";
 import { PointList, SectionCard } from "@/components/shaho/SectionBlocks";
 import { MOTION_DATA_URL, readMotionMeta } from "@/lib/shaho/meta.server";
+import QuickCheck from "@/components/practice/QuickCheck";
+import { QUICKCHECKS } from "@/content/practice/quickchecks";
 
 export const metadata: Metadata = {
   title: "射法八節",
@@ -72,6 +74,8 @@ export default function ShahoPage() {
             <SectionCard s={POSTLUDE} meta={meta} />
           </div>
         </section>
+
+        <QuickCheck set={QUICKCHECKS.shaho} />
 
         <section id="faq" aria-labelledby="faq-title" className="mt-12 scroll-mt-20">
           <h2 id="faq-title" className="mb-4 text-2xl font-bold">

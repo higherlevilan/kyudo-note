@@ -15,7 +15,7 @@ function Chevron() {
 
 export default function TopicCard({ t }: { t: EqTopic }) {
   return (
-    <article id={t.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-5 shadow-sm sm:p-6">
+    <article id={t.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         <h3 className="text-xl font-semibold">{t.title}</h3>
         {t.ja && (
@@ -48,7 +48,7 @@ export default function TopicCard({ t }: { t: EqTopic }) {
         </div>
       </details>
       {t.deep && t.deep.length > 0 && (
-        <details className="mt-3 border-t border-line pt-3">
+        <details data-layer="deep" className="mt-3 border-t border-line pt-3">
           <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
             <Chevron />
             深入

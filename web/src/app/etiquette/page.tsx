@@ -12,6 +12,8 @@ import { KEY_FIGURES } from "@/content/etiquette/figures";
 import { ZASHA_FLOW } from "@/content/etiquette/flow";
 import { MYTHS } from "@/content/etiquette/myths";
 import { ETIQUETTE_FAQS } from "@/content/etiquette/faqs";
+import QuickCheck from "@/components/practice/QuickCheck";
+import { QUICKCHECKS } from "@/content/practice/quickchecks";
 import { ANKF, BUDOKAN, ET, ETIQUETTE_SOURCES } from "@/content/etiquette/sources";
 import {
   DOJO_ENTER,
@@ -235,6 +237,8 @@ export default function EtiquettePage() {
       <Section id="myths" title="常見迷思與說法不一" lead="網路與道場常聽到的說法，對照本站查到的出處。">
         <MythList myths={MYTHS} />
       </Section>
+
+      <QuickCheck set={QUICKCHECKS.etiquette} />
 
       <FaqList faqs={ETIQUETTE_FAQS} />
 
