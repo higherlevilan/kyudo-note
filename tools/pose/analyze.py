@@ -109,15 +109,19 @@ def main():
 
     # Release: right wrist peak speed between 会 start and 離れ end. Captions
     # lag the motion, so the release instant comes from the raw (unsmoothed) data.
+    # Clips without 会/離れ (e.g. a 足踏み-only clip) have no release.
     raw_wr = np.array([f["world"][R_WR] for f in frames])
-    kai = next(s for s in seg["segments"] if s["id"] == "kai")
-    han = next(s for s in seg["segments"] if s["id"] == "hanare")
-    idx = np.where((t >= kai["start"]) & (t <= han["end"]))[0]
-    speed = np.linalg.norm(np.diff(raw_wr, axis=0), axis=1)
-    rel = idx[np.argmax(speed[idx[:-1]])] + 1
-    release_t = float(t[rel])
+    kai = next((s for s in seg["segments"] if s["id"] == "kai"), None)
+    han = next((s for s in seg["segments"] if s["id"] == "hanare"), None)
+    rel, release_t = None, None
+    if kai and han:
+        idx = np.where((t >= kai["start"]) & (t <= han["end"]))[0]
+        speed = np.linalg.norm(np.diff(raw_wr, axis=0), axis=1)
+        rel = idx[np.argmax(speed[idx[:-1]])] + 1
+        release_t = float(t[rel])
 
-    out = {"source": seg["source"], "release_t": release_t, "kai_hold_s": round(release_t - kai["start"], 2),
+    out = {"source": seg["source"], "release_t": release_t,
+           "kai_hold_s": round(release_t - kai["start"], 2) if release_t is not None else None,
            "up_rotation": np.round(rot, 5).tolist(), "segments": []}
     for s in seg["segments"]:
         if s["id"] == "hanare":
@@ -143,7 +147,8 @@ def main():
             f'shTilt={m["shoulder_tilt"]:5.1f} hipTilt={m["hip_tilt"]:5.1f} stance={m["stance_to_shoulder_ratio"]:.2f} '
             f'yaw={m["head_yaw_index"]:5.2f} lowVis={m["low_visibility"]}'
         )
-    print("release at", out["release_t"], "s; 会 held ≈", out["kai_hold_s"], "s")
+    if release_t is not None:
+        print("release at", out["release_t"], "s; 会 held ≈", out["kai_hold_s"], "s")
 
 
 if __name__ == "__main__":

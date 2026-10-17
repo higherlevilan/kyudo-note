@@ -92,6 +92,7 @@ const params = new URLSearchParams(location.search);
 const CLIPS = {
   miyako: { dir: "../../../data/private/miyako/", video: "shaho_hassetsu.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
   "gen-v1": { dir: "../../../data/generated/v1/", video: "wan30.mp4", landmarks: "wan30_landmarks.json", analysis: "wan30_analysis.json" },
+  "gen-ashibumi": { dir: "../../../data/generated/v2_ashibumi/", video: "ashibumi.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
 };
 const clip = CLIPS[params.get("clip")] || CLIPS.miyako;
 const paths = {
@@ -155,7 +156,14 @@ const METRICS = [
   ["左右腕高低差", w => (w[16][1] - w[15][1]) * 100, " cm", "+ = 弓手較高"],
   ["肩線傾斜", (w, p) => tilt(p[12], p[11], lm.width / lm.height), "°", "+ = 左肩較高"],
   ["腰線傾斜", (w, p) => tilt(p[24], p[23], lm.width / lm.height), "°", "+ = 左腰較高"],
+  ["兩腳寬度", w => Math.hypot(w[27][0] - w[28][0], w[27][2] - w[28][2]) / Math.hypot(w[11][0] - w[12][0], w[11][2] - w[12][2]), " 肩寬", "腳踝間距÷肩寬；袴會遮住腳踝"],
+  ["腳尖夾角", w => footAngle(w), "°", "足踏み約 60°"],
 ];
+// Angle between the two feet (heel → toe) on the floor plane.
+function footAngle(w) {
+  const l = [w[31][0] - w[29][0], w[31][2] - w[29][2]], r = [w[32][0] - w[30][0], w[32][2] - w[30][2]];
+  return deg(Math.acos(Math.min(1, Math.max(-1, (l[0] * r[0] + l[1] * r[1]) / (Math.hypot(...l) * Math.hypot(...r))))));
+}
 const metricsEl = document.getElementById("metrics");
 metricsEl.innerHTML = METRICS.map(([name, , , hint]) => `<div class="metric"><span>${name}</span><b>—</b><em></em><span>${hint}</span></div>`).join("");
 const metricVals = [...metricsEl.querySelectorAll("b")];
@@ -163,6 +171,7 @@ const metricDescs = [...metricsEl.querySelectorAll("em")];
 // 初學者: round to the nearest 5 and add a plain-language reading; 詳細: whole numbers.
 let numberMode = "beginner";
 function formatMetric(v, unit) {
+  if (unit === " 肩寬") return numberMode === "beginner" ? `約 ${(Math.round(v * 2) / 2).toFixed(1)} 個肩寬` : `${v.toFixed(2)} 個肩寬`;
   if (unit === " cm") return numberMode === "beginner" ? `約 ${Math.round(v)} cm` : `${v.toFixed(1)} cm`;
   return numberMode === "beginner" ? `約 ${Math.round(v / 5) * 5}°` : `${Math.round(v)}°`;
 }
@@ -171,6 +180,8 @@ function describeMetric(k, v) {
   if (k <= 3) return v >= 80 && v <= 100 ? "手臂約水平" : v > 150 ? "手臂高舉" : v < 45 ? "手臂下垂" : "";
   if (k <= 5) return Math.abs(v) <= 5 ? "與肩同高" : v > 45 ? "高舉過頭" : v > 5 ? "高於肩" : "低於肩";
   if (k === 6) return Math.abs(v) <= 3 ? "左右同高" : v > 0 ? "弓手較高" : "妻手較高";
+  if (k === 9) return v < 0.6 ? "雙腳併攏" : v < 1.2 ? "略為張開" : "足踏み寬度";
+  if (k === 10) return v >= 50 && v <= 70 ? "約 60°（標準）" : v < 50 ? "偏窄" : "偏寬";
   return Math.abs(v) <= 3 ? "水平" : "傾斜";
 }
 
@@ -443,7 +454,7 @@ const bowParts = [bowMesh, gripMesh, stringMesh, arrow3d];
 //   carry: arrow held in the right hand (before 矢番え); nocked: arrow on the string; released: after 離れ (弓返り done).
 const NOCK_FROM = ["yugamae", "kai"];
 function bowState(t) {
-  if (t >= an.release_t) return "released";
+  if (an.release_t != null && t >= an.release_t) return "released";
   const s = an.segments.find(s => NOCK_FROM.includes(s.id));
   return s && t >= s.start ? "nocked" : "carry";
 }
@@ -521,7 +532,9 @@ an.segments.forEach((s, i) => {
   el.title = `${s.label}  ${s.start}–${s.end}s`;
   timeline.appendChild(el);
 });
-document.getElementById("releaseMark").style.left = (an.release_t / duration * 100) + "%";
+const releaseMark = document.getElementById("releaseMark");
+if (an.release_t != null) releaseMark.style.left = (an.release_t / duration * 100) + "%";
+else releaseMark.style.display = "none";
 timeline.addEventListener("click", e => {
   const r = timeline.getBoundingClientRect();
   video.currentTime = (e.clientX - r.left) / r.width * duration;
@@ -538,7 +551,7 @@ an.segments.forEach(s => {
 
 const phaseEl = document.getElementById("phase");
 const phaseAt = t => {
-  if (Math.abs(t - an.release_t) < 0.25) return "離れ";
+  if (an.release_t != null && Math.abs(t - an.release_t) < 0.25) return "離れ";
   const s = an.segments.find(s => t >= s.start && t < s.end);
   return s ? s.label : "—";
 };
