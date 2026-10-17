@@ -34,6 +34,11 @@
   .metric span { color: var(--muted); font-size: 12px; }
   .metric em { display: block; font-style: normal; color: var(--accent); font-size: 13px; min-height: 1.2em; }
   .note { grid-column: 1 / -1; color: var(--muted); font-size: 12px; }
+  main.no-video #videoStage { display: none; }
+  main.no-video #threeStage { grid-column: 1 / -1; height: min(70vh, 720px); }
+  .ref { grid-column: 1 / -1; margin: 0; color: var(--muted); font-size: 13px; }
+  .ref a { color: var(--accent); }
+  .ref .jumps a { margin-right: 10px; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -42,15 +47,16 @@
   <small id="source"></small>
 </header>
 <main>
-  <div class="stage">
-    <span class="tag">影片</span>
-    <span id="phase">—</span>
+  <div class="stage" id="videoStage">
+    <span class="tag">影片（僅本機比對）</span>
     <video id="video" playsinline muted preload="auto"></video>
   </div>
-  <div class="stage">
+  <div class="stage" id="threeStage">
     <span class="tag">3D 人形（可拖曳旋轉）</span>
+    <span id="phase">—</span>
     <canvas id="three"></canvas>
   </div>
+  <p class="ref" id="ref" hidden></p>
   <div class="controls">
     <button id="play">▶ 播放</button>
     <button data-rate="0.25">0.25×</button>
@@ -84,7 +90,9 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 const params = new URLSearchParams(location.search);
 // ?clip=<name> picks a preset; ?video=&landmarks=&analysis= override individual files.
 const CLIPS = {
-  miyako: { dir: "../../../data/private/miyako/", video: "shaho_hassetsu.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
+  // Her footage is not ours to publish: show only the 3D figure driven by her motion, plus links to the original.
+  miyako: { dir: "../../../data/private/miyako/", video: "shaho_hassetsu.mp4", landmarks: "landmarks.json", analysis: "analysis.json",
+            noVideo: true, ref: { title: "Miyako's Kyudo〈弓道入門：射法八節的連貫動作〉", url: "https://www.youtube.com/watch?v=_3V4mznQLIs" } },
   "gen-v1": { dir: "../../../data/generated/v1/", video: "wan30.mp4", landmarks: "wan30_landmarks.json", analysis: "wan30_analysis.json" },
   "gen-yatsugae": { dir: "../../../data/generated/v5_yatsugae/", video: "yatsugae.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
   "gen-ashibumi": { dir: "../../../data/generated/v4_ashibumi_ff/b/", video: "ashibumi.mp4", landmarks: "landmarks.json", analysis: "analysis.json" },
@@ -175,9 +183,33 @@ function describeMetric(k, v) {
 }
 
 // ---- video --------------------------------------------------------------
-const video = document.getElementById("video");
-video.src = paths.video;
-video.load();
+// Without a video (?withvideo overrides for local comparison), a clock drives playback.
+const hasVideo = !clip.noVideo || params.has("withvideo");
+function makeClock(end) {
+  const c = new EventTarget();
+  let t0 = 0, start = null, rate = 1;
+  const now = () => start == null ? t0 : Math.min(end, t0 + (performance.now() - start) / 1000 * rate);
+  Object.defineProperty(c, "currentTime", { get: now, set(v) { t0 = v; if (start != null) start = performance.now(); } });
+  Object.defineProperty(c, "paused", { get: () => start == null });
+  Object.defineProperty(c, "playbackRate", { get: () => rate, set(v) { t0 = now(); if (start != null) start = performance.now(); rate = v; } });
+  c.play = () => { if (start == null) { if (now() >= end) t0 = 0; start = performance.now(); c.dispatchEvent(new Event("play")); } return Promise.resolve(); };
+  c.pause = () => { if (start != null) { t0 = now(); start = null; c.dispatchEvent(new Event("pause")); } };
+  return c;
+}
+const video = hasVideo ? document.getElementById("video") : makeClock(times[times.length - 1]);
+if (hasVideo) {
+  video.src = paths.video;
+  video.load();
+} else {
+  document.querySelector("main").classList.add("no-video");
+}
+if (clip.ref) {
+  const ref = document.getElementById("ref");
+  ref.hidden = false;
+  const at = s => `${clip.ref.url}&t=${Math.floor(s)}s`;
+  ref.innerHTML = `動作來源：<a href="${clip.ref.url}" target="_blank" rel="noopener">${clip.ref.title}</a>（YouTube）。3D 人形依此影片的動作重建，未使用影片畫面。<br>
+    <span class="jumps">在原影片中看：${an.segments.map(s => `<a href="${at(s.start)}" target="_blank" rel="noopener">${s.label}</a>`).join("")}</span>`;
+}
 
 // ---- 3D -----------------------------------------------------------------
 const canvas3d = document.getElementById("three");
@@ -527,6 +559,7 @@ addEventListener("keydown", e => {
 const cursor = document.getElementById("cursor");
 function tick() {
   const t = video.currentTime;
+  if (!hasVideo && !video.paused && t >= times[times.length - 1]) video.pause();
   const i = frameAt(t);
   const p = smoothed("pose", i), w = smoothed("world", i);
   draw3D(w, t);
@@ -541,7 +574,8 @@ function tick() {
   renderer.render(scene, camera);
   requestAnimationFrame(tick);
 }
-video.addEventListener("loadeddata", () => { video.currentTime = an.segments.find(s => s.id === "kai").keyframe_t; });
+const startAt = () => { video.currentTime = (an.segments.find(s => s.id === "kai") || an.segments[0]).keyframe_t; };
+if (hasVideo) video.addEventListener("loadeddata", startAt); else startAt();
 tick();
 </script>
 </body>
