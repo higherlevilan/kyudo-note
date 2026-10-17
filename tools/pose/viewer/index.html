@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>射法八節 骨架分析</title>
+<title>射法八節 3D 檢視</title>
 <style>
   :root {
     --bg: #14161a; --panel: #1d2026; --line: #2c3038; --text: #e8e6e1; --muted: #9a9890;
@@ -19,8 +19,6 @@
   .stage { position: relative; background: #000; border-radius: 8px; overflow: hidden; height: min(62vh, 640px); }
   .stage video, .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   #three { background: radial-gradient(#f4f5f7, #d5d8de); }
-  .modes { position: absolute; top: 8px; right: 8px; z-index: 2; display: flex; gap: 4px; }
-  .modes button { background: #000a; padding: 2px 10px; font-size: 12px; }
   .tag { position: absolute; top: 8px; left: 8px; background: #000a; padding: 2px 8px; border-radius: 4px; font-size: 12px; z-index: 2; }
   #phase { position: absolute; top: 8px; right: 8px; background: var(--accent); color: #111; font-weight: 700; padding: 4px 12px; border-radius: 4px; font-size: 18px; z-index: 2; }
   .controls { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
@@ -36,25 +34,21 @@
   .metric span { color: var(--muted); font-size: 12px; }
   .metric em { display: block; font-style: normal; color: var(--accent); font-size: 13px; min-height: 1.2em; }
   .note { grid-column: 1 / -1; color: var(--muted); font-size: 12px; }
-  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin: 0 4px 0 10px; vertical-align: middle; }
 </style>
 </head>
 <body>
 <header>
-  <h1>射法八節 骨架分析</h1>
+  <h1>射法八節 3D 檢視</h1>
   <small id="source"></small>
-  <small class="legend"><i style="background:var(--left)"></i>左側（弓手）<i style="background:var(--right)"></i>右側（妻手）</small>
 </header>
 <main>
   <div class="stage">
-    <span class="tag">真實影片＋2D 骨架</span>
+    <span class="tag">影片</span>
     <span id="phase">—</span>
     <video id="video" playsinline muted preload="auto"></video>
-    <canvas id="overlay"></canvas>
   </div>
   <div class="stage">
     <span class="tag">3D 人形（可拖曳旋轉）</span>
-    <span class="modes"><button data-mode="mannequin">人形</button><button data-mode="stick">骨架</button></span>
     <canvas id="three"></canvas>
   </div>
   <div class="controls">
@@ -107,12 +101,6 @@ document.getElementById("source").textContent = an.source;
 // ---- data ---------------------------------------------------------------
 const frames = lm.frames;
 const times = frames.map(f => f.t);
-const LEFT = new Set([11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 1, 2, 3, 7, 9]);
-const RIGHT = new Set([12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 4, 5, 6, 8, 10]);
-const BONES = [[11,12],[11,13],[13,15],[12,14],[14,16],[11,23],[12,24],[23,24],[23,25],[25,27],[24,26],[26,28],
-               [27,29],[29,31],[27,31],[28,30],[30,32],[28,32],[15,17],[15,19],[16,18],[16,20],[0,7],[0,8]];
-const JOINTS = [0,7,8,11,12,13,14,15,16,23,24,25,26,27,28,29,30,31,32];
-const colorOf = i => LEFT.has(i) ? "#4fa3e0" : RIGHT.has(i) ? "#e0614f" : "#e8e6e1";
 
 // Moving-average smoothing (±2 samples) to remove detector jitter.
 function smoothed(key, i) {
@@ -185,34 +173,10 @@ function describeMetric(k, v) {
   return Math.abs(v) <= 3 ? "水平" : "傾斜";
 }
 
-// ---- video + 2D overlay -------------------------------------------------
+// ---- video --------------------------------------------------------------
 const video = document.getElementById("video");
 video.src = paths.video;
 video.load();
-const overlay = document.getElementById("overlay");
-const ctx = overlay.getContext("2d");
-
-function drawOverlay(p) {
-  const rect = overlay.getBoundingClientRect();
-  overlay.width = rect.width * devicePixelRatio;
-  overlay.height = rect.height * devicePixelRatio;
-  ctx.clearRect(0, 0, overlay.width, overlay.height);
-  if (!p) return;
-  // Map normalized video coords through object-fit: cover.
-  const vw = lm.width, vh = lm.height;
-  const scale = Math.max(overlay.width / vw, overlay.height / vh);
-  const ox = (overlay.width - vw * scale) / 2, oy = (overlay.height - vh * scale) / 2;
-  const xy = q => [ox + q[0] * vw * scale, oy + q[1] * vh * scale];
-  ctx.lineWidth = 3 * devicePixelRatio;
-  for (const [a, b] of BONES) {
-    ctx.strokeStyle = colorOf(a === 0 ? b : a);
-    ctx.beginPath(); ctx.moveTo(...xy(p[a])); ctx.lineTo(...xy(p[b])); ctx.stroke();
-  }
-  for (const j of JOINTS) {
-    ctx.fillStyle = colorOf(j);
-    ctx.beginPath(); ctx.arc(...xy(p[j]), 4 * devicePixelRatio, 0, Math.PI * 2); ctx.fill();
-  }
-}
 
 // ---- 3D -----------------------------------------------------------------
 const canvas3d = document.getElementById("three");
@@ -341,26 +305,6 @@ const handMeshes = [15, 16].map(() => {
   m.scale.set(1, 1.4, 0.6); m.castShadow = true; scene.add(m); return m;
 });
 
-// --- stick skeleton (toggle) ---
-const stick = new THREE.Group(); scene.add(stick);
-const jointMeshes = new Map();
-for (const j of JOINTS) {
-  const m = new THREE.Mesh(new THREE.SphereGeometry(j === 0 ? 0.05 : 0.028, 16, 12), new THREE.MeshStandardMaterial({ color: colorOf(j) }));
-  stick.add(m); jointMeshes.set(j, m);
-}
-const boneMeshes = BONES.map(([a]) => {
-  const m = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 1, 8), new THREE.MeshStandardMaterial({ color: colorOf(a === 0 ? 7 : a) }));
-  stick.add(m); return m;
-});
-const mannequinParts = [...limbMeshes, ...jointBalls, neckBall, torso, neck, head, ...handMeshes];
-let mode = "mannequin";
-function setMode(m) {
-  mode = m;
-  stick.visible = m === "stick";
-  mannequinParts.forEach(p => p.visible = m === "mannequin");
-  document.querySelectorAll("[data-mode]").forEach(b => b.classList.toggle("on", b.dataset.mode === m));
-}
-
 const up = new THREE.Vector3(0, 1, 0);
 // MediaPipe world: +x image-right, +y down, +z away from camera → three.js: flip y and z.
 const toV3 = p => new THREE.Vector3(p[0], -p[1], -p[2]);
@@ -373,16 +317,6 @@ function draw3D(w, t) {
   const P = w.map(p => toV3(p).add(shift));
   drawBow(P, t);
 
-  if (mode === "stick") {
-    for (const j of JOINTS) jointMeshes.get(j).position.copy(P[j]);
-    BONES.forEach(([a, b], i) => {
-      const m = boneMeshes[i], d = new THREE.Vector3().subVectors(P[b], P[a]);
-      m.position.copy(P[a]).addScaledVector(d, 0.5);
-      m.scale.set(1, d.length(), 1);
-      m.quaternion.setFromUnitVectors(up, d.normalize());
-    });
-    return;
-  }
 
   LIMBS.forEach(([a, b, r0, r1], i) => limbMeshes[i].update(...limbRing(P[a], P[b], r0, r1)));
   JOINT_BALLS.forEach(([j], i) => jointBalls[i].position.copy(P[j]));
@@ -516,7 +450,6 @@ function resize3D() {
   camera.aspect = r.width / r.height; camera.updateProjectionMatrix();
 }
 new ResizeObserver(resize3D).observe(canvas3d);
-setMode("mannequin");
 
 // ---- timeline -----------------------------------------------------------
 const PHASE_COLORS = ["#8a8a8a","#c9b37e","#d9a441","#e3b85c","#9fc27a","#7fbf9f","#6fb0c8","#7f95d6","#e0614f","#b98ad6","#8a8a8a"];
@@ -565,7 +498,6 @@ document.querySelectorAll("[data-rate]").forEach(b => b.onclick = () => {
   video.playbackRate = +b.dataset.rate;
   document.querySelectorAll("[data-rate]").forEach(x => x.classList.toggle("on", x === b));
 });
-document.querySelectorAll("[data-mode]").forEach(b => b.onclick = () => setMode(b.dataset.mode));
 document.querySelectorAll("[data-num]").forEach(b => b.onclick = () => {
   numberMode = b.dataset.num;
   document.querySelectorAll("[data-num]").forEach(x => x.classList.toggle("on", x === b));
@@ -585,7 +517,6 @@ function tick() {
   const t = video.currentTime;
   const i = frameAt(t);
   const p = smoothed("pose", i), w = smoothed("world", i);
-  drawOverlay(p);
   draw3D(w, t);
   if (w && p) METRICS.forEach(([, fn, unit], k) => {
     const v = fn(w, p);
