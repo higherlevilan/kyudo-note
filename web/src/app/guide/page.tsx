@@ -9,6 +9,7 @@ import CourseSection from "@/components/course/CourseSection";
 import ClubList from "@/components/guide/ClubList";
 import CompareTable from "@/components/guide/CompareTable";
 import CostEstimator from "@/components/guide/CostEstimator";
+import PhotoStrip from "@/components/content/PhotoStrip";
 import Dojo3D from "@/components/guide/Dojo3D";
 import FirstVisitSteps from "@/components/guide/FirstVisitSteps";
 import Roadmap from "@/components/guide/Roadmap";
@@ -143,6 +144,7 @@ export default function GuidePage() {
         }
       >
         <Roadmap steps={ROADMAP} examples={TIMING_EXAMPLES} />
+        <PhotoStrip ids={["makiwara", "makiwaraRow"]} title="巻藁長什麼樣" className="mt-5" />
       </CourseSection>
 
       {/* ---------------------------------------------------------- */}
@@ -202,6 +204,7 @@ export default function GuidePage() {
           </>
         }
       >
+        <PhotoStrip ids={["dojoKinteki", "dojoShajo", "matoAzuchi", "matoRow"]} title="真實的射場與的" className="mb-5" />
         <Dojo3D />
         <div className="grid gap-5 md:grid-cols-2 md:items-start">
           <ShajoLayout />

@@ -17,6 +17,7 @@ import Yumi3D from "@/components/equipment/Yumi3D";
 import BowLengthCompare from "@/components/illustrations/gear/BowLengthCompare";
 import KakeParts from "@/components/illustrations/gear/KakeParts";
 import { YaParts } from "@/components/illustrations/gear/YaParts";
+import PhotoStrip from "@/components/content/PhotoStrip";
 import Ya3D from "@/components/equipment/Ya3D";
 import YumiParts from "@/components/illustrations/gear/YumiParts";
 import { EQUIPMENT_FAQS } from "@/content/equipment/faqs";
@@ -208,6 +209,7 @@ export default function EquipmentPage() {
       <CourseSection chapter="equipment" id="bow" title="弓" quip lead="先認識弓的各部位名稱，再看弓長、弓力、弓材，以及比賽與審查的規定。">
         <YumiParts />
         <Yumi3D />
+        <PhotoStrip ids={["yumi"]} className="my-5" />
         {YUMI_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
@@ -218,6 +220,7 @@ export default function EquipmentPage() {
 
       {/* ───────── 矢 ───────── */}
       <CourseSection chapter="equipment" id="arrow" title="矢" lead="箭的部位與規定、甲矢與乙矢、箭桿規格、重量，以及羽的合法來源。">
+        <PhotoStrip ids={["ya", "yaHane", "yaItatsuki"]} className="mb-5" />
         {YA_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
@@ -233,6 +236,7 @@ export default function EquipmentPage() {
 
       {/* ───────── 弽 ───────── */}
       <CourseSection chapter="equipment" id="glove" title="弽" lead="右手的鹿皮手套：規定、種類、尺寸、價格帶與相關小物。">
+        <PhotoStrip ids={["kakeMitsu", "kakeMitsuWorn", "kakeYotsu"]} className="mb-5" />
         {KAKE_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
@@ -240,6 +244,7 @@ export default function EquipmentPage() {
 
       {/* ───────── 服裝 ───────── */}
       <CourseSection chapter="equipment" id="dress" title="服裝">
+        <PhotoStrip ids={["wear", "tabi"]} className="mb-5" />
         {WEAR_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} />
         ))}
