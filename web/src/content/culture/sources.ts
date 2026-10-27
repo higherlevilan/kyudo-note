@@ -10,8 +10,13 @@ export const CS = {
     url: "https://www.kyudo.jp/img/aboutus/plan_20240327.pdf",
     kind: "official",
   },
-  ikyfAbout: { label: "國際弓道連盟 IKYF〈About IKYF〉", url: "https://www.ikyf.org/about_ikyf.html", kind: "official" },
-  aichi: { label: "愛知縣〈The 4th World Kyudo Championships〉", url: "https://aichi-sc.jp/en/?p=81", kind: "official" },
+  ankfReport2025: {
+    label: "全日本弓道連盟《令和7年度 事業報告書》〈地連別登録人口一覧〉（令和8年3月31日現在）",
+    url: "https://www.kyudo.jp/pdf/aboutus/r07_jigyouhoukoku_202607.pdf",
+    kind: "official",
+  },
+  ikyfAbout: { label: "國際弓道連盟 IKYF〈About IKYF〉（存檔，2026-05-01；官網 2026-10-28 無法連線）", url: "https://web.archive.org/web/20260501095222/https://www.ikyf.org/about_ikyf.html", kind: "official" },
+  aichi: { label: "愛知スポーツコミッション〈Achievements〉：The 4th World Kyudo Championships", url: "https://aichi-sc.jp/en/achievements/", kind: "official" },
   twOrg: { label: "臺灣弓道協會〈組織架構與章程〉", url: "https://www.kyudo.org.tw/about/organization", kind: "local" },
 
   // 日本武道館
@@ -101,6 +106,6 @@ export const CS = {
     kind: "secondary",
   },
   twBlog: { label: "部落格「台灣弓道文史研究室」", url: "https://kyokyudo.blog/tag/台灣弓道文史研究室/", kind: "secondary" },
-  tkuTimes: { label: "《淡江時報》弓道社報導", url: "https://tkutimes.tku.edu.tw/fpdf/55271.pdf", kind: "secondary" },
+  tkuTimes: { label: "《淡江時報》弓道社報導", url: "https://tkutimes.az.tku.edu.tw/fpdf/55271.pdf", kind: "secondary" },
   oomato: { label: "三十三間堂「大的大會」介紹（tabi-mag）", url: "https://tabi-mag.jp/ky0313/", kind: "secondary" },
 } satisfies Record<string, Source>;

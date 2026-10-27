@@ -2,7 +2,8 @@
 
 // 矢所的「前」「後」, step by step: a top view of the archer and the target beside the target face
 // as the archer sees it. Restates MAE_USHIRO (src/content/shaguse/yadokoro.ts): a common club
-// usage (一般說法), not an official definition. Right-handed archer unless the step says otherwise.
+// usage (一般說法), not an official definition. Everyone holds the bow in the left hand, so there is
+// no mirrored version.
 
 import Stepper from "@/components/course/Stepper";
 import { TagBadge, Cites } from "@/components/content/Blocks";
@@ -27,14 +28,12 @@ interface Step {
   title: string;
   text: string;
   side: Side;
-  /** left-handed archer (mirror) */
-  left?: boolean;
 }
 
 const STEPS: Step[] = [
   {
     title: "射手怎麼站",
-    text: "足踏み時身體正面朝向射場正面，靶在左手邊。射手身體正面那一側叫「前」，背後那一側叫「後」。",
+    text: "足踏み時身體正面朝向脇正面，靶在左手邊。射手身體正面那一側叫「前」，背後那一側叫「後」。",
     side: "none",
   },
   {
@@ -46,12 +45,6 @@ const STEPS: Step[] = [
     title: "箭偏「後」",
     text: "箭往射手背後那一側偏。從射手看過去，落在靶的左側。",
     side: "ushiro",
-  },
-  {
-    title: "左射者",
-    text: "左射者站的方向相反，所以左右也相反：「前」是靶的左側，「後」是靶的右側。",
-    side: "mae",
-    left: true,
   },
 ];
 
@@ -66,12 +59,10 @@ function Label({ x, y, children, fill = INK, anchor = "middle", size = 12 }: { x
 function Diagram({ i }: { i: number }) {
   const s = STEPS[i];
   const p = useProgress(i, 900);
-  // For a left-handed archer the body faces the other way: 前 is toward the top of the top view.
-  const frontDown = !s.left;
-  const maeY = frontDown ? 1 : -1;
-  const sideSign = s.side === "mae" ? maeY : s.side === "ushiro" ? -maeY : 0;
-  // Where the arrow lands on the face (as the archer sees it): right-handed 前 → right.
-  const faceDx = s.side === "none" ? 0 : (s.side === "mae") !== !!s.left ? 1 : -1;
+  // 前 (the archer's front) is toward the bottom of the top view.
+  const sideSign = s.side === "mae" ? 1 : s.side === "ushiro" ? -1 : 0;
+  // Where the arrow lands on the face (as the archer sees it): 前 → right.
+  const faceDx = s.side === "none" ? 0 : s.side === "mae" ? 1 : -1;
   const hitY = AY + sideSign * 13;
   const path = `M${AX + 12} ${AY}Q${(AX + TX) / 2} ${AY} ${TX} ${hitY}`;
   const landed = p > 0.85;
@@ -90,11 +81,11 @@ function Diagram({ i }: { i: number }) {
           <path d={`M${AX + 4} ${AY - 3}l6 3l-6 3`} fill="var(--surface)" />
         </g>
         {/* 前 / 後 sides of the archer */}
-        <path d={`M${AX - 30} ${AY + maeY * 34}h46`} stroke={RED} strokeWidth={1} opacity={0.5} />
-        <Label x={AX - 6} y={AY + maeY * 34 + (maeY > 0 ? 16 : -8)} fill={RED}>
+        <path d={`M${AX - 30} ${AY + 34}h46`} stroke={RED} strokeWidth={1} opacity={0.5} />
+        <Label x={AX - 6} y={AY + 50} fill={RED}>
           前（身體正面）
         </Label>
-        <Label x={AX - 6} y={AY - maeY * 34 + (maeY > 0 ? -8 : 16)} fill={MUTED}>
+        <Label x={AX - 6} y={AY - 42} fill={MUTED}>
           後（背後）
         </Label>
         {/* target, edge-on */}
@@ -121,17 +112,12 @@ function Diagram({ i }: { i: number }) {
           <circle cx={FX} cy={FY} r={FR * 0.2} fill={INK} />
         </g>
         <Label x={FX + FR + 2} y={FY + FR + 18} anchor="end" fill={faceDx !== 0 || i === 0 ? RED : MUTED} size={11.5}>
-          {s.left ? "← 前　　後 →" : "← 後　　前 →"}
+          ← 後　　前 →
         </Label>
         {faceDx !== 0 && landed && <circle cx={FX + faceDx * FR * 0.72} cy={FY + 2} r={4} fill={RED} stroke="#fbf7ef" strokeWidth={1.2} />}
-        {s.left && (
-          <Label x={FX} y={FY + FR + 38} fill={RED} size={11.5}>
-            左射者
-          </Label>
-        )}
       </svg>
       <figcaption className="mt-1 px-1 text-xs leading-5 text-muted">
-        「前＝靶的右側（右射者）」是社團間的一般說法，全弓連用語辭典與指導書沒有直接的定義句。圖是示意，不是實際落點。
+        「前＝靶的右側」是社團間的一般說法，全弓連用語辭典與指導書沒有直接的定義句。弓道一律左手持弓、右手拉弦（《弓道競技規則》規定右手必戴弽），所以每位射手的前後都一樣。圖是示意，不是實際落點。
       </figcaption>
     </figure>
   );

@@ -2,20 +2,22 @@
 
 // Home page pieces that read progress (TechEDU buildHome): the hero CTA + total progress,
 // the 修煉路線圖 (metro map of the 關卡) and the 徽章牆. Prerendered with empty progress;
-// the rings fill in right after hydration.
+// the rings fill in right after hydration. 「繼續」 goes to the last visited 小節 while its chapter
+// is unfinished (nextStop). Links don't prefetch: on phones scrolling the map would otherwise
+// fetch every chapter.
 
 import Link from "next/link";
 import { useId } from "react";
 import BadgeArt from "@/components/course/BadgeArt";
 import Ring from "@/components/course/Ring";
-import { CHAPTERS } from "@/content/course/chapters";
+import { CHAPTERS } from "@/content/course/registry";
 import { badgeName, chapterStatus, nextStop, pct, totalFraction, useCourseProgress } from "@/lib/course/progress";
 
 export function HeroCta() {
   const p = useCourseProgress();
   const total = pct(totalFraction(p));
   const stop = nextStop(p);
-  const started = Object.keys(p.seen).length > 0 || Object.keys(p.quiz).length > 0;
+  const started = Object.keys(p.seen).length > 0 || Object.keys(p.quiz).length > 0 || !!p.last;
   const badges = CHAPTERS.filter((c) => chapterStatus(p, c).badge).length;
   const id = useId();
   const primary = "inline-flex min-h-12 items-center gap-1.5 rounded-xl bg-ink px-5 text-base font-semibold text-paper no-underline hover:bg-ink/85";
@@ -26,15 +28,15 @@ export function HeroCta() {
     <div className="mt-7 flex flex-col items-start gap-5">
       <div className="flex flex-wrap gap-3">
         {!started || !stop ? (
-          <Link href={stop ? "/guide/" : "/#badges"} className={primary}>
+          <Link href={stop ? "/guide/" : "/#badges"} prefetch={false} className={primary}>
             {stop ? "從序章開始" : "全部完成！看徽章牆"} <span aria-hidden="true">▶</span>
           </Link>
         ) : (
           <>
-            <Link href={stop.href} className={primary}>
+            <Link href={stop.href} prefetch={false} className={primary}>
               繼續：{stop.chapter.tag} {stop.chapter.title}・{stop.label} <span aria-hidden="true">▶</span>
             </Link>
-            <Link href="/guide/" className={secondary}>
+            <Link href="/guide/" prefetch={false} className={secondary}>
               從序章開始
             </Link>
           </>
@@ -88,6 +90,7 @@ export function Roadmap() {
             </span>
             <Link
               href={ch.href}
+              prefetch={false}
               className="group block min-w-0 flex-1 rounded-2xl border border-line bg-surface p-4 text-ink no-underline shadow-sm transition hover:-translate-y-0.5 hover:border-wood hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-5"
             >
               <span className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
@@ -106,7 +109,7 @@ export function Roadmap() {
               <span className="mt-1 block text-lg font-bold group-hover:text-wood">{ch.title}</span>
               <span className="mt-1 block text-sm leading-relaxed text-muted">{ch.blurb}</span>
               <span className="mt-2 block text-xs font-semibold text-wood">
-                {ch.sections.length} 個小節{ch.quiz.length > 0 && ` · 測驗 ${ch.quiz.length} 題`}
+                {ch.sections.length} 個小節{ch.quizCount > 0 && ` · 測驗 ${ch.quizCount} 題`}
               </span>
             </Link>
           </li>
@@ -126,7 +129,8 @@ export function BadgeWall() {
           <li key={ch.id}>
             <Link
               href={ch.href}
-              title={st.badge ? ch.badge.line || badgeName(ch) : "讀完這一關的所有小節並完成測驗即可解鎖"}
+              prefetch={false}
+              title={st.badge ? ch.badge.line || badgeName(ch) : "讀完這一關的所有小節並通過測驗（答對 60%）即可解鎖"}
               className={`flex h-full flex-col items-center gap-1 rounded-2xl border px-1.5 py-3 text-center text-ink no-underline transition hover:-translate-y-0.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
                 st.badge ? "border-vermilion/40 bg-vermilion/5 hover:border-vermilion" : "border-line bg-surface hover:border-wood"
               }`}

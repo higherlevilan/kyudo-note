@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import type { Point } from "@/content/types";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, chapterJsonLd, toJsonLd } from "@/lib/seo";
 import Link from "next/link";
-import { Callout, Cites, FaqList, LayeredCard, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
+import { Callout, Cites, FaqTeaser, LayeredCard, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
 import ChapterEnd from "@/components/course/ChapterEnd";
 import ChapterHero from "@/components/course/ChapterHero";
 import ChapterQuiz from "@/components/course/ChapterQuiz";
@@ -69,16 +69,17 @@ const KIHON_NOTES: Point[] = [
 
 const RELATED = [
   { href: "/shaho/", label: "射法八節", note: "射一支箭的八個步驟與圖解" },
-  { href: "/guide/", label: "入門指南", note: "怎麼開始學、去哪裡學" },
-  { href: "/equipment/", label: "裝備", note: "弓、矢、弽與道衣" },
+  { href: "/guide/", label: "走進道場", note: "怎麼開始學、去哪裡學" },
+  { href: "/equipment/", label: "弓具", note: "弓、矢、弽與道衣" },
   { href: "/culture/", label: "文化與哲學", note: "禮的意義與段位制度" },
-  { href: "/glossary/", label: "詞彙表", note: "查本頁出現的日文術語" },
+  { href: "/glossary/", label: "日文詞彙庫", note: "查本頁出現的日文術語" },
   { href: "/journal/", label: "稽古帳", note: "記下每次練習的體配重點" },
 ];
 
 export default function EtiquettePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(chapterJsonLd("etiquette")) }} />
       <ChapterHero chapter="etiquette">
         <p>
           射法八節之外，弓道還有一整套站、坐、走、行禮與進退的規矩，合稱「體配」。它是審查評分的一部分，也是在道場與他人一起練習的基礎。
@@ -163,7 +164,7 @@ export default function EtiquettePage() {
         <ZashaStepper steps={ZASHA_FLOW} />
         <ShajoDiagram />
         <p className="text-sm text-muted">
-          整個射場的俯視圖（五個射位的間隔、矢道、安土與的、看的所、上座與下座），見入門指南
+          整個射場的俯視圖（五個射位的間隔、矢道、安土與的、看的所、上座與下座），見走進道場
           <Link href="/guide/#dojo-layout" className="mx-1 text-wood underline">
             〈射場長什麼樣〉
           </Link>
@@ -271,7 +272,7 @@ export default function EtiquettePage() {
 
       <ChapterQuiz chapter="etiquette" />
 
-      <FaqList faqs={ETIQUETTE_FAQS} />
+      <FaqTeaser module="etiquette" faqs={ETIQUETTE_FAQS} picks={["揖和禮差在哪裡？", "審查時，我什麼時候該站起來、什麼時候扣弦？", "膝蓋不好、沒辦法正坐或跪坐，還能學弓道嗎？"]} />
 
       <section aria-labelledby="related" className="mt-12">
         <h2 id="related" className="mb-3 text-xl font-bold">

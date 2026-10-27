@@ -440,14 +440,14 @@ export interface DressRow {
 }
 
 export const DRESS: DressRow[] = [
-  { item: "競技", text: "弓道衣（筒袖、袴、白足袋）或和服（着物、袴、白足袋）", tag: "official", src: [ANKF.playRules] },
+  { item: "競技", text: "弓道衣（筒袖、袴、白足袋）或和服（著物、袴、白足袋）", tag: "official", src: [ANKF.playRules] },
   { item: "審查", text: "教士、錬士與五段以上穿和服；其他原則上弓道衣", tag: "official", src: [ANKF.probationRules] },
   { item: "筒袖與內衣", text: "筒袖長度以到手肘左右為宜；內衣無花紋，有領或高領不理想", tag: "official", src: [ANKF.playRules] },
   { item: "袴", text: "男子一般有腰板、女子一般沒有；行燈袴不理想；袴擺最好在足踏み時不碰地", tag: "official", src: [ANKF.playRules] },
   { item: "初學者（競技規則）", text: "可穿運動服，但避免前排扣、前拉鍊", tag: "official", src: [ANKF.playRules] },
   { item: "體驗、見學", text: "運動服、襪子或足袋，方便活動即可", tag: "official", src: [ET.begin] },
   { item: "頭髮", text: "長髮綁起，不用髮夾", tag: "guide", src: [BUDOKAN.ch2] },
-  { item: "台灣・藏月弓道場", text: "上白下黑的弓道服（或和服）與白足袋，勿穿絲襪或其他顏色的襪子；還沒買衣服的人穿有袖白上衣與過膝黑長褲", tag: "local", src: [TAIWAN.regulations] },
+  { item: "台灣・藏月弓道場", text: "上白下黑的弓道衣（或和服）與白足袋，勿穿絲襪或其他顏色的襪子；還沒買衣服的人穿有袖白上衣與過膝黑長褲", tag: "local", src: [TAIWAN.regulations] },
   { item: "台灣・弓道教室", text: "初級可穿深色運動長褲、白色或淺色上衣；不可穿無袖上衣與有扣子的襯衫", tag: "local", src: [ET.twQna] },
 ];
 
@@ -457,7 +457,7 @@ export const DRESS_SECTION: LayeredSection = {
   ja: "服装",
   kana: "ふくそう",
   intro: [
-    "基本是白色上衣（筒袖）、黑色袴、白足袋。剛開始上課通常不必馬上買道衣，穿方便活動、沒有前排扣的衣服即可，細節依道場或課程規定。",
+    "基本是白色上衣（筒袖）、黑色袴、白足袋。剛開始上課通常不必馬上買弓道衣，穿方便活動、沒有前排扣的衣服即可，細節依道場或課程規定。",
     "有些日本道場明文禁止赤腳、要穿足袋；臺灣藏月弓道場也要求白足袋。",
   ],
   introSrc: [ANKF.playRules, TAIWAN.regulations, ET.twQna, ET.ikeda, ET.shinagawa],
@@ -500,7 +500,7 @@ export const SAFETY: LayeredSection = {
         { text: "不要把自己的弓伸進前一人的弓與弦之間；不拿巻藁用的箭上的前。", tag: "guide", src: [BUDOKAN.ch2] },
         { text: "巻藁後方與左右近處絕對不可有人；舊巻藁中心變硬，箭會彈回，近距離射很危險。", tag: "guide", src: [BUDOKAN.ch2] },
         { text: "搭箭不要搭太低，離れ時可能傷到拇指。", tag: "guide", src: [BUDOKAN.ch2] },
-        { text: "筈或箭桿有傷、沒有箭頭的箭不用；箭的長度用自己的矢束再加一點。", tag: "guide", src: [BUDOKAN.ch2, BUDOKAN.ch3] },
+        { text: "筈或箭桿有傷、沒有箭頭的箭不用；箭要比自己的矢束（合乎骨架的拉弓長度）至少長 5 cm。", tag: "guide", src: [BUDOKAN.ch2, BUDOKAN.ch3, ANKF.tool] },
       ],
     },
   ],

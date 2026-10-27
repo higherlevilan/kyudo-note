@@ -1,13 +1,14 @@
-// 關卡 extras for /etiquette/ — mascot lines, 過關測驗, badge. Owned by the chapter content pass.
+// 關卡 extras for /etiquette/ — mascot lines and 過關測驗 (the badge is in ./registry). Owned by the chapter content pass.
 // Every quiz answer is a fact already written on /etiquette/ (kihontai.ts, figures.ts, sections.ts,
-// myths.ts), cited with the same sources; options are in a fixed order (no shuffling) so the
-// prerendered HTML matches the client. qc-et-* are the former page 小測驗, kept with their ids.
+// myths.ts), cited with the same sources. Options are shown in a deterministic per-id shuffle
+// (lib/course/shuffle); the source order is kept balanced too.
+// qc-et-* are the former page 小測驗, kept with their ids.
 import type { ChapterExtras } from "@/lib/course/types";
 import { ANKF, BUDOKAN, TAIWAN } from "@/content/etiquette/sources";
 
 const KIHON = { href: "/etiquette/#kihontai", label: "看〈基本體〉" };
 const SHINSA = { href: "/etiquette/#shinsa", label: "看〈審查時的體配〉" };
-const SAFETY = { href: "/etiquette/#safety", label: "看〈安全與失〉" };
+const SAFETY = { href: "/etiquette/#safety", label: "看〈安全與「失」〉" };
 
 export const EXTRAS: ChapterExtras = {
   intro: "這一關先不拉弓。<b>站、坐、走、行禮</b>也是審查的一部分——連你怎麼走進射場，審查員都看得到喔。",
@@ -46,8 +47,8 @@ export const EXTRAS: ChapterExtras = {
       id: "et-hiraki",
       topic: "基本體",
       prompt: "開き足（ひらきあし）是在跪坐中轉向，轉幾度？",
-      options: [{ text: "45 度" }, { text: "90 度" }, { text: "180 度" }],
-      answer: 1,
+      options: [{ text: "45 度" }, { text: "180 度" }, { text: "90 度" }],
+      answer: 2,
       explain: "開き足是從跪坐改變 90 度方向的腳法。坐射在射位跪坐後，用開き足從面向靶轉成面向脇正面。",
       tag: "official",
       src: [ANKF.terminology, ANKF.probationGyosha],
@@ -57,12 +58,12 @@ export const EXTRAS: ChapterExtras = {
       id: "et-urahazu",
       topic: "執弓の姿勢",
       prompt: "執弓の姿勢：弓的上端（末弭）放在哪裡？",
-      options: [{ text: "輕輕碰在地上" }, { text: "身體正前方中央，離地約 10 公分" }, { text: "和腰同高" }],
-      answer: 1,
+      options: [{ text: "左腳尖前方，輕輕點在地上" }, { text: "身體正前方中央，和膝蓋同高" }, { text: "身體正前方中央，離地約 10 公分" }],
+      answer: 2,
       explain: "末弭放在身體正前方中央、離地約 10 公分，走路、轉向時都不上下晃動。",
       tag: "guide",
       src: [BUDOKAN.ch4, BUDOKAN.ch5],
-      more: { href: "/etiquette/#toriyumi", label: "看〈執弓の姿勢〉" },
+      more: { href: "/etiquette/#toriyumi", label: "看〈執弓與持箭〉" },
     },
     {
       id: "qc-et-steps",
@@ -79,8 +80,8 @@ export const EXTRAS: ChapterExtras = {
       id: "et-yu-breath",
       topic: "坐射一手",
       prompt: "依競技規則，入退場口的揖、本座全員一起的揖，各是幾息？",
-      options: [{ text: "入退場口二息、本座三息" }, { text: "入退場口三息、本座二息" }, { text: "都是三息" }],
-      answer: 0,
+      options: [{ text: "入退場口三息、本座二息" }, { text: "都是三息" }, { text: "入退場口二息、本座三息" }],
+      answer: 2,
       explain: "競技規則：入退場口的揖是二息，本座「揃って揖」是三息。",
       tag: "official",
       src: [ANKF.playRules],
@@ -90,7 +91,7 @@ export const EXTRAS: ChapterExtras = {
       id: "et-rissha",
       topic: "立射與坐射",
       prompt: "膝蓋不好、坐射有困難，可以改用立射嗎？",
-      options: [{ text: "不行，立射是不正式的偷懶版" }, { text: "可以依手續改用立射；立射是正式承認的形式" }],
+      options: [{ text: "不行，審查只承認坐射，坐不了就不能受審" }, { text: "可以依手續改用立射；立射是正式承認的形式" }],
       answer: 1,
       explain: "審查與近的競技以坐射為原則，但坐射有困難時可依手續改立射，中央審查也有立射受審申請；同一組裡，立射者配合坐射者的動作。",
       tag: "official",
@@ -112,8 +113,8 @@ export const EXTRAS: ChapterExtras = {
       id: "et-yatori",
       topic: "道場禮儀",
       prompt: "矢取り（到靶前取箭）的口令，全國統一嗎？",
-      options: [{ text: "統一，全弓連規定一套固定的說法" }, { text: "沒有統一，請依所屬道場" }],
-      answer: 1,
+      options: [{ text: "沒有統一，請依所屬道場" }, { text: "統一，全弓連規定一套固定的說法" }],
+      answer: 0,
       explain: "沒有統一用語。同一本指導書裡就有三種版本，台灣藏月弓道場與日本講習會又各不相同。不變的是「出聲、確認、掛紅旗」。",
       tag: "guide",
       src: [BUDOKAN.ch2, BUDOKAN.ch4, BUDOKAN.ch5, TAIWAN.regulations],
@@ -123,7 +124,7 @@ export const EXTRAS: ChapterExtras = {
       id: "et-akahata",
       topic: "安全",
       prompt: "練習中，靶前掛出了赤旗。射場的人該怎麼做？",
-      options: [{ text: "射完手上這支再停" }, { text: "安全而迅速地中斷行射；赤旗掛出時不取懸け" }],
+      options: [{ text: "已經取懸け的人射完這支，其他人先停" }, { text: "安全而迅速地中斷行射，掛出期間不取懸け" }],
       answer: 1,
       explain: "競技規則第 45 條：靶前掛出赤旗時，選手必須安全而迅速地中斷行射，赤旗掛出期間不得行射；指導書也寫赤旗掛出期間射場不得取懸け。",
       tag: "official",
@@ -134,13 +135,12 @@ export const EXTRAS: ChapterExtras = {
       id: "et-shitsu",
       topic: "失",
       prompt: "搭好箭、右手已放回腰之後，箭筈從弦上脫落了。可以撿起來重射嗎？",
-      options: [{ text: "可以，重新搭好再射" }, { text: "不行，算「失」，不重射；競技中這支算未中" }],
-      answer: 1,
+      options: [{ text: "不行，算「失」，不重射；競技中算未中" }, { text: "可以，撿起來重新搭好，這支照常計分" }],
+      answer: 0,
       explain: "搭好箭（右手放回腰）後筈脫落算「失」，不重射；競技中這支箭無效，算未中。處理要合乎禮法、迅速，回到射位向正面揖表示歉意。",
       tag: "official",
       src: [BUDOKAN.ch4, ANKF.playRules],
       more: SAFETY,
     },
   ],
-  badge: { name: "禮の人", line: "揖和禮分得清，坐下起身穩，弦音接力跟得上——進出射場都有模有樣。" },
 };

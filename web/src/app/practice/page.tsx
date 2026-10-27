@@ -4,9 +4,9 @@ import PracticeApp from "@/components/practice/PracticeApp";
 
 export const metadata: Metadata = pageMetadata({
   path: "/practice/",
-  title: "互動練習",
+  title: "練習場",
   description:
-    "1～3 分鐘的弓道小練習：射法八節排序、這是哪一節、詞彙閃卡、迷思是非題、體配與審查情境題、初段學科自我檢查。題目取自本站內容並附出處，成績只存在自己的瀏覽器。",
+    "練習場：1～3 分鐘的弓道互動小練習，射法八節排序、這是哪一節、詞彙閃卡、迷思是非題、體配與審查情境題、初段學科自我檢查。題目取自本站內容並附出處，成績只存在自己的瀏覽器。",
   og: "practice",
 });
 
@@ -16,7 +16,7 @@ export default function PracticePage() {
       <header className="pt-10 pb-6">
         <p className="text-sm text-wood">練習</p>
         <h1 className="mt-1 text-3xl font-bold">
-          互動練習
+          練習場
           <span lang="ja" className="ml-2 text-xl font-normal text-muted">
             稽古の合間に
           </span>

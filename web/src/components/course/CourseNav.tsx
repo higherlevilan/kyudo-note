@@ -8,15 +8,15 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useState } from "react";
 import Mascot from "@/components/mascot/Mascot";
-import { CHAPTERS, TOOLS } from "@/content/course/chapters";
+import { CHAPTERS, TOOLS } from "@/content/course/registry";
 import { chapterStatus, isSeen, pct, totalFraction, useCourseProgress } from "@/lib/course/progress";
-import type { ChapterDef } from "@/lib/course/types";
+import type { ChapterMeta } from "@/lib/course/types";
 import Ring from "./Ring";
 import ResetProgress from "./ResetProgress";
 
 const trim = (p: string) => p.replace(/\/+$/, "") || "/";
 
-export function useCurrentChapter(): ChapterDef | undefined {
+export function useCurrentChapter(): ChapterMeta | undefined {
   const pathname = trim(usePathname() ?? "/");
   return CHAPTERS.find((c) => trim(c.href) === pathname);
 }
@@ -70,7 +70,7 @@ export default function CourseNav({ onNavigate }: { onNavigate?: () => void }) {
   const p = useCourseProgress();
   const current = useCurrentChapter();
   const pathname = trim(usePathname() ?? "/");
-  const ids = current ? [...current.sections.map((s) => s.id), ...(current.quiz.length ? ["quiz"] : [])] : [];
+  const ids = current ? [...current.sections.map((s) => s.id), ...(current.quizCount ? ["quiz"] : [])] : [];
   const active = useActiveSection(ids);
 
   return (
@@ -118,7 +118,7 @@ export default function CourseNav({ onNavigate }: { onNavigate?: () => void }) {
                             href={`${ch.href}#${s.id}`}
                             onClick={onNavigate}
                             aria-current={here ? "location" : undefined}
-                            className={`relative flex min-h-9 items-center gap-2 rounded-lg px-2 py-1 text-[13px] leading-snug no-underline ${
+                            className={`relative flex min-h-10 items-center gap-2 rounded-lg px-2 py-1 text-[13px] leading-snug no-underline ${
                               here ? "bg-surface-2 font-semibold text-ink" : "text-muted hover:bg-surface-2 hover:text-ink"
                             }`}
                           >
@@ -140,27 +140,28 @@ export default function CourseNav({ onNavigate }: { onNavigate?: () => void }) {
                         </li>
                       );
                     })}
-                    {ch.quiz.length > 0 && (
+                    {ch.quizCount > 0 && (
                       <li>
                         <Link
                           href={`${ch.href}#quiz`}
                           onClick={onNavigate}
                           aria-current={active === "quiz" ? "location" : undefined}
-                          className={`relative flex min-h-9 items-center gap-2 rounded-lg px-2 py-1 text-[13px] no-underline ${
+                          className={`relative flex min-h-10 items-center gap-2 rounded-lg px-2 py-1 text-[13px] no-underline ${
                             active === "quiz" ? "bg-surface-2 font-semibold text-ink" : "text-muted hover:bg-surface-2 hover:text-ink"
                           }`}
                         >
                           <span
                             aria-hidden="true"
-                            className={`absolute top-1/2 -left-[1.03rem] h-2 w-2 -translate-y-1/2 rotate-45 ${st.quiz ? "bg-vermilion" : "border border-line bg-surface"}`}
+                            className={`absolute top-1/2 -left-[1.03rem] h-2 w-2 -translate-y-1/2 rotate-45 ${st.quizPassed ? "bg-vermilion" : "border border-line bg-surface"}`}
                           />
                           <span aria-hidden="true" className="w-5 shrink-0 text-[11px] text-vermilion">
                             測
                           </span>
                           <span className="flex-1">過關測驗</span>
                           {st.quiz && (
-                            <span className="shrink-0 text-[11px] text-wood tabular-nums">
+                            <span className={`shrink-0 text-[11px] tabular-nums ${st.quizPassed ? "text-wood" : "text-muted"}`}>
                               {st.quiz.correct}/{st.quiz.total}
+                              <span className="sr-only">{st.quizPassed ? "（已過關）" : "（未過關）"}</span>
                             </span>
                           )}
                         </Link>

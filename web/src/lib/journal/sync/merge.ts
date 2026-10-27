@@ -95,13 +95,6 @@ export function asStoredRecord(raw: unknown, now?: string): StoredRecord | null 
   return sync ? { ...e, _sync: sync } : e;
 }
 
-/** Strip the private marker: a plain Entry for the UI. */
-export function toEntry(r: LiveRecord): Entry {
-  const { _sync, ...e } = r;
-  void _sync;
-  return e as Entry;
-}
-
 /** A tombstone for `cur`, timestamped strictly after it so it wins last-writer-wins. */
 export function tombstoneFor(cur: StoredRecord, nowIso: string): Tombstone {
   const now = isoMs(nowIso);

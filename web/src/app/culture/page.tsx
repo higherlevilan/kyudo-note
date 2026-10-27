@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, chapterJsonLd, toJsonLd } from "@/lib/seo";
 import Link from "next/link";
-import { Callout, FaqList, LayeredCard, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
+import { Callout, FaqTeaser, LayeredCard, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
 import ChapterHero from "@/components/course/ChapterHero";
 import CourseSection from "@/components/course/CourseSection";
 import ChapterQuiz from "@/components/course/ChapterQuiz";
@@ -44,6 +44,7 @@ const TAG_GUIDE: { tag: Tag; text: string }[] = [
 export default function CulturePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(chapterJsonLd("culture")) }} />
       <ChapterHero chapter="culture">
         <p>
           從繩文時代的狩獵弓，到今天的《弓道教本》與國際弓道連盟：這一關整理弓道的歷史、流派、思想、段位制度，以及弓道在台灣的足跡。每一段都分成「入門」（預設展開）與「深入」（點開閱讀）兩層；資料有爭議的地方，會直接標出「說法不一」。
@@ -56,7 +57,7 @@ export default function CulturePage() {
           <LayeredCard s={WHAT_IS}>
             <p className="mt-3 text-sm text-muted">
               想先看動作？請到
-              <Link href="/shaho/" className="mx-1 text-wood underline">
+              <Link href="/shaho/#hassetsu" className="mx-1 text-wood underline">
                 射法八節
               </Link>
               看八節的圖解與說明。
@@ -215,7 +216,7 @@ export default function CulturePage() {
 
       <ChapterQuiz chapter="culture" />
 
-      <FaqList faqs={CULTURE_FAQS} />
+      <FaqTeaser module="culture" faqs={CULTURE_FAQS} picks={["弓道和一般的射箭（archery）有什麼不同？", "弓道真的不在乎射中嗎？", "弓道是一種禪修嗎？《弓與禪》還值得讀嗎？"]} />
 
       <SourceList
         sources={cultureSources()}

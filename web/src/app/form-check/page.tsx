@@ -27,7 +27,7 @@ export default function FormCheckPage() {
           錄一支自己的正面影片，瀏覽器會在你的裝置上找出身體關節，把
           <span lang="ja">弓構え</span>、<span lang="ja">打起し</span>、<span lang="ja">会</span>、<span lang="ja">残心</span>
           等畫面和
-          <Link href="/shaho/" className="text-wood underline">
+          <Link href="/shaho/#hassetsu" className="text-wood underline">
             射法八節
           </Link>
           的示意圖放在一起比較。這是自我觀察的輔助，不是教學，也不是評分。

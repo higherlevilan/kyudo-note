@@ -216,7 +216,7 @@ export default function WrittenPractice({ onExit }: { onExit: () => void }) {
                 <TagChip tag="note" /> 這是本站的寫作建議，不是評分標準。
               </p>
               <SourceLinks src={MOTIVE_SRC} />
-              <Link href="/culture/" className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-wood underline">
+              <Link href="/culture/#thought" className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-wood underline">
                 想多了解弓道的理念，看〈文化與哲學〉 →
               </Link>
             </div>

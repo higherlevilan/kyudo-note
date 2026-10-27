@@ -27,8 +27,6 @@ export const NOCK_HI = 217;
 export const NOCK_ARROW = 82;
 /** 拉開時握到弦的距離（cm）。弓具店：矢束 85 cm 以內用並寸；這裡以 85 cm 示意 */
 export const DRAW_CM = 85;
-/** 張弦時握到弦的距離（弓把，指導書：以 15 cm 為基準） */
-export const YUZUKA_CM = 15;
 
 export const depth = (s: number) => thick(s) * EXAG;
 export const width = (s: number) => thick(s) * EXAG * WIDTH_RATIO;

@@ -9,6 +9,7 @@ import { useState } from "react";
 import Stepper, { type StepDef } from "@/components/course/Stepper";
 import ThreeStage, { type ViewPreset } from "@/components/three/ThreeStage";
 import FigureFrame from "@/components/illustrations/gear/FigureFrame";
+import { FigureNotes } from "@/components/content/Blocks";
 import Footprints from "@/components/illustrations/archer/Footprints";
 import { ANKF } from "@/content/common-sources";
 import { SOURCES } from "@/content/sources";
@@ -66,12 +67,7 @@ export default function Ashibumi3D() {
     <FigureFrame
       id="ashibumi-3d"
       title="足踏み立體圖"
-      caption={
-        <>
-          不畫人，只畫足袋腳底的輪廓。矢束以 85 cm 示意（實際因人而異），「約矢束」「約 60°」都是約略值；腳的大小照比例，的的大小與距離不按比例。
-          二足的順序依指導書第Ⅴ章（左腳先、看右腳腳下再踏右腳）；宮崎縣手冊也是左腳先、再定右腳。一足只畫前後位置。兩種方法和持箭方式連動，選一種並保持一致。
-        </>
-      }
+      caption="只畫足袋腳底的輪廓；腳的大小照比例，矢束以 85 cm 示意，「約矢束」「約 60°」都是約略值。"
       sources={[SOURCES.syaho, SOURCES.terminology, ANKF.rissha, SOURCES.b4, SOURCES.b5, SOURCES.miyazaki]}
     >
       <div className="space-y-3">
@@ -104,6 +100,12 @@ export default function Ashibumi3D() {
           {() => null}
         </Stepper>
       </div>
+      <FigureNotes>
+        <p>不畫人，只畫足袋腳底的輪廓。矢束以 85 cm 示意（實際因人而異），「約矢束」「約 60°」都是約略值；腳的大小照比例，的的大小與距離不按比例。</p>
+        <p>
+          二足的順序依指導書第Ⅴ章（左腳先、看右腳腳下再踏右腳）；宮崎縣手冊也是左腳先、再定右腳。一足只畫前後位置。兩種方法和持箭方式連動，選一種並保持一致。
+        </p>
+      </FigureNotes>
     </FigureFrame>
   );
 }

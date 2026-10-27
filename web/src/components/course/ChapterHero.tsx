@@ -1,11 +1,12 @@
 // Top of a 關卡 page (TechEDU .ch-hero): stage + ja eyebrow, tag chip + title, 小弓's intro bubble
-// (from the extras; skipped while empty), extra intro `children`, the chapter progress card and
-// the numbered table of contents with seen marks.
+// (from the extras; skipped while empty), extra intro `children`, the chapter progress card,
+// 「從上次的地方繼續」 when the last visited 小節 is in this chapter, and the numbered table of
+// contents with seen marks. Server component: the extras (intro) stay out of the client bundle.
 import type { ReactNode } from "react";
 import Say from "@/components/mascot/Say";
 import { CHAPTER_BY_ID } from "@/content/course/chapters";
 import type { ChapterId } from "@/lib/course/types";
-import { ChapterProgress, ChapterToc } from "./ChapterParts";
+import { ChapterProgress, ChapterToc, ResumeHint } from "./ChapterParts";
 
 export default function ChapterHero({
   chapter,
@@ -38,6 +39,7 @@ export default function ChapterHero({
       </div>
       {ch.intro.trim() && <Say mood={ch.introMood ?? "happy"} html={ch.intro} className="mt-6" />}
       {children && <div className="mt-5 max-w-3xl space-y-3 leading-relaxed text-muted">{children}</div>}
+      <ResumeHint chapter={chapter} className="mt-5" />
       {toc && <ChapterToc chapter={chapter} />}
     </header>
   );

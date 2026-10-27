@@ -1,4 +1,5 @@
-// 初段學科練習: the public 無指定・初段 prompt types (as summarised on the 入門指南 page) and
+// 初段學科練習: the public 無指定・初段 prompt types in the Japan (地方審查) format, as summarised on
+// the 走進道場 page; in Taiwan the association has candidates pick one question each from A / B. And
 // 「可以提到的重點」 built from the 射法八節 content. Real grading is by the examiners.
 
 import { ANKF, TAIWAN } from "@/content/common-sources";
@@ -21,29 +22,29 @@ export const WRITTEN_PROMPTS: WrittenPrompt[] = [
     group: "A 群",
     points: "25 分",
     prompt: "寫出射法八節的順序。",
-    hint: "用日文漢字（例如「足踏み」）寫，也可以加上讀音或中文。",
+    hint: "用日文漢字（例如「足踏み」）寫，也可以加上讀音或中文。題型依日本地方審查的格式。",
   },
   {
     id: "explain",
     group: "A 群",
     points: "25 分",
     prompt: "選一節，說明它的要點。",
-    hint: "縣連會從題庫指定實際的節，例如神奈川 2026 年度初段 A 群考「胴造り」。",
+    hint: "縣連會從題庫指定實際的節，例如神奈川 2026 年度初段 A 群考「胴造り」。題型依日本地方審查的格式。",
   },
   {
     id: "motive",
     group: "B 群",
     points: "50 分",
     prompt: "開始學弓道的動機。",
-    hint: "心得題，沒有標準答案。寫你自己的經驗。",
+    hint: "心得題，沒有標準答案。寫你自己的經驗。題型依日本地方審查的格式。",
   },
 ];
 
-/** Facts about the 學科 itself, quoted from the 入門指南 content. */
+/** Facts about the 學科 itself, quoted from the 走進道場 content. */
 export const WRITTEN_FACTS: { text: string; src: Source[] }[] = [
-  { text: "無指定、初段的學科是 A 群 2 題（各 25 分）加 B 群 1 題（50 分），滿分 100；合格要 60 分以上，並且行射得票 5 成以上。", src: [ANKF.written2026, ANKF.probationRules] },
-  { text: "全弓連每年公開地方審查的學科題目；實際考哪一題由縣連從題庫指定，很多縣連改成報名時先交報告。", src: [ANKF.written2026, SHINSA_X.kanagawa] },
-  { text: "台灣：臺灣弓道協會說明每次學科從 A 表、B 表各選一題作答；協會頁面上的題庫還是 2021 年版，請以協會最新公告為準。", src: [TAIWAN.shinsa] },
+  { text: "日本的格式：無指定、初段的學科是 A 群 2 題（各 25 分）加 B 群 1 題（50 分），滿分 100；合格要 60 分以上，並且行射得票 5 成以上。", src: [ANKF.written2026, ANKF.probationRules] },
+  { text: "日本：全弓連每年公開地方審查的學科題目；實際考哪一題由縣連從題庫指定，很多縣連改成報名時先交報告。", src: [ANKF.written2026, SHINSA_X.kanagawa] },
+  { text: "台灣：臺灣弓道協會說明每次學科從 A 表、B 表各選一題作答，和上面日本的題數不同；協會頁面上的題庫還是 2021 年版，請以協會最新公告為準。", src: [TAIWAN.shinsa] },
 ];
 
 export interface OrderTerm {

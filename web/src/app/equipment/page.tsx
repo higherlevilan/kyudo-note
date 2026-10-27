@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, chapterJsonLd, toJsonLd } from "@/lib/seo";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Callout, Cites, FaqList, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
+import { Callout, Cites, FaqTeaser, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
 import ChapterEnd from "@/components/course/ChapterEnd";
 import ChapterHero from "@/components/course/ChapterHero";
 import ChapterQuiz from "@/components/course/ChapterQuiz";
@@ -27,6 +27,7 @@ import { TSURU_STEPS, YAZUKA_STEPS } from "@/content/equipment/steps";
 import {
   BEFORE_BUYING,
   BORROW_FIRST,
+  FROM_TAIWAN,
   BUYING_ORDER,
   CARE_TOPICS,
   DISPUTES,
@@ -44,9 +45,9 @@ import type { Point, Tag } from "@/content/types";
 
 export const metadata: Metadata = pageMetadata({
   path: "/equipment/",
-  title: "裝備百科",
+  title: "弓具",
   description:
-    "弓道裝備的中文整理：矢束怎麼量、箭長與弓長計算器（各來源並列）、弓力、弓材、箭、弦、弽、服裝、初學者預算試算與保養。以全日本弓道連盟規則為準，弓具店建議另行標示。",
+    "弓具（裝備百科）：弓道裝備的中文整理，矢束怎麼量、箭長與弓長計算器（各來源並列）、弓力、弓材、箭、弦、弽、服裝、初學者預算試算與保養。以全日本弓道連盟規則為準，弓具店建議另行標示。",
   og: "equipment",
 });
 
@@ -91,16 +92,17 @@ const TOPIC_FIGURES: Record<string, ReactNode> = {
 };
 
 const RELATED = [
-  { href: "/guide/", label: "入門指南", text: "台灣哪裡學、練習進程、審查、在台灣買弓具與搭機" },
+  { href: "/guide/", label: "走進道場", text: "台灣哪裡學、練習進程、審查、在台灣買弓具與搭機" },
   { href: "/shaho/", label: "射法八節", text: "矢束、弓力合不合適，最後要看射形" },
   { href: "/glossary/", label: "日文詞彙庫", text: "弓具名稱的讀音與解釋" },
-  { href: "/etiquette/", label: "禮法", text: "道場禮儀與體配" },
+  { href: "/etiquette/", label: "禮法與體配", text: "道場禮儀與體配" },
   { href: "/faq/", label: "問題研究中心", text: "各單元的常見問題總整理" },
 ];
 
 export default function EquipmentPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(chapterJsonLd("equipment")) }} />
       <ChapterHero chapter="equipment">
         <p>
           弓、矢、弦、弽與服裝的選法、規則和保養。數字類的建議——箭要多長、弓要多長、弓力多少——各來源常常不一樣，
@@ -131,8 +133,8 @@ export default function EquipmentPage() {
           <>
             裝備要配合自己的矢束、弓力和射形，而這些在剛開始的幾個月都還會變。先用道場的器材，等指導者看過你的射，再一件一件買。
             台灣的弓道教室與學習地點見
-            <Link href="/guide/" className="mx-1 text-wood underline">
-              入門指南
+            <Link href="/guide/#taiwan" className="mx-1 text-wood underline">
+              走進道場〈在台灣哪裡學〉
             </Link>
             。
           </>
@@ -181,6 +183,12 @@ export default function EquipmentPage() {
           <h3 className="mb-2 text-lg font-semibold">要買之前</h3>
           <div className="text-[15px]">
             <PointList points={BEFORE_BUYING} />
+          </div>
+        </div>
+        <div className="rounded-2xl border border-line bg-surface p-5 shadow-sm">
+          <h3 className="mb-2 text-lg font-semibold">{FROM_TAIWAN.title}</h3>
+          <div className="text-[15px]">
+            <PointList points={FROM_TAIWAN.points} />
           </div>
         </div>
       </CourseSection>
@@ -273,9 +281,13 @@ export default function EquipmentPage() {
         <Callout tone="warn" title="試算沒有算進去的">
           <PointList points={SHIPPING_NOTES} />
           <p className="mt-2 text-sm">
-            從台灣訂購、搭機帶弓回台、箭與矢羽的攜帶規定，見
-            <Link href="/guide/" className="mx-1 text-wood underline">
-              入門指南
+            搭機帶弓回台、箭與矢羽的攜帶規定，見
+            <Link href="/guide/#carry" className="mx-1 text-wood underline">
+              走進道場〈帶弓出門、搭飛機〉
+            </Link>
+            ；在台灣怎麼買，見
+            <Link href="/guide/#taiwan" className="mx-1 text-wood underline">
+              〈在台灣哪裡學〉
             </Link>
             。
           </p>
@@ -316,7 +328,7 @@ export default function EquipmentPage() {
 
       <ChapterQuiz chapter="equipment" />
 
-      <FaqList faqs={EQUIPMENT_FAQS} />
+      <FaqTeaser module="equipment" faqs={EQUIPMENT_FAQS} picks={["初學者一定要先買全套嗎？", "矢束要怎麼量？", "初學者該用幾公斤的弓？"]} />
 
       <nav aria-labelledby="related" className="mt-12">
         <h2 id="related" className="mb-3 text-xl font-bold">

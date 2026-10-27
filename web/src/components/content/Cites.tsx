@@ -7,6 +7,7 @@ import { KIND_LABEL, type Source } from "@/content/types";
  * Compact citation: a small 「出處」 chip that expands to the full source list.
  * Long source labels used to wrap over two lines after every point on phones.
  * The list stays in the HTML (hidden) so it is still there without JavaScript.
+ * The chip looks 24px tall; a ::before pseudo-element extends its hit area to 40px (no extra DOM).
  */
 export default function Cites({ src }: { src?: readonly Source[] }) {
   const [open, setOpen] = useState(false);
@@ -19,7 +20,7 @@ export default function Cites({ src }: { src?: readonly Source[] }) {
         aria-expanded={open}
         aria-controls={id}
         onClick={() => setOpen(!open)}
-        className="inline-flex min-h-6 items-center gap-0.5 rounded-full border border-line px-2 align-[1px] text-[11px] leading-5 text-muted transition-colors hover:border-wood hover:text-wood"
+        className="relative inline-flex min-h-6 items-center gap-0.5 rounded-full border border-line px-2 align-[1px] text-[11px] leading-5 text-muted transition-colors before:absolute before:-inset-x-1 before:-inset-y-2 hover:border-wood hover:text-wood"
       >
         出處{src.length > 1 && <span className="tabular-nums"> {src.length}</span>}
         <span aria-hidden="true">{open ? "▴" : "▾"}</span>

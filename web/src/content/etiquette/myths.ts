@@ -70,7 +70,7 @@ export const MYTHS: Myth[] = [
   },
   {
     id: "kai-5s",
-    claim: "「会要 5 秒、殘心要 2 秒」是規定。",
+    claim: "「会要 5 秒、残心要 2 秒」是規定。",
     verdict: "這是指導書給中學生的練習指引，不是審查或射法的規定。實際長度依個人與呼吸而定。",
     tag: "guide",
     src: [BUDOKAN.ch5, BUDOKAN.ch6],

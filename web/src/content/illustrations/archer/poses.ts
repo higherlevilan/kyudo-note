@@ -73,7 +73,7 @@ export const POSES: Record<PoseId, ArcherPose> = {
   torimi: {
     id: "torimi",
     term: "執弓の姿勢",
-    alt: "執弓の姿勢：雙腳併攏，兩拳在腰；左手的弓往前下方斜，末弭在身體正前方、離地約 10 公分；右手的箭尖指向末弭。",
+    alt: "執弓の姿勢：雙腳靠攏（男子約 3 公分、女子併攏），兩拳在腰；左手的弓往前下方斜，末弭在身體正前方、離地約 10 公分；右手的箭尖指向末弭。",
     stance: "together",
     headYaw: 0,
     left: HIPS_L,
@@ -184,11 +184,11 @@ export const POSES: Record<PoseId, ArcherPose> = {
     arrow: "none",
     motion: "release",
   },
-  // Held open after the release; gaze stays on the target.
+  // Held open after the release; gaze stays on the 矢所 (where the arrow landed).
   zanshin: {
     id: "zanshin",
     term: "残心",
-    alt: "残心：保持離れ之後的姿勢，兩臂展開成一直線，視線停在靶上。",
+    alt: "残心：保持離れ之後的姿勢，兩臂展開成一直線，視線停在矢所。",
     stance: "ashibumi",
     headYaw: 90,
     left: { upper: { az: 5, el: 1 }, fore: { az: 6, el: 0 } },
@@ -258,6 +258,6 @@ export const SECTION_FIGURES: Record<string, SectionFigureSpec> = {
     caption: "箭在嘴的高度貼著臉頰，弦貼在胸前。下圖從上方看：箭與兩肩的線（紅色虛線）平行，右肘在肩線後方。",
   },
   hanare: { poses: ["hanare"], caption: "兩臂沿一直線向左右展開；弓在手中轉動（弓返り），弦轉到左手外側。" },
-  zanshin: { poses: ["zanshin"], caption: "保持離れ的姿勢，視線停在靶上。" },
+  zanshin: { poses: ["zanshin"], caption: "保持離れ的姿勢，視線停在矢所。" },
   yudaoshi: { poses: ["yudaoshi"], caption: "兩拳回到腰，弓回到執弓的角度，臉轉回正面；之後才合腳。" },
 };

@@ -1,4 +1,4 @@
-// Sources used only by 裝備百科 (/equipment). Shared ANKF / 指導書 / 台灣協會 sources come from common-sources.
+// Sources used only by 弓具 (/equipment). Shared ANKF / 指導書 / 台灣協會 sources come from common-sources.
 // 查詢日期：除另註外都是 2026-10-17（見 docs/research/04 第 10 章）。
 
 import type { Source } from "@/content/types";

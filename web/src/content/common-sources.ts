@@ -35,7 +35,7 @@ export const TAIWAN = {
 } satisfies Record<string, Source>;
 
 export const IKYF = {
-  members: { label: "國際弓道連盟 IKYF〈Member Organizations〉", url: "https://www.ikyf.org/ikyf_members.html", kind: "official" },
+  members: { label: "國際弓道連盟 IKYF〈Member Organizations〉（存檔，2026-05-15；官網 2026-10-28 無法連線）", url: "https://web.archive.org/web/20260515051801/https://ikyf.org/ikyf_members.html", kind: "official" },
 } satisfies Record<string, Source>;
 
 const repo = "https://github.com/higherlevilan/kyudo-note/blob/main/docs/research";

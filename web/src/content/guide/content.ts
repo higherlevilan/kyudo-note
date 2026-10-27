@@ -1,4 +1,4 @@
-// 入門指南 (/guide) content. Based on docs/research/04 ch.3–5, 7, 9 and docs/research/03 §4.
+// 走進道場 (/guide) content. Based on docs/research/04 ch.3–5, 7, 9 and docs/research/03 §4.
 // Every claim carries a tag and sources; uncertain items are tagged "disputed".
 
 import { ANKF, BUDOKAN, TAIWAN, IKYF } from "../common-sources";
@@ -54,7 +54,7 @@ export const ROADMAP: RoadStep[] = [
     zh: "空拉",
     ja: "素引き",
     kana: "すびき",
-    what: "拿真弓拉到「會」，但不搭箭、不放弦，再慢慢把弦送回去。先學手の内（てのうち：握弓的手法），再培養平衡感。",
+    what: "拿真弓拉到「会」，但不搭箭、不放弦，再慢慢把弦送回去。先學手の内（てのうち：握弓的手法），再培養平衡感。",
     safety: "素引き絕不放弦。空放可能讓弦斷掉，或打到臉與左臂。",
     tag: "guide",
     src: [ANKF_X.subiki, BUDOKAN.ch2, BUDOKAN.ch4],
@@ -64,10 +64,10 @@ export const ROADMAP: RoadStep[] = [
     zh: "近距離草靶",
     ja: "巻藁",
     kana: "まきわら",
-    what: "對著一捆草靶近距離射。指導書的分段是：拉 30 cm 放 → 拉到臉放 → 拉到耳放 → 拉到「會」再放。距離約一張弓長，「和的前一樣重要」。",
+    what: "對著一捆草靶近距離射。指導書的分段是：拉 30 cm 放 → 拉到臉放 → 拉到耳放 → 拉到「会」再放。距離保持弓一杖（約 2 m），「和的前一樣重要」。",
     safety: "巻藁後方與左右絕對不能有人；巻藁用的箭不能拿去射的。",
     tag: "guide",
-    src: [BUDOKAN.ch4, BUDOKAN.ch2],
+    src: [BUDOKAN.ch4, BUDOKAN.ch2, ANKF.tool],
   },
   {
     id: "matomae",
@@ -121,7 +121,7 @@ export const FIRST_VISIT: VisitQ[] = [
     q: "要穿什麼？",
     points: [
       { text: "協會弓道教室：白色無領上衣、黑色寬鬆長褲、白襪。", tag: "local", src: [TAIWAN.class] },
-      { text: "藏月弓道場的規範是上白下黑弓道服（或和服）加白足袋，不穿絲襪或其他顏色的襪子；還沒買弓道衣的人，穿有袖白上衣與過膝黑長褲。", tag: "local", src: [TAIWAN.regulations] },
+      { text: "藏月弓道場的規範是上白下黑弓道衣（或和服）加白足袋，不穿絲襪或其他顏色的襪子；還沒買弓道衣的人，穿有袖白上衣與過膝黑長褲。", tag: "local", src: [TAIWAN.regulations] },
       { text: "避開前面有扣子的襯衫、左胸有口袋的衣服：放箭時弦可能勾到。", tag: "official", src: [ANKF.tool] },
       { text: "臺灣弓道協會的常見問題也寫明不可穿無袖上衣。", tag: "local", src: [TW_X.qna] },
       { text: "長髮綁起來，不要用髮夾。", tag: "guide", src: [BUDOKAN.ch2] },
@@ -133,7 +133,7 @@ export const FIRST_VISIT: VisitQ[] = [
       { text: "不用先買弓。協會課程提供公用弓、箭、弽；全弓連也說初學者多半能用道場的器材。", tag: "local", src: [TAIWAN.class, ANKF.faq] },
       { text: "可以先準備下がけ（したがけ：戴在弽裡面的棉布手套）、足袋或白襪。上課可以先穿白上衣、黑長褲，弓道衣等確定要繼續再買也不遲。", tag: "local", src: [TAIWAN.class, TW_X.qna, TAIWAN.regulations] },
     ],
-    link: { href: "/equipment/", label: "裝備怎麼選，見〈裝備百科〉" },
+    link: { href: "/equipment/#start", label: "裝備怎麼選，見〈弓具〉" },
   },
   {
     q: "一進門要做什麼？",
@@ -143,7 +143,7 @@ export const FIRST_VISIT: VisitQ[] = [
       { text: "不跨過放在地上的弓具。", tag: "guide", src: [BUDOKAN.ch5] },
       { text: "別人拉弓時保持安靜；有人中靶時避免喝彩。除非有安全疑慮，不主動指導別人。", tag: "local", src: [TAIWAN.regulations] },
     ],
-    link: { href: "/etiquette/", label: "完整禮法，見〈禮法與體配〉" },
+    link: { href: "/etiquette/#dojo", label: "完整禮法，見〈禮法與體配〉" },
   },
   {
     q: "會不會很危險？",
@@ -156,7 +156,7 @@ export const FIRST_VISIT: VisitQ[] = [
     q: "幾歲可以學？",
     points: [
       { text: "協會弓道教室的對象是協會會員、16 歲以上。", tag: "local", src: [TAIWAN.class] },
-      { text: "未滿 20 歲入會，要附監護人同意書。", tag: "local", src: [TW_X.member] },
+      { text: "未滿 20 歲入會，要附監護人同意書（協會會員專區頁寫 20 歲；民法成年已改為 18 歲，以協會規定為準）。", tag: "local", src: [TW_X.member] },
     ],
   },
   {
@@ -191,7 +191,7 @@ export const ASSOC_FACTS: Point[] = [
   { text: "地址：新北市新莊區中正路 542-11 號 3 樓（藏月弓道場），捷運輔大站 1 號出口步行約 10 分鐘。", tag: "local", src: [TW_X.traffic] },
   { text: "弓道教室：協會會員、16 歲以上；每期 6 週，每班約 10～15 人；上滿 20 堂發「修業證明」。", tag: "local", src: [TAIWAN.class] },
   { text: "費用：每期 NT$4,800；第一期另加入會費 NT$500、教材費 NT$200。", tag: "local", src: [TAIWAN.class] },
-  { text: "協會行事曆上，2026 年各班持續開課，下一期（115-7）從 2026-11-10 開始。", tag: "local", src: [TW_X.calendar] },
+  { text: "協會行事曆上，2026 年各班持續開課；115-7 期排在 2026 年 11 月 10 日開始（以協會公告為準）。", tag: "local", src: [TW_X.calendar] },
   { text: "會費：個人會員入會費 NT$500、常年會費 NT$1,000／年；連續兩年未繳視為退會。", tag: "local", src: [TW_X.member] },
   {
     text: "會員使用場地：月租 NT$2,000（學生 8 折）；小時票 NT$150／小時、NT$400／日。符合條件的非會員 NT$200／小時，要 3 天前來信，並由現役會員陪同。近的射場只限有近的行射能力的人使用。",
@@ -227,9 +227,9 @@ export const CLUBS: Club[] = [
   { name: "成大弓道社", area: "台南", kind: "大學社團", links: [CLUB.ncku], status: "ok", lastSeen: "2026-09-16（IG）", open: "不開放非社員參觀或體驗", note: "IG 寫週六、日 10:00–16:00，在台南女中 B1 體育館。" },
   { name: "台南女中弓道部", area: "台南", kind: "高中社團（校內）", links: [CLUB.tngs], status: "ok", lastSeen: "2026-10-15（IG）" },
   { name: "臺灣大專弓道聯賽（UKL）", area: "跨校", kind: "學生聯賽組織（新生賽、碧羽祭）", links: [CLUB.ukl], status: "ok", lastSeen: "2026-07-20（IG）" },
-  { name: "岡達日本弓道社團", area: "台中", kind: "民間團體；協會團體會員", links: [CLUB.okada], status: "partial", lastSeen: "2026-08-22 月例賽（協會行事曆）", note: "Facebook 私密社團，近一個月沒有貼文。" },
-  { name: "山道場", area: "新北汐止", kind: "民間道場；協會團體會員", links: [CLUB.yama], status: "partial", lastSeen: "2025-09-28 影像審查（協會行事曆）", note: "Facebook 頁面只讀得到名稱與地區。" },
-  { name: "躾學弓道會（行事曆寫作「躾弓会」）", area: "台北松山", kind: "民間武道館（弓道、劍道、薙刀）；協會團體會員", links: [CLUB.shitsuke], status: "partial", lastSeen: "2025-10-18 影像審查（協會行事曆）", note: "協會列的網站已失效；地址、電話只查到第三方頁面，請以 Facebook 為準。" },
+  { name: "岡達日本弓道社團", area: "台中", kind: "民間團體；協會團體會員", links: [CLUB.okada], status: "partial", lastSeen: "2026-08-22 月例賽（協會行事曆）", note: "Facebook 私密社團；本站 2026-10-17 查詢時，頁面顯示近一個月沒有貼文。" },
+  { name: "山道場", area: "新北汐止", kind: "民間道場；協會團體會員", links: [CLUB.yama], status: "partial", lastSeen: "2025-09-28 影像審查（協會行事曆上最後一次出現，2026-10-17 查詢）", note: "Facebook 頁面只讀得到名稱與地區。" },
+  { name: "躾學弓道會（行事曆寫作「躾弓会」）", area: "台北松山", kind: "民間武道館（弓道、劍道、薙刀）；協會團體會員", links: [CLUB.shitsuke], status: "partial", lastSeen: "2025-10-18 影像審查（協會行事曆上最後一次出現，2026-10-17 查詢）", note: "協會列的網站已失效；地址、電話只查到第三方頁面，請以 Facebook 為準。" },
 ];
 
 export const CLUB_STATUS: Record<ClubStatus, { label: string; cls: string }> = {
@@ -264,7 +264,7 @@ export const SAFETY_RULES: SafetyRule[] = [
   { title: "不進矢道，取箭要舉旗", text: "矢取り（やとり：去靶場取箭）時互相出聲確認、掛出赤旗；赤旗掛著時射場不取懸け。口令各道場不同，以所屬道場為準。", tag: "guide", src: [BUDOKAN.ch2, BUDOKAN.ch4, TAIWAN.regulations] },
   { title: "巻藁四周淨空", text: "巻藁後方與左右絕對不能有人；拔箭前確認後方。舊巻藁中心變硬，箭會彈回。巻藁用的箭不拿去射的。", tag: "guide", src: [BUDOKAN.ch2] },
   { title: "保持射手間距", text: "射位間距標準 180 cm，不在太窄的地方拉弓；不把自己的弓伸進前一位射手的弓與弦之間。", tag: "guide", src: [BUDOKAN.ch2, ANKF.playRules] },
-  { title: "用之前先檢查弓具", text: "籐要纏好、中仕掛要和筈密合；筈或箭桿有傷的箭不用；箭要比自己的矢束（やづか：拉弓的長度）稍長。不要把弓的下端當拐杖拄地。", tag: "guide", src: [BUDOKAN.ch2] },
+  { title: "用之前先檢查弓具", text: "籐要纏好、中仕掛要和筈密合；筈或箭桿有傷的箭不用；箭要比自己的矢束（やづか：合乎骨架的拉弓長度）至少長 5 cm。不要把弓的下端當拐杖拄地。", tag: "guide", src: [BUDOKAN.ch2, ANKF.tool] },
   { title: "箭別搭太低", text: "番箭位置太低，離れ時可能弄傷拇指。", tag: "guide", src: [BUDOKAN.ch2] },
 ];
 
@@ -328,13 +328,16 @@ export interface Rung {
   note?: string;
 }
 
-/** 審查統一基準（五段以下）的的中要求，由低到高 */
+/**
+ * 各段的的中要求，由低到高。参段、四段的句子出自《審査規程》第 8 條的資格基準（《審査統一基準》
+ * 各段開頭照錄同一句）；「的中不問」「矢枕落ち不問」出自統一基準的射法・射技欄。
+ */
 export const RANKS: Rung[] = [
   { rank: "級位", kana: "きゅうい", standard: "只看行射，得票 5 成以上即合格", note: "不考學科" },
   { rank: "初段", kana: "しょだん", standard: "射型、體配合乎規範，矢所不亂", note: "矢枕落ち不問" },
-  { rank: "弐段", kana: "にだん", standard: "射法・射技欄明寫「的中不問」", note: "仍不要求中靶" },
-  { rank: "参段", kana: "さんだん", standard: "矢飛筆直，「的中やや確実」", note: "從這裡開始要求的中" },
-  { rank: "四段", kana: "よんだん", standard: "「的中確実の域に達した者」" },
+  { rank: "弐段", kana: "にだん", standard: "統一基準射法・射技欄明寫「的中不問」", note: "仍不要求中靶" },
+  { rank: "参段", kana: "さんだん", standard: "審査規程第 8 條：矢飛筆直，「的中やや確実」", note: "從這裡開始要求的中" },
+  { rank: "四段", kana: "よんだん", standard: "審査規程第 8 條：「的中確実の域に達した者」" },
 ];
 
 export const SHINSA_SECTIONS: LayeredSection[] = [
@@ -366,15 +369,16 @@ export const SHINSA_SECTIONS: LayeredSection[] = [
     kana: "しょだん",
     intro: [
       "實技：射一手（ひとて）2 支，就是甲矢（はや）和乙矢（おとや）。審查原則上是近的 28 m、5 人一立、坐射，用直徑 36 cm 的霞的。",
-      "學科：全弓連每年公開地方審查的學科題目（2026 年版已在 1 月 30 日公布）。初段要寫出射法八節的順序、說明其中一節，再寫一篇心得題，例如「開始學弓道的動機」。很多縣連改成報名時先交報告。",
-      "合格門檻：行射得票 5 成以上，而且學科 60 分以上。審查統一基準在弐段寫「的中不問」，從参段才開始要求「的中やや確実」；初段的基準是射形、體配合乎規範、矢所不亂。",
+      "學科：全弓連每年公開地方審查的學科題目（2026 年版已在 1 月 30 日公布）。在日本，初段要寫出射法八節的順序、說明其中一節，再寫一篇心得題，例如「開始學弓道的動機」；很多縣連改成報名時先交報告。在台灣，臺灣弓道協會說明每次學科從 A 表、B 表各選一題作答。",
+      "合格門檻：行射得票 5 成以上，而且學科 60 分以上。審查統一基準在弐段寫「的中不問」；審查規程第 8 條（統一基準照錄）從参段才開始要求「的中やや確実」；初段的基準是射形、體配合乎規範、矢所不亂。",
     ],
-    introSrc: [ANKF.probationRules, ANKF.probationGyosha, ANKF.probationStandard, ANKF.written2026],
+    introSrc: [ANKF.probationRules, ANKF.probationGyosha, ANKF.probationStandard, ANKF.written2026, TAIWAN.shinsa],
     deep: [
       {
         title: "細節與待查",
         points: [
-          { text: "學科出題：無指定、初段是 A 群 2 題（各 25 分）加 B 群 1 題（50 分），滿分 100。", tag: "official", src: [ANKF.written2026, ANKF.probationRules] },
+          { text: "日本的學科出題：無指定、初段是 A 群 2 題（各 25 分）加 B 群 1 題（50 分），滿分 100。", tag: "official", src: [ANKF.written2026, ANKF.probationRules] },
+          { text: "台灣：臺灣弓道協會說明每次學科從 A 表、B 表各選一題作答，題數和日本的格式不同；以協會最新公告為準。", tag: "local", src: [TAIWAN.shinsa] },
           { text: "縣連從題庫指定實際題目，例如神奈川 2026 年度初段 A 群考「胴造り」，B 群考「開始弓道的動機」。", tag: "local", src: [SHINSA_X.kanagawa] },
           { text: "IKYF 同步公布英文版題目；海外受審原則上以日文或英文作答。", tag: "official", src: [IKYF_X.shinsa] },
           { text: "初段、弐段若筈こぼれ（箭從弦上掉落），以剩下的 1 支評價；2 支都掉判不合格。", tag: "official", src: [ANKF.probationStandard] },
@@ -389,7 +393,7 @@ export const SHINSA_SECTIONS: LayeredSection[] = [
     title: "台灣會員怎麼受審",
     intro: [
       "臺灣弓道協會以「Chinese Taipei」名義列在國際弓道連盟（IKYF）亞洲大洋洲區。五段以下的海外會員，一般透過 IKYF 的亞洲大洋洲講習會「特別中央審查」或錄像審查受審，證書由全弓連發給。",
-      "2026 年 IKYF 依地區分梯，第 13 回（東京）是專給 Chinese Taipei 的場次：審查 I 在 2026-11-19（参段）、審查 II 在 11-27（四段・五段），前面各有講習。報名已在 7 月 1 日截止。",
+      "2026 年 IKYF 依地區分梯，第 13 回（東京）是專給 Chinese Taipei 的場次：審查 I 排在 2026 年 11 月 19 日（参段）、審查 II 排在 11 月 27 日（四段・五段），前面各有講習（以 IKYF 公告為準）。報名在 2026 年 7 月 1 日截止。",
     ],
     introSrc: [IKYF.members, IKYF_X.plan2026, TW_X.calendar],
     deep: [
@@ -397,9 +401,9 @@ export const SHINSA_SECTIONS: LayeredSection[] = [
         title: "錄像審查與其他",
         points: [
           { text: "疫情期間全弓連實施過影片審查（級位、初段、弐段）；IKYF 的國際錄像審查當時只限初段、弐段（後者據個人整理文章）。", tag: "note", src: [INJURY.ict2022, SHINSA_X.toxoNagoya] },
-          { text: "協會行事曆顯示 2025、2026 年仍有「影像審查」（2026 年 6/15 開始報名、7/15 截止、9/30 截止送審），但現行可考段位、費用與細則，在 IKYF 官網找不到公開頁面，請向協會確認。", tag: "disputed", src: [TW_X.calendar] },
+          { text: "協會行事曆顯示 2025、2026 年都辦過「影像審查」（2026 年那一次 6/15 開始報名、7/15 截止報名、9/30 截止送審，日期都已過）；之後是否續辦、可考段位、費用與細則，在 IKYF 官網找不到公開頁面，請向協會確認。", tag: "disputed", src: [TW_X.calendar] },
           { text: "協會行事曆上約每 1～2 個月一次的「會內審查」性質不明，不等於全弓連的段位。", tag: "disputed", src: [TW_X.calendar] },
-          { text: "六段以上與稱號可以經 IKYF 報名在東京的定期中央審查；2026 年那一場考六段～八段與教士（2026-10-29～31）。", tag: "official", src: [IKYF_X.chuo2026] },
+          { text: "六段以上與稱號可以經 IKYF 報名在東京的定期中央審查；2026 年那一場排在 10 月 29～31 日舉行，考六段～八段與教士（以 IKYF 公告為準）。", tag: "official", src: [IKYF_X.chuo2026] },
           { text: "協會報名審查時的手續費、匯率怎麼算，官網沒有寫明。", tag: "disputed", src: [TAIWAN.shinsa] },
         ],
       },
@@ -435,7 +439,7 @@ export const VS_ARCHERY: CompareRow[] = [
   { item: "瞄準器", kyudo: "規則禁止瞄準裝置，矢摺籐上也不得刻意做記號", kyudoTag: "official", kyudoSrc: [ANKF.playRules], archery: "依組別，多數可裝" },
   { item: "箭在弓的哪一側", kyudo: "右側", kyudoTag: "note", archery: "右手射者多在左側" },
   { item: "拉弦的手", kyudo: "右手必戴鹿皮弽（ゆがけ）", kyudoTag: "official", kyudoSrc: [ANKF.playRules], archery: "指套、指片或放箭器" },
-  { item: "一次射的流程", kyudo: "射法八節，包含持滿的「會」與放箭後的「残心」", kyudoTag: "official", kyudoSrc: [ANKF.syaho], archery: "以技術動作與穩定性為主" },
+  { item: "一次射的流程", kyudo: "射法八節，包含持滿的「会」與放箭後的「残心」", kyudoTag: "official", kyudoSrc: [ANKF.syaho], archery: "以技術動作與穩定性為主" },
   { item: "禮法", kyudo: "入場、退場、坐射等體配（たいはい）是審查項目", kyudoTag: "official", kyudoSrc: [ANKF.probationStandard], archery: "比賽有規則，沒有段位制的禮法評分" },
   { item: "距離與靶", kyudo: "近的 28 m、36 cm 靶；遠的 60 m", kyudoTag: "official", kyudoSrc: [ANKF.playRules], archery: "依組別有多種距離與計分靶" },
   { item: "評價方式", kyudo: "段級審查看射形與體配；到参段才開始要求中靶", kyudoTag: "official", kyudoSrc: [ANKF.probationStandard], archery: "以分數為主" },
@@ -498,7 +502,7 @@ export const SMALL_TOPICS: LayeredSection[] = [
         title: "標記與待查",
         points: [
           { text: "上端用竹片保護：弓師永野一萃的建議。", tag: "shop", src: [PRICE.issuiCarry] },
-          { text: "託運包裝、箭不能帶上機艙、弽與道服隨身帶：香港作者的個人經驗。", tag: "folk", src: [CARRY.vocus] },
+          { text: "託運包裝、箭不能帶上機艙、弽與弓道衣隨身帶：香港作者的個人經驗。", tag: "folk", src: [CARRY.vocus] },
           { text: "長榮：運動器材計入託運額度；三邊和 203～292 cm 收超尺寸費，超過 292 cm 只在貨艙放得下時受理。官網兩個版本數字不一致。", tag: "disputed", src: [CARRY.eva] },
           { text: "使用猛禽類羽毛的箭，全弓連要求製作並攜帶溯源證明。", tag: "official", src: [ANKF_X.usearrow] },
           { text: "跨國攜帶可能涉及 CITES 或台灣《野生動物保育法》，本站沒有查到明確規定；買箭宜選火雞等非保育羽。", tag: "note" },

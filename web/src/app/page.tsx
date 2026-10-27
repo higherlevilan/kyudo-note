@@ -103,6 +103,7 @@ export default function Home() {
               <li key={t.href}>
                 <Link
                   href={t.href}
+                  prefetch={false}
                   className="flex h-full gap-3 rounded-2xl border border-line bg-surface p-4 text-ink no-underline shadow-sm transition hover:-translate-y-0.5 hover:border-wood hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0"
                 >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-wood-soft/70 text-wood">
@@ -135,7 +136,7 @@ export default function Home() {
           </p>
           <footer className="mt-3 text-sm text-muted">
             射箭是向自己要求端正：先端正自己再放箭，射不中也不怨勝過自己的人，只回頭找自己的原因。
-            <Link href="/culture/" className="ml-1 text-wood underline">
+            <Link href="/culture/#thought" prefetch={false} className="ml-1 text-wood underline">
               讀更多
             </Link>
           </footer>

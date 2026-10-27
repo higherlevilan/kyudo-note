@@ -129,7 +129,7 @@ export const ZASHA_FLOW: FlowStep[] = [
     ],
     breath: { text: "射法本身的呼吸請見射法八節頁。", tag: "note" },
     cue: { text: "審查：2 番以後聽「前一人」的弦音取懸け（扣弦）、打起し。", tag: "official", src: [ANKF.probationGyosha] },
-    link: { href: "/shaho/", label: "射法八節的圖解" },
+    link: { href: "/shaho/#hassetsu", label: "射法八節的圖解" },
   },
   {
     id: "yudaoshi",

@@ -19,8 +19,11 @@ export const metadata: Metadata = pageMetadata({
   og: "faq",
 });
 
+// Course order and the canonical chapter names. Entry ids are `${key}-${index}`; the chapter
+// pages' FaqTeaser links to /faq/#<key> and /faq/#<key>-<index>.
 const MODULES: { key: string; label: string; href: string; faqs: Faq[] }[] = [
-  { key: "guide", label: "入門指南", href: "/guide/", faqs: GUIDE_FAQS },
+  { key: "guide", label: "走進道場", href: "/guide/", faqs: GUIDE_FAQS },
+  { key: "etiquette", label: "禮法與體配", href: "/etiquette/", faqs: ETIQUETTE_FAQS },
   {
     key: "shaho",
     label: "射法八節",
@@ -37,8 +40,7 @@ const MODULES: { key: string; label: string; href: string; faqs: Faq[] }[] = [
     })),
   },
   { key: "shaguse", label: "射癖與矢所", href: "/shaguse/", faqs: SHAGUSE_FAQS },
-  { key: "etiquette", label: "禮法與體配", href: "/etiquette/", faqs: ETIQUETTE_FAQS },
-  { key: "equipment", label: "裝備百科", href: "/equipment/", faqs: EQUIPMENT_FAQS },
+  { key: "equipment", label: "弓具", href: "/equipment/", faqs: EQUIPMENT_FAQS },
   { key: "culture", label: "文化與哲學", href: "/culture/", faqs: CULTURE_FAQS },
 ];
 

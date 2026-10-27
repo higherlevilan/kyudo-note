@@ -1,4 +1,4 @@
-// Content shapes specific to 裝備百科. Builds on the shared Point / Source / Tag types.
+// Content shapes specific to 弓具. Builds on the shared Point / Source / Tag types.
 
 import type { Point, Source, Tag } from "@/content/types";
 

@@ -9,7 +9,7 @@ export const SHAGUSE_FAQS: Faq[] = [
     q: "早気一定是心理問題嗎？",
     a: [
       { text: "目前證據傾向「心理因素佔很大比重」：小木曽 2023 的早気組（3 人）沒有肌張力異常的特徵，西尾 2021（n=65）也這樣推論。", tag: "research", src: [STUDY.ogiso2023, STUDY.nishio2021] },
-      { text: "但也有研究指出引分方式、「會」的要素太早定下來等技術面因素，以及動作自動化。", tag: "research", src: [STUDY.mori1994, STUDY.mori1990, STUDY.matsuo2000] },
+      { text: "但也有研究指出引分方式、「会」的要素太早定下來等技術面因素，以及動作自動化。", tag: "research", src: [STUDY.mori1994, STUDY.mori1990, STUDY.matsuo2000] },
       { text: "比較合理的說法是「心理與技術都可能有關，因人而異」。", tag: "note" },
     ],
   },
@@ -33,7 +33,7 @@ export const SHAGUSE_FAQS: Faq[] = [
     topic: "緩み",
     q: "「緩み」可以靠什麼改善？",
     a: [
-      { text: "小樣本研究（n=8）顯示，「會」中加強右前臂的ひねり、殘身時加強右肘伸展，和較少緩み有關。", tag: "research", src: [STUDY.miyakawa2026] },
+      { text: "小樣本研究（n=8）顯示，「会」中加強右前臂的ひねり、残身時加強右肘伸展，和較少緩み有關。", tag: "research", src: [STUDY.miyakawa2026] },
       { text: "即時回饋有助於察覺自己有緩み（學會摘要，樣本極小）。", tag: "research", src: [STUDY.kawamukai1983] },
       { text: "實際做法請和指導者討論。", tag: "note" },
     ],
@@ -42,7 +42,7 @@ export const SHAGUSE_FAQS: Faq[] = [
     topic: "矢所",
     q: "箭一直往「前」飛，是什麼意思？",
     a: [
-      { text: "「前」通常指射手看過去靶的右側（右射者）。這是一般說法，官方沒有定義句。", tag: "folk", src: [WEB.kyusho] },
+      { text: "「前」通常指射手看過去靶的右側。這是一般說法，官方沒有定義句。", tag: "folk", src: [WEB.kyusho] },
       { text: "指導書提到弓手沒有押し切，箭會往前飛。", tag: "guide", src: [BUDOKAN.ch4, BUDOKAN.ch6] },
       { text: "力學研究也指出，沒有手の内的作用時箭會往右上偏（小樣本）。", tag: "research", src: [STUDY.hosoya1989, STUDY.miyakawa2026] },
       { text: "其他常見原因見本頁的矢所診斷（多屬一般說法）。", tag: "note" },
@@ -60,7 +60,7 @@ export const SHAGUSE_FAQS: Faq[] = [
     topic: "弓返り",
     q: "我的弓都不會轉（沒有弓返り），是射癖嗎？",
     a: [
-      { text: "初學者本來就不會有弓返り，要能充分做到手の内的作用之後才會出現（實驗研究，n=10）。", tag: "research", src: [STUDY.mori1982] },
+      { text: "初學者通常還不會有弓返り，要能充分做到手の内的作用之後才會出現（實驗研究，n=10）。", tag: "research", src: [STUDY.mori1982] },
       { text: "也有流派或指導者刻意握住弓不讓它轉（打ち切り），所以不一定是射癖。先問清楚你的道場怎麼要求。", tag: "official", src: [ANKF.terminology] },
     ],
   },

@@ -49,7 +49,7 @@ function StudyItem({ s }: { s: Study }) {
 }
 
 function SubHead({ children }: { children: ReactNode }) {
-  return <h4 className="mb-1.5 text-sm font-bold text-muted">{children}</h4>;
+  return <h3 className="mb-1.5 text-sm font-bold text-muted">{children}</h3>;
 }
 
 /**
@@ -75,7 +75,7 @@ export default function FaultCard({ f, figure }: { f: Fault; /** optional diagra
         )}
       </p>
       <details open className="group mt-3">
-        <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
+        <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
           <Chevron />
           入門
         </summary>
@@ -102,7 +102,7 @@ export default function FaultCard({ f, figure }: { f: Fault; /** optional diagra
           <span className="sr-only">：{titleText}的研究證據、改善說法與求助時機</span>
         </summary>
         <div className="mt-3 space-y-5 text-[15px]">
-          <section aria-label={`${titleText}的研究證據`}>
+          <div>
             <SubHead>
               <TagBadge tag="research" />
               研究證據（請注意樣本數與限制）
@@ -121,15 +121,15 @@ export default function FaultCard({ f, figure }: { f: Fault; /** optional diagra
                 <PointList points={f.evidenceNotes} />
               </div>
             )}
-          </section>
-          <section aria-label={`${titleText}的改善說法`}>
+          </div>
+          <div>
             <SubHead>常見的改善說法（除非標「研究」，都是一般指導說法）</SubHead>
             <PointList points={f.tips} />
-          </section>
-          <section aria-label={`${titleText}：什麼時候要找人幫忙`} className="rounded-xl border border-wood/40 bg-wood-soft/40 p-3">
+          </div>
+          <div className="rounded-xl border border-wood/40 bg-wood-soft/40 p-3">
             <SubHead>什麼時候要找人幫忙</SubHead>
             <PointList points={f.help} />
-          </section>
+          </div>
         </div>
       </details>
     </div>

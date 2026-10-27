@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, chapterJsonLd, toJsonLd } from "@/lib/seo";
 import Link from "next/link";
-import { Callout, FaqList, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
+import { Callout, FaqTeaser, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
 import ChapterHero from "@/components/course/ChapterHero";
 import CourseSection from "@/components/course/CourseSection";
 import ChapterQuiz from "@/components/course/ChapterQuiz";
@@ -45,11 +45,11 @@ const LEGEND: { tag: Tag; text: string }[] = [
 ];
 
 const RELATED = [
-  { href: "/shaho/", label: "射法八節", text: "會、離れ、殘心各節的官方說明" },
-  { href: "/equipment/", label: "裝備百科", text: "矢束、弓力、中仕掛：先排除弓具的問題" },
-  { href: "/guide/", label: "入門指南", text: "練習進程與自主練習的安全" },
+  { href: "/shaho/#kai", label: "射法八節", text: "会、離れ、残心各節的官方說明" },
+  { href: "/equipment/", label: "弓具", text: "矢束、弓力、中仕掛：先排除弓具的問題" },
+  { href: "/guide/", label: "走進道場", text: "練習進程與自主練習的安全" },
   { href: "/journal/", label: "稽古帳", text: "記下每次出現的射癖與矢所" },
-  { href: "/practice/", label: "互動練習", text: "用小測驗複習術語與射法" },
+  { href: "/practice/", label: "練習場", text: "用小測驗複習術語與射法" },
   { href: "/faq/", label: "問題研究中心", text: "各單元的常見問題總整理" },
 ];
 
@@ -64,10 +64,11 @@ const JA_SHAGUSE = (
 export default function ShagusePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(chapterJsonLd("shaguse")) }} />
       <ChapterHero chapter="shaguse">
         <p>
-          {JA_SHAGUSE}（しゃぐせ）是射法上的習慣性毛病，像是還沒到「會」就放掉的早気、放不出去的もたれ；矢所（やどころ）是箭落在哪裡。
-          本關整理九種常見射癖的定義、目前的研究證據，以及常聽到的改善說法，並附一個矢所對照工具。
+          {JA_SHAGUSE}（しゃぐせ）是射法上的習慣性毛病，像是還沒到「会」就放掉的早気、放不出去的もたれ；矢所（やどころ）是箭落在哪裡。
+          本關整理七種常見射癖與弓返り、手の内兩個相關主題的定義、目前的研究證據，以及常聽到的改善說法，並附一個矢所對照工具。
         </p>
         <p className="mt-2">
           先講結論：<strong className="text-ink">射癖的研究證據很薄</strong>，多半是小樣本的問卷與個案，沒有任何隨機對照試驗驗證過矯正法。
@@ -137,7 +138,7 @@ export default function ShagusePage() {
           </div>
 
           <div>
-            <h3 className="mb-1 text-lg font-semibold">一張圖看懂：會的前後出了什麼事</h3>
+            <h3 className="mb-1 text-lg font-semibold">一張圖看懂：会的前後出了什麼事</h3>
             <p className="mb-3 text-sm leading-relaxed text-muted">
               早気、もたれ、びく、ゆすり、緩み都發生在引分け到離れ之間。先看沒有射癖時的樣子，再一個一個比較。
             </p>
@@ -216,7 +217,7 @@ export default function ShagusePage() {
             </Link>
             ，累積幾週後就看得出哪一種最常出現；想複習術語與射法，可以到
             <Link href="/practice/" className="mx-1 text-wood underline">
-              互動練習
+              練習場
             </Link>
             。
           </p>
@@ -242,7 +243,7 @@ export default function ShagusePage() {
 
       <ChapterQuiz chapter="shaguse" />
 
-      <FaqList faqs={SHAGUSE_FAQS} />
+      <FaqTeaser module="shaguse" faqs={SHAGUSE_FAQS} picks={["早気一定是心理問題嗎？", "箭一直往「前」飛，是什麼意思？", "弦打到臉或手臂，要換護具還是改射法？"]} />
 
       <nav aria-labelledby="related" className="mt-12">
         <h2 id="related" className="mb-3 text-xl font-bold">

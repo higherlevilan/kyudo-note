@@ -180,6 +180,3 @@ export const BUDGET_ITEMS: BudgetItem[] = [
     maxQty: 1,
   },
 ];
-
-/** Reference totals from the research (for sanity / display). */
-export const PRESET_TOTALS = { min: 86080, std: 123950 } as const;

@@ -1,7 +1,11 @@
 "use client";
 // Corner 小弓 (like TechEDU's companion 雲寶): bottom-left, above the safe-area inset, clear of the
 // ReadingTools buttons on the right. Tap for a route-aware tip (src/content/course/tips.ts);
-// 「收起小弓」 folds it into a tiny pill (remembered on this device). First visit: one greeting.
+// 「收起小弓」 folds it into a tiny pill (remembered on this device). First visit: one greeting,
+// after the reader's first scroll or tap (so it never sits on the page before they start reading).
+// On phones it steps aside while a Stepper / 3D figure is in the middle of the screen (./avoid.ts).
+// No live region: quiz and badge results are announced once by the course engine (CourseToasts /
+// ChapterQuiz); a tip is ordinary text in the bubble next to the button (aria-controls).
 //
 // Reactions (window CustomEvents dispatched by the course engine):
 //   course:seen  {chapter, section}       → a small happy hop (no bubble)
@@ -15,9 +19,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import type { Mood } from "@/lib/course/types";
-import { tipsFor } from "@/content/course/tips";
+import { loadTips } from "@/content/course/tips-routes";
 import Mascot from "./Mascot";
-import { sanitizeSayHtml, sayPlainText } from "./sanitize";
+import { sanitizeSayHtml } from "./sanitize";
+import { AVOID_EVENT, type AvoidDetail } from "./avoid";
 
 // ---- remembered state (hidden / greeted), with an in-memory fallback when storage is blocked ----
 
@@ -104,8 +109,9 @@ export default function Companion() {
   const [bubble, setBubble] = useState<Bubble | null>(null);
   const [flashMood, setFlashMood] = useState<Mood | null>(null);
   const [jump, setJump] = useState(0);
-  const [live, setLive] = useState("");
   const [typing, setTyping] = useState(false);
+  const [avoid, setAvoid] = useState(false);
+  const [focusIn, setFocusIn] = useState(false);
 
   // Close the bubble when the route changes (adjusting state during render, not in an effect).
   const [route, setRoute] = useState(pathname);
@@ -137,7 +143,6 @@ export default function Companion() {
   const show = useCallback((b: Omit<Bubble, "id">, ms?: number) => {
     const id = ++seq.current;
     setBubble({ ...b, id });
-    setLive(sayPlainText(b.html));
     clearTimeout(autoT.current);
     if (ms) autoT.current = setTimeout(() => setBubble((cur) => (cur?.id === id ? null : cur)), ms);
   }, []);
@@ -148,15 +153,17 @@ export default function Companion() {
   }, []);
 
   const nextTip = useCallback(() => {
-    const tips = tipsFor(pathname);
-    if (!tips.length) return;
-    const seen = tipIdx.current.get(pathname);
-    const i = seen === undefined ? Math.floor(Math.random() * tips.length) : (seen + 1) % tips.length;
-    tipIdx.current.set(pathname, i);
-    const t = tips[i];
-    const mood = t.mood ?? "happy";
-    show({ kind: "tip", html: t.text, mood, href: t.href });
-    flash(mood, 1200);
+    // Only this route's tips are downloaded, on the first tap.
+    void loadTips(pathname).then((tips) => {
+      if (!tips.length) return;
+      const seen = tipIdx.current.get(pathname);
+      const i = seen === undefined ? Math.floor(Math.random() * tips.length) : (seen + 1) % tips.length;
+      tipIdx.current.set(pathname, i);
+      const t = tips[i];
+      const mood = t.mood ?? "happy";
+      show({ kind: "tip", html: t.text, mood, href: t.href });
+      flash(mood, 1200);
+    });
   }, [pathname, show, flash]);
 
   /** A line the reader didn't ask for: throttled, never over an open tip, mood only on phones. */
@@ -172,16 +179,44 @@ export default function Companion() {
     [flash, show],
   );
 
-  // First visit: one greeting.
+  // First visit: one greeting, shortly after the first scroll or tap (skipped if a tip is already open).
   useEffect(() => {
     if (!ready || hidden || greeted) return;
-    const t = setTimeout(() => {
-      save({ greeted: 1 });
-      show({ kind: "greet", html: GREETING, mood: "wow" }, 8000);
-      flash("wow", 1600);
-    }, 1400);
-    return () => clearTimeout(t);
+    let t: ReturnType<typeof setTimeout> | undefined;
+    const off = () => {
+      removeEventListener("scroll", start);
+      removeEventListener("pointerdown", start);
+    };
+    function start() {
+      off();
+      t = setTimeout(() => {
+        save({ greeted: 1 });
+        if (bubbleRef.current) return;
+        show({ kind: "greet", html: GREETING, mood: "wow" }, 6000);
+        flash("wow", 1600);
+      }, 700);
+    }
+    addEventListener("scroll", start, { passive: true });
+    addEventListener("pointerdown", start, { passive: true });
+    return () => {
+      off();
+      clearTimeout(t);
+    };
   }, [ready, hidden, greeted, show, flash]);
+
+  // Phones: step aside while a Stepper / 3D figure is in the middle of the screen.
+  useEffect(() => {
+    const on = new Set<Element>();
+    const onAvoid = (e: Event) => {
+      const d = (e as CustomEvent<AvoidDetail>).detail;
+      if (!d?.el) return;
+      if (d.on) on.add(d.el);
+      else on.delete(d.el);
+      setAvoid(on.size > 0);
+    };
+    addEventListener(AVOID_EVENT, onAvoid);
+    return () => removeEventListener(AVOID_EVENT, onAvoid);
+  }, []);
 
   // Reactions to the course engine.
   useEffect(() => {
@@ -265,25 +300,25 @@ export default function Companion() {
   };
 
   const mood: Mood = flashMood ?? bubble?.mood ?? "happy";
-  const small = "inline-flex h-9 items-center rounded-full border px-3 text-[0.8rem]";
+  const small = "inline-flex h-10 items-center rounded-full border px-3 text-[0.8rem]";
+  // Fades out (and stops taking taps) on phones only; kept while it holds keyboard focus.
+  const aside = avoid && !focusIn;
 
   return (
     <div
       data-mascot-companion=""
-      className={`mascot-companion pointer-events-none fixed left-[max(0.75rem,env(safe-area-inset-left))] lg:left-[calc(var(--side-w)+0.75rem)] z-30 flex flex-col items-start gap-1.5 print:hidden ${
+      onFocus={() => setFocusIn(true)}
+      onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && setFocusIn(false)}
+      className={`mascot-companion pointer-events-none fixed left-[max(0.75rem,env(safe-area-inset-left))] lg:left-[calc(var(--side-w)+0.75rem)] z-30 flex flex-col items-start gap-1.5 transition-opacity duration-200 print:hidden ${
         typing ? "hidden" : ""
-      }`}
+      } ${aside ? "max-sm:invisible max-sm:opacity-0" : ""}`}
     >
-      <div aria-live="polite" className="sr-only">
-        {live}
-      </div>
-
       {hidden ? (
         <button
           type="button"
           onClick={restore}
           aria-label="叫出小弓"
-          className="pointer-events-auto inline-flex h-8 items-center gap-1 rounded-full border border-line bg-surface/90 pr-2.5 pl-1 text-xs text-muted shadow-sm backdrop-blur hover:border-wood hover:text-ink"
+          className="pointer-events-auto inline-flex h-10 items-center gap-1 rounded-full border border-line bg-surface/90 pr-3 pl-1.5 text-xs text-muted shadow-sm backdrop-blur hover:border-wood hover:text-ink"
         >
           <Mascot mood="happy" size={24} />
           小弓
@@ -297,7 +332,7 @@ export default function Companion() {
               data-kind={bubble.kind}
               className="mascot-companion-bubble pointer-events-auto relative w-max max-w-[min(20rem,calc(100vw-7.5rem))] rounded-2xl rounded-bl-sm border border-wood/60 bg-surface px-3.5 pt-2.5 pb-2.5 text-sm leading-relaxed text-ink shadow-lg"
             >
-              <span className="block pr-7 text-xs font-semibold tracking-wide text-wood">
+              <span className="block pr-8 text-xs font-semibold tracking-wide text-wood">
                 {bubble.kind === "tip" ? "小弓小提醒" : "小弓"}
               </span>
               <p className="pr-2 [&_b]:font-semibold" dangerouslySetInnerHTML={{ __html: sanitizeSayHtml(bubble.html) }} />
@@ -320,7 +355,7 @@ export default function Companion() {
                 type="button"
                 onClick={close}
                 aria-label="關閉"
-                className="absolute top-1 right-1 flex h-8 w-8 items-center justify-center rounded-full text-sm text-muted hover:bg-surface-2 hover:text-ink"
+                className="absolute top-0 right-0 flex h-10 w-10 items-center justify-center rounded-full text-sm text-muted hover:bg-surface-2 hover:text-ink"
               >
                 ✕
               </button>

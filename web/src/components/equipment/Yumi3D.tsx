@@ -5,6 +5,7 @@
 
 import { useState } from "react";
 import FigureFrame from "@/components/illustrations/gear/FigureFrame";
+import { FigureNotes } from "@/components/content/Blocks";
 import { PARTS, type PartId } from "@/components/illustrations/gear/YumiParts";
 import ThreeStage, { type ViewPreset } from "@/components/three/ThreeStage";
 import type { BowState } from "@/components/three/yumi-shape";
@@ -53,13 +54,7 @@ export default function Yumi3D() {
     <FigureFrame
       id="yumi-3d"
       title="和弓立體圖"
-      caption={
-        <>
-          按比例：全長 221 cm（並寸）、握在從本弭算起約 1/3（上半部約是下半部的 2 倍長）、張弦時弓把約 15 cm。
-          不按比例：弓身厚度放大 2 倍、弦也畫粗；斷面形狀是示意。張弦的弓身曲線沿用〈和弓各部位〉圖，也是示意；卸弦（裏反り）與拉開時彎曲的程度是示意，不是實測。
-          入木・出木（弓的左右偏向）的定義說法不一，沒有畫；上切詰籐等更細的部位沒有畫。
-        </>
-      }
+      caption="按比例：全長 221 cm（並寸）、握在從本弭算起約 1/3、張弦時弓把約 15 cm；其餘是示意。"
       sources={[ANKF.playRules, ANKF.terminology, BUDOKAN.ch2, ANKF.rissha, SHOP.yokoyama, SHOP.suizanYumi]}
     >
       <div className="grid gap-4 md:grid-cols-2 md:items-start">
@@ -147,6 +142,13 @@ export default function Yumi3D() {
           </div>
         </div>
       </div>
+      <FigureNotes>
+        <p>握在從本弭算起約 1/3，所以上半部約是下半部的 2 倍長。</p>
+        <p>
+          不按比例：弓身厚度放大 2 倍、弦也畫粗；斷面形狀是示意。張弦的弓身曲線沿用〈和弓各部位〉圖，也是示意；卸弦（裏反り）與拉開時彎曲的程度是示意，不是實測。
+        </p>
+        <p>入木・出木（弓的左右偏向）的定義說法不一，沒有畫；上切詰籐等更細的部位沒有畫。</p>
+      </FigureNotes>
     </FigureFrame>
   );
 }

@@ -1,12 +1,13 @@
 "use client";
 
-// 弓返り的 3D 步驟圖：會 → 離れ瞬間 → 弓返り後，從上方看握的地方。
+// 弓返り的 3D 步驟圖：会 → 離れ瞬間 → 弓返り後，從上方看握的地方。
 // 圓環代表握（手の内），不畫手。來源只說「弦轉到左手手背那一側」，沒有寫轉的方向，
 // 所以第 3 步只畫轉完的位置（淡出／淡入），不畫轉的路徑。可切換「沒有弓返り（打ち切り）」比較。
 
 import { useState } from "react";
 import Stepper, { type StepDef } from "@/components/course/Stepper";
 import FigureFrame from "@/components/illustrations/gear/FigureFrame";
+import { FigureNotes } from "@/components/content/Blocks";
 import ThreeStage, { type ViewPreset } from "@/components/three/ThreeStage";
 import type { YugaeriProps } from "@/components/three/scenes/yugaeri";
 import { ANKF, BUDOKAN, STUDY } from "@/content/shaguse/sources";
@@ -21,7 +22,7 @@ const VIEWS: ViewPreset[] = [
 
 const COMMON: StepDef[] = [
   {
-    title: "會",
+    title: "会",
     text: "拉滿，弦拉到胸前（胸弦）。藍色圓環代表左手握弓的地方（手の内），不是手的形狀。",
   },
   {
@@ -65,12 +66,7 @@ export default function Yugaeri3D() {
     <FigureFrame
       id="yugaeri-3d"
       title="弓返り（俯視示意）"
-      caption={
-        <>
-          從握的上方把弓切開往下看：看得到弓的斷面、弦，和代表握的圓環。張弦時握到弦約 15 cm 按比例；會的時候弦拉開的距離以約 85 cm 示意；弓的厚度放大 2 倍，斷面形狀是示意。
-          「弦轉到左手手背那一側」是全弓連用語辭典的說法；轉的方向、角度與手背側的確切範圍來源沒有寫明，圖上的停止位置與「手背側」弧線都是示意。
-        </>
-      }
+      caption="從握的上方往下看弓的斷面、弦與握；張弦時握到弦約 15 cm 按比例，其餘是示意。"
       sources={[ANKF.terminology, ANKF.syaho, BUDOKAN.ch2, STUDY.mori1982]}
     >
       <Stepper steps={steps} label="弓返り的步驟">
@@ -108,6 +104,12 @@ export default function Yugaeri3D() {
           </ThreeStage>
         )}
       </Stepper>
+      <FigureNotes>
+        <p>
+          從握的上方把弓切開往下看：看得到弓的斷面、弦，和代表握的圓環。張弦時握到弦約 15 cm 按比例；会的時候弦拉開的距離以約 85 cm 示意；弓的厚度放大 2 倍，斷面形狀是示意。
+        </p>
+        <p>「弦轉到左手手背那一側」是全弓連用語辭典的說法；轉的方向、角度與手背側的確切範圍來源沒有寫明，圖上的停止位置與「手背側」弧線都是示意。</p>
+      </FigureNotes>
     </FigureFrame>
   );
 }

@@ -35,7 +35,7 @@ export const ET = {
     kind: "local",
   },
   tokai: {
-    label: "愛知縣高體連〈R4 東海総体 諸注意〉",
+    label: "愛知縣高體連〈R4 東海総体 諸注意〉（已失效：原網址 404，查無存檔）",
     url: "https://aichikenkoutairen.jp/wp-content/uploads/2022/06/R4東海総体-諸注意5.20.pdf",
     kind: "local",
   },
@@ -55,7 +55,7 @@ export const ET = {
   ikeda6: { label: "池田友行（錬士五段）〈日本弓道について〉第 6 回，NetIB-News", url: "https://data-max.co.jp/article/42424", kind: "secondary" },
   wikid: { label: "〈弓道場〉，ja.wikid.org（百科類二手資料）", url: "https://ja.wikid.org/%E5%BC%93%E9%81%93%E5%A0%B4", kind: "secondary" },
   kokushikanKendo: { label: "國士舘大學紀要（劍道的神前禮習慣；非弓道）", url: "https://kokushikan.repo.nii.ac.jp/record/7695/files/1346_194%EF%BD%98_028_02.pdf", kind: "research" },
-  shinagawa: { label: "品川區〈東品川弓道場使用注意事項〉", url: "https://www.city.shinagawa.tokyo.jp/ct/other000069300/kyudotyuijikou.pdf", kind: "secondary" },
+  shinagawa: { label: "品川區〈東品川弓道場使用注意事項〉（存檔，2025-05-12）", url: "https://web.archive.org/web/20250512031449/https://www.city.shinagawa.tokyo.jp/ct/other000069300/kyudotyuijikou.pdf", kind: "secondary" },
 } satisfies Record<string, Source>;
 
 /** Order of the 資料來源 list at the bottom of the page. */

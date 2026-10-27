@@ -1,4 +1,4 @@
-// 情境題（體配・審查）. Multiple-choice questions built from the 禮法與體配 and 入門指南
+// 情境題（體配・審查）. Multiple-choice questions built from the 禮法與體配 and 走進道場
 // content files. Answers and explanations are read from those files (GYOSHA, KEY_FIGURES,
 // ZASHA_VS_RISSHA, KIHON, STANDARD …) wherever possible; a question whose data row is
 // missing is dropped instead of guessed. Wrong options are plausible mix-ups (other rows

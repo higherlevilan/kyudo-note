@@ -9,6 +9,7 @@
 // 位置：用語辭典說大前是「一立中最前面的射手」，射手在射位面向脇正面，所以 1 番畫在脇正面那一端（+x），5 番（落）在另一端。
 
 import FigureFrame from "@/components/illustrations/gear/FigureFrame";
+import { FigureNotes } from "@/components/content/Blocks";
 import Stepper, { type StepDef } from "@/components/course/Stepper";
 import ThreeStage, { type ViewPreset } from "@/components/three/ThreeStage";
 import type { DojoProps, LaneMark } from "@/components/three/scenes/dojo";
@@ -150,12 +151,7 @@ export default function TachiOrder3D({ rows, positions }: { rows: GyoshaRow[]; p
     <FigureFrame
       id="tachi-order-3d"
       title="5 人立的射順（弦音接力）"
-      caption={
-        <>
-          資料同上方的行射要領表（〈審査における行射の要領（５人立ち）〉）：每一步是一位射手放箭，亮起的是以這聲弦音為信號的人。只表示順序與信號，不表示每個動作花多少時間。
-          圓盤代表射位上的射手（不畫人）。大前是一立中最前面的射手；射手在射位面向脇正面，所以圖中 1 番在脇正面那一端（右）、5 番（落）在另一端。射位間隔 1.8 m、本座到射位 2.0 m 按比例，其餘示意。
-        </>
-      }
+      caption="資料同上方的行射要領表：每一步是一位射手放箭，亮起的是以這聲弦音為信號的人；射位間隔 1.8 m、本座到射位 2.0 m 按比例，其餘是示意。"
       sources={[ANKF.probationGyosha, ANKF.terminology, ANKF.playRules]}
     >
       <Stepper steps={steps} label="5 人立射順的步驟" autoplayMs={3000}>
@@ -188,6 +184,14 @@ export default function TachiOrder3D({ rows, positions }: { rows: GyoshaRow[]; p
           );
         }}
       </Stepper>
+      <FigureNotes>
+        <p>
+          資料同上方的行射要領表（〈審査における行射の要領（５人立ち）〉）：每一步是一位射手放箭，亮起的是以這聲弦音為信號的人。只表示順序與信號，不表示每個動作花多少時間。
+        </p>
+        <p>
+          圓盤代表射位上的射手（不畫人）。大前是一立中最前面的射手；射手在射位面向脇正面，所以圖中 1 番在脇正面那一端（右）、5 番（落）在另一端。射位間隔 1.8 m、本座到射位 2.0 m 按比例，其餘示意。
+        </p>
+      </FigureNotes>
     </FigureFrame>
   );
 }

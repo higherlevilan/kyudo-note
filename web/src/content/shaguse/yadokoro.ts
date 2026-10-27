@@ -10,7 +10,7 @@ export const YADOKORO_ROWS: YadokoroRow[] = [
     dir: "mae",
     label: "前",
     ja: "まえ",
-    where: "靶的右側（右射者）",
+    where: "靶的右側（從射手看）",
     causes: [
       { text: "角見沒有作用、手の内的推力弱，或被弓力壓過", anchor: "tenouchi" },
       { text: "前離れ（在靶的前方就離れ）" },
@@ -29,7 +29,7 @@ export const YADOKORO_ROWS: YadokoroRow[] = [
     dir: "ushiro",
     label: "後",
     ja: "うしろ",
-    where: "靶的左側（右射者）",
+    where: "靶的左側（從射手看）",
     causes: [
       { text: "瞄準偏後" },
       { text: "弓手過度扭轉、往後擺", anchor: "tenouchi" },
@@ -62,7 +62,7 @@ export const YADOKORO_ROWS: YadokoroRow[] = [
     ja: "した",
     where: "靶的下方",
     causes: [
-      { text: "弓手往下切（切り下げ）" },
+      { text: "離れ時雙手或單手大幅往下掉（切り下げ）" },
       { text: "緩み讓箭束變短", anchor: "yurumi" },
       { text: "早気，沒有拉滿", anchor: "hayake" },
       { text: "押す力不足", anchor: "tenouchi" },
@@ -91,13 +91,14 @@ export const YADOKORO_ROWS: YadokoroRow[] = [
 
 /** 先講清楚：「前」「後」是一般說法 */
 export const MAE_USHIRO: Point[] = [
-  { text: "矢所（やどころ）：射出的箭到達的落點。殘心時「放箭後姿勢不變，看矢所」。", tag: "official", src: [ANKF.terminology, ANKF.syaho] },
+  { text: "矢所（やどころ）：射出的箭到達的落點。残心時「放箭後姿勢不變，看矢所」。", tag: "official", src: [ANKF.terminology, ANKF.syaho] },
   {
-    text: "射手站好足踏み時，身體正面朝向射場正面，靶在左手邊。「前」是射手身體正面那一側，從射手看過去是靶的右側；「後」是背後那一側，是靶的左側。左射者左右相反。",
+    text: "射手站好足踏み時，身體正面朝向脇正面，靶在左手邊。「前」是射手身體正面那一側，從射手看過去是靶的右側；「後」是背後那一側，是靶的左側。",
     tag: "folk",
     src: [WEB.kyusho],
   },
   { text: "全弓連用語辭典與指導書都沒有直接寫「前＝右」的定義句，這是社團間的通用說法。", tag: "disputed" },
+  { text: "弓道一律左手持弓、右手拉弦（右手必戴弽），所以前後的方向不會因人而異。", tag: "official", src: [ANKF.playRules] },
 ];
 
 /** 表格之外也會影響矢所的因素 */

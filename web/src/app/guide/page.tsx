@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, chapterJsonLd, toJsonLd } from "@/lib/seo";
 import Link from "next/link";
-import { Callout, Cites, FaqList, LayeredCard, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
+import { Callout, Cites, FaqTeaser, LayeredCard, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
 import ChapterEnd from "@/components/course/ChapterEnd";
 import ChapterHero from "@/components/course/ChapterHero";
 import ChapterQuiz from "@/components/course/ChapterQuiz";
@@ -44,9 +44,9 @@ import type { LayeredSection, Point, Source } from "@/content/types";
 
 export const metadata: Metadata = pageMetadata({
   path: "/guide/",
-  title: "入門指南",
+  title: "走進道場",
   description:
-    "給完全初學者的弓道入門：第一年的練習進程、第一次去道場要準備什麼、在台灣哪裡學、安全守則、費用試算、初段審查與海外受審。資料以全日本弓道連盟與臺灣弓道協會公開資料為準。",
+    "走進道場（入門指南）：給完全初學者的弓道入門，第一年的練習進程、第一次去道場要準備什麼、在台灣哪裡學、安全守則、費用試算、初段審查與海外受審。資料以全日本弓道連盟與臺灣弓道協會公開資料為準。",
   og: "guide",
 });
 
@@ -102,6 +102,7 @@ const PAGE_SOURCES: Source[] = [
 export default function GuidePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-16">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(chapterJsonLd("guide")) }} />
       <ChapterHero chapter="guide">
         <p>
           還沒碰過弓也沒關係。這一章整理第一年會走的路、第一次去道場要準備什麼、在台灣可以去哪裡學、安全守則、要花多少錢，以及第一個段位「初段」考什麼。
@@ -131,12 +132,11 @@ export default function GuidePage() {
       <CourseSection
         chapter="guide"
         id="first-year"
-        title="你的弓道第一年"
         quip
         lead={
           <>
             弓道不是第一天就射靶。全弓連與指導書的順序，是從不拿弓的徒手練習開始，一步步加上阻力，最後才站上射場。每一步的動作，都是
-            <Link href="/shaho/" className="text-wood underline">
+            <Link href="/shaho/#hassetsu" className="text-wood underline">
               射法八節
             </Link>
             。
@@ -158,12 +158,12 @@ export default function GuidePage() {
         <FirstVisitSteps steps={VISIT_STEPS} />
         <p className="text-sm text-muted">
           裝備怎麼選，見
-          <Link href="/equipment/" className="mx-1 text-wood underline">
-            弓具
+          <Link href="/equipment/#start" className="mx-1 text-wood underline">
+            弓具〈先借再買〉
           </Link>
-          ；完整的禮法，見
-          <Link href="/etiquette/" className="mx-1 text-wood underline">
-            禮法與體配
+          ；道場裡的禮儀，見
+          <Link href="/etiquette/#dojo" className="mx-1 text-wood underline">
+            禮法與體配〈道場禮儀〉
           </Link>
           。
         </p>
@@ -283,8 +283,8 @@ export default function GuidePage() {
               <PointList points={BUYING.points} />
             </div>
             <p className="mt-3 text-sm">
-              <Link href="/equipment/" className="text-wood underline">
-                弓、箭、弽怎麼選、去哪裡買，見〈裝備百科〉 →
+              <Link href="/equipment/#start" className="text-wood underline">
+                弓、箭、弽怎麼選、去哪裡買，見〈弓具〉 →
               </Link>
             </p>
           </div>
@@ -300,8 +300,8 @@ export default function GuidePage() {
         lead={
           <>
             以下大多出自日本武道協議會《少年少女武道指導書 弓道》，對象是少年少女，成人練習同樣適用。進出射場的禮法與矢取り的口令，見
-            <Link href="/etiquette/" className="text-wood underline">
-              禮法與體配
+            <Link href="/etiquette/#dojo" className="text-wood underline">
+              禮法與體配〈道場禮儀〉
             </Link>
             。
           </>
@@ -359,12 +359,12 @@ export default function GuidePage() {
         lead={
           <>
             審查（しんさ）是全弓連的級段認定。段位制度的由來與稱號（錬士・教士・範士），見
-            <Link href="/culture/" className="text-wood underline">
-              文化與哲學
+            <Link href="/culture/#ranks" className="text-wood underline">
+              文化與哲學〈段位與稱號〉
             </Link>
             ；審查時的體配，見
-            <Link href="/etiquette/" className="text-wood underline">
-              禮法與體配
+            <Link href="/etiquette/#shinsa" className="text-wood underline">
+              禮法與體配〈審查時的體配〉
             </Link>
             。
           </>
@@ -373,7 +373,7 @@ export default function GuidePage() {
         <figure className="rounded-2xl border border-line bg-surface p-5 sm:p-6">
           <figcaption className="mb-4">
             <span className="font-semibold">各段對「中靶」的要求</span>
-            <span className="ml-2 text-sm text-muted">依《審査統一基準（五段以下）》</span>
+            <span className="ml-2 text-sm text-muted">依《審査規程》第 8 條與《審査統一基準（五段以下）》</span>
             <Cites src={[ANKF.probationStandard, ANKF.probationRules]} />
           </figcaption>
           <ol className="grid gap-2 md:grid-cols-5 md:items-start md:gap-3">
@@ -478,7 +478,7 @@ export default function GuidePage() {
 
       <ChapterQuiz chapter="guide" />
 
-      <FaqList faqs={GUIDE_FAQS} />
+      <FaqTeaser module="guide" faqs={GUIDE_FAQS} picks={["新手大概多久能站上的前？", "台灣哪裡可以學？不是學生也可以嗎？", "考初段要花多少錢？"]} />
 
       <SourceList
         sources={PAGE_SOURCES}

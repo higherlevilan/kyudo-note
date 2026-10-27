@@ -1,52 +1,54 @@
 "use client";
 
-// Progress toasts (TechEDU ux.js toast/checkBadge): a quiet note when a 小節 is marked as read,
-// the 過關測驗 score, and a badge card + confetti the first time a 關卡 is complete.
+// Progress toasts (TechEDU ux.js toast/checkBadge): the 過關測驗 score, a badge card + confetti
+// the first time a 關卡 is complete, and the reset note. Reading a 小節 has no toast: the ring and
+// the 「✓ 已讀」 chip already show it, and on phones a toast per section covered the text.
+// One polite live region holds plain items. The score toast is visual only (aria-hidden): the
+// quiz panel's own live region announces the result, so it is not read twice.
 // Mounted once in the root layout. Sits at the top (below the mobile bar / top-right on desktop),
 // clear of the reading tools (bottom-right) and the companion (bottom-left).
 
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import Mascot from "@/components/mascot/Mascot";
-import { CHAPTERS, CHAPTER_BY_ID } from "@/content/course/chapters";
-import { badgeName, chapterStatus, getProgress, onCourseEvent, type CourseEvent } from "@/lib/course/progress";
-import type { ChapterId, CourseProgress, Mood } from "@/lib/course/types";
+import { CHAPTER_BY_ID, nextChapter } from "@/content/course/registry";
+import { badgeName, onCourseEvent, passScore, type CourseEvent } from "@/lib/course/progress";
+import type { ChapterId, Mood } from "@/lib/course/types";
 import BadgeArt from "./BadgeArt";
 import { confetti } from "./confetti";
 
 type Toast =
-  | { id: number; kind: "note"; mood: Mood; title: string; body?: string; ms: number }
+  | { id: number; kind: "note"; mood: Mood; title: string; body?: string; ms: number; silent?: boolean }
   | { id: number; kind: "badge"; chapter: ChapterId; ms: number };
 
 let nextId = 1;
 
-function describe(e: CourseEvent, p: CourseProgress): Toast | null {
+function describe(e: CourseEvent): Toast | null {
+  if (e.type === "seen") return null;
   const id = nextId++;
-  if (e.type === "seen") {
-    const ch = CHAPTER_BY_ID[e.chapter];
-    const s = ch.sections.find((x) => x.id === e.section);
-    const st = chapterStatus(p, ch);
-    const all = st.seen === st.sections;
-    return {
-      id,
-      kind: "note",
-      mood: all ? "wow" : "happy",
-      title: `✓ ${s?.title ?? e.section}`,
-      body: all && st.hasQuiz && !st.quiz ? `${ch.tag} 小節全部看完了，剩下過關測驗！` : `${ch.tag} 進度 ${st.seen} / ${st.sections}`,
-      ms: 2600,
-    };
-  }
   if (e.type === "quiz") {
     const { correct, total } = e.result;
-    if (correct === total) return { id, kind: "note", mood: "wow", title: `滿分！${correct} / ${total}`, body: "小弓：「正中靶心，漂亮。」", ms: 3600 };
-    if (correct >= total * 0.6) return { id, kind: "note", mood: "happy", title: `過關！${correct} / ${total}`, body: "錯的題目回去讀一次那一節就懂了。", ms: 3400 };
-    return { id, kind: "note", mood: "oops", title: `${correct} / ${total}`, body: "沒關係，按「重做」再射一輪。", ms: 3400 };
+    const need = passScore(total);
+    const base = { id, kind: "note", ms: 3400, silent: true } as const;
+    if (correct === total) return { ...base, mood: "wow", title: `滿分！${correct} / ${total}`, body: "小弓：「正中靶心，漂亮。」", ms: 3600 };
+    if (correct >= need) return { ...base, mood: "happy", title: `過關！${correct} / ${total}`, body: "錯的題目回去讀一次那一節就懂了。" };
+    return { ...base, mood: "oops", title: `${correct} / ${total}`, body: `再試一次就能過關：要答對 ${need} 題。` };
   }
   if (e.type === "badge") return { id, kind: "badge", chapter: e.chapter, ms: 9000 };
   return { id, kind: "note", mood: "bow", title: "進度已清除", body: "所有小節、測驗與徽章都重新開始。", ms: 3000 };
 }
 
-function ToastShell({ toast, onClose, children, className = "" }: { toast: Toast; onClose: () => void; children: ReactNode; className?: string }) {
+function ToastShell({
+  toast,
+  onClose,
+  children,
+  className = "",
+}: {
+  toast: Toast;
+  onClose: () => void;
+  children: ReactNode;
+  className?: string;
+}) {
   const [paused, setPaused] = useState(false);
   useEffect(() => {
     if (paused) return;
@@ -55,7 +57,7 @@ function ToastShell({ toast, onClose, children, className = "" }: { toast: Toast
   }, [paused, toast.ms, onClose]);
   return (
     <div
-      role="status"
+      aria-hidden={toast.kind === "note" && toast.silent ? true : undefined}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -69,8 +71,7 @@ function ToastShell({ toast, onClose, children, className = "" }: { toast: Toast
 
 function BadgeToast({ chapter, onClose }: { chapter: ChapterId; onClose: () => void }) {
   const ch = CHAPTER_BY_ID[chapter];
-  const idx = CHAPTERS.indexOf(ch);
-  const next = CHAPTERS[idx + 1];
+  const next = nextChapter(chapter);
   return (
     <div className="relative flex flex-col items-center gap-1 p-5 text-center">
       <button
@@ -87,11 +88,11 @@ function BadgeToast({ chapter, onClose }: { chapter: ChapterId; onClose: () => v
       {ch.badge.line && <p className="text-sm leading-relaxed text-muted">{ch.badge.line}</p>}
       <p className="text-sm leading-relaxed text-muted">「{ch.title}」的小節和測驗都完成了，徽章掛到首頁的徽章牆上了。</p>
       <div className="mt-2 flex flex-wrap justify-center gap-2">
-        <Link href="/#badges" onClick={onClose} className="inline-flex min-h-11 items-center rounded-xl border border-field-border px-4 text-sm font-semibold text-ink no-underline hover:bg-surface-2">
+        <Link href="/#badges" prefetch={false} onClick={onClose} className="inline-flex min-h-11 items-center rounded-xl border border-field-border px-4 text-sm font-semibold text-ink no-underline hover:bg-surface-2">
           看徽章牆
         </Link>
         {next && (
-          <Link href={next.href} onClick={onClose} className="inline-flex min-h-11 items-center rounded-xl bg-ink px-4 text-sm font-semibold text-paper no-underline hover:bg-ink/85">
+          <Link href={next.href} prefetch={false} onClick={onClose} className="inline-flex min-h-11 items-center rounded-xl bg-ink px-4 text-sm font-semibold text-paper no-underline hover:bg-ink/85">
             下一關：{next.title} ▶
           </Link>
         )}
@@ -107,8 +108,7 @@ export default function CourseToasts() {
     const timers: ReturnType<typeof setTimeout>[] = [];
     const push = (t: Toast) => setToasts((list) => [...list, t].slice(-3));
     const off = onCourseEvent((e) => {
-      // Events fire after the store commits, so the snapshot already includes this change.
-      const t = describe(e, getProgress());
+      const t = describe(e);
       if (!t) return;
       if (t.kind === "badge") {
         // Let the score toast land first, then celebrate.

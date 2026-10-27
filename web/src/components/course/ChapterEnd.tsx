@@ -4,8 +4,8 @@
 // previous / next chapter buttons (「下一關：… ▶」, or 「全部完成！回到路線圖 ▶」 after the last one).
 
 import Link from "next/link";
-import { CHAPTERS, CHAPTER_BY_ID } from "@/content/course/chapters";
-import { badgeName, chapterStatus, pct, useCourseProgress } from "@/lib/course/progress";
+import { CHAPTERS, CHAPTER_BY_ID } from "@/content/course/registry";
+import { badgeName, bestScore, chapterStatus, passScore, pct, useCourseProgress } from "@/lib/course/progress";
 import type { ChapterId } from "@/lib/course/types";
 import BadgeArt from "./BadgeArt";
 
@@ -19,6 +19,7 @@ export default function ChapterEnd({ chapter }: { chapter: ChapterId }) {
   const missing = [
     st.seen < st.sections && `還有 ${st.sections - st.seen} 個小節沒讀`,
     st.hasQuiz && !st.quiz && "過關測驗還沒作答",
+    st.hasQuiz && st.quiz && !st.quizPassed && `過關測驗最佳 ${bestScore(st.quiz)} 題，再試一次答對 ${passScore(st.quiz.total)} 題就能過關`,
   ].filter(Boolean);
 
   return (
@@ -38,7 +39,7 @@ export default function ChapterEnd({ chapter }: { chapter: ChapterId }) {
           ) : (
             <>
               <p className="mt-1 text-[15px] leading-relaxed text-muted">
-                讀完所有小節{st.hasQuiz && "、完成過關測驗"}就能解鎖。{missing.length > 0 && `${missing.join("，")}。`}
+                讀完所有小節{st.hasQuiz && "、通過過關測驗（答對 60%）"}就能解鎖。{missing.length > 0 && `${missing.join("，")}。`}
               </p>
               <div className="mt-2 flex items-center gap-3">
                 <div

@@ -7,7 +7,7 @@ const LINKS = [...CHAPTERS.map((c) => ({ href: c.href, label: `${c.stage}・${c.
 
 export const metadata: Metadata = {
   title: "找不到頁面",
-  description: "這個網址沒有對應的頁面。可以回到首頁，或從入門指南、射法八節、禮法、裝備等單元重新開始。",
+  description: "這個網址沒有對應的頁面。可以回到首頁，或從走進道場（入門指南）、禮法與體配、射法八節、弓具等關卡重新開始。",
   // Next.js adds <meta name="robots" content="noindex"> to not-found pages itself.
 };
 
@@ -52,6 +52,7 @@ export default function NotFound() {
             <li key={item.href}>
               <Link
                 href={item.href}
+                prefetch={false}
                 className="flex items-center justify-between rounded-xl border border-line bg-surface px-4 py-3 text-ink no-underline hover:bg-surface-2"
               >
                 {item.label}

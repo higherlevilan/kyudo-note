@@ -5,6 +5,7 @@
 
 import { useState } from "react";
 import FigureFrame from "@/components/illustrations/gear/FigureFrame";
+import { FigureNotes } from "@/components/content/Blocks";
 import ThreeStage, { type ViewPreset } from "@/components/three/ThreeStage";
 import type { DojoProps } from "@/components/three/scenes/dojo";
 import { ANKF } from "@/content/common-sources";
@@ -42,12 +43,7 @@ export default function Dojo3D() {
     <FigureFrame
       id="shajo-3d"
       title="近的射場的立體示意（5 人立）"
-      caption={
-        <>
-          和下方的俯視圖是同一個射場，可以對照著看。按比例的是《弓道競技規則》近的的標準：射距離 28 m（第 22 條）、射位間隔 1.8 m、本座到射位 2.0 m；的是直徑 36 cm 的霞的，靶心距垜敷 27 cm、向後傾 5 度（第 24・26 條）。
-          射場地板與矢道的寬、安土的形狀與高度、眼睛與放箭的高度都是示意；射場地板與垜敷的高低差沒有標準數字，圖中畫成同高。圓盤只標出射位（不畫人），三角形指向射手面對的脇正面。「射一箭」的飛行速度與弧度為示意，中靶位置也是隨意的。上座、看的所的位置依道場而不同，這裡不畫。
-        </>
-      }
+      caption="和下方的俯視圖是同一個射場。射距離 28 m、射位間隔 1.8 m、本座到射位 2.0 m、36 cm 霞的依《弓道競技規則》按比例，其餘是示意。"
       sources={[ANKF.playRules]}
     >
       <div className="mx-auto max-w-2xl">
@@ -104,6 +100,15 @@ export default function Dojo3D() {
           </div>
         </ThreeStage>
       </div>
+      <FigureNotes>
+        <p>
+          按比例的是《弓道競技規則》近的的標準：射距離 28 m（第 22 條）、射位間隔 1.8 m、本座到射位 2.0 m；的是直徑 36 cm 的霞的，靶心距垜敷 27 cm、向後傾 5 度（第 24・26 條）。
+        </p>
+        <p>
+          射場地板與矢道的寬、安土的形狀與高度、眼睛與放箭的高度都是示意；射場地板與垜敷的高低差沒有標準數字，圖中畫成同高。圓盤只標出射位（不畫人），三角形指向射手面對的脇正面。
+        </p>
+        <p>「射一箭」的飛行速度與弧度為示意，中靶位置也是隨意的。上座、看的所的位置依道場而不同，這裡不畫。</p>
+      </FigureNotes>
     </FigureFrame>
   );
 }

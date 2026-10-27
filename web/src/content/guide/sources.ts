@@ -1,4 +1,4 @@
-// Sources used only by the 入門指南 (/guide) module. Shared ones live in ../common-sources.ts.
+// Sources used only by the 走進道場 (/guide) module. Shared ones live in ../common-sources.ts.
 // 查詢日期：2026-10-17（docs/research/04 第 10 章）。
 
 import type { Source } from "../types";
@@ -24,14 +24,14 @@ export const ANKF_X = {
 } satisfies Record<string, Source>;
 
 export const IKYF_X = {
-  shinsa: { label: "IKYF〈Kyudo Shinsa〉", url: "https://www.ikyf.org/schedule/index.html", kind: "official" },
+  shinsa: { label: "IKYF〈Kyudo Shinsa〉（存檔，2026-05-20；官網 2026-10-28 無法連線）", url: "https://web.archive.org/web/20260520185900/https://www.ikyf.org/schedule/index.html", kind: "official" },
   plan2026: {
-    label: "IKYF Event plan for FY2026（2026-04～2027-03）",
-    url: "https://www.ikyf.org/pdf/2026_IKYF_Events_plan_April2026-March2027_3.pdf",
+    label: "IKYF Event plan for FY2026（2026-04～2027-03）（存檔，2026-04-21；官網 2026-10-28 無法連線）",
+    url: "https://web.archive.org/web/20260421221935/https://www.ikyf.org/pdf/2026_IKYF_Events_plan_April2026-March2027_3.pdf",
     kind: "official",
   },
   chuo2026: {
-    label: "IKYF 2026 Regular Chuo Shinsa (Tokyo) Guidelines",
+    label: "IKYF 2026 Regular Chuo Shinsa (Tokyo) Guidelines（官網 2026-10-28 無法連線，查無存檔）",
     url: "https://www.ikyf.org/pdf/2026_Regular_ChuoShinsa_Tokyo_Guidelines.pdf",
     kind: "official",
   },

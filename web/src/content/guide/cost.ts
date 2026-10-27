@@ -171,7 +171,7 @@ export const COST_ITEMS: CostItem[] = [
     qty: 1,
     on: false,
     once: true,
-    note: "本站以小山標價試算：玻璃纖維弓、鋁箭 6 支、三つがけ，並已含下がけ 2 枚、足袋、弓道衣＋袴＋角帯與替弦 1 條；勾選本項時請取消上面的下がけ、足袋、弓道衣＋袴＋角帯與替弦，避免重複計算。日幣含稅價，不含國際運費與進口稅；初學者不建議急著買。",
+    note: "小山標價的整套（玻纖弓、鋁箭 6 支、三つがけ，含下がけ 2 枚、足袋、弓道衣＋袴＋角帯、替弦 1 條）；勾選時請取消上面重複的品項。日幣含稅，不含國際運費與進口稅；初學者不必急著買。",
     src: [PRICE.koyamaBow, PRICE.koyamaKake, PRICE.koyamaWear, PRICE.koyamaGoods],
   },
 ];

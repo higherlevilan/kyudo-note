@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+// Server-only: chapters.ts pulls in every chapter's quiz and extras, so keep this module out of client components.
+import { CHAPTER_BY_ID, CHAPTERS } from "@/content/course/chapters";
+import type { ChapterId } from "@/lib/course/types";
 
 /**
  * Canonical production origin + GitHub Pages base path. Relative URLs in metadata (canonical, og:url,
@@ -9,7 +12,7 @@ export const SITE_URL = "https://higherlevilan.github.io/kyudo-note/";
 export const SITE_NAME = "弓道學習筆記 Kyudo Note";
 export const SITE_SHORT_NAME = "弓道筆記";
 export const SITE_DESCRIPTION =
-  "以繁體中文整理的弓道學習資料：入門指南、射法八節、禮法與體配、裝備百科、文化與哲學、日文詞彙庫、問題研究中心與個人學習日誌。內容以全日本弓道連盟（ANKF）公開資料為準。";
+  "以繁體中文整理的弓道學習路線：走進道場（入門指南）、禮法與體配、射法八節、射癖與矢所、弓具（裝備百科）、文化與哲學，以及日文詞彙庫、問題研究中心、練習場與稽古帳。內容以全日本弓道連盟（ANKF）公開資料為準。";
 export const SITE_LOCALE = "zh_TW";
 
 /** Base path the static export is served under ("" locally, "/kyudo-note" on GitHub Pages). */
@@ -37,15 +40,15 @@ export const ROUTES = [
  */
 const OG_ALT = {
   home: "弓道學習筆記 Kyudo Note：霞的與網站名稱",
-  guide: "入門指南｜弓道學習筆記",
+  guide: "走進道場｜弓道學習筆記",
   shaho: "射法八節｜弓道學習筆記",
-  shaguse: "射癖｜弓道學習筆記",
+  shaguse: "射癖與矢所｜弓道學習筆記",
   etiquette: "禮法與體配｜弓道學習筆記",
-  equipment: "裝備百科｜弓道學習筆記",
+  equipment: "弓具｜弓道學習筆記",
   culture: "文化與哲學｜弓道學習筆記",
   glossary: "日文詞彙庫｜弓道學習筆記",
   faq: "問題研究中心｜弓道學習筆記",
-  practice: "互動練習｜弓道學習筆記",
+  practice: "練習場｜弓道學習筆記",
   journal: "稽古帳｜弓道學習筆記",
   formcheck: "射形分析（實驗）｜弓道學習筆記",
 } as const;
@@ -129,3 +132,44 @@ export const websiteJsonLd = {
   description: SITE_DESCRIPTION,
   inLanguage: "zh-Hant-TW",
 };
+
+/** Serialize JSON-LD for a <script type="application/ld+json">. `<` is escaped so the JSON can never close the script element. */
+export function toJsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+/**
+ * schema.org JSON-LD for one 關卡 page: a BreadcrumbList (site → chapter) and a LearningResource describing the
+ * chapter, its 小節 and its place in the 修煉路線. Render with
+ * `<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(chapterJsonLd("shaho")) }} />`.
+ */
+export function chapterJsonLd(chapterId: ChapterId) {
+  const ch = CHAPTER_BY_ID[chapterId];
+  const url = new URL(ch.href.slice(1), SITE_URL).href;
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: SITE_NAME, item: SITE_URL },
+        { "@type": "ListItem", position: 2, name: ch.title, item: url },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "LearningResource",
+      "@id": `${url}#chapter`,
+      name: `${ch.stage}・${ch.title}`,
+      alternateName: ch.ja,
+      description: ch.blurb,
+      url,
+      inLanguage: "zh-Hant-TW",
+      learningResourceType: "課程單元",
+      isAccessibleForFree: true,
+      about: { "@type": "Thing", name: "弓道" },
+      teaches: ch.sections.map((s) => s.title),
+      position: CHAPTERS.indexOf(ch) + 1,
+      isPartOf: { "@id": `${SITE_URL}#website` },
+    },
+  ];
+}

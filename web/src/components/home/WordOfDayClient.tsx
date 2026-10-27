@@ -36,7 +36,7 @@ export default function WordOfDayClient({ words }: { words: DailyWord[] }) {
         <span className="text-sm text-muted">{e.romaji}</span>
       </p>
       <p className="mt-2 leading-relaxed">{e.zh}</p>
-      <Link href="/glossary/" className="mt-3 inline-block text-sm text-wood underline">
+      <Link href="/glossary/" prefetch={false} className="mt-3 inline-block text-sm text-wood underline">
         查看全部詞彙 →
       </Link>
     </div>

@@ -93,7 +93,7 @@ export default function Timeline() {
 
       <div className="mt-5 space-y-6">
         {groups.map(({ era, items }) => (
-          <section key={era.id} id={`tl-${era.id}`} aria-labelledby={`tl-${era.id}-h`} className="scroll-mt-20">
+          <div key={era.id} id={`tl-${era.id}`} className="scroll-mt-20">
             <h3 id={`tl-${era.id}-h`} className="mb-3 flex items-baseline gap-2">
               <span className="text-lg font-bold">{era.label}</span>
               <span className="text-xs text-muted">{era.range}</span>
@@ -138,7 +138,7 @@ export default function Timeline() {
                 );
               })}
             </ol>
-          </section>
+          </div>
         ))}
       </div>
     </div>

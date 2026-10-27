@@ -20,11 +20,12 @@
     "kana": "あしぶみ",
     "romaji": "ashibumi",
     "romaji_plain": "ashibumi",
-    "zh": "第一節，拉弓時雙腳的踏法。寬度約等於自己的矢束，兩腳約成 60 度",
+    "zh": "第一節，拉弓時雙腳的踏法。寬度約等於自己的矢束，兩腳約成 60 度；踏開分一步（一足）與兩步（二足）兩種",
     "category": "射法",
     "source": [
       "A",
-      "K"
+      "K",
+      "B"
     ],
     "disputed": false,
     "note": ""
@@ -140,7 +141,7 @@
     "kana": "ゆだおし",
     "romaji": "yudaoshi",
     "romaji_plain": "yudaoshi",
-    "zh": "離れ之後，把弓放回執弓姿勢的動作",
+    "zh": "離れ之後，把弓放回執弓姿勢的動作；之後物見返し，再把雙腳合起來（足閉じ），一射才結束",
     "category": "射法",
     "source": [
       "A"
@@ -154,7 +155,7 @@
     "kana": "とりゆみのしせい",
     "romaji": "toriyumi no shisei",
     "romaji_plain": "toriyumi no shisei",
-    "zh": "拿著弓與箭的正確姿勢",
+    "zh": "拿著弓與箭的正確姿勢（也寫作「執弓の姿勢」）",
     "category": "射法",
     "source": [
       "A"
@@ -336,7 +337,7 @@
     "kana": "ごじゅうじゅうもんじ",
     "romaji": "gojū jūmonji",
     "romaji_plain": "goju jumonji",
-    "zh": "會時的五個十字：弓與箭、弓與手の内、弽的拇指與弦、胸的中筋與兩肩線、頸與箭",
+    "zh": "会時的五個十字：弓與箭、弓與手の内、弽的拇指與弦、胸的中筋與兩肩線、頸與箭",
     "category": "射法",
     "source": [
       "A"
@@ -406,7 +407,7 @@
     "kana": "つめあい",
     "romaji": "tsumeai",
     "romaji_plain": "tsumeai",
-    "zh": "會中各關節咬合，進入可以伸合的狀態",
+    "zh": "会中各關節咬合，進入可以伸合的狀態",
     "category": "射法",
     "source": [
       "A"
@@ -420,7 +421,7 @@
     "kana": "のびあい",
     "romaji": "nobiai",
     "romaji_plain": "nobiai",
-    "zh": "會中充實氣力、持續不斷地伸展身體",
+    "zh": "会中充實氣力、持續不斷地伸展身體",
     "category": "射法",
     "source": [
       "A"
@@ -434,7 +435,7 @@
     "kana": "じまん",
     "romaji": "jiman",
     "romaji_plain": "jiman",
-    "zh": "會中等待精氣充滿",
+    "zh": "会中等待精氣充滿",
     "category": "射法",
     "source": [
       "A"
@@ -462,7 +463,7 @@
     "kana": "ひくやづか・ひかぬやづか・ただやづか",
     "romaji": "hiku yazuka / hikanu yazuka / tada yazuka",
     "romaji_plain": "hiku yazuka / hikanu yazuka / tada yazuka",
-    "zh": "會的三種狀態：拉滿後還在拉／拉滿並有詰合伸合（理想）／只是拉滿、沒有詰合伸合",
+    "zh": "会的三種狀態：拉滿後還在拉／拉滿並有詰合伸合（理想）／只是拉滿、沒有詰合伸合",
     "category": "射法",
     "source": [
       "A"
@@ -714,7 +715,7 @@
     "kana": "ひらづけ",
     "romaji": "hirazuke",
     "romaji_plain": "hirazuke",
-    "zh": "會時右手手背朝前的形",
+    "zh": "会時右手手背朝前的形",
     "category": "射法",
     "source": [
       "A"
@@ -728,7 +729,7 @@
     "kana": "むなづる",
     "romaji": "munazuru",
     "romaji_plain": "munazuru",
-    "zh": "會時弦貼在胸前",
+    "zh": "会時弦貼在胸前",
     "category": "射法",
     "source": [
       "A"
@@ -742,7 +743,7 @@
     "kana": "ほうづけ",
     "romaji": "hōzuke",
     "romaji_plain": "hozuke",
-    "zh": "會時箭貼在臉頰",
+    "zh": "会時箭貼在臉頰",
     "category": "射法",
     "source": [
       "A"
@@ -756,7 +757,7 @@
     "kana": "くちわり",
     "romaji": "kuchiwari",
     "romaji_plain": "kuchiwari",
-    "zh": "會時箭位在嘴唇的高度",
+    "zh": "会時箭位在嘴唇的高度",
     "category": "射法",
     "source": [
       "A"
@@ -798,7 +799,7 @@
     "kana": "やづか",
     "romaji": "yazuka",
     "romaji_plain": "yazuka",
-    "zh": "合乎自己骨架的箭長；量法是從喉嚨中央到伸直左臂的中指尖",
+    "zh": "合乎自己骨架的拉弓長度；量法是從喉嚨中央到伸直左臂的中指尖。箭要比矢束至少長 5 cm",
     "category": "射法",
     "source": [
       "A",
@@ -841,7 +842,7 @@
     "kana": "やのり",
     "romaji": "yanori",
     "romaji_plain": "yanori",
-    "zh": "箭射出後的路線；也指會中瞄準的箭線",
+    "zh": "箭射出後的路線；也指会中瞄準的箭線",
     "category": "射法",
     "source": [
       "A"
@@ -897,7 +898,7 @@
     "kana": "つるみち",
     "romaji": "tsurumichi",
     "romaji_plain": "tsurumichi",
-    "zh": "從弓構え到會，弦所經過的路線",
+    "zh": "從弓構え到会，弦所經過的路線",
     "category": "射法",
     "source": [
       "A"
@@ -1088,6 +1089,34 @@
     "note": ""
   },
   {
+    "id": "241",
+    "kanji": "突き上げ",
+    "kana": "つきあげ",
+    "romaji": "tsukiage",
+    "romaji_plain": "tsukiage",
+    "zh": "離れ癖之一：弓手往上頂出（弓手を突き上げて離す）",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
+    "id": "242",
+    "kanji": "前離れ",
+    "kana": "まえばなれ",
+    "romaji": "maebanare",
+    "romaji_plain": "maebanare",
+    "zh": "離れ癖之一：在靶的前方就離れ（的より前に離す）",
+    "category": "射法",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
     "id": "078",
     "kanji": "払う離れ",
     "kana": "はらうはなれ",
@@ -1135,7 +1164,7 @@
     "kana": "はやけ",
     "romaji": "hayake",
     "romaji_plain": "hayake",
-    "zh": "還沒進入會就放，或剛進入會就立刻放",
+    "zh": "還沒進入会就放，或剛進入会就立刻放",
     "category": "射法",
     "source": [
       "A"
@@ -1144,12 +1173,26 @@
     "note": ""
   },
   {
+    "id": "243",
+    "kanji": "ゆすり",
+    "kana": "ゆすり",
+    "romaji": "yusuri",
+    "romaji_plain": "yusuri",
+    "zh": "拉弓或瞄準時前臂、上臂顫抖，但仍能在想放的時機放箭（和もたれ不同，還放得出去）",
+    "category": "射法",
+    "source": [
+      "—"
+    ],
+    "disputed": true,
+    "note": "全弓連用語辭典沒有這個詞條；定義來自一篇研究（西尾 2021），各地用法可能不同"
+  },
+  {
     "id": "082",
     "kanji": "もたれ",
     "kana": "もたれ",
     "romaji": "motare",
     "romaji_plain": "motare",
-    "zh": "進入會後錯過放箭時機，放不出去",
+    "zh": "進入会後錯過放箭時機，放不出去",
     "category": "射法",
     "source": [
       "A"
@@ -1163,7 +1206,7 @@
     "kana": "びく",
     "romaji": "biku",
     "romaji_plain": "biku",
-    "zh": "會的狀態中，無意識地突然往回拉",
+    "zh": "会的狀態中，無意識地突然往回拉",
     "category": "射法",
     "source": [
       "A"
@@ -1177,7 +1220,7 @@
     "kana": "ちぢみ",
     "romaji": "chijimi",
     "romaji_plain": "chijimi",
-    "zh": "會的狀態中，氣力或肩、肘等鬆掉（官方辭典假名作「ちじみ」）",
+    "zh": "会的狀態中，氣力或肩、肘等鬆掉（官方辭典假名作「ちじみ」）",
     "category": "射法",
     "source": [
       "A"
@@ -1664,6 +1707,20 @@
     "note": ""
   },
   {
+    "id": "245",
+    "kanji": "元禄",
+    "kana": "げんろく",
+    "romaji": "genroku",
+    "romaji_plain": "genroku",
+    "zh": "入場轉彎時分兩次各轉 45 度的轉法",
+    "category": "體配",
+    "source": [
+      "—"
+    ],
+    "disputed": true,
+    "note": "這個叫法本站只在地方手冊（宮崎縣）看到"
+  },
+  {
     "id": "119",
     "kanji": "指建礼",
     "kana": "しけんれい",
@@ -1781,10 +1838,11 @@
     "kana": "ほんざ",
     "romaji": "honza",
     "romaji_plain": "honza",
-    "zh": "待機位置：立射在射位前 2 步，坐射在射位前 3 步",
+    "zh": "射位後方的待機位置：坐射在射位後 3 步、立射 2 步（近的坐射標準約 2.0 m）",
     "category": "體配",
     "source": [
-      "A"
+      "A",
+      "R"
     ],
     "disputed": false,
     "note": ""
@@ -2421,6 +2479,20 @@
     "note": ""
   },
   {
+    "id": "244",
+    "kanji": "弓把",
+    "kana": "ゆみづか",
+    "romaji": "yumizuka",
+    "romaji_plain": "yumizuka",
+    "zh": "張好弦時握把到弦的距離，指導書以 15 cm 為基準",
+    "category": "弓具",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
     "id": "173",
     "kanji": "弝",
     "kana": "は",
@@ -2734,7 +2806,7 @@
     "kana": "やじゃく",
     "romaji": "yajaku",
     "romaji_plain": "yajaku",
-    "zh": "箭的長度（一般是矢束加上安全餘量）",
+    "zh": "箭的長度：矢束加上安全餘量，至少長 5 cm",
     "category": "弓具",
     "source": [
       "K"
@@ -3197,7 +3269,7 @@
     "kana": "まと・まとわく・まとがみ",
     "romaji": "mato / matowaku / matogami",
     "romaji_plain": "mato / matowaku / matogami",
-    "zh": "靶／靶框／靶紙",
+    "zh": "靶／靶框／靶紙；大的指大型的靶（例如「大的大會」在 60 m 射大靶）",
     "category": "道場",
     "source": [
       "B"
@@ -3248,12 +3320,26 @@
     "note": ""
   },
   {
+    "id": "246",
+    "kanji": "神棚",
+    "kana": "かみだな",
+    "romaji": "kamidana",
+    "romaji_plain": "kamidana",
+    "zh": "道場上座一側常見的神龕；拜禮方式指導書寫「依各道場的作法」",
+    "category": "道場",
+    "source": [
+      "B"
+    ],
+    "disputed": false,
+    "note": ""
+  },
+  {
     "id": "232",
     "kanji": "看的・矢取り・赤旗",
     "kana": "かんてき・やとり・あかはた",
     "romaji": "kanteki / yatori / akahata",
     "romaji_plain": "kanteki / yatori / akahata",
-    "zh": "報靶／取箭／取箭時舉出的紅旗",
+    "zh": "報靶／取箭／取箭時舉出的紅旗；在靶旁觀測、報告中靶的地方叫看的所",
     "category": "道場",
     "source": [
       "B"

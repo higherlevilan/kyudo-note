@@ -78,7 +78,7 @@ export function KeyNotes({ segments }: { segments: { id: string; label?: string 
 
 function VideoLink({ seconds, label }: { seconds: number; label: string }) {
   return (
-    <a href={videoAt(SHAHO_VIDEO.url, seconds)} target="_blank" rel="noopener noreferrer" className="text-sm text-wood underline">
+    <a href={videoAt(SHAHO_VIDEO.url, seconds)} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center text-sm text-wood underline">
       {label}（{seconds} 秒起）↗
     </a>
   );
@@ -113,7 +113,7 @@ export function SectionBody({ s, children }: { s: ShahoSection; children?: React
       ))}
 
       <details open className="group mt-4">
-        <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
+        <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
           <Chevron />
           入門
         </summary>
@@ -133,7 +133,7 @@ export function SectionBody({ s, children }: { s: ShahoSection; children?: React
       {children && <div className="mt-4">{children}</div>}
 
       <details data-layer="deep" className="mt-3 border-t border-line pt-3">
-        <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
+        <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
           <Chevron />
           深入
           <span className="font-normal text-muted">（細節、常見錯誤、坊間說法對照）</span>
@@ -141,7 +141,7 @@ export function SectionBody({ s, children }: { s: ShahoSection; children?: React
         <div className="mt-3 space-y-4 text-[15px]">
           {s.deep.map((b) => (
             <div key={b.title}>
-              <h4 className="mb-1.5 text-sm font-bold text-muted">{b.title}</h4>
+              <h3 className="mb-1.5 text-sm font-bold text-muted">{b.title}</h3>
               <PointList points={b.points} />
             </div>
           ))}

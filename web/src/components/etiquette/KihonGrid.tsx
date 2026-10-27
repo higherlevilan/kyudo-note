@@ -49,7 +49,7 @@ function KihonCard({ k }: { k: KihonItem }) {
 
       {hasDeep && (
         <details data-layer="deep" className="mt-3 border-t border-line pt-3">
-          <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
+          <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
             <svg aria-hidden="true" viewBox="0 0 16 16" className="chev h-3.5 w-3.5 fill-current">
               <path d="M5.5 3 10.5 8l-5 5-1-1 4-4-4-4 1-1Z" />
             </svg>

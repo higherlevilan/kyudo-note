@@ -1,23 +1,25 @@
 @import "tailwindcss";
 
-/* Calm dojo palette: washi paper, warm wood, sumi ink. */
+/* Calm dojo palette: washi paper, warm wood, sumi ink.
+   Every text token (ink, muted, wood, vermilion, indigo, moss) is >= 4.5:1 on --paper, --surface,
+   --surface-2 and --wood-soft in both themes (vermilion also on vermilion/10); --field-border >= 3:1. */
 :root {
   --paper: #f6f1e7;
   --surface: #fffbf3;
   --surface-2: #efe6d6;
   --ink: #2a2520;
-  --muted: #6d6357;
+  --muted: #675d52;
   --line: #ddd1bd;
   /* Form-control borders: darker than --line so inputs meet 3:1 non-text contrast. */
   --field-border: #8f806d;
-  --wood: #8a5a2e;
+  --wood: #82552b;
   --wood-soft: #ead9bd;
-  --vermilion: #b4442b;
+  --vermilion: #a33e26;
   --indigo: #34507a;
   --stage-a: #f7f5f1;
   --stage-b: #d8d4cc;
   /* 修煉路線 badge colours (traditional dyes): 萌黄, 山吹, 江戸紫. */
-  --moss: #5d7536;
+  --moss: #51662f;
   --yamabuki: #a8740f;
   --murasaki: #6a4a82;
   /* Mobile top bar height; sticky sub-bars sit just below it. 0 on lg+, where the sidebar replaces it. */
@@ -40,10 +42,10 @@
     --ink: #ece4d6;
     --muted: #a99d8c;
     --line: #3b342c;
-    --field-border: #776a5a;
+    --field-border: #817362;
     --wood: #d4a46c;
     --wood-soft: #3b2f22;
-    --vermilion: #e0735a;
+    --vermilion: #e3816a;
     --indigo: #9db7dd;
     --stage-a: #4a4640;
     --stage-b: #2a2723;
@@ -68,8 +70,10 @@
   --color-moss: var(--moss);
   --color-yamabuki: var(--yamabuki);
   --color-murasaki: var(--murasaki);
-  --font-sans: var(--font-noto-sans-tc), "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
-  --font-jp: var(--font-noto-serif-jp), "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  /* Chinese UI text: system CJK sans only (no web font; every phone/desktop ships one of these). */
+  --font-sans: "PingFang TC", "Noto Sans CJK TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  /* Japanese terms: subset Noto Serif JP from layout.tsx (npm run fonts), then system Mincho for missing glyphs. */
+  --font-jp: var(--font-noto-serif-jp), "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif CJK JP", serif;
 }
 
 html {
@@ -144,11 +148,11 @@ details[open] > summary .chev {
   --surface: #fffbf3;
   --surface-2: #efe6d6;
   --ink: #2a2520;
-  --muted: #6d6357;
+  --muted: #675d52;
   --line: #ddd1bd;
-  --wood: #8a5a2e;
+  --wood: #82552b;
   --wood-soft: #ead9bd;
-  --vermilion: #b4442b;
+  --vermilion: #a33e26;
   --indigo: #34507a;
   background: #fbf7ef;
   color: var(--ink);

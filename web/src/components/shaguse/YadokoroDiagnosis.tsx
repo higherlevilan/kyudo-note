@@ -83,7 +83,7 @@ export default function YadokoroDiagnosis() {
     <div className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
       <p className="rounded-xl border border-vermilion/50 bg-vermilion/5 px-3 py-2 text-[15px] leading-relaxed">
         <strong className="text-vermilion">不是診斷，請讓指導者看實際的射。</strong>
-        這個工具只是把「矢所偏某個方向時，常聽到的原因」整理出來，方便你和指導者討論。以右射者為準，左射者左右相反。
+        這個工具只是把「矢所偏某個方向時，常聽到的原因」整理出來，方便你和指導者討論。弓道一律左手持弓、右手拉弦，前後的方向對每位射手都一樣。
       </p>
 
       <div className="mt-4 grid gap-6 md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] md:items-start">

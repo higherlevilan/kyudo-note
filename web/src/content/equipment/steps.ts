@@ -1,4 +1,4 @@
-// 裝備百科的兩個步驟播放器：量矢束 → 決定箭長；弦的準備與更換。
+// 弓具的兩個步驟播放器：量矢束 → 決定箭長；弦的準備與更換。
 // 要點全部取自本頁既有的內容（topics.ts、calc.ts、faqs.ts），附同樣的出處；
 // 沒有官方數字的地方照原文標成弓具店、坊間或本站整理。
 
@@ -42,7 +42,7 @@ export const YAZUKA_STEPS: GearStep[] = [
     id: "floor",
     title: "箭長＝矢束＋餘裕：至少 +5 cm",
     text: "全弓連的底線：比矢束長 5 cm 以上（約 3 指寬）。",
-    points: [{ text: "全弓連：箭至少要比矢束長 5cm（約 3 指寬）；《弓道教本》寫「為了安全加上 5〜10cm」。", tag: "official", src: [ANKF.tool, BUDOKAN.ch3] }],
+    points: [{ text: "全弓連：箭至少要比矢束長 5cm（約 3 指寬）；《弓道教本》寫「為了安全加上 5～10cm」。", tag: "official", src: [ANKF.tool, BUDOKAN.ch3] }],
   },
   {
     id: "beginner",
@@ -50,7 +50,7 @@ export const YAZUKA_STEPS: GearStep[] = [
     text: "射形還沒定下來，箭留長一點。",
     points: [
       { text: "全弓連：射形還沒定下來的初學者，「10cm位長い矢が適当」。", tag: "official", src: [ANKF.tool] },
-      { text: "弓具店給初學者、高中生的建議更保守：+12〜15cm。", tag: "shop", src: [SHOP.suizanYa, SHOP.heian1913] },
+      { text: "弓具店給初學者、高中生的建議更保守：+12～15cm。", tag: "shop", src: [SHOP.suizanYa, SHOP.heian1913] },
       { text: "沒有單一的「正確」數字；初學者以 +10cm 以上為宜，請和指導者確認。", tag: "note" },
     ],
   },
@@ -97,7 +97,7 @@ export const TSURU_STEPS: GearStep[] = [
     title: "中仕掛：箭筈扣住的地方",
     text: "搭箭位置太低，離れ時可能傷到左手拇指。",
     points: [
-      { text: "中仕掛從搭箭位置往上 1〜1.5cm 處開始做，要纏到和箭筈貼合，用道宝收尾。", tag: "official", src: [ANKF.tool] },
+      { text: "中仕掛從搭箭位置往上 1～1.5cm 處開始做，要纏到和箭筈貼合，用道宝收尾。", tag: "official", src: [ANKF.tool] },
       { text: "翠山：搭箭位置定在箭與弦呈 90 度的地方。", tag: "shop", src: [SHOP.suizanTsuru] },
       { text: "搭箭位置太低，離れ時可能傷到拇指。", tag: "guide", src: [BUDOKAN.ch2] },
     ],
@@ -107,7 +107,7 @@ export const TSURU_STEPS: GearStep[] = [
     title: "什麼時候換：沒有官方數字",
     text: "看射數，也看外觀：起毛、變細、弦輪變硬就該換。",
     points: [
-      { text: "說法差很多：弓師以 200〜300 射為準，弓具店說合成弦一般 600〜700 射換，問答網站有 1000〜3000 射的說法。", tag: "disputed", src: [SHOP.issuiSynth, SHOP.suizanTsuru] },
+      { text: "說法差很多：弓師以 200～300 射為準，弓具店說合成弦一般 600～700 射換，問答網站有 1000～3000 射的說法。", tag: "disputed", src: [SHOP.issuiSynth, SHOP.suizanTsuru] },
       { text: "比賽、審查前換新弦，先拉約 100 射再上場。", tag: "shop", src: [SHOP.suizanTsuru] },
       { text: "本站建議：看射數，也看外觀——起毛、變細、弦輪變硬就該換。弦輪、中仕掛第一次自己做時，請指導者或弓具店看過。", tag: "note" },
     ],

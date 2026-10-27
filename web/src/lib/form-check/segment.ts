@@ -351,6 +351,3 @@ export function assessQuality(track: PoseTrack, seg: Segmentation | null): Quali
     notes.push({ id: "noKai", text: "沒有找到明確的「会」（雙手張開並保持）。各節的自動位置可能不準，請用時間軸手動調整。" });
   return notes;
 }
-
-/** Shoulder width in cm used for the scale (re-exported for the UI's explanation). */
-export const SCALE_SHOULDER_CM = SHOULDER_CM;

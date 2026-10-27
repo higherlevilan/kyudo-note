@@ -1,10 +1,10 @@
 "use client";
 
-// Client bits of a 關卡 page that depend on progress: the chapter progress card and the numbered
-// table of contents with seen marks (TechEDU .ch-toc).
+// Client bits of a 關卡 page that depend on progress: the chapter progress card, the
+// 「從上次的地方繼續」 link and the numbered table of contents with seen marks (TechEDU .ch-toc).
 
-import { CHAPTER_BY_ID } from "@/content/course/chapters";
-import { chapterStatus, isSeen, pct, useCourseProgress } from "@/lib/course/progress";
+import { CHAPTER_BY_ID } from "@/content/course/registry";
+import { chapterStatus, isSeen, pct, useCourseProgress, useEntryVisit } from "@/lib/course/progress";
 import type { ChapterId } from "@/lib/course/types";
 import Ring from "./Ring";
 
@@ -21,10 +21,28 @@ export function ChapterProgress({ chapter, className = "" }: { chapter: ChapterI
         <p className="font-semibold">{st.badge ? "本關完成" : "本關進度"}</p>
         <p className="text-muted tabular-nums">
           已讀 {st.seen} / {st.sections}
-          {st.hasQuiz && <> · 測驗 {st.quiz ? `${st.quiz.correct}/${st.quiz.total}` : "未作答"}</>}
+          {st.hasQuiz && <> · 測驗 {st.quizPassed ? "已過關" : st.quiz ? "未過關" : "未作答"}</>}
         </p>
       </div>
     </div>
+  );
+}
+
+/** 「從上次的地方繼續：…」 when the last visited 小節 (as of entering this page) is in this chapter. */
+export function ResumeHint({ chapter, className = "" }: { chapter: ChapterId; className?: string }) {
+  const ch = CHAPTER_BY_ID[chapter];
+  const visit = useEntryVisit(chapter);
+  const s = visit && ch.sections.find((x) => x.id === visit.section);
+  if (!s) return null;
+  return (
+    <p className={className}>
+      <a
+        href={`#${s.id}`}
+        className="inline-flex min-h-11 items-center gap-1.5 rounded-xl border border-wood/50 bg-wood-soft/50 px-4 text-[15px] font-semibold text-ink no-underline hover:bg-wood-soft"
+      >
+        從上次的地方繼續：<span lang={s.ja && s.ja === s.title ? "ja" : undefined}>{s.title}</span> <span aria-hidden="true">▶</span>
+      </a>
+    </p>
   );
 }
 
@@ -63,8 +81,9 @@ export function ChapterToc({ chapter }: { chapter: ChapterId }) {
               </span>
               <span className="min-w-0 flex-1">過關測驗</span>
               {st.quiz && (
-                <span className="shrink-0 text-xs text-wood tabular-nums">
+                <span className={`shrink-0 text-xs tabular-nums ${st.quizPassed ? "text-wood" : "text-muted"}`}>
                   {st.quiz.correct}/{st.quiz.total}
+                  <span className="sr-only">{st.quizPassed ? "（已過關）" : "（未過關）"}</span>
                 </span>
               )}
             </a>

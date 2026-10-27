@@ -1,18 +1,19 @@
-// 裝備百科 content. Paraphrased from docs/research/04 第 1 章、第 9 章；每一條都標來源與性質。
-// 練習、審查、台灣購買管道屬於 /guide，這裡只放和器材本身有關的內容。
+// 弓具 content. Paraphrased from docs/research/04 第 1 章、第 9 章；每一條都標來源與性質。
+// 練習、審查屬於 /guide；「從台灣買」（FROM_TAIWAN）只整理站上已有的購買與寄送資訊，搭機攜帶仍見 /guide。
 
-import type { Point } from "@/content/types";
+import type { Block, Point } from "@/content/types";
+import { TW_X } from "@/content/guide/sources";
 import type { EqTable, EqTopic } from "./types";
-import { ANKF, BUDOKAN, BUDOKAN_EQ, FOLK, RULES, SHOP, TAIWAN, TAIWAN_EQ } from "./sources";
+import { ANKF, BUDOKAN, BUDOKAN_EQ, FOLK, RULES, SHOP, TAIWAN } from "./sources";
 
 /* ───────────────────────── 入門：先借再買 ───────────────────────── */
 
 export const BORROW_FIRST: Point[] = [
   { text: "全弓連說，初學者多半可以使用道場的器材，基本上不用花錢，進步之後再慢慢備齊。", tag: "official", src: [ANKF.faq] },
   {
-    text: "臺灣弓道協會的弓道教室提供公用的弓、箭、弽（ゆがけ）；學員先自備弽裡面的布手套下がけ（したがけ）、足袋和弓道衣即可。",
+    text: "臺灣弓道協會的弓道教室提供公用的弓、箭、弽（ゆがけ）；上課穿白色無領上衣、黑色寬鬆長褲、白襪即可。藏月弓道場也允許還沒買弓道衣的人穿有袖白上衣與過膝黑長褲，弓道衣等確定要繼續再買也不遲。",
     tag: "local",
-    src: [TAIWAN.class, TAIWAN_EQ.qna],
+    src: [TAIWAN.class, TAIWAN.regulations],
   },
   { text: "翠山弓具店也建議：在知道自己適合的弓力之前，先借道場的弓。", tag: "shop", src: [SHOP.suizanPrice, SHOP.suizanBeginnerYumi] },
 ];
@@ -24,15 +25,15 @@ export const BUYING_ORDER = {
     steps: [
       { title: "弓道衣、弽", text: "鹿皮弽需要時間磨合，早買早適應。" },
       { title: "矢", text: "開始對靶練習（的前）時買。射壞借來的箭可能要賠，自己買通常比較省。" },
-      { title: "弓", text: "大約學 1 年後再買，也有人借 2〜3 年。" },
+      { title: "弓", text: "大約學 1 年後再買，也有人借 2～3 年。" },
     ],
   },
   heian: {
     who: "東山堂平安弓具",
     src: [SHOP.heianBeginner],
     steps: [
-      { title: "道衣", text: "最先買。" },
-      { title: "弽", text: "開始學「數ヶ月〜半年」後再買。保養得好，用 10 年以上也不稀奇。" },
+      { title: "弓道衣", text: "最先買。" },
+      { title: "弽", text: "開始學「數ヶ月～半年」後再買。保養得好，用 10 年以上也不稀奇。" },
       { title: "弓、矢", text: "等射形穩定後再買。" },
     ],
   },
@@ -44,6 +45,20 @@ export const BEFORE_BUYING: Point[] = [
   { text: "箭是依指定長度切割、裝上箭頭的，買了通常不能退換。", tag: "shop", src: [SHOP.sambuYa] },
   { text: "兩家店對「弽什麼時候買」的建議不同（翠山：最先；平安：幾個月後）。請以所屬道場指導者的意見為準。", tag: "note" },
 ];
+
+/* ───────────────────────── 從台灣買 ───────────────────────── */
+
+export const FROM_TAIWAN: Block = {
+  title: "從台灣買",
+  points: [
+    { text: "先借再買：協會弓道教室有公用的弓、箭、弽；全弓連也說初學者多半能用道場的器材。", tag: "local", src: [TAIWAN.class, ANKF.faq] },
+    { text: "協會的〈弓具地圖〉只列日本的弓具店；本站沒有找到台灣的實體弓具專賣店。", tag: "disputed", src: [TW_X.storemap] },
+    { text: "寄海外：翠山的海外站（Global Suizan）可以寄海外，關稅與進口稅另計、約 3～10%，海外寄送不退不換；六寸伸的弓因出口限制不寄海外，有弓的訂單整筆走 TNT。", tag: "shop", src: [SHOP.globalSuizan] },
+    { text: "猪飼的入門套組只寄日本國內；小山的海外寄送政策沒有找到。", tag: "shop", src: [SHOP.ikaiSet, SHOP.koyamaStrings] },
+    { text: "弽要合手，最好到店試戴。翠山以三個長度（食指尖到拇指根、拇指長、中指長）選尺寸；小山的弽原則上不在網路販售，遠地可郵寄手型。從台灣寄手型是否受理，請先問店家。", tag: "shop", src: [SHOP.suizanKake, SHOP.koyamaKake] },
+    { text: "搭機帶弓、箭與矢羽的攜帶規定，見〈走進道場〉。", tag: "note" },
+  ],
+};
 
 /* ───────────────────────── 量矢束 ───────────────────────── */
 
@@ -75,12 +90,12 @@ export const BOW_POWER_TABLE: EqTable = {
   caption: "弓力的數字（弓具店與坊間）",
   head: ["對象", "數值"],
   rows: [
-    { cells: ["初學者（未滿 1 年）男", "11〜12kg"], tag: "shop", src: [SHOP.suizanMatch] },
-    { cells: ["初學者（未滿 1 年）女", "8〜10kg"], tag: "shop", src: [SHOP.suizanMatch] },
-    { cells: ["初學者（不分性別）", "約 6〜10kg 起步，基本穩定後升到 10kg 以上"], tag: "shop", src: [SHOP.sambuQA] },
-    { cells: ["高中男生", "10〜14kg"], tag: "shop", src: [SHOP.suizanMatch] },
-    { cells: ["高中女生", "10〜12kg"], tag: "shop", src: [SHOP.suizanMatch] },
-    { cells: ["初學者", "12〜14kg；「拉 10 次就累」代表太強"], tag: "folk" },
+    { cells: ["初學者（未滿 1 年）男", "11～12kg"], tag: "shop", src: [SHOP.suizanMatch] },
+    { cells: ["初學者（未滿 1 年）女", "8～10kg"], tag: "shop", src: [SHOP.suizanMatch] },
+    { cells: ["初學者（不分性別）", "約 6～10kg 起步，基本穩定後升到 10kg 以上"], tag: "shop", src: [SHOP.sambuQA] },
+    { cells: ["高中男生", "10～14kg"], tag: "shop", src: [SHOP.suizanMatch] },
+    { cells: ["高中女生", "10～12kg"], tag: "shop", src: [SHOP.suizanMatch] },
+    { cells: ["初學者", "12～14kg；「拉 10 次就累」代表太強"], tag: "folk" },
     { cells: ["中學生、高齡者", "沒有查到具體數字"], tag: "disputed" },
   ],
 };
@@ -100,17 +115,17 @@ export const MATERIAL_TABLE: EqTable = {
       src: [SHOP.suizanBeginnerYumi, SHOP.suizanTypes, SHOP.yokoyama],
     },
     {
-      cells: ["缺點", "從玻纖改用竹弓時，有人不容易適應", "價格比玻纖高", "個體差異大、弓力隨季節變化（愛用者常備 4〜5 張輪替）；怕濕、怕熱，需要張り込み"],
+      cells: ["缺點", "從玻纖改用竹弓時，有人不容易適應", "價格比玻纖高", "個體差異大、弓力隨季節變化（愛用者常備 4～5 張輪替）；怕濕、怕熱，需要張り込み"],
       tag: "shop",
       src: [SHOP.suizanTypes, SHOP.suizanBeginnerYumi, SHOP.yamaguchiCare, SHOP.yokoyama],
     },
     {
-      cells: ["店家建議的對象", "初學者", "學生、中級者（小山把直心Ⅱカーボン定位為上級者向け）", "準備升段的人；常見是 3〜4 段才買竹弓"],
+      cells: ["店家建議的對象", "初學者", "學生、中級者（小山把直心Ⅱカーボン定位為上級者向け）", "準備升段的人；常見是 3～4 段才買竹弓"],
       tag: "shop",
       src: [SHOP.suizanBeginnerYumi, SHOP.suizanOrder, SHOP.koyamaCarbon, SHOP.suizanTypes],
     },
     {
-      cells: ["價格帶（日幣含稅起價）", "翠山行情 3〜4 萬；山武 2〜5 萬（27,500 起）；小山 練心 30,800〜、直心Ⅰ 40,700〜、直心Ⅱ 51,700〜", "山武 5〜10 萬（56,100 起）；小山 直心Ⅱカーボン 62,700〜、鵠心 アーチカーボン 99,000〜", "山武 10 萬以上；小山 清芳 前焦竹 119,900〜、清芳 前煤竹 139,700〜（一覽頁沒有逐一註明材質 ⚠️）"],
+      cells: ["價格帶（日幣含稅起價）", "翠山行情 3～4 萬；山武 2～5 萬（27,500 起）；小山 練心 30,800～、直心Ⅰ 40,700～、直心Ⅱ 51,700～", "山武 5～10 萬（56,100 起）；小山 直心Ⅱカーボン 62,700～、鵠心 アーチカーボン 99,000～", "山武 10 萬以上；小山 清芳 前焦竹 119,900～、清芳 前煤竹 139,700～（一覽頁沒有逐一註明材質 ⚠️）"],
       tag: "shop",
       src: [SHOP.suizanPrice, SHOP.sambuQA, SHOP.koyamaBows],
     },
@@ -150,7 +165,7 @@ export const YUMI_TOPICS: EqTopic[] = [
       {
         title: "規則的細節",
         points: [
-          { text: "第 20 條旁註舉出現在有「6cm〜18cm 伸」與「3cm〜12cm 詰」的弓，所以允許長短。另規定握把約在從本弭（もとはず，弓下端）算起 1/3 處、矢摺籐 6cm 以上、不得有瞄準裝置或刻意記號。", tag: "official", src: [ANKF.playRules] },
+          { text: "第 20 條旁註舉出現在有「6cm～18cm 伸」與「3cm～12cm 詰」的弓，所以允許長短。另規定握把約在從本弭（もとはず，弓下端）算起 1/3 處、矢摺籐 6cm 以上、不得有瞄準裝置或刻意記號。", tag: "official", src: [ANKF.playRules] },
           { text: "旁註也希望弓、箭桿、羽、弦、弽的顏色維持傳統、不要花俏。", tag: "official", src: [ANKF.playRules] },
         ],
       },
@@ -172,11 +187,11 @@ export const YUMI_TOPICS: EqTopic[] = [
     kana: "きゅうりょく",
     intro: [
       {
-        text: "全弓連的原則：適合自己的弓力，是自己能肩入れ（かたいれ：不搭箭拉弓測弓力、或暖肩時拉弓）的弓力的 1/2；初學時用 1/3〜1/4。",
+        text: "全弓連的原則：適合自己的弓力，是自己能肩入れ（かたいれ：不搭箭拉弓測弓力、或暖肩時拉弓）的弓力的 1/2；初學時用 1/3～1/4。",
         tag: "official",
         src: [ANKF.tool, ANKF.terminology],
       },
-      { text: "例：勉強能肩入れ 30kg 的人，標準約 15kg，初學時約 7.5〜10kg。不過「能肩入れ的最大弓力」怎麼測，官方沒有說明，實務上多由指導者判斷。", tag: "note", src: [ANKF.tool] },
+      { text: "例：勉強能肩入れ 30kg 的人，標準約 15kg，初學時約 7.5～10kg。不過「能肩入れ的最大弓力」怎麼測，官方沒有說明，實務上多由指導者判斷。", tag: "note", src: [ANKF.tool] },
       { text: "弓具店另有具體數字（下表），但這些是店家建議，不是規則。", tag: "shop" },
     ],
     introTables: [BOW_POWER_TABLE],
@@ -184,9 +199,9 @@ export const YUMI_TOPICS: EqTopic[] = [
       {
         title: "店家的估算公式（不宜直接拿來買弓）",
         points: [
-          { text: "翠山：體重 × 1/3 × 70〜80%，或握力 × 1/2 × 70〜80%，店家自稱「只是粗略的目標」。", tag: "shop", src: [SHOP.suizanMatch] },
-          { text: "以體重 60kg 或握力 40kg 算，都得到 14〜16kg，明顯高於同一家店給初學男性的 11〜12kg，比較像有經驗者的上限。", tag: "disputed", src: [SHOP.suizanMatch] },
-          { text: "翠山也提醒：指導者的標準常以天天練習的人為前提，不一定適合每週練 1〜2 次的人。", tag: "shop", src: [SHOP.suizanMatch] },
+          { text: "翠山：體重 × 1/3 × 70～80%，或握力 × 1/2 × 70～80%，店家自稱「只是粗略的目標」。", tag: "shop", src: [SHOP.suizanMatch] },
+          { text: "以體重 60kg 或握力 40kg 算，都得到 14～16kg，明顯高於同一家店給初學男性的 11～12kg，比較像有經驗者的上限。", tag: "disputed", src: [SHOP.suizanMatch] },
+          { text: "翠山也提醒：指導者的標準常以天天練習的人為前提，不一定適合每週練 1～2 次的人。", tag: "shop", src: [SHOP.suizanMatch] },
         ],
       },
       {
@@ -200,8 +215,8 @@ export const YUMI_TOPICS: EqTopic[] = [
       {
         title: "公差與衰減",
         points: [
-          { text: "訂製公差：小山的玻纖、碳纖弓為訂購弓力 −0.5〜+1.5kg；碳芯竹弓 −1〜+1.5kg。", tag: "shop", src: [SHOP.koyamaJikishin2, SHOP.koyamaCarbon, SHOP.koyamaSeiho] },
-          { text: "使用後衰減：竹弓約 1〜2kg、合成弓約 0.5kg（翠山）；橫山黎明說竹弓開始用後約弱 1kg，建議選比目標強 1〜2kg 的，也有因環境衰減 3kg 以上的例子。", tag: "shop", src: [SHOP.suizanYumi, SHOP.yokoyama] },
+          { text: "訂製公差：小山的玻纖、碳纖弓為訂購弓力 −0.5～+1.5kg；碳芯竹弓 −1～+1.5kg。", tag: "shop", src: [SHOP.koyamaJikishin2, SHOP.koyamaCarbon, SHOP.koyamaSeiho] },
+          { text: "使用後衰減：竹弓約 1～2kg、合成弓約 0.5kg（翠山）；橫山黎明說竹弓開始用後約弱 1kg，建議選比目標強 1～2kg 的，也有因環境衰減 3kg 以上的例子。", tag: "shop", src: [SHOP.suizanYumi, SHOP.yokoyama] },
           { text: "小山部分弓款：並寸 19kg 以上、二寸伸／四寸伸 21kg 以上，定價加 2 成。", tag: "shop", src: [SHOP.koyamaCarbon, SHOP.koyamaJikishin2] },
           { text: "舊式竹弓有用弓身厚度「分・厘」表示強度的說法，但部落格與論壇的例子互相矛盾，無法換算成 kg，只當歷史上的表示法。", tag: "folk" },
         ],
@@ -243,17 +258,17 @@ export const SHAFT_TABLE: EqTable = {
   head: ["規格", "外徑", "重量（每 100cm 桿身）", "山武 近的", "山武 遠的", "やまぐち 參考", "平安", "翠山"],
   rows: [
     { cells: ["1813", "7.15mm", "約 20.0g", "9kg 以下", "12kg 以下", "11kg 以下", "—", "—"], tag: "shop", src: [SHOP.sambuYa, SHOP.yamaguchiShaft] },
-    { cells: ["1913", "7.5mm", "約 21.2g（平安 22.0）", "10〜13kg", "13〜16kg", "11〜14kg", "10〜13kg（初級）", "8〜13kg／約 8〜12kg／14kg 以下"], tag: "shop", src: [SHOP.sambuYa, SHOP.yamaguchiShaft, SHOP.heian1913, SHOP.suizanYa, SHOP.suizanEn, SHOP.suizanBeginnerYa] },
-    { cells: ["1914", "7.5mm", "約 23.0g", "12〜15kg", "14〜16kg", "—", "—", "—"], tag: "shop", src: [SHOP.sambuYa] },
-    { cells: ["2014", "8.0mm", "約 23.7g（平安 24.5）", "13〜16kg", "16kg 以上", "13〜16kg", "14〜16kg（中級）", "—"], tag: "shop", src: [SHOP.sambuYa, SHOP.yamaguchiShaft, SHOP.heian1913] },
-    { cells: ["2015", "8.0mm", "約 25.7g（平安 25.5）", "13〜18kg", "18kg 以上", "15〜19kg", "16〜20kg（上級）", "約 12〜17kg；有段者、男性"], tag: "shop", src: [SHOP.sambuYa, SHOP.yamaguchiShaft, SHOP.heian1913, SHOP.suizanEn, SHOP.suizanYa] },
+    { cells: ["1913", "7.5mm", "約 21.2g（平安 22.0）", "10～13kg", "13～16kg", "11～14kg", "10～13kg（初級）", "8～13kg／約 8～12kg／14kg 以下"], tag: "shop", src: [SHOP.sambuYa, SHOP.yamaguchiShaft, SHOP.heian1913, SHOP.suizanYa, SHOP.suizanEn, SHOP.suizanBeginnerYa] },
+    { cells: ["1914", "7.5mm", "約 23.0g", "12～15kg", "14～16kg", "—", "—", "—"], tag: "shop", src: [SHOP.sambuYa] },
+    { cells: ["2014", "8.0mm", "約 23.7g（平安 24.5）", "13～16kg", "16kg 以上", "13～16kg", "14～16kg（中級）", "—"], tag: "shop", src: [SHOP.sambuYa, SHOP.yamaguchiShaft, SHOP.heian1913] },
+    { cells: ["2015", "8.0mm", "約 25.7g（平安 25.5）", "13～18kg", "18kg 以上", "15～19kg", "16～20kg（上級）", "約 12～17kg；有段者、男性"], tag: "shop", src: [SHOP.sambuYa, SHOP.yamaguchiShaft, SHOP.heian1913, SHOP.suizanEn, SHOP.suizanYa] },
     { cells: ["2114", "8.35mm", "約 25.0g", "15kg 以上", "—", "—", "—", "—"], tag: "shop", src: [SHOP.sambuYa] },
-    { cells: ["2115", "8.35mm", "約 27.0g（やまぐち 25）⚠️", "16kg 以上", "—", "18〜21kg", "—", "—"], tag: "shop", src: [SHOP.sambuYa, SHOP.yamaguchiShaft] },
+    { cells: ["2115", "8.35mm", "約 27.0g（やまぐち 25）⚠️", "16kg 以上", "—", "18～21kg", "—", "—"], tag: "shop", src: [SHOP.sambuYa, SHOP.yamaguchiShaft] },
     { cells: ["2117", "8.5mm", "約 30.5g", "20kg 以上", "—", "—", "—", "—"], tag: "shop", src: [SHOP.sambuYa] },
   ],
   notes: [
-    { text: "同一規格各店的適用弓力差了好幾公斤（例如 2015：山武 13〜18、翠山約 12〜17、平安 16〜20）。請以你購買的店家表格為準。", tag: "disputed" },
-    { text: "やまぐち：參考弓力依矢尺不同而異，成品箭要再加約 5g。平安：長度每增減 5cm，重量約 ±1〜2g；裝上羽、筈、箭頭約 +4g。", tag: "shop", src: [SHOP.yamaguchiShaft, SHOP.heian1913] },
+    { text: "同一規格各店的適用弓力差了好幾公斤（例如 2015：山武 13～18、翠山約 12～17、平安 16～20）。請以你購買的店家表格為準。", tag: "disputed" },
+    { text: "やまぐち：參考弓力依矢尺不同而異，成品箭要再加約 5g。平安：長度每增減 5cm，重量約 ±1～2g；裝上羽、筈、箭頭約 +4g。", tag: "shop", src: [SHOP.yamaguchiShaft, SHOP.heian1913] },
   ],
 };
 
@@ -261,14 +276,14 @@ export const ARROW_WEIGHT_TABLE: EqTable = {
   caption: "成品箭重量 × 弓力",
   head: ["弓力", "翠山（近的 28m 參考）", "永野一萃（一翠弓、吟翠弓用）"],
   rows: [
-    { cells: ["10kg", "10〜11kg：約 23g", "22g"] },
-    { cells: ["12kg", "12〜14kg：約 25g", "24g"] },
+    { cells: ["10kg", "10～11kg：約 23g", "22g"] },
+    { cells: ["12kg", "12～14kg：約 25g", "24g"] },
     { cells: ["14kg", "（同上）", "26g"] },
-    { cells: ["15kg", "15〜17kg：約 28g", "27g"] },
-    { cells: ["16〜17kg", "（同上）", "28g"] },
-    { cells: ["18kg", "18〜20kg：約 30g", "30g（8 匁）"] },
+    { cells: ["15kg", "15～17kg：約 28g", "27g"] },
+    { cells: ["16～17kg", "（同上）", "28g"] },
+    { cells: ["18kg", "18～20kg：約 30g", "30g（8 匁）"] },
     { cells: ["20kg", "（同上）", "31g"] },
-    { cells: ["21〜23kg", "—", "33g"] },
+    { cells: ["21～23kg", "—", "33g"] },
     { cells: ["24kg", "—", "36g"] },
     { cells: ["25kg 以上", "33g 以上", "—"] },
   ].map((r) => ({ ...r, tag: "shop" as const, src: [SHOP.suizanYa, SHOP.issuiWeight] })),
@@ -327,7 +342,7 @@ export const YA_TOPICS: EqTopic[] = [
       {
         title: "競技規則的其他尺寸",
         points: [
-          { text: "羽丈（はたけ，羽長）：近的 13〜15cm、遠的 9〜15cm；羽山（はやま，羽高）5mm 以上；要有本矧、末矧與筈巻。", tag: "official", src: [ANKF.playRules] },
+          { text: "羽丈（はたけ，羽長）：近的 13～15cm、遠的 9～15cm；羽山（はやま，羽高）5mm 以上；要有本矧、末矧與筈巻。", tag: "official", src: [ANKF.playRules] },
           { text: "筈為埋入式、有筈溝，不得有螢光、發光等功能；板付限平題形、椎実形或圓錐形；不得有標示拉入位置的記號。", tag: "official", src: [ANKF.playRules] },
         ],
       },
@@ -374,7 +389,7 @@ export const YA_TOPICS: EqTopic[] = [
     ja: "矢の重さ",
     kana: "やのおもさ",
     intro: [
-      { text: "大致是弓力 10kg 配 22〜23g、15kg 配 27〜28g、18kg 配約 30g（8 匁）。兩份表的數字很接近，但仍是店家與弓師的建議。", tag: "shop", src: [SHOP.suizanYa, SHOP.issuiWeight] },
+      { text: "大致是弓力 10kg 配 22～23g、15kg 配 27～28g、18kg 配約 30g（8 匁）。兩份表的數字很接近，但仍是店家與弓師的建議。", tag: "shop", src: [SHOP.suizanYa, SHOP.issuiWeight] },
     ],
     introTables: [ARROW_WEIGHT_TABLE],
     deep: [
@@ -382,8 +397,8 @@ export const YA_TOPICS: EqTopic[] = [
         title: "弓師永野一萃（一翠弓、吟翠弓）的主張",
         points: [
           { text: "箭比弓力重，對弓沒有壞處；太輕是弓故障的重要原因。在箭飛得順的範圍內，盡量用重一點的箭。", tag: "shop", src: [SHOP.issuiWeight] },
-          { text: "用麻弦時箭重差 1〜2 匁，弦的耐用度就差很多；遠的常用較輕的組合，比較容易出現笄（こうがい：外竹裂開）或弓反轉。", tag: "shop", src: [SHOP.issuiWeight] },
-          { text: "論壇常見「箭重（g）≈ 弓力（kg）＋8〜10」的速算法，沒有出處。", tag: "folk" },
+          { text: "用麻弦時箭重差 1～2 匁，弦的耐用度就差很多；遠的常用較輕的組合，比較容易出現笄（こうがい：外竹裂開）或弓反轉。", tag: "shop", src: [SHOP.issuiWeight] },
+          { text: "論壇常見「箭重（g）≈ 弓力（kg）＋8～10」的速算法，沒有出處。", tag: "folk" },
         ],
       },
     ],
@@ -404,7 +419,7 @@ export const YA_TOPICS: EqTopic[] = [
       {
         title: "跨國攜帶",
         points: [
-          { text: "猛禽羽的箭跨國攜帶可能涉及 CITES 或台灣《野生動物保育法》，本研究沒有查到明確規定；買箭宜選火雞等非保育羽。搭機與寄送見入門指南。", tag: "disputed" },
+          { text: "猛禽羽的箭跨國攜帶可能涉及 CITES 或台灣《野生動物保育法》，本研究沒有查到明確規定；買箭宜選火雞等非保育羽。搭機與寄送見〈走進道場〉。", tag: "disputed" },
         ],
       },
     ],
@@ -420,7 +435,7 @@ export const STRING_COMPARE_TABLE: EqTable = {
     { cells: ["材質", "ザイロン（Zylon）、テクノーラ（Technora）、アラミド、ケブラー等", "天然麻"], tag: "shop", src: [SHOP.koyamaStrings, SHOP.suizanTsuru] },
     { cells: ["適用的弓", "グラス弓、カーボン弓，部分竹弓（翠山：竹弓請用「合成弦対応構造」的）", "「主に竹弓用」"], tag: "shop", src: [SHOP.koyamaStrings, SHOP.suizanTsuru] },
     { cells: ["對弓的負擔", "弓師永野一萃：吸收不了放箭的衝擊，弓翻轉時弦不斷，衝擊全由弓承受，可能首折れ", "弓力合適的麻弦在弓翻轉時會先斷，能緩衝"], tag: "shop", src: [SHOP.issuiDamage, SHOP.issuiSynth] },
-    { cells: ["價格（小山，日幣含稅）", "初音弦 660〜、吟 特作 1,210〜、直心弦 2 條組 1,760〜", "桂 麻弦 2,800、直心麻弦 2 條組 4,620"], tag: "shop", src: [SHOP.koyamaStrings] },
+    { cells: ["價格（小山，日幣含稅）", "初音弦 660～、吟 特作 1,210～、直心弦 2 條組 1,760～", "桂 麻弦 2,800、直心麻弦 2 條組 4,620"], tag: "shop", src: [SHOP.koyamaStrings] },
     { cells: ["季節", "—", "冬天等乾燥時期容易斷，建議選稍粗一點的"], tag: "shop", src: [SHOP.koyamaStrings] },
   ],
 };
@@ -429,17 +444,17 @@ export const STRING_MODELS_TABLE: EqTable = {
   caption: "常見合成弦的粗細與對應弓力（店家標示「僅供參考」）",
   head: ["名稱", "材質", "粗細與弓力", "價格（日幣）"],
   rows: [
-    { cells: ["吟 特作", "ザイロン", "1號 〜13kg／2號 14〜17kg／3號 18kg〜", "1,210〜／1 條"], tag: "shop", src: [SHOP.koyamaStrings] },
-    { cells: ["響（ひびき）", "合成纖維（偏硬、弦音高）", "翠山：細 〜14kg／太 13〜18kg；山武只標 13kg 以上", "翠山 並寸 2 條 1,870；山武 六寸伸 2 條 2,720"], tag: "shop", src: [SHOP.suizanHibiki, SHOP.sambuHibiki] },
-    { cells: ["飛翔弦", "アラミド", "0號 〜12kg／1號 13kg〜／2號 17kg〜／3號 20kg〜", "1,980〜／2 條組"], tag: "shop", src: [SHOP.koyamaStrings] },
-    { cells: ["正鵠弦", "ザイロン＋聚酯系化纖", "1號 〜13kg／2號 14〜18kg／3號 19〜22kg／4號 23kg〜", "1,650〜"], tag: "shop", src: [SHOP.koyamaStrings] },
-    { cells: ["直心弦", "テクノーラ", "1號 〜11kg／2號 12〜14kg／3號 15〜17kg／4號 18kg〜", "1,760〜／2 條組"], tag: "shop", src: [SHOP.koyamaStrings] },
-    { cells: ["直心Ⅱ・R・令和弦", "ザイロン", "細 〜14kg／太 15kg〜", "1,210〜2,310"], tag: "shop", src: [SHOP.koyamaStrings] },
-    { cells: ["天弓弦 翠", "高強度アラミド", "0號 〜12kg／1號 13kg〜／2號 17kg〜／3號 20kg〜", "1,650〜"], tag: "shop", src: [SHOP.koyamaStrings] },
-    { cells: ["初音弦", "ケブラー", "不分粗細（店家說適合第一次買弦或道場公用）", "660〜"], tag: "shop", src: [SHOP.koyamaStrings] },
+    { cells: ["吟 特作", "ザイロン", "1號 ～13kg／2號 14～17kg／3號 18kg～", "1,210～／1 條"], tag: "shop", src: [SHOP.koyamaStrings] },
+    { cells: ["響（ひびき）", "合成纖維（偏硬、弦音高）", "翠山：細 ～14kg／太 13～18kg；山武只標 13kg 以上", "翠山 並寸 2 條 1,870；山武 六寸伸 2 條 2,720"], tag: "shop", src: [SHOP.suizanHibiki, SHOP.sambuHibiki] },
+    { cells: ["飛翔弦", "アラミド", "0號 ～12kg／1號 13kg～／2號 17kg～／3號 20kg～", "1,980～／2 條組"], tag: "shop", src: [SHOP.koyamaStrings] },
+    { cells: ["正鵠弦", "ザイロン＋聚酯系化纖", "1號 ～13kg／2號 14～18kg／3號 19～22kg／4號 23kg～", "1,650～"], tag: "shop", src: [SHOP.koyamaStrings] },
+    { cells: ["直心弦", "テクノーラ", "1號 ～11kg／2號 12～14kg／3號 15～17kg／4號 18kg～", "1,760～／2 條組"], tag: "shop", src: [SHOP.koyamaStrings] },
+    { cells: ["直心Ⅱ・R・令和弦", "ザイロン", "細 ～14kg／太 15kg～", "1,210～2,310"], tag: "shop", src: [SHOP.koyamaStrings] },
+    { cells: ["天弓弦 翠", "高強度アラミド", "0號 ～12kg／1號 13kg～／2號 17kg～／3號 20kg～", "1,650～"], tag: "shop", src: [SHOP.koyamaStrings] },
+    { cells: ["初音弦", "ケブラー", "不分粗細（店家說適合第一次買弦或道場公用）", "660～"], tag: "shop", src: [SHOP.koyamaStrings] },
   ],
   notes: [
-    { text: "同樣叫「2號」，不同品牌對應的弓力不一樣（直心弦 2號 12〜14kg、吟 2號 14〜17kg）。合成弦用「號」、麻弦用「匁」標示，數字越大越粗越重。", tag: "shop", src: [SHOP.koyamaStrings, SHOP.zkChoose] },
+    { text: "同樣叫「2號」，不同品牌對應的弓力不一樣（直心弦 2號 12～14kg、吟 2號 14～17kg）。合成弦用「號」、麻弦用「匁」標示，數字越大越粗越重。", tag: "shop", src: [SHOP.koyamaStrings, SHOP.zkChoose] },
   ],
 };
 
@@ -447,10 +462,10 @@ export const STRING_LIFE_TABLE: EqTable = {
   caption: "什麼時候換弦（說法差很多）",
   head: ["來源", "說法"],
   rows: [
-    { cells: ["翠山（弓具店）", "合成弦不要等斷了才換，一般 600〜700 射換；比賽、審查前換新弦，先拉約 100 射再上場；戶外練習受紫外線影響較易斷"], tag: "shop", src: [SHOP.suizanTsuru] },
-    { cells: ["永野一萃（弓師）", "麻弦能拉 200〜300 射就算好弦；合成弦拉 1000 射也不斷，但為保護弓，合成弦也以 200〜300 射為準更換"], tag: "shop", src: [SHOP.issuiSynth, SHOP.issuiSynth2] },
-    { cells: ["部落格", "學生練得多，約 3 週〜1 個月換一次"], tag: "folk", src: [FOLK.kyudosuki] },
-    { cells: ["問答網站（只看了搜尋摘要）", "合成弦壽命 1000〜3000 射"], tag: "folk", src: [FOLK.chiebukuroTsuru] },
+    { cells: ["翠山（弓具店）", "合成弦不要等斷了才換，一般 600～700 射換；比賽、審查前換新弦，先拉約 100 射再上場；戶外練習受紫外線影響較易斷"], tag: "shop", src: [SHOP.suizanTsuru] },
+    { cells: ["永野一萃（弓師）", "麻弦能拉 200～300 射就算好弦；合成弦拉 1000 射也不斷，但為保護弓，合成弦也以 200～300 射為準更換"], tag: "shop", src: [SHOP.issuiSynth, SHOP.issuiSynth2] },
+    { cells: ["部落格", "學生練得多，約 3 週～1 個月換一次"], tag: "folk", src: [FOLK.kyudosuki] },
+    { cells: ["問答網站（只看了搜尋摘要）", "合成弦壽命 1000～3000 射"], tag: "folk", src: [FOLK.chiebukuroTsuru] },
   ],
   notes: [{ text: "沒有官方數字。本站建議：看射數，也看外觀——起毛、變細、弦輪變硬就該換。", tag: "note" }],
 };
@@ -460,8 +475,8 @@ export const NAKAJIKAKE_TABLE: EqTable = {
   head: ["項目", "全弓連官網／指導書", "弓具店"],
   rows: [
     { cells: ["麻與黏著劑", "用まぐすね把麻弦摩擦，讓くすね（松脂加油製成的補強材）滲入；用約 15cm 的麻", "合成弦一般用フエキ糊、木工ボンド；弓師建議用乾了還有彈性的黏著劑，防止筈割れ"], tag: "official", src: [ANKF.tool, BUDOKAN_EQ.ch7, SHOP.suizanTsuru, SHOP.issuiSynth2] },
-    { cells: ["位置", "從搭箭位置往上 1〜1.5cm 處開始做；搭箭位置太低會傷到左手拇指", "翠山：定在箭與弦呈 90 度的位置"], tag: "official", src: [ANKF.tool, BUDOKAN_EQ.ch7, BUDOKAN.ch2, SHOP.suizanTsuru] },
-    { cells: ["長度、形狀", "要纏到和箭筈貼合；指導書圖上標「8〜10㎝」，看不出指哪一段 ⚠️", "翠山：5cm 左右，上粗下細，防止筈こぼれ"], tag: "disputed", src: [BUDOKAN.ch2, BUDOKAN_EQ.ch7, SHOP.suizanTsuru] },
+    { cells: ["位置", "從搭箭位置往上 1～1.5cm 處開始做；搭箭位置太低會傷到左手拇指", "翠山：定在箭與弦呈 90 度的位置"], tag: "official", src: [ANKF.tool, BUDOKAN_EQ.ch7, BUDOKAN.ch2, SHOP.suizanTsuru] },
+    { cells: ["長度、形狀", "要纏到和箭筈貼合；指導書圖上標「8～10㎝」，看不出指哪一段 ⚠️", "翠山：5cm 左右，上粗下細，防止筈こぼれ"], tag: "disputed", src: [BUDOKAN.ch2, BUDOKAN_EQ.ch7, SHOP.suizanTsuru] },
     { cells: ["收尾", "用道宝（どうほう）纏緊", "小山 道宝 660 日圓；七つ道具セット 5,500 日圓"], tag: "official", src: [ANKF.tool, SHOP.koyamaGoods] },
   ],
 };
@@ -528,7 +543,7 @@ export const KAKE_SIZE_TABLE: EqTable = {
     { cells: ["② 拇指根到食指尖", "10.0", "10.3", "10.8", "11.2", "11.5", "12.0", "13.0"] },
     { cells: ["③ 中指", "6.8", "7.2", "7.5", "7.8", "8.2", "8.5", "9.5"] },
   ].map((r) => ({ ...r, tag: "shop" as const, src: [SHOP.miyakawaKake] })),
-  notes: [{ text: "宮川說女性一般 3〜4 號、男性一般 5〜6 號；手工弽同一號數也會有差，一定要試戴。", tag: "shop", src: [SHOP.miyakawaKake, SHOP.zkChoose] }],
+  notes: [{ text: "宮川說女性一般 3～4 號、男性一般 5～6 號；手工弽同一號數也會有差，一定要試戴。", tag: "shop", src: [SHOP.miyakawaKake, SHOP.zkChoose] }],
 };
 
 export const KAKE_PRICE_TABLE: EqTable = {
@@ -568,7 +583,7 @@ export const KAKE_TOPICS: EqTopic[] = [
         title: "怎麼量、怎麼選",
         points: [
           { text: "翠山的三個數字：① 食指尖到拇指根（最重要）、② 拇指長、③ 中指長。手張開時食指尖和拇指根都要碰到弽本體；做出取懸手勢後，食指尖應略有剩餘。", tag: "shop", src: [SHOP.suizanKake] },
-          { text: "初學者常挑偏小、剛好貼手的弽，結果會時右手不圓、手腕折、筈こぼれ；皮吸汗會縮，大約半年就縮了，所以要留餘裕。", tag: "shop", src: [SHOP.suizanKake] },
+          { text: "初學者常挑偏小、剛好貼手的弽，結果会時右手不圓、手腕折、筈こぼれ；皮吸汗會縮，大約半年就縮了，所以要留餘裕。", tag: "shop", src: [SHOP.suizanKake] },
           { text: "全日本弓道具協會另要求量關節粗細與手背圍。小山的弽原則上不在網路販售，要到店試戴，遠地可郵寄手型。", tag: "shop", src: [SHOP.zkChoose, SHOP.koyamaKake] },
         ],
       },
@@ -577,10 +592,10 @@ export const KAKE_TOPICS: EqTopic[] = [
       {
         title: "下がけ、ぎり粉、筆粉、押手弽",
         points: [
-          { text: "下がけ（したがけ）：戴在弽下面的布手套，防汗。易流汗或夏天練習要勤換。小山 300〜600 日圓。", tag: "official", src: [ANKF.terminology, SHOP.koyamaKake] },
+          { text: "下がけ（したがけ）：戴在弽下面的布手套，防汗。易流汗或夏天練習要勤換。小山 300～600 日圓。", tag: "official", src: [ANKF.terminology, SHOP.koyamaKake] },
           { text: "ぎり粉（ぎりこ）：弽拇指的止滑粉，樹脂熬煮去油製成；塗太多會讓弽變黏變黑，要極少量。", tag: "official", src: [ANKF.terminology, BUDOKAN_EQ.ch7, SHOP.koyamaGoods] },
           { text: "筆粉（ふでこ）：左手（弓手）握把的止滑粉。成分說法不一，沒有查到廠商正式資料。", tag: "official", src: [ANKF.terminology, BUDOKAN_EQ.ch7] },
-          { text: "押手弽（おしでがけ）：左手用的弽，規則承認是傳統押手輔具；除此之外押手只能戴保護傷處的繃帶、貼紮。小山簡易型 1,100 日圓〜。", tag: "official", src: [ANKF.playRules, SHOP.koyamaKake] },
+          { text: "押手弽（おしでがけ）：左手用的弽，規則承認是傳統押手輔具；除此之外押手只能戴保護傷處的繃帶、貼紮。小山簡易型 1,100 日圓～。", tag: "official", src: [ANKF.playRules, SHOP.koyamaKake] },
           { text: "指導書：先戴胸當再戴弽；弽的繩子不要綁太緊；弽皮打滑可能走火（暴発）。", tag: "guide", src: [BUDOKAN.ch4] },
         ],
       },
@@ -607,13 +622,13 @@ export const WEAR_ITEMS_TABLE: EqTable = {
   caption: "服裝品項與尺寸（弓具店建議，小山日幣含稅價）",
   head: ["品項", "怎麼挑", "價格"],
   rows: [
-    { cells: ["弓道衣（きゅうどうい）", "肩膀要有餘裕；男款腋下開口、女款閉合", "棉聚酯 4,000〜、聚酯 4,500〜、夏用 5,500〜、冬用 7,000〜"] },
+    { cells: ["弓道衣（きゅうどうい）", "肩膀要有餘裕；男款腋下開口、女款閉合", "棉聚酯 4,000～、聚酯 4,500～、夏用 5,500～、冬用 7,000～"] },
     { cells: ["袴（はかま）", "全日本弓道具協會：女性從胸下、男性從肚臍下量起，袴襬落在腳踝中心附近；小山以「前紐下」表示，3cm 一級", "黑袴聚酯 8,000、夏用 9,000、楊柳馬乘 15,400"] },
     { cells: ["馬乗り袴 vs 行燈袴", "馬乗り（うまのり）是褲裙式，行燈（あんどん）是裙式。全日本弓道具協會：男女都以馬乗り為標準，女性也有行燈", "—"] },
-    { cells: ["角帯（かくおび）", "男約 4m、女約 3m", "素面 2,000〜"] },
-    { cells: ["足袋（たび）", "比平常的鞋小 0.5〜1.0cm；腳背高或腳寬選有彈性的", "棉 1,500〜、尼龍 1,700〜"] },
-    { cells: ["胸当て", "貼身、不鬆", "660〜"] },
-    { cells: ["著物（審查用）", "依段位；審查和講習會一般穿黑紋付加袴", "聚酯著物＋襦袢組 26,000〜"] },
+    { cells: ["角帯（かくおび）", "男約 4m、女約 3m", "素面 2,000～"] },
+    { cells: ["足袋（たび）", "比平常的鞋小 0.5～1.0cm；腳背高或腳寬選有彈性的", "棉 1,500～、尼龍 1,700～"] },
+    { cells: ["胸当て", "貼身、不鬆", "660～"] },
+    { cells: ["著物（審查用）", "依段位；審查和講習會一般穿黑紋付加袴", "聚酯著物＋襦袢組 26,000～"] },
   ].map((r) => ({ ...r, tag: "shop" as const, src: [SHOP.zkChoose, SHOP.koyamaWear] })),
   notes: [{ text: "套組：山武 男用 5 件組 12,200 日圓、女用 6 件組（含胸當）12,500 日圓；平安說 1 萬日圓左右。", tag: "shop", src: [SHOP.sambuSet, SHOP.heianBeginner] }],
 };
@@ -649,12 +664,12 @@ export const GOODS_TABLE: EqTable = {
   caption: "其他用品（官方定義與參考價）",
   head: ["用品", "是什麼", "參考價（日幣含稅）"],
   rows: [
-    { cells: ["弓袋（ゆぶくろ）", "收弓的袋子", "小山 筒型附繩 1,650〜；平安 弓內袋 770"], tag: "shop", src: [ANKF.terminology, SHOP.koyamaGoods, SHOP.heianBeginner] },
+    { cells: ["弓袋（ゆぶくろ）", "收弓的袋子", "小山 筒型附繩 1,650～；平安 弓內袋 770"], tag: "shop", src: [ANKF.terminology, SHOP.koyamaGoods, SHOP.heianBeginner] },
     { cells: ["弓巻（ゆまき）", "纏在弓上收納的布帶", "小山 2,200"], tag: "shop", src: [ANKF.terminology, SHOP.koyamaGoods] },
     { cells: ["矢筒（やづつ）", "箭筒", "小山 肩背式 直徑 6cm 4,800、8cm 5,500"], tag: "shop", src: [ANKF.terminology, SHOP.koyamaGoods] },
-    { cells: ["弦巻（つるまき）", "捲收替弦的器具", "素面 900、和紙 2,000、籐製 4,400〜"], tag: "shop", src: [ANKF.terminology, SHOP.koyamaGoods] },
-    { cells: ["カケ袋／ゆがけ筒", "收弽的袋子或筒", "山武 ゆがけ筒 3,400；桐箱 4 件組 4,640〜"], tag: "shop", src: [SHOP.sambuKake] },
-    { cells: ["握り革（にぎりかわ）", "纏在握把上的皮，讓押手不打滑、不受傷", "合成皮 660、鹿皮 990〜1,650"], tag: "shop", src: [BUDOKAN_EQ.ch7, SHOP.koyamaGoods] },
+    { cells: ["弦巻（つるまき）", "捲收替弦的器具", "素面 900、和紙 2,000、籐製 4,400～"], tag: "shop", src: [ANKF.terminology, SHOP.koyamaGoods] },
+    { cells: ["カケ袋／ゆがけ筒", "收弽的袋子或筒", "山武 ゆがけ筒 3,400；桐箱 4 件組 4,640～"], tag: "shop", src: [SHOP.sambuKake] },
+    { cells: ["握り革（にぎりかわ）", "纏在握把上的皮，讓押手不打滑、不受傷", "合成皮 660、鹿皮 990～1,650"], tag: "shop", src: [BUDOKAN_EQ.ch7, SHOP.koyamaGoods] },
     { cells: ["ゴム弓（ごむゆみ）", "橡皮筋練習弓；全弓連說最適合練射型，拉的時候橡皮一定要在外側", "座右弓 2,640、塑膠製 2,860"], tag: "official", src: [ANKF.tool, SHOP.koyamaGoods] },
     { cells: ["巻藁矢（まきわらや）", "打巻藁用的箭（多半沒有羽）；巻藁要保持弓一杖（約 2m）的距離", "鋁製棒矢 2,090、附羽 3,850"], tag: "official", src: [ANKF.tool, SHOP.koyamaGoods] },
     { cells: ["弓立て（ゆみたて）", "立弓的架子，多為道場設備", "個人用價格沒查到"], tag: "official", src: [ANKF.terminology] },
@@ -670,15 +685,15 @@ export const OTHER_BUDGETS_TABLE: EqTable = {
   caption: "其他店的套組與估算（並列）",
   head: ["來源", "內容", "日幣", "約台幣"],
   rows: [
-    { cells: ["猪飼弓具店「弓道スターターセット」", "鋁合金箭、初學者用堅帽子三ツ（附控、カケ袋、下がけ 2 枚）、道衣、袴、帶、足袋；不含弓；只寄日本國內", "48,000〜56,000（折扣價）", "9,994〜11,659"], tag: "shop", src: [SHOP.ikaiSet] },
-    { cells: ["山武弓具店", "近的矢 3 件組（鋁合金箭 6 支、矢筒、巻藁棒矢）25,300〜；男用道衣 5 件組 12,200；翔鳳 並 三ツカケ 24,800", "—", "—"], tag: "shop", src: [SHOP.sambuSet] },
-    { cells: ["東山堂平安弓具", "玻纖、碳纖弓 3〜5 萬；箭 6 支 1〜2 萬；弽約 3 萬；道衣組約 1 萬；「10万円ほどあれば一通りのものが揃います」", "約 100,000", "約 20,820"], tag: "shop", src: [SHOP.heianBeginner] },
-    { cells: ["翠山弓具店", "玻纖弓 3〜4 萬；硬鋁箭 6 支（火雞羽）1.3 萬起；弓道衣套組 1〜1.2 萬；三つ弽約 3 萬（店家沒有給總額）", "—", "—"], tag: "shop", src: [SHOP.suizanPrice] },
+    { cells: ["猪飼弓具店「弓道スターターセット」", "鋁合金箭、初學者用堅帽子三ツ（附控、カケ袋、下がけ 2 枚）、弓道衣、袴、帶、足袋；不含弓；只寄日本國內", "48,000～56,000（折扣價）", "9,994～11,659"], tag: "shop", src: [SHOP.ikaiSet] },
+    { cells: ["山武弓具店", "近的矢 3 件組（鋁合金箭 6 支、矢筒、巻藁棒矢）25,300～；男用弓道衣 5 件組 12,200；翔鳳 並 三ツカケ 24,800", "—", "—"], tag: "shop", src: [SHOP.sambuSet] },
+    { cells: ["東山堂平安弓具", "玻纖、碳纖弓 3～5 萬；箭 6 支 1～2 萬；弽約 3 萬；弓道衣組約 1 萬；「10万円ほどあれば一通りのものが揃います」", "約 100,000", "約 20,820"], tag: "shop", src: [SHOP.heianBeginner] },
+    { cells: ["翠山弓具店", "玻纖弓 3～4 萬；硬鋁箭 6 支（火雞羽）1.3 萬起；弓道衣套組 1～1.2 萬；三つ弽約 3 萬（店家沒有給總額）", "—", "—"], tag: "shop", src: [SHOP.suizanPrice] },
   ],
 };
 
 export const SHIPPING_NOTES: Point[] = [
-  { text: "試算不含運費、國際運費、台灣關稅與進口稅。翠山的海外站說關稅與進口稅另計、約 3〜10%，海外寄送不退不換。", tag: "shop", src: [SHOP.globalSuizan] },
+  { text: "試算不含運費、國際運費、台灣關稅與進口稅。翠山的海外站說關稅與進口稅另計、約 3～10%，海外寄送不退不換。", tag: "shop", src: [SHOP.globalSuizan] },
   { text: "翠山海外站：六寸伸的弓因出口限制不寄海外；有弓的訂單整筆走 TNT。", tag: "shop", src: [SHOP.globalSuizan] },
   { text: "猪飼的入門套組只寄日本國內；全長約 2.2m 的弓寄國際包裹的難度和費用，這次沒有查證。", tag: "disputed", src: [SHOP.ikaiSet] },
   { text: "小山註明網路價可能和店頭價不同；小山的海外寄送政策沒有找到。", tag: "shop", src: [SHOP.koyamaStrings] },
@@ -695,7 +710,7 @@ export const BAMBOO_CARE_TABLE: EqTable = {
     { cells: ["雨袋", "不要長時間放在防水雨袋裡；淋濕用乾的軟布擦，乾了、涼了再用；遠離暖氣"], tag: "shop", src: [SHOP.yamaguchiCare] },
     { cells: ["裏反り（うらぞり）", "卸弦時的反向彎曲超過 15cm 就張著放、不到 15cm 就卸弦休息，直到回到約 15cm；籐和握革約每年換一次"], tag: "shop", src: [SHOP.yokoyama] },
     { cells: ["四季", "春秋最穩定；氣溫差 10 度弓力差將近 1kg，冬夏可能差 3kg；冬天材料變硬易出笄。玻璃纖維弓不在此限"], tag: "shop", src: [SHOP.issuiSeasons] },
-    { cells: ["濕度數字", "「50〜60%」「40〜60%、20℃前後」等只出現在部落格"], tag: "folk" },
+    { cells: ["濕度數字", "「50～60%」「40～60%、20℃前後」等只出現在部落格"], tag: "folk" },
   ],
 };
 
@@ -704,7 +719,7 @@ export const STRUNG_STORAGE_TABLE: EqTable = {
   head: ["對象", "說法"],
   rows: [
     { cells: ["新竹弓", "一定要張著弦帶回家，用到充分熟成前都張著"], tag: "shop", src: [SHOP.issuiNew] },
-    { cells: ["新竹弓", "頭一個月保管時也張著；1〜1.5 個月內每天 10 射以內、每週約 30 射"], tag: "shop", src: [SHOP.ikaiTake] },
+    { cells: ["新竹弓", "頭一個月保管時也張著；1～1.5 個月內每天 10 射以內、每週約 30 射"], tag: "shop", src: [SHOP.ikaiTake] },
     { cells: ["竹弓（一般）", "裏反變低了就卸弦休息幾天；一直張著可能胴抜け、弓形變形"], tag: "folk", src: [FOLK.kyudosuki] },
     { cells: ["玻纖、碳纖弓", "張著「ほとんど」沒問題 vs 轉述「大廠建議每天卸弦」（沒寫哪家）"], tag: "disputed", src: [FOLK.kyuudouq] },
     { cells: ["官方", "全弓連、指導書都沒有規定要不要張弦保存；只說竹弓要早點張好，等弓形穩定"], tag: "official", src: [ANKF.tool] },
@@ -743,7 +758,7 @@ export const CARE_TOPICS: EqTopic[] = [
       {
         title: "張好之後",
         points: [
-          { text: "弓師：張好不要馬上用，先確認弦輪位置、弓把高度、弓的側面形狀，再做約矢束八成的空拉 2〜3 次；「目一杯の素引きは百害あって一利なし」。", tag: "shop", src: [SHOP.issuiStringing] },
+          { text: "弓師：張好不要馬上用，先確認弦輪位置、弓把高度、弓的側面形狀，再做約矢束八成的空拉 2～3 次；「目一杯の素引きは百害あって一利なし」。", tag: "shop", src: [SHOP.issuiStringing] },
           { text: "不要把本弭當拐杖拄地，在水泥地上會磨損。", tag: "guide", src: [BUDOKAN.ch2] },
           { text: "指導書：不要用極端的出木弓（弓扭曲）。入木（いりき）、出木（でき）的精確左右定義，全弓連辭典沒有收錄，請向指導者確認。", tag: "disputed", src: [BUDOKAN.ch2, BUDOKAN_EQ.ch7, SHOP.issuiStringing] },
           { text: "合成弦造成的弦輪附近縱向裂痕，弓師建議發現就早點注入瞬間膠防止擴大。", tag: "shop", src: [SHOP.issuiSynth2] },
@@ -785,12 +800,12 @@ export const TAIWAN_CARE: Point[] = [
 /* ───────────────────────── 說法不一總覽 ───────────────────────── */
 
 export const DISPUTES: { title: string; text: string; anchor: string }[] = [
-  { title: "矢尺要加幾 cm", text: "ANKF +5 以上（初學 +10）、教本 +5〜10、弓具店 +10〜15、池田 +3〜5（而且池田的矢束指實際拉距）。本站：初學者以 +10cm 以上為宜，請依指導者判斷。", anchor: "calc" },
+  { title: "矢尺要加幾 cm", text: "ANKF +5 以上（初學 +10）、教本 +5～10、弓具店 +10～15、池田 +3～5（而且池田的矢束指實際拉距）。本站：初學者以 +10cm 以上為宜，請依指導者判斷。", anchor: "calc" },
   { title: "弓長的分界", text: "四寸伸的矢束上限：翠山 100、橫山與山武 95；三寸伸只有翠山列出；全日本弓道具協會用身高 170 分界，弓師主張看矢束。", anchor: "calc" },
   { title: "弓力的空白", text: "中學生、高齡者沒有具體數字；「能肩入れ的弓力」怎麼測沒有說明；弓力標示的拉距是否全業界統一，只確認了兩家。", anchor: "yumi-power" },
   { title: "箭桿適用弓力", text: "同一規格各店差好幾公斤；Easton 規格號碼的讀法沒有官方出處。", anchor: "ya-shaft" },
   { title: "審查用竹弓", text: "審查規程沒有找到弓材規定；天皇盃、遠的選手権的要項則規定竹弓。", anchor: "yumi-material" },
-  { title: "換弦時機", text: "弓師 200〜300 射、弓具店 600〜700 射、問答網站 1000〜3000 射，沒有官方數字。", anchor: "tsuru" },
+  { title: "換弦時機", text: "弓師 200～300 射、弓具店 600～700 射、問答網站 1000～3000 射，沒有官方數字。", anchor: "tsuru" },
   { title: "行燈袴", text: "競技規則解說寫「好ましくない」，但弓具店照賣女用行燈袴；一般練習能不能穿沒有官方明文。", anchor: "wear" },
   { title: "合成弓要不要張弦保存", text: "沒有廠商正式說法，只有部落格轉述。", anchor: "care-yumi" },
   { title: "台灣高溫多濕的保養", text: "完全沒有台灣本地來源；防潮箱濕度設定沒有依據。", anchor: "taiwan-care" },

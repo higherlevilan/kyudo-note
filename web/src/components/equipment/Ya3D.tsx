@@ -8,6 +8,7 @@
 import { useState } from "react";
 import ThreeStage, { type ViewPreset } from "@/components/three/ThreeStage";
 import FigureFrame from "@/components/illustrations/gear/FigureFrame";
+import { FigureNotes } from "@/components/content/Blocks";
 import { HayaOtoya } from "@/components/illustrations/gear/YaParts";
 import { ANKF } from "@/content/equipment/sources";
 import type { YaPart, YaProps } from "@/components/three/scenes/ya";
@@ -53,13 +54,7 @@ export default function Ya3D() {
     <FigureFrame
       id="ya-3d"
       title="矢的立體圖：甲矢與乙矢"
-      caption={
-        <>
-          長度方向依上圖〈矢的部位〉的示意比例（全長 100 cm、羽丈 14 cm）；箭桿粗細與羽的高度放大，不按比例；板付畫成圓錐形，弓只畫一小段、位置是示意。
-          紅色面是走り羽的「表」：用語辭典說甲矢「羽根の表が外向き」、乙矢搭弦時「矢羽根の表が内側にある」；「外／內」以弓為準來畫，是本站對定義的圖解。
-          另外兩片羽的表、羽的彎曲，資料沒有寫，圖中不畫。有些資料改用「羽順時針／逆時針」說明，但從哪一端看各說不一，本站不採用；「飛行旋轉」的轉向只是示意。
-        </>
-      }
+      caption="長度依上圖〈矢的部位〉的示意比例（全長 100 cm、羽丈 14 cm）；紅色面是走り羽的「表」，其餘是示意。"
       sources={[ANKF.terminology, ANKF.playRules]}
     >
       <ThreeStage
@@ -115,6 +110,17 @@ export default function Ya3D() {
           </div>
         </div>
       </ThreeStage>
+      <FigureNotes>
+        <p>
+          長度方向依上圖〈矢的部位〉的示意比例（全長 100 cm、羽丈 14 cm）；箭桿粗細與羽的高度放大，不按比例；板付畫成圓錐形，弓只畫一小段、位置是示意。
+        </p>
+        <p>
+          紅色面是走り羽的「表」：用語辭典說甲矢「羽根の表が外向き」、乙矢搭弦時「矢羽根の表が内側にある」；「外／內」以弓為準來畫，是本站對定義的圖解。
+        </p>
+        <p>
+          另外兩片羽的表、羽的彎曲，資料沒有寫，圖中不畫。有些資料改用「羽順時針／逆時針」說明，但從哪一端看各說不一，本站不採用；「飛行旋轉」的轉向只是示意。
+        </p>
+      </FigureNotes>
     </FigureFrame>
   );
 }

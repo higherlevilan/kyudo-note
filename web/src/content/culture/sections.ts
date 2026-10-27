@@ -42,9 +42,9 @@ export const WHAT_IS: LayeredSection = {
       title: "現況",
       points: [
         {
-          text: "全弓連會員 143,759 人，加盟團體為 47 個都道府縣連盟（2025 年 3 月 31 日）。",
+          text: "全弓連登錄人口 145,200 人（2026 年 3 月 31 日；前一年 143,759 人），加盟團體為 47 個都道府縣連盟。",
           tag: "official",
-          src: [ANKF.overview],
+          src: [CS.ankfReport2025, ANKF.overview],
         },
         {
           text: "國際弓道連盟（IKYF）會員名單列出 36 個組織（2026-10-17 查詢）；About 頁寫 35、英文維基百科寫 32，數字會隨時間變動。",
@@ -654,7 +654,7 @@ export const TW_TODAY: LayeredSection = {
     {
       title: "其他團體（依個人整理的文章，現況未查證）",
       points: [
-        { text: "大學社團：東華大學弓道社（2005，被稱為台灣第一個弓道社）、政治大學弓道社（2006）、玄奘大學、淡江大學弓道社等。", tag: "disputed", src: [CS.toxophilia, CS.tkuTimes] },
+        { text: "大學社團：東華大學弓道部（2005，被稱為台灣第一個弓道社）、政治大學弓道社（2006）、玄奘大學、淡江大學弓道社等。", tag: "disputed", src: [CS.toxophilia, CS.tkuTimes] },
         { text: "民間道場：岡達弓道社（台中）、山道場（台北）、躾弓會等；竹久弓道場（新北）已停運。", tag: "disputed", src: [CS.toxophilia] },
       ],
     },

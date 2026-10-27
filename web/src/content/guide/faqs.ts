@@ -1,4 +1,4 @@
-// 入門指南的問題研究中心卡片。依 docs/research/04 §8-3、§8-4 改寫；查詢日期 2026-10-17。
+// 走進道場的問題研究中心卡片。依 docs/research/04 §8-3、§8-4 改寫；查詢日期 2026-10-17。
 
 import { ANKF, BUDOKAN, IKYF, TAIWAN } from "../common-sources";
 import type { Faq } from "../types";
@@ -65,7 +65,7 @@ export const GUIDE_FAQS: Faq[] = [
     topic: "審查",
     q: "在台灣可以考全弓連的段位嗎？",
     a: [
-      { text: "可以。臺灣弓道協會是 IKYF 會員，經協會報名，可參加亞洲大洋洲講習會的特別中央審查（2026 年 11 月東京有 Chinese Taipei 專場）或錄像審查；證書由全弓連發給。", tag: "official", src: [IKYF.members, IKYF_X.plan2026] },
+      { text: "可以。臺灣弓道協會是 IKYF 會員，經協會報名，可參加亞洲大洋洲講習會的特別中央審查（2026 年的 Chinese Taipei 專場排在 11 月、東京）或錄像審查；證書由全弓連發給。", tag: "official", src: [IKYF.members, IKYF_X.plan2026] },
       { text: "錄像審查目前可考哪些段位、費用多少，沒有公開資料，請向協會確認。", tag: "disputed", src: [TW_X.calendar] },
     ],
   },

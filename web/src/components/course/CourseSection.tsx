@@ -1,7 +1,8 @@
 // One 小節 of a 關卡 (TechEDU .sec): kicker ("02 · 05"), title from the registry (or `title`),
 // optional lead, 小弓's quip from the chapter extras when `quip` is set, and seen-tracking
 // (35% in view for 2.5 s, or a <Stepper> inside it reaching its last step).
-// Server component; only the tracker / 「已讀」 chip is client-side.
+// Direct children get a 20px vertical rhythm (space-y-5; block margins collapse, so a child's own
+// mt-* doesn't add up). Server component; only the tracker / 「已讀」 chip is client-side.
 import type { ReactNode } from "react";
 import Say from "@/components/mascot/Say";
 import { CHAPTER_BY_ID, sectionKicker } from "@/content/course/chapters";
@@ -35,7 +36,7 @@ export default function CourseSection({
   const jaSub = title === undefined && def?.ja && def.ja !== def.title ? def.ja : undefined;
 
   return (
-    <section id={id} aria-labelledby={`${id}-title`} data-course-section="" className={`mt-14 scroll-mt-20 first:mt-0 ${className}`}>
+    <section id={id} aria-labelledby={`${id}-title`} data-course-section="" className={`mt-14 scroll-mt-20 space-y-5 first:mt-0 ${className}`}>
       <header className="mb-5">
         <div className="flex items-center gap-3">
           <span className="text-xs font-semibold tracking-[0.14em] text-wood tabular-nums">{sectionKicker(chapter, id)}</span>

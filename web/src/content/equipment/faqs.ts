@@ -1,4 +1,4 @@
-// 裝備百科 FAQ（docs/research/04 §8-1、§8-2）。問題研究中心可依 topic 篩選。
+// 弓具 FAQ（docs/research/04 §8-1、§8-2）。問題研究中心可依 topic 篩選。
 
 import type { Faq } from "@/content/types";
 import { ANKF, BOT, BUDOKAN, BUDOKAN_EQ, FOLK, RULES, SHOP } from "./sources";
@@ -15,8 +15,8 @@ export const EQUIPMENT_FAQS: Faq[] = [
     topic: "矢束・矢尺",
     q: "箭要比矢束長多少？",
     a: [
-      { text: "全弓連：至少長 5cm（約 3 指寬），初學者約長 10cm；《弓道教本》寫 5〜10cm。", tag: "official", src: [ANKF.tool, BUDOKAN.ch3] },
-      { text: "弓具店給初學者、高中生的建議更保守：+12〜15cm。", tag: "shop", src: [SHOP.suizanYa, SHOP.heian1913] },
+      { text: "全弓連：至少長 5cm（約 3 指寬），初學者約長 10cm；《弓道教本》寫 5～10cm。", tag: "official", src: [ANKF.tool, BUDOKAN.ch3] },
+      { text: "弓具店給初學者、高中生的建議更保守：+12～15cm。", tag: "shop", src: [SHOP.suizanYa, SHOP.heian1913] },
       { text: "沒有單一的「正確」數字；初學者以 +10cm 以上為宜，請和指導者確認。", tag: "note" },
     ],
   },
@@ -46,14 +46,14 @@ export const EQUIPMENT_FAQS: Faq[] = [
   {
     topic: "弓",
     q: "規則對弓長有限制嗎？",
-    a: [{ text: "沒有硬性上下限。只規定「以 221cm 為標準，允許若干長短」，旁註舉出 6〜18cm 伸、3〜12cm 詰等例子。", tag: "official", src: [ANKF.playRules] }],
+    a: [{ text: "沒有硬性上下限。只規定「以 221cm 為標準，允許若干長短」，旁註舉出 6～18cm 伸、3～12cm 詰等例子。", tag: "official", src: [ANKF.playRules] }],
   },
   {
     topic: "弓",
     q: "初學者該用幾公斤的弓？",
     a: [
-      { text: "全弓連：自己能肩入れ的弓力的 1/2 是標準，初學時 1/3〜1/4。", tag: "official", src: [ANKF.tool] },
-      { text: "弓具店：初學男性 11〜12kg、女性 8〜10kg（翠山）；山武建議 6〜10kg 起步。", tag: "shop", src: [SHOP.suizanMatch, SHOP.sambuQA] },
+      { text: "全弓連：自己能肩入れ的弓力的 1/2 是標準，初學時 1/3～1/4。", tag: "official", src: [ANKF.tool] },
+      { text: "弓具店：初學男性 11～12kg、女性 8～10kg（翠山）；山武建議 6～10kg 起步。", tag: "shop", src: [SHOP.suizanMatch, SHOP.sambuQA] },
       { text: "中學生、高齡者沒有查到具體數字，請由指導者判斷。", tag: "disputed" },
     ],
   },
@@ -78,14 +78,14 @@ export const EQUIPMENT_FAQS: Faq[] = [
     topic: "矢",
     q: "1913 和 2015 怎麼選？",
     a: [
-      { text: "依弓力和矢尺選，不要依性別選。大致是弓力 13kg 以下或箭較短選 1913，約 13kg 以上（各店 12〜20kg 不等）選 2015。各店範圍不同，請以購買店家的表格為準。", tag: "shop", src: [SHOP.suizanYa, SHOP.sambuYa, SHOP.heian1913] },
+      { text: "依弓力和矢尺選，不要依性別選。大致是弓力 13kg 以下或箭較短選 1913，約 13kg 以上（各店 12～20kg 不等）選 2015。各店範圍不同，請以購買店家的表格為準。", tag: "shop", src: [SHOP.suizanYa, SHOP.sambuYa, SHOP.heian1913] },
     ],
   },
   {
     topic: "矢",
     q: "箭要多重？匁怎麼換算？",
     a: [
-      { text: "1 匁＝3.75g。弓力 10kg 約配 22〜23g，15kg 約 27〜28g，18kg 約 30g（8 匁）。弓師說箭太輕容易傷弓。", tag: "shop", src: [SHOP.suizanYa, SHOP.issuiWeight] },
+      { text: "1 匁＝3.75g。弓力 10kg 約配 22～23g，15kg 約 27～28g，18kg 約 30g（8 匁）。弓師說箭太輕容易傷弓。", tag: "shop", src: [SHOP.suizanYa, SHOP.issuiWeight] },
     ],
   },
   {
@@ -100,7 +100,7 @@ export const EQUIPMENT_FAQS: Faq[] = [
     q: "初學者一定要先買全套嗎？",
     a: [
       { text: "不用。全弓連說初學者多半可以用道場的器材。", tag: "official", src: [ANKF.faq] },
-      { text: "平安弓具建議先買道衣，幾個月到半年後再買弽，弓和箭最後買。", tag: "shop", src: [SHOP.heianBeginner] },
+      { text: "平安弓具建議先買弓道衣，幾個月到半年後再買弽，弓和箭最後買。", tag: "shop", src: [SHOP.heianBeginner] },
     ],
   },
   {
@@ -115,14 +115,14 @@ export const EQUIPMENT_FAQS: Faq[] = [
     topic: "弦",
     q: "弦要買多長、多粗？",
     a: [
-      { text: "長度和弓一致（並寸弓配並寸弦）。粗細看弓力和品牌：吟 特作 1號是 〜13kg，直心弦 1號是 〜11kg，各牌不同。", tag: "shop", src: [SHOP.suizanTsuru, SHOP.koyamaStrings] },
+      { text: "長度和弓一致（並寸弓配並寸弦）。粗細看弓力和品牌：吟 特作 1號是 ～13kg，直心弦 1號是 ～11kg，各牌不同。", tag: "shop", src: [SHOP.suizanTsuru, SHOP.koyamaStrings] },
     ],
   },
   {
     topic: "弦",
     q: "弦多久換一次？",
     a: [
-      { text: "說法不一：弓具店說 600〜700 射，弓師為了保護弓建議 200〜300 射。", tag: "disputed", src: [SHOP.suizanTsuru, SHOP.issuiSynth2] },
+      { text: "說法不一：弓具店說 600～700 射，弓師為了保護弓建議 200～300 射。", tag: "disputed", src: [SHOP.suizanTsuru, SHOP.issuiSynth2] },
       { text: "重要比賽前換新弦，先拉約 100 射再上場。", tag: "shop", src: [SHOP.suizanTsuru] },
     ],
   },
@@ -130,7 +130,7 @@ export const EQUIPMENT_FAQS: Faq[] = [
     topic: "弦",
     q: "中仕掛要做在哪裡？用什麼做？",
     a: [
-      { text: "全弓連：用くすね和約 15cm 的麻，從搭箭位置往上 1〜1.5cm 處開始，最後用道宝纏緊。", tag: "official", src: [ANKF.tool, BUDOKAN_EQ.ch7] },
+      { text: "全弓連：用くすね和約 15cm 的麻，從搭箭位置往上 1～1.5cm 處開始，最後用道宝纏緊。", tag: "official", src: [ANKF.tool, BUDOKAN_EQ.ch7] },
       { text: "合成弦多半用木工膠或フエキ糊；翠山建議做成上粗下細、約 5cm。", tag: "shop", src: [SHOP.suizanTsuru] },
     ],
   },

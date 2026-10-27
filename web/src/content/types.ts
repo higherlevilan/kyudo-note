@@ -1,4 +1,4 @@
-// Shared content types for the module pages (文化與哲學、入門指南、禮法、裝備、問題研究中心).
+// Shared content types for the module pages (文化與哲學、走進道場、禮法、裝備、問題研究中心).
 // Every claim can carry a tag (how authoritative it is) and its sources.
 
 export type SourceKind = "official" | "guide" | "local" | "research" | "shop" | "secondary" | "site";

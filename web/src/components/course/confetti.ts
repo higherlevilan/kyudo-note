@@ -1,5 +1,5 @@
 // Light confetti on a shared full-screen canvas (TechEDU ux.js), in the site's dye colours.
-// Does nothing when the viewer prefers reduced motion.
+// Does nothing when the viewer prefers reduced motion. The canvas is removed when the last piece lands.
 
 type Bit = { x: number; y: number; vx: number; vy: number; r: number; c: string; rot: number; vr: number; life: number; sq: boolean };
 
@@ -10,7 +10,7 @@ let raf = 0;
 
 function colours() {
   const cs = getComputedStyle(document.documentElement);
-  return ["--vermilion", "--wood", "--indigo", "--moss", "--yamabuki", "--murasaki"].map((v) => cs.getPropertyValue(v).trim() || "#b4442b");
+  return ["--vermilion", "--wood", "--indigo", "--moss", "--yamabuki", "--murasaki"].map((v) => cs.getPropertyValue(v).trim() || "#a33e26");
 }
 
 function ensureCanvas() {
@@ -55,7 +55,17 @@ function tick() {
     ctx.restore();
   }
   if (bits.length) raf = requestAnimationFrame(tick);
-  else ctx.clearRect(0, 0, innerWidth, innerHeight);
+  else release();
+}
+
+/** Drop the canvas once the burst is over, so a full device-pixel bitmap doesn't stay allocated. */
+function release() {
+  if (canvas) {
+    canvas.width = canvas.height = 0;
+    canvas.remove();
+  }
+  canvas = null;
+  ctx = null;
 }
 
 /** Burst `n` pieces from (x, y). With `spread` (radians) they fly upwards in a cone. */

@@ -6,7 +6,7 @@ import { YADOKORO_ROWS } from "@/content/shaguse/yadokoro";
 export default function YadokoroTable() {
   return (
     <figure>
-      <figcaption className="mb-1.5 text-sm font-bold text-muted">矢所與常見原因（右射者）</figcaption>
+      <figcaption className="mb-1.5 text-sm font-bold text-muted">矢所與常見原因</figcaption>
       <div role="region" aria-label="矢所與常見原因對照表" tabIndex={0} className="overflow-x-auto rounded-xl border border-line bg-paper/40">
         <table className="w-full min-w-[40rem] border-collapse text-left text-sm">
           <thead className="bg-surface-2">

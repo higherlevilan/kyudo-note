@@ -7,11 +7,14 @@
 // - 不支援 WebGL 時顯示 fallback（通常是原本的 SVG 圖）。
 // - 手機：畫布設 touch-action: pan-y，上下滑照常捲動頁面，左右拖曳才旋轉；滾輪不縮放，避免搶走捲動。
 // - 深淺色：顏色取自 CSS 變數，系統切換配色時重建場景。
+// - 舞台離畫面超過約 2 個螢幕高時釋放 WebGL context（瀏覽器同時可用的 context 有上限），捲回附近再重建；
+//   WebGL context 遺失時，恢復後（或 2 秒內沒恢復）重建。場景 props 由父元件保管，重建後沿用；鏡頭位置也會保留。
 // 場景模組 default export 一個 (ctx, props) => handle；props 變了會呼叫 handle.update(props)。
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import type * as T from "three";
 import type { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { useMascotAvoid } from "@/components/mascot/avoid";
 
 export type Three = typeof import("three");
 export type Vec3 = [number, number, number];
@@ -95,13 +98,13 @@ function readPalette(THREE: Three): Palette {
     surface: c("--surface", "#fffbf3"),
     surface2: c("--surface-2", "#efe6d6"),
     ink: c("--ink", "#2a2520"),
-    muted: c("--muted", "#6d6357"),
+    muted: c("--muted", "#675d52"),
     line: c("--line", "#ddd1bd"),
-    wood: c("--wood", "#8a5a2e"),
+    wood: c("--wood", "#82552b"),
     woodSoft: c("--wood-soft", "#ead9bd"),
-    vermilion: c("--vermilion", "#b4442b"),
+    vermilion: c("--vermilion", "#a33e26"),
     indigo: c("--indigo", "#34507a"),
-    moss: c("--moss", "#5d7536"),
+    moss: c("--moss", "#51662f"),
     yamabuki: c("--yamabuki", "#a8740f"),
   };
 }
@@ -152,6 +155,7 @@ export default function ThreeStage<P>({
   const box = useRef<HTMLDivElement>(null);
   const canvasHost = useRef<HTMLDivElement>(null);
   const labelHost = useRef<HTMLDivElement>(null);
+  useMascotAvoid(box);
   const [status, setStatus] = useState<Status>("idle");
   const [gen, setGen] = useState(0);
   const [touched, setTouched] = useState(false);
@@ -162,6 +166,8 @@ export default function ThreeStage<P>({
   const loadRef = useRef(load);
   const viewsRef = useRef(views);
   const viewRef = useRef(view);
+  /** camera kept across rebuilds (context loss, off-screen release, colour-scheme change) */
+  const camSave = useRef<{ pos: Vec3; target: Vec3 } | null>(null);
   useEffect(() => {
     propsRef.current = props;
     loadRef.current = load;
@@ -169,15 +175,20 @@ export default function ThreeStage<P>({
     viewRef.current = view;
   });
 
-  // Start loading when the box comes near the screen.
+  // Build when the box comes within 300px of the screen; release it when it is more than ~2 screens away.
   const [near, setNear] = useState(false);
   useEffect(() => {
     const el = box.current;
-    if (!el || near) return;
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setNear(true), { rootMargin: "300px 0px" });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [near]);
+    if (!el) return;
+    const enter = new IntersectionObserver(([e]) => e.isIntersecting && setNear(true), { rootMargin: "300px 0px" });
+    const leave = new IntersectionObserver(([e]) => !e.isIntersecting && setNear(false), { rootMargin: "200% 0px" });
+    enter.observe(el);
+    leave.observe(el);
+    return () => {
+      enter.disconnect();
+      leave.disconnect();
+    };
+  }, []);
 
   // Rebuild on colour-scheme change.
   useEffect(() => {
@@ -227,6 +238,21 @@ export default function ThreeStage<P>({
       canvas.style.height = "100%";
       host.appendChild(canvas);
 
+      // ---- context loss: stop drawing; rebuild when restored, or after 2 s if it never is
+      let lost = false;
+      let lostTimer = 0;
+      const onLost = (e: Event) => {
+        e.preventDefault();
+        lost = true;
+        lostTimer = window.setTimeout(() => setGen((g) => g + 1), 2000);
+      };
+      const onRestored = () => {
+        clearTimeout(lostTimer);
+        setGen((g) => g + 1);
+      };
+      canvas.addEventListener("webglcontextlost", onLost);
+      canvas.addEventListener("webglcontextrestored", onRestored);
+
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(40, 1, 0.05, 400);
       const controls = new Controls(camera, canvas);
@@ -266,6 +292,7 @@ export default function ThreeStage<P>({
       };
       const frame = (now: number) => {
         raf = 0;
+        if (lost) return;
         const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
         last = now;
         elapsed += dt;
@@ -276,7 +303,7 @@ export default function ThreeStage<P>({
         else last = 0;
       };
       const invalidate = () => {
-        if (!raf) raf = requestAnimationFrame(frame);
+        if (!raf && !lost) raf = requestAnimationFrame(frame);
       };
       controls.addEventListener("change", invalidate);
       const onStart = () => setTouched(true);
@@ -371,7 +398,10 @@ export default function ThreeStage<P>({
       document.addEventListener("visibilitychange", onVis);
 
       const v0 = viewsRef.current.find((v) => v.id === viewRef.current) ?? viewsRef.current[0];
-      if (v0) {
+      if (camSave.current) {
+        camera.position.set(...camSave.current.pos);
+        controls.target.set(...camSave.current.target);
+      } else if (v0) {
         camera.position.set(...v0.pos);
         controls.target.set(...v0.target);
       }
@@ -393,6 +423,10 @@ export default function ThreeStage<P>({
       invalidate();
 
       cleanup = () => {
+        camSave.current = { pos: camera.position.toArray() as Vec3, target: controls.target.toArray() as Vec3 };
+        canvas.removeEventListener("webglcontextlost", onLost);
+        canvas.removeEventListener("webglcontextrestored", onRestored);
+        clearTimeout(lostTimer);
         cancelAnimationFrame(raf);
         loops.clear();
         ro.disconnect();
@@ -412,10 +446,11 @@ export default function ThreeStage<P>({
           }
         });
         renderer.dispose();
-        renderer.forceContextLoss();
+        if (!lost) renderer.forceContextLoss();
         canvas.remove();
         for (const l of labels) l.el.remove();
         api.current = null;
+        setStatus("idle");
       };
     })();
 

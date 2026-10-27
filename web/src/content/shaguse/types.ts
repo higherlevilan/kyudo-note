@@ -38,7 +38,7 @@ export interface YadokoroRow {
   label: string;
   /** Japanese reading of the label */
   ja?: string;
-  /** where on the target (右射者) */
+  /** where on the target, as the archer sees it */
   where: string;
   /** Common causes: all 一般說法 */
   causes: { text: string; anchor?: string }[];

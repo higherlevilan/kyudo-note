@@ -46,17 +46,17 @@ const SITE_HOST = "higherlevilan.github.io/kyudo-note";
 
 // Keep keys in sync with OG_IMAGES in src/lib/seo.ts.
 const SECTIONS = [
-  { key: "home", title: "弓道學習筆記", ja: "きゅうどう", desc: "繁體中文弓道學習資料：入門、射法八節、禮法、裝備、文化與詞彙。" },
-  { key: "guide", title: "入門指南", ja: "はじめに", desc: "第一次去道場、在台灣哪裡學、練習進程、安全、費用與審查。" },
+  { key: "home", title: "弓道學習筆記", ja: "きゅうどう", desc: "繁體中文弓道學習路線：走進道場、禮法、射法八節、射癖、弓具與文化。" },
+  { key: "guide", title: "走進道場", ja: "はじめに", desc: "第一次去道場、在台灣哪裡學、練習進程、安全、費用與審查。" },
   { key: "shaho", title: "射法八節", ja: "しゃほうはっせつ", desc: "足踏み到残心的八個步驟，每一節分入門與深入兩層。" },
-  { key: "shaguse", title: "射癖", ja: "しゃぐせ", desc: "常見射癖的樣子、可能成因與修正方向，請與指導者一起確認。" },
+  { key: "shaguse", title: "射癖與矢所", ja: "しゃぐせ・やどころ", desc: "常見射癖與矢所的樣子、可能成因與修正方向，請與指導者一起確認。" },
   { key: "etiquette", title: "禮法與體配", ja: "体配", desc: "基本姿勢與動作、坐射與立射流程、矢取り、道場禮儀。" },
-  { key: "equipment", title: "裝備百科", ja: "弓具", desc: "弓、矢、弽、弦、服裝與保養，附矢尺計算與預算試算。" },
+  { key: "equipment", title: "弓具", ja: "きゅうぐ", desc: "弓、矢、弽、弦、服裝與保養，附矢尺計算與預算試算。" },
   { key: "culture", title: "文化與哲學", ja: "射の心", desc: "歷史年表、流派系譜、射義與真善美、弓與禪的真相。" },
   { key: "glossary", title: "日文詞彙庫", ja: "用語", desc: "弓道術語的漢字、假名、羅馬拼音與中文解釋，都能搜尋。" },
   { key: "faq", title: "問題研究中心", ja: "問答", desc: "各單元的常見問題集中整理，每一題都附資料來源。" },
-  { key: "practice", title: "互動練習", ja: "稽古の合間に", desc: "八節排序、詞彙閃卡、迷思是非題、體配情境題與初段學科練習。" },
-  { key: "formcheck", title: "射形分析", ja: "実験", desc: "用手機鏡頭在瀏覽器裡估計姿勢，影像不離開你的裝置；結果僅供參考。" },
+  { key: "practice", title: "練習場", ja: "稽古の合間に", desc: "八節排序、詞彙閃卡、迷思是非題、體配情境題與初段學科練習。" },
+  { key: "formcheck", title: "射形分析（實驗）", ja: "射形を見る", desc: "用手機鏡頭在瀏覽器裡估計姿勢，影像不離開你的裝置；結果僅供參考。" },
   { key: "journal", title: "稽古帳", ja: "けいこちょう", desc: "記錄每次練習的射數、的中與射癖，資料只存在你的瀏覽器。" },
 ];
 

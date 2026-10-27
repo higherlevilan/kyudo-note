@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { foldText } from "@/lib/glossary";
 import Cites from "@/components/content/Cites";
+import { TUCK, useTuckFilters } from "@/components/glossary/GlossarySearch";
 import { TAG_LABEL, type Faq, type Tag } from "@/content/types";
 
 export interface HubFaq extends Faq {
@@ -24,6 +25,15 @@ const TAG_STYLE: Record<Tag, string> = {
   disputed: "bg-vermilion/10 text-vermilion border-vermilion/40",
 };
 
+/** Open and scroll to the pending deep-linked question, if it is on the page. */
+function reveal(target: { current: string | null }) {
+  const el = target.current ? document.getElementById(target.current) : null;
+  if (!(el instanceof HTMLDetailsElement)) return;
+  target.current = null;
+  el.open = true;
+  el.scrollIntoView({ block: "start" });
+}
+
 export default function FaqHub({ faqs, modules }: { faqs: HubFaq[]; modules: { key: string; label: string; href: string }[] }) {
   const [query, setQuery] = useState("");
   const [mod, setMod] = useState<string | null>(null);
@@ -42,12 +52,46 @@ export default function FaqHub({ faqs, modules }: { faqs: HubFaq[]; modules: { k
       .map(({ f }) => f);
   }, [indexed, deferred, mod, officialOnly]);
 
-  const chip = (on: boolean) =>
-    `shrink-0 whitespace-nowrap rounded-full border px-3 py-1 text-sm transition-colors ${on ? "border-ink bg-ink text-paper" : "border-field-border bg-surface text-ink hover:bg-surface-2"}`;
+  // Deep links from the chapter pages: /faq/#<module> filters to that chapter; /faq/#<module>-<n>
+  // also opens that question and scrolls to it (ids are `${key}-${index}`, see app/faq/page.tsx).
+  const openTarget = useRef<string | null>(null);
+  useEffect(() => {
+    const keys = new Set(modules.map((m) => m.key));
+    const apply = () => {
+      let h = "";
+      try {
+        h = decodeURIComponent(location.hash.slice(1));
+      } catch {
+        return;
+      }
+      if (keys.has(h)) return setMod(h);
+      const m = /^(.+)-(\d+)$/.exec(h);
+      if (!m || !keys.has(m[1])) return;
+      setQuery("");
+      setOfficialOnly(false);
+      setMod(m[1]);
+      openTarget.current = h;
+      reveal(openTarget);
+    };
+    const r = requestAnimationFrame(apply);
+    addEventListener("hashchange", apply);
+    return () => {
+      cancelAnimationFrame(r);
+      removeEventListener("hashchange", apply);
+    };
+  }, [modules]);
+  // Runs after every render, so it also catches the question once the new filter has rendered it.
+  useEffect(() => reveal(openTarget));
+
+  const chip = TUCK.chip;
+  const bar = useRef<HTMLDivElement>(null);
+  const spacer = useRef<HTMLDivElement>(null);
+  const [focusIn, setFocusIn] = useState(false);
+  const tucked = useTuckFilters(bar, spacer, focusIn);
 
   return (
     <div>
-      <div className="sticky top-[var(--header-h)] z-20 -mx-4 border-b border-line bg-paper/95 px-4 pt-2 pb-3 backdrop-blur">
+      <div ref={bar} className={TUCK.bar}>
         <label htmlFor="faq-q" className="sr-only">
           搜尋問題
         </label>
@@ -58,10 +102,16 @@ export default function FaqHub({ faqs, modules }: { faqs: HubFaq[]; modules: { k
           onChange={(e) => setQuery(e.target.value)}
           placeholder="例如：矢尺、会、跪坐、審查費"
           autoComplete="off"
-          className="w-full rounded-xl border border-field-border bg-surface px-4 py-2.5 text-base text-ink placeholder:text-muted/80 focus:border-wood focus:outline-none"
+          className={TUCK.input}
         />
-        {/* Phones: one horizontally scrolling row so the sticky bar stays short. */}
-        <div role="group" aria-label="篩選" className="-mx-4 mt-2.5 flex flex-nowrap gap-1.5 overflow-x-auto px-4 pb-0.5 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0">
+        {/* Phones: one horizontally scrolling row under the sticky search field, tucked away while scrolling down. */}
+        <div
+          role="group"
+          aria-label="篩選"
+          onFocus={() => setFocusIn(true)}
+          onBlur={(e) => !e.currentTarget.contains(e.relatedTarget as Node | null) && setFocusIn(false)}
+          className={TUCK.row(tucked)}
+        >
           <button type="button" aria-pressed={mod === null} onClick={() => setMod(null)} className={chip(mod === null)}>
             全部
           </button>
@@ -75,6 +125,7 @@ export default function FaqHub({ faqs, modules }: { faqs: HubFaq[]; modules: { k
           </button>
         </div>
       </div>
+      <div ref={spacer} aria-hidden="true" className={TUCK.spacer} />
 
       <p className="mt-4 text-sm text-muted" aria-live="polite">
         共 {results.length} 題
@@ -85,7 +136,7 @@ export default function FaqHub({ faqs, modules }: { faqs: HubFaq[]; modules: { k
       ) : (
         <div className="mt-3 divide-y divide-line rounded-2xl border border-line bg-surface">
           {results.map((f) => (
-            <details key={f.id} className="group p-5">
+            <details key={f.id} id={f.id} className="group scroll-mt-44 p-5">
               <summary className="flex items-start justify-between gap-3">
                 <span>
                   <span className="font-semibold">{f.q}</span>

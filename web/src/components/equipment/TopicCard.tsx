@@ -32,7 +32,7 @@ export default function TopicCard({ t, figure }: { t: EqTopic; figure?: ReactNod
         )}
       </header>
       <details open className="group mt-4">
-        <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
+        <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
           <Chevron />
           入門
         </summary>
@@ -52,7 +52,7 @@ export default function TopicCard({ t, figure }: { t: EqTopic; figure?: ReactNod
       </details>
       {t.deep && t.deep.length > 0 && (
         <details data-layer="deep" className="mt-3 border-t border-line pt-3">
-          <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
+          <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
             <Chevron />
             深入
           </summary>

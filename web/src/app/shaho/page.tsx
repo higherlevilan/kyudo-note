@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { pageMetadata } from "@/lib/seo";
+import { pageMetadata, chapterJsonLd, toJsonLd } from "@/lib/seo";
 import { FAQS, PAGE_SOURCES, POSTLUDE, PRELUDE, SECTIONS } from "@/content/shaho";
-import { KIND_LABEL, SOURCES } from "@/content/sources";
-import { PointList, SectionBody } from "@/components/shaho/SectionBlocks";
+import { SOURCES } from "@/content/sources";
+import { FaqTeaser, SourceList } from "@/components/content/Blocks";
+import { SectionBody } from "@/components/shaho/SectionBlocks";
 import { SHAHO_VIDEO } from "@/content/shaho-video";
-import HassetsuStrip from "@/components/illustrations/archer/HassetsuStrip";
 import HassetsuPlayer from "@/components/shaho/HassetsuPlayer";
 import ReleaseSequence from "@/components/shaho/ReleaseSequence";
 import Ashibumi3D from "@/components/shaho/Ashibumi3D";
@@ -26,16 +26,16 @@ const QUIPS = new Set(["ashibumi", "uchiokoshi", "hikiwake", "kai", "zanshin"]);
 export default function ShahoPage() {
   return (
     <div className="mx-auto max-w-5xl px-4">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: toJsonLd(chapterJsonLd("shaho")) }} />
       <ChapterHero chapter="shaho">
         <p>
           射一支箭的八個步驟：足踏み、胴造り、弓構え、打起し、引分け、会、離れ、残心，前後再加上執弓の姿勢與弓倒し。
-          每一節的說明分「入門」與「深入」兩層，並附上示範影片中對應的片段。
+          每一節的說明分「入門」與「深入」兩層，並附示範影片中對應時間點的連結。
         </p>
       </ChapterHero>
 
-      <HassetsuStrip />
-
-      <section aria-labelledby="hassetsu-player" className="mb-10">
+      {/* No 八節一覽 thumbnail strip: the 小節 list above and each step's 「看這一節的說明」 link to the sections. */}
+      <section id="hassetsu" aria-labelledby="hassetsu-player" className="mb-10 scroll-mt-20">
         <h2 id="hassetsu-player" className="mb-1 text-lg font-bold">
           八節播放器
         </h2>
@@ -74,47 +74,18 @@ export default function ShahoPage() {
 
       <ChapterQuiz chapter="shaho" />
 
-      <section id="faq" aria-labelledby="faq-title" className="mt-12 scroll-mt-20">
-        <h2 id="faq-title" className="mb-4 text-2xl font-bold">
-          常見問題
-        </h2>
-        <div className="divide-y divide-line rounded-2xl border border-line bg-surface">
-          {FAQS.map((f) => (
-            <details key={f.q} className="group p-5">
-              <summary className="flex items-start justify-between gap-3 font-semibold">
-                <span>{f.q}</span>
-                <span aria-hidden="true" className="chev mt-0.5 text-wood">
-                  ›
-                </span>
-              </summary>
-              <div className="mt-3 text-[15px]">
-                <PointList points={f.a} />
-              </div>
-            </details>
-          ))}
-        </div>
-      </section>
+      <FaqTeaser module="shaho" faqs={FAQS} picks={["会要撐幾秒？", "打起し是 45 度嗎？", "足踏み要踏多寬？"]} />
 
-      <section aria-labelledby="sources" className="mt-12">
-        <h2 id="sources" className="mb-3 text-xl font-bold">
-          資料來源
-        </h2>
-        <p className="mb-3 text-sm leading-relaxed text-muted">
-          技術說明以全日本弓道連盟（ANKF）官網與指導書為準；本頁文字為中文改寫，只引用必要的短句。
-          標示「坊間常見說法」的數字沒有官方出處；「指導書」是日本武道協議會《少年少女武道指導書 弓道》，屬教學教材，不等於射法規定。
-          中文節名參考臺灣弓道協會的對照。
-        </p>
-        <ol className="list-decimal space-y-1.5 pl-5 text-sm">
-          {PAGE_SOURCES.map((k) => (
-            <li key={k}>
-              <a href={SOURCES[k].url} target="_blank" rel="noopener noreferrer" className="text-wood underline">
-                {SOURCES[k].label}
-              </a>
-              <span className="ml-2 text-xs text-muted">{KIND_LABEL[SOURCES[k].kind]}</span>
-            </li>
-          ))}
-        </ol>
-      </section>
+      <SourceList
+        sources={PAGE_SOURCES.map((k) => SOURCES[k])}
+        note={
+          <>
+            技術說明以全日本弓道連盟（ANKF）官網與指導書為準；本頁文字為中文改寫，只引用必要的短句。
+            標示「坊間常見說法」的數字沒有官方出處；「指導書」是日本武道協議會《少年少女武道指導書 弓道》，屬教學教材，不等於射法規定。
+            中文節名參考臺灣弓道協會的對照。
+          </>
+        }
+      />
 
       <ChapterEnd chapter="shaho" />
     </div>

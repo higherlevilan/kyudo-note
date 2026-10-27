@@ -1,4 +1,5 @@
 // 段位與稱號 (docs/research/01 §3). Criteria: 全弓連《審査規程および内規》第 8 條（原文節錄＋中譯）.
+// 《審査統一基準（五段以下）》各段開頭照錄同一句；「的中不問」只出自統一基準的射法・射技欄。
 
 import type { Point, Source } from "../types";
 import { ANKF, TAIWAN } from "../common-sources";

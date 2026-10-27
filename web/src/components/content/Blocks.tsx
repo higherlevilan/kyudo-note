@@ -1,6 +1,7 @@
 // Building blocks for the module pages. Server components; no client JS needed.
 
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { KIND_LABEL, TAG_LABEL, type Faq, type LayeredSection, type Point, type Source, type Tag } from "@/content/types";
 import Cites from "./Cites";
 
@@ -65,19 +66,6 @@ export function PageHeader({ kicker, title, ja, children }: { kicker: string; ti
   );
 }
 
-/** In-page table of contents chips. */
-export function TocChips({ items }: { items: readonly { id: string; label: string }[] }) {
-  return (
-    <nav aria-label="本頁目錄" className="-mx-4 mb-6 flex gap-1.5 overflow-x-auto px-4 pb-1 text-sm whitespace-nowrap sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0">
-      {items.map((s) => (
-        <a key={s.id} href={`#${s.id}`} className="shrink-0 rounded-full border border-line bg-surface px-3 py-1 text-ink no-underline hover:bg-surface-2">
-          {s.label}
-        </a>
-      ))}
-    </nav>
-  );
-}
-
 /** A topic card with 入門 (open) and 深入 (collapsed) layers. `figure` sits between the two layers. */
 export function LayeredCard({ s, figure, children }: { s: LayeredSection; figure?: ReactNode; children?: ReactNode }) {
   return (
@@ -96,7 +84,7 @@ export function LayeredCard({ s, figure, children }: { s: LayeredSection; figure
         )}
       </header>
       <details open className="group mt-4">
-        <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
+        <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
           <Chevron />
           入門
         </summary>
@@ -172,6 +160,49 @@ export function FaqList({ faqs, id = "faq", title = "常見問題" }: { faqs: re
   );
 }
 
+/**
+ * Chapter FAQ card: a few questions linking into 問題研究中心, plus 「看本關全部 N 個問題」.
+ * The full answers live on /faq/, whose entries are `${module}-${index}` (see app/faq/page.tsx);
+ * `picks` are question texts, so reordering the data doesn't break the links.
+ */
+export function FaqTeaser({
+  module,
+  faqs,
+  picks,
+  id = "faq",
+  title = "常見問題",
+}: {
+  module: string;
+  faqs: readonly { q: string }[];
+  picks: readonly string[];
+  id?: string;
+  title?: string;
+}) {
+  const shown = picks.map((q) => faqs.findIndex((f) => f.q === q)).filter((i) => i >= 0);
+  return (
+    <section id={id} aria-labelledby={`${id}-title`} className="mt-12 scroll-mt-20 rounded-2xl border border-line bg-surface p-4 sm:p-5">
+      <h2 id={`${id}-title`} className="text-xl font-bold">
+        {title}
+      </h2>
+      <ul className="mt-2 divide-y divide-line">
+        {shown.map((i) => (
+          <li key={i}>
+            <Link href={`/faq/#${module}-${i}`} className="flex min-h-11 items-center justify-between gap-3 py-2 text-[15px] text-ink no-underline hover:text-wood">
+              <span>{faqs[i].q}</span>
+              <span aria-hidden="true" className="text-wood">
+                ›
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <Link href={`/faq/#${module}`} className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-wood underline">
+        看本關全部 {faqs.length} 個問題 →
+      </Link>
+    </section>
+  );
+}
+
 /** Highlighted note box. tone: info (default) / warn. */
 export function Callout({ title, tone = "info", children }: { title?: string; tone?: "info" | "warn"; children: ReactNode }) {
   const box = tone === "warn" ? "border-vermilion/40 bg-vermilion/5" : "border-wood/40 bg-wood-soft/40";
@@ -183,26 +214,47 @@ export function Callout({ title, tone = "info", children }: { title?: string; to
   );
 }
 
-/** Numbered source list for the bottom of a page (deduplicated by URL). */
+/**
+ * Numbered source list for the bottom of a page (deduplicated by URL), collapsed behind one
+ * 「本關參考資料（N 筆）」 toggle so it doesn't add screens on phones. The in-text 出處 chips stay.
+ */
 export function SourceList({ sources, note }: { sources: readonly Source[]; note?: ReactNode }) {
   const seen = new Set<string>();
   const unique = sources.filter((s) => (seen.has(s.url) ? false : (seen.add(s.url), true)));
   return (
     <section aria-labelledby="sources" className="mt-12">
-      <h2 id="sources" className="mb-3 text-xl font-bold">
-        資料來源
-      </h2>
-      {note && <p className="mb-3 text-sm leading-relaxed text-muted">{note}</p>}
-      <ol className="list-decimal space-y-1.5 pl-5 text-sm">
-        {unique.map((s) => (
-          <li key={s.url}>
-            <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-wood underline">
-              {s.label}
-            </a>
-            <span className="ml-2 text-xs text-muted">{KIND_LABEL[s.kind]}</span>
-          </li>
-        ))}
-      </ol>
+      <details className="rounded-2xl border border-line bg-surface px-4 py-1 sm:px-5">
+        <summary className="flex min-h-11 items-center gap-1.5 font-bold">
+          <Chevron />
+          <span id="sources">本關參考資料（{unique.length} 筆）</span>
+        </summary>
+        <div className="pt-1 pb-4">
+          {note && <p className="mb-3 text-sm leading-relaxed text-muted">{note}</p>}
+          <ol className="list-decimal space-y-1.5 pl-5 text-sm">
+            {unique.map((s) => (
+              <li key={s.url}>
+                <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-wood underline">
+                  {s.label}
+                </a>
+                <span className="ml-2 text-xs text-muted">{KIND_LABEL[s.kind]}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </details>
     </section>
+  );
+}
+
+/** The detailed scale / limitation notes of a programmatic figure, collapsed under 「圖的比例與限制」. */
+export function FigureNotes({ children }: { children: ReactNode }) {
+  return (
+    <details className="mt-3 text-xs leading-relaxed text-muted">
+      <summary className="flex min-h-11 items-center gap-1.5 font-semibold text-wood">
+        <Chevron />
+        圖的比例與限制
+      </summary>
+      <div className="space-y-1.5 pb-1">{children}</div>
+    </details>
   );
 }

@@ -63,11 +63,6 @@ export function writeJSON(key: string, value: unknown) {
   emit();
 }
 
-export function removeKey(key: string) {
-  rawSet(key, null);
-  emit();
-}
-
 const cache = new Map<string, { raw: string | null; value: unknown }>();
 
 /**

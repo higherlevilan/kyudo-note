@@ -1,10 +1,10 @@
-// 關卡 extras for /culture/ — mascot lines, 過關測驗, badge. Owned by the chapter content pass.
+// 關卡 extras for /culture/ — mascot lines and 過關測驗 (the badge is in ./registry). Owned by the chapter content pass.
 // Every quiz answer restates src/content/culture/** (myths, sections, timeline) with the sources
 // cited there; the first three are the former 小測驗 folded in.
 
 import type { ChapterExtras } from "@/lib/course/types";
 import type { ChoiceQuestion } from "@/lib/practice/types";
-import { ANKF, IKYF } from "@/content/common-sources";
+import { ANKF, IKYF, TAIWAN } from "@/content/common-sources";
 import { CS } from "@/content/culture/sources";
 
 const QUIZ: ChoiceQuestion[] = [
@@ -12,8 +12,8 @@ const QUIZ: ChoiceQuestion[] = [
     id: "culture-hit",
     topic: "正射必中",
     prompt: "審查統一基準裡寫著「的中不問」的，是哪一段？",
-    options: [{ text: "初段" }, { text: "弐段" }, { text: "参段" }],
-    answer: 1,
+    options: [{ text: "弐段" }, { text: "初段" }, { text: "参段" }],
+    answer: 0,
     explain: "寫「的中不問」的只有審查統一基準的弐段一欄；参段的資格基準寫「的中やや確実」、四段寫「的中確実」。命中是正射的檢驗，不是可有可無。",
     tag: "official",
     src: [ANKF.probationStandard, ANKF.probationRules],
@@ -23,7 +23,7 @@ const QUIZ: ChoiceQuestion[] = [
     id: "culture-shaho",
     topic: "歷史",
     prompt: "射法八節是什麼時候確立的？",
-    options: [{ text: "古代流派代代相傳" }, { text: "1953 年《弓道教本》" }, { text: "江戶時代的通し矢" }],
+    options: [{ text: "1919 年「弓術」改稱「弓道」時" }, { text: "1953 年《弓道教本》" }, { text: "明治時代，大日本武德會制定" }],
     answer: 1,
     explain: "射法八節是戰後日本弓道連盟（全弓連前身）在 1953 年《弓道教本》中確立的現代基準，為了整合各流派；各流派仍保有自己的分節與名稱。",
     src: [CS.jaWikiShaho],
@@ -33,19 +33,23 @@ const QUIZ: ChoiceQuestion[] = [
     id: "culture-ct",
     topic: "台灣",
     prompt: "臺灣弓道協會是國際弓道連盟（IKYF）的正式會員嗎？",
-    options: [{ text: "是，名單上列為「Chinese Taipei」" }, { text: "不是，因為名單寫的是 Chinese Taipei" }],
-    answer: 0,
-    explain: "臺灣弓道協會是 IKYF 的正式會員，名單上列為「Chinese Taipei：Taiwan Kyudo Association」，這是國際體育組織常見的命名方式。",
-    src: [IKYF.members, CS.twOrg],
+    options: [
+      { text: "不是；加入 IKYF 的是「中華民國弓道協會」" },
+      { text: "不是；名單只寫 Chinese Taipei，不算以台灣正式加入" },
+      { text: "是，名單上以「Chinese Taipei」列為正式會員" },
+    ],
+    answer: 2,
+    explain: "臺灣弓道協會是 IKYF 的正式會員，名單上列為「Chinese Taipei：Taiwan Kyudo Association」，這是國際體育組織常見的命名方式。「中華民國弓道協會」查不到以此為名的組織。",
+    src: [IKYF.members, CS.twOrg, TAIWAN.home],
     more: { href: "/culture/#taiwan", label: "看〈台灣與弓道〉" },
   },
   {
     id: "culture-seisha",
     topic: "正射必中",
     prompt: "「正射必中」比較準確的理解是哪一個？",
-    options: [{ text: "弓道不在乎中不中" }, { text: "只要射中，就是正確的射" }, { text: "射法正確，命中自然隨之而來；命中是正射的檢驗" }],
-    answer: 2,
-    explain: "用正確的射法射出的箭必然命中，所以練習的目標是「正射」，命中是隨之而來的結果，而不是目的本身。",
+    options: [{ text: "射法正確，命中自然隨之而來" }, { text: "弓道只看射形，中不中不重要" }, { text: "只要射中，就證明射法是正確的" }],
+    answer: 0,
+    explain: "用正確的射法射出的箭必然命中，所以練習的目標是「正射」，命中是隨之而來的結果，也是正射的檢驗：不是「中不中不重要」，也不是「射中就證明射法正確」。",
     tag: "official",
     src: [ANKF.mind],
     more: { href: "/culture/#thought", label: "看〈思想〉" },
@@ -65,8 +69,8 @@ const QUIZ: ChoiceQuestion[] = [
     id: "culture-shagi",
     topic: "射義",
     prompt: "《禮記・射義》說，射不中的時候應該怎麼做？",
-    options: [{ text: "怨恨勝過自己的人" }, { text: "反過來從自己身上找原因" }, { text: "換一把更強的弓" }],
-    answer: 1,
+    options: [{ text: "怨恨勝過自己的人" }, { text: "換一把更強的弓" }, { text: "反過來從自己身上找原因" }],
+    answer: 2,
     explain: "「發而不中，則不怨勝己者，反求諸己而已矣」：射不中時，不怨恨勝過自己的人，只是反過來從自己身上找原因。",
     src: [CS.wikisource],
     more: { href: "/culture/#thought", label: "看〈思想〉" },
@@ -86,8 +90,8 @@ const QUIZ: ChoiceQuestion[] = [
     id: "culture-zen",
     topic: "弓道與禪",
     prompt: "弓道和禪的強烈連結，主要是什麼時候形成的？",
-    options: [{ text: "鎌倉時代，和小笠原流一起出現" }, { text: "江戶時代的通し矢時期" }, { text: "二戰後，尤其 1956 年《弓與禪》日譯本出版以後" }],
-    answer: 2,
+    options: [{ text: "戰後，尤其 1956 年《弓與禪》日譯本後" }, { text: "鎌倉時代，禪宗在武士間流行時" }, { text: "1919 年「弓術」改稱「弓道」時" }],
+    answer: 0,
     explain: "依山田奨治的研究，「弓道＝禪」主要是戰後才形成的形象；但戰前也有少數團體提倡「射禪」，說兩者完全無關也過頭了。",
     tag: "research",
     src: [CS.yamada],
@@ -97,7 +101,7 @@ const QUIZ: ChoiceQuestion[] = [
     id: "culture-issha",
     topic: "弓道與禪",
     prompt: "「一射絶命」這個詞出自哪裡？",
-    options: [{ text: "《弓道教本》的官方標語" }, { text: "阿波研造在 1920 年代提出的個人教義" }, { text: "古傳流派的共同教義" }],
+    options: [{ text: "全弓連寫進《弓道教本》的官方標語" }, { text: "阿波研造在 1920 年代提出的個人教義" }, { text: "日置流各派古來共通的口傳教義" }],
     answer: 1,
     explain: "依櫻井保之助與山田奨治的研究，它是阿波研造提出的個人教義，當時就被同門前輩批評；不是《弓道教本》或全弓連的官方標語。",
     tag: "research",
@@ -108,8 +112,8 @@ const QUIZ: ChoiceQuestion[] = [
     id: "culture-toshiya",
     topic: "歷史",
     prompt: "三十三間堂的「通し矢」比的是什麼？",
-    options: [{ text: "在 28 公尺外射靶的命中數" }, { text: "從外廊南端射「通」到北端的箭數" }, { text: "騎在馬上射三個靶" }],
-    answer: 1,
+    options: [{ text: "在 28 公尺外射靶的命中數" }, { text: "騎在馬上射三個靶" }, { text: "從外廊南端射「通」到北端的箭數" }],
+    answer: 2,
     explain: "通し矢比的是從外廊南端射到北端（約 120 m）、射「通」過去的箭數，不是射靶。",
     src: [CS.yamada, CS.oomato],
     more: { href: "/culture/#history", label: "看〈歷史專題〉" },
@@ -139,5 +143,4 @@ export const EXTRAS: ChapterExtras = {
     taiwan: { text: "正式名稱是「臺灣弓道協會」，別寫錯囉。", mood: "bow" },
   },
   quiz: QUIZ,
-  badge: { name: "射義の心", line: "射求正諸己——知道弓道的來路，也分得清史實與傳說。" },
 };

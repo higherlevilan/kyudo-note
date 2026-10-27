@@ -33,6 +33,15 @@ export default function NavLinks() {
     return () => mq.removeEventListener("change", onChange);
   }, [close]);
 
+  // showModal() runs before the drawer content mounts, so move focus once it is there:
+  // the current chapter's link, else the first link.
+  useEffect(() => {
+    if (!open) return;
+    const d = dlg.current;
+    const el = d?.querySelector<HTMLElement>('a[aria-current="page"]') ?? d?.querySelector<HTMLElement>("a[href]");
+    el?.focus();
+  }, [open]);
+
   // No page scrolling behind the open drawer.
   useEffect(() => {
     if (!open) return;
@@ -82,7 +91,14 @@ export default function NavLinks() {
         ref={dlg}
         id="course-drawer"
         aria-label="課程目錄"
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false);
+          // <dialog> normally restores focus to the menu button; make sure it doesn't fall to <body>.
+          requestAnimationFrame(() => {
+            const a = document.activeElement;
+            if (!a || a === document.body) menuBtn.current?.focus();
+          });
+        }}
         onClick={(e) => e.target === dlg.current && close()}
         className="course-drawer fixed inset-y-0 right-auto left-0 m-0 h-dvh max-h-none w-[min(86vw,20rem)] max-w-none overflow-y-auto border-0 border-r border-line bg-surface p-0 text-ink shadow-2xl backdrop:bg-black/50 lg:hidden"
       >

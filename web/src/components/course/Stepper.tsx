@@ -6,9 +6,11 @@
 // `children(step)` renders the diagram for a step, so call it from a client component.
 // Reaching the last step dispatches a bubbling "course:done" event (marks the 小節 as seen).
 // Autoplay only starts when asked, pauses when the player leaves the screen or the tab is hidden,
-// and the caption doesn't animate under prefers-reduced-motion.
+// and the caption doesn't animate under prefers-reduced-motion. On phones 小弓 steps aside while the
+// player is mid-screen, so it never covers the controls.
 
 import { useCallback, useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useMascotAvoid } from "@/components/mascot/avoid";
 
 export interface StepDef {
   title: string;
@@ -43,6 +45,7 @@ export default function Stepper({
   const [playing, setPlaying] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const uid = useId();
+  useMascotAvoid(root);
   const onStepRef = useRef(onStep);
   useEffect(() => {
     onStepRef.current = onStep;
@@ -92,6 +95,7 @@ export default function Stepper({
     setPlaying(true);
   };
   const user = (k: number) => {
+    if (k < 0 || k >= n) return;
     setPlaying(false);
     go(k);
   };
@@ -109,7 +113,7 @@ export default function Stepper({
 
   const cur = steps[step];
   const btn =
-    "inline-flex min-h-11 items-center justify-center gap-1 rounded-xl px-3.5 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40";
+    "inline-flex min-h-11 items-center justify-center gap-1 rounded-xl px-3.5 text-[15px] font-semibold transition-colors aria-disabled:cursor-not-allowed aria-disabled:opacity-40";
 
   return (
     <div ref={root} role="group" aria-label={label ?? "步驟播放器"} onKeyDown={onKey} className={`flex flex-col gap-3 ${className}`}>
@@ -133,10 +137,21 @@ export default function Stepper({
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <button type="button" onClick={() => user(step - 1)} disabled={step === 0} className={`${btn} text-wood hover:bg-surface-2`}>
+        {/* aria-disabled (not `disabled`) so focus stays on the button at the first / last step */}
+        <button
+          type="button"
+          onClick={() => user(step - 1)}
+          aria-disabled={step === 0}
+          className={`${btn} text-wood ${step === 0 ? "" : "hover:bg-surface-2"}`}
+        >
           <span aria-hidden="true">◀</span> 上一步
         </button>
-        <button type="button" onClick={() => user(step + 1)} disabled={step === n - 1} className={`${btn} bg-ink text-paper hover:bg-ink/85`}>
+        <button
+          type="button"
+          onClick={() => user(step + 1)}
+          aria-disabled={step === n - 1}
+          className={`${btn} bg-ink text-paper ${step === n - 1 ? "" : "hover:bg-ink/85"}`}
+        >
           下一步 <span aria-hidden="true">▶</span>
         </button>
         <button
@@ -147,7 +162,7 @@ export default function Stepper({
         >
           {playing ? "暫停" : "自動播放"}
         </button>
-        <div className="ml-auto flex flex-wrap items-center gap-1" role="group" aria-label="跳到步驟">
+        <div className="ml-auto flex flex-wrap items-center" role="group" aria-label="跳到步驟">
           {steps.map((s, k) => (
             <button
               key={k}
@@ -155,7 +170,7 @@ export default function Stepper({
               onClick={() => user(k)}
               aria-label={`第 ${k + 1} 步：${s.title}`}
               aria-current={k === step ? "step" : undefined}
-              className="group flex h-8 w-6 items-center justify-center"
+              className="group flex h-10 w-10 items-center justify-center"
             >
               <span
                 aria-hidden="true"

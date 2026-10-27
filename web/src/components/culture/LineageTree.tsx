@@ -104,9 +104,8 @@ export default function LineageTree() {
       </div>
       <div className="grid gap-5 lg:grid-cols-2">
         {LINEAGE.map((g) => (
-          <section
+          <div
             key={g.id}
-            aria-labelledby={`lin-${g.id}`}
             className={`rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-5 ${g.id === "heki" ? "lg:row-span-2" : "lg:self-start"}`}
           >
             <h3 id={`lin-${g.id}`} className="text-lg font-bold">
@@ -121,7 +120,7 @@ export default function LineageTree() {
                 </li>
               ))}
             </ul>
-          </section>
+          </div>
         ))}
       </div>
     </div>

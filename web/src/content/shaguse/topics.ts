@@ -19,9 +19,9 @@ export const WHAT_IS: Point[] = [
 export const HANARE_FAULTS: { ja: string; kana: string; text: string; anchor?: string }[] = [
   { ja: "緩み", kana: "ゆるみ", text: "往回放鬆後才放（もどして離す）", anchor: "yurumi" },
   { ja: "突き上げ", kana: "つきあげ", text: "弓手往上頂出" },
-  { ja: "切り下げ", kana: "きりさげ", text: "弓手往下切" },
+  { ja: "切り下げ", kana: "きりさげ", text: "離れ時雙手或單手大幅往下掉（弓手を切り下げて離す）" },
   { ja: "前離れ", kana: "まえばなれ", text: "在靶的前方就離れ（的より前に離す）" },
-  { ja: "早気", kana: "はやけ", text: "沒有拉到「會」就放掉", anchor: "hayake" },
+  { ja: "早気", kana: "はやけ", text: "沒有拉到「会」就放掉", anchor: "hayake" },
 ];
 
 /** 為什麼要問指導者 */
@@ -49,9 +49,9 @@ export const VIDEO_EVIDENCE: Point[] = [
 /** 錄影自我檢查：怎麼拍、看什麼 */
 export const VIDEO_HOW: Point[] = [
   { text: "從正面、背面、側面分別拍，並用慢動作看離れ。", tag: "folk" },
-  { text: "看「會」：胸弦、頬付是不是一拉到就定住、有沒有眨眼或閉眼（早気研究觀察到的特徵）。", tag: "note", src: [STUDY.mori1994] },
+  { text: "看「会」：胸弦、頬付是不是一拉到就定住、有沒有眨眼或閉眼（早気研究觀察到的特徵）。", tag: "note", src: [STUDY.mori1994] },
   { text: "看離れ：右手有沒有往靶的方向回一下（緩み）、弓手有沒有往上頂或往下切。", tag: "note" },
-  { text: "看離れ之後：弓有沒有轉（弓返り）、殘心時有沒有看矢所。", tag: "note", src: [ANKF.syaho] },
+  { text: "看離れ之後：弓有沒有轉（弓返り）、残心時有沒有看矢所。", tag: "note", src: [ANKF.syaho] },
   { text: "影片拿給指導者看最有用；自己看到「好像有問題」時，先記下來問，不要自己大改射形。", tag: "note" },
 ];
 
@@ -66,10 +66,10 @@ export const VIDEO_SAFETY: Point[] = [
 /** 說法不一・待查證（§9） */
 export const DISPUTES: { title: string; anchor: string; text: string }[] = [
   { title: "早気的盛行率", anchor: "hayake", text: "森 1990 原文約 79%，西尾 2021 引用同一篇時寫 60.3%，西尾自己的樣本是 53.8%。本站寫「5～8 成之間」。" },
-  { title: "びく的定義", anchor: "biku", text: "全弓連辭典是「會中無意識地突然往回拉」；西尾 2021 是「上肢像要放箭般動了一下」。" },
+  { title: "びく的定義", anchor: "biku", text: "全弓連辭典是「会中無意識地突然往回拉」；西尾 2021 是「上肢像要放箭般動了一下」。" },
   { title: "緩み、ゆすり、暴發、引き込み", anchor: "yurumi", text: "全弓連用語辭典都沒有獨立詞條，定義依來源而異。「引き込み」在社團間的意思也不一致，請向指導者確認。" },
   { title: "「払う」不是「被弦打到」", anchor: "harau", text: "辭典的「払う離れ」是離れ的類型；「顔を払う」是社團用語。" },
-  { title: "矢所的「前」「後」", anchor: "yadokoro", text: "「前＝靶的右側（右射者）」是通用說法，官方用語辭典與指導書沒有定義句。" },
+  { title: "矢所的「前」「後」", anchor: "yadokoro", text: "「前＝靶的右側」是通用說法，官方用語辭典與指導書沒有定義句。" },
   { title: "矢所表的「後」「上」", anchor: "yadokoro", text: "幾乎只有網路文章或用語辭典間接支持，證據最薄弱。" },
   { title: "手の内的流派差異", anchor: "tenouchi", text: "上押し與中押し、虎口捲多深，各流派與指導者的說法不同。" },
   { title: "《弓道教本》原文", anchor: "about", text: "本頁依據的是全弓連網頁（註明以教本為參考）與指導書，沒有直接核對教本紙本。" },

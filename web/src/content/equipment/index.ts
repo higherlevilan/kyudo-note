@@ -1,4 +1,4 @@
-// Collects every source cited anywhere in 裝備百科, for the page's 資料來源 list.
+// Collects every source cited anywhere in 弓具, for the page's 資料來源 list.
 
 import type { Source, SourceKind } from "@/content/types";
 import * as budget from "./budget";

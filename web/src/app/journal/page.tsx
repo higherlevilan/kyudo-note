@@ -6,9 +6,9 @@ import { SYNC_ENABLED } from "@/lib/journal/sync/config";
 
 export const metadata: Metadata = pageMetadata({
   path: "/journal/",
-  title: "稽古帳・個人學習日誌",
+  title: "稽古帳",
   description:
-    "記錄每次弓道練習的射數、的中、射癖與指導意見，整理課程筆記、審查、裝備採購與文化體驗。資料只存在你的瀏覽器裡，可匯出備份。",
+    "稽古帳（個人學習日誌）：記錄每次弓道練習的射數、的中、射癖與指導意見，整理課程筆記、審查、裝備採購與文化體驗。資料只存在你的瀏覽器裡，可匯出備份。",
   og: "journal",
 });
 
