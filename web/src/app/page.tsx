@@ -1,152 +1,126 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { pageMetadata, SITE_DESCRIPTION, SITE_NAME } from "@/lib/seo";
 import Kasumi from "@/components/home/Kasumi";
 import WordOfDay from "@/components/home/WordOfDay";
+import { BadgeWall, HeroCta, Roadmap } from "@/components/home/CourseHome";
 import BrushDivider from "@/components/illustrations/icons/BrushDivider";
-import {
-  ArcherIcon,
-  ArrowMarkIcon,
-  BowingIcon,
-  CameraPoseIcon,
-  GateIcon,
-  GearIcon,
-  type IconProps,
-  KanjiIcon,
-  NotebookIcon,
-  QuestionIcon,
-  ScrollIcon,
-  TargetCheckIcon,
-} from "@/components/illustrations/icons/ModuleIcons";
-import type { ReactNode } from "react";
+import { CameraPoseIcon, type IconProps, KanjiIcon, NotebookIcon, QuestionIcon, TargetCheckIcon } from "@/components/illustrations/icons/ModuleIcons";
+import Mascot from "@/components/mascot/Mascot";
+import Say from "@/components/mascot/Say";
+import { CHAPTERS, TOOLS } from "@/content/course/chapters";
 
 export const metadata: Metadata = pageMetadata({ path: "/", title: SITE_NAME, description: SITE_DESCRIPTION, og: "home" });
 
-type Module = { href: string; title: string; ja: string; desc: string; Icon: (p: IconProps) => ReactNode };
+const TOOL_INFO: Record<(typeof TOOLS)[number]["href"], { desc: string; Icon: (p: IconProps) => ReactNode }> = {
+  "/glossary/": { desc: "約 260 條術語，漢字、假名、羅馬拼音、中文都能搜尋。", Icon: KanjiIcon },
+  "/faq/": { desc: "各關卡的常見問題集中在這裡，每一題都附資料來源。", Icon: QuestionIcon },
+  "/practice/": { desc: "八節排序、詞彙閃卡、迷思是非題、體配情境題與初段學科。", Icon: TargetCheckIcon },
+  "/journal/": { desc: "記錄練習、課程筆記、審查、裝備採購與文化體驗。", Icon: NotebookIcon },
+  "/form-check/": { desc: "在瀏覽器裡比對自己的八節姿勢；影片不會離開你的裝置。", Icon: CameraPoseIcon },
+};
 
-const MODULES: Module[] = [
-  { href: "/guide/", title: "入門指南", ja: "はじめに", desc: "第一次去道場、在台灣哪裡學、練習進程、安全、費用與審查。", Icon: GateIcon },
-  { href: "/shaho/", title: "射法八節", ja: "射法八節", desc: "足踏み到残心的八個步驟，每一節分入門與深入兩層。", Icon: ArcherIcon },
-  { href: "/shaguse/", title: "射癖與矢所", ja: "射癖", desc: "早気、もたれ、緩み等九種射癖的定義與研究證據，附矢所診斷工具。", Icon: ArrowMarkIcon },
-  { href: "/etiquette/", title: "禮法與體配", ja: "体配", desc: "基本姿勢與動作、坐射與立射流程、矢取り、道場禮儀。", Icon: BowingIcon },
-  { href: "/equipment/", title: "裝備百科", ja: "弓具", desc: "弓、矢、弽、弦、服裝與保養，附矢尺計算與預算試算。", Icon: GearIcon },
-  { href: "/culture/", title: "文化與哲學", ja: "射の心", desc: "歷史年表、流派系譜、射義與真善美、弓與禪的真相。", Icon: ScrollIcon },
-  { href: "/glossary/", title: "日文詞彙庫", ja: "用語", desc: "約 260 條術語，漢字、假名、羅馬拼音、中文都能搜尋。", Icon: KanjiIcon },
-  { href: "/faq/", title: "問題研究中心", ja: "問答", desc: "各單元的常見問題集中在這裡，每一題都附資料來源。", Icon: QuestionIcon },
-  { href: "/journal/", title: "個人學習日誌", ja: "稽古帳", desc: "記錄練習、課程筆記、審查、裝備採購與文化體驗。", Icon: NotebookIcon },
-  { href: "/practice/", title: "互動練習", ja: "練習", desc: "八節排序、詞彙閃卡、迷思是非題、體配情境題與初段學科練習。", Icon: TargetCheckIcon },
-  { href: "/form-check/", title: "射形分析（實驗）", ja: "射形", desc: "上傳自己的練習影片，在瀏覽器裡比對八節姿勢；影片不會離開你的裝置。", Icon: CameraPoseIcon },
+const HOWTO = [
+  { k: "▶ 看動畫", t: "多數圖解都有「下一步」與「自動播放」，一個動作一個動作拆給你看。" },
+  { k: "✋ 動手玩", t: "計算器、排序、點選與拖拉都會即時改變圖解；玩亂了就按重來。" },
+  { k: "✓ 進度", t: "讀過的小節和測驗會自動記在這台瀏覽器，路線圖上的圓環會慢慢填滿。" },
 ];
 
-const PATHS = [
-  {
-    who: "還沒碰過弓",
-    steps: [
-      { href: "/guide/", label: "入門指南" },
-      { href: "/etiquette/", label: "道場禮儀" },
-      { href: "/shaho/", label: "射法八節" },
-    ],
-  },
-  {
-    who: "已經在道場練習",
-    steps: [
-      { href: "/shaho/", label: "射法八節（深入）" },
-      { href: "/equipment/", label: "選弓具" },
-      { href: "/journal/", label: "開始記錄" },
-    ],
-  },
-  {
-    who: "準備審查、想更深入",
-    steps: [
-      { href: "/etiquette/", label: "審查體配" },
-      { href: "/culture/", label: "射義與歷史" },
-      { href: "/faq/", label: "問題研究中心" },
-    ],
-  },
-];
+const sectionCount = CHAPTERS.reduce((a, c) => a + c.sections.length, 0);
 
 export default function Home() {
   return (
     <div className="mx-auto max-w-5xl px-4">
-      <section className="grid items-center gap-8 py-12 sm:py-16 md:grid-cols-[1fr_auto]">
+      <section className="grid items-center gap-8 pt-10 pb-8 sm:pt-14 md:grid-cols-[1.2fr_0.8fr]">
         <div>
-          <p lang="ja" className="text-sm tracking-[0.3em] text-wood">
-            弓道
+          <p className="text-sm tracking-[0.2em] text-wood">
+            <span lang="ja">弓道</span>・繁體中文學習路線
           </p>
-          <h1 className="mt-2 text-3xl font-bold leading-tight sm:text-4xl">弓道學習筆記</h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
-            從第一次握弓到資深修練，慢慢累積屬於你的弓道成長紀錄。技術與禮法以全日本弓道連盟（ANKF）的公開資料為準，
-            每個說法都標出依據：官方、指導書，還是坊間常見說法。
+          <h1 className="mt-3 text-4xl leading-tight font-bold sm:text-5xl">
+            歡迎來到
+            <br />
+            <span className="bg-[linear-gradient(transparent_62%,var(--wood-soft)_0)] text-wood">弓道學習筆記</span>
+          </h1>
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+            從第一次走進道場，到射法八節、射癖、弓具與文化，整理成 {CHAPTERS.length} 個關卡、{sectionCount} 個小節。
+            每個說法都標出依據：官方、指導書，還是坊間常見說法；技術與禮法以全日本弓道連盟（ANKF）的公開資料為準。
           </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link href="/guide/" className="rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper no-underline hover:opacity-90">
-              從入門指南開始
-            </Link>
-            <Link
-              href="/shaho/"
-              className="rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-medium text-ink no-underline hover:bg-surface-2"
-            >
-              射法八節
-            </Link>
-          </div>
+          <HeroCta />
         </div>
-        <figure className="mx-auto w-40 sm:w-52 md:w-60">
-          <Kasumi className="h-auto w-full drop-shadow-sm" />
-          <figcaption className="mt-2 text-center text-xs text-muted">
+        <figure className="mx-auto w-48 sm:w-56 md:w-64">
+          <div className="relative">
+            <Kasumi className="h-auto w-full drop-shadow-sm" />
+            <Mascot mood="focus" size={104} className="absolute -bottom-2 -left-12 sm:-left-14" />
+          </div>
+          <figcaption className="mt-4 text-center text-xs text-muted">
             <span lang="ja">霞的</span>：直徑 36 公分，依競技規則的比例繪製
           </figcaption>
         </figure>
       </section>
 
-      <BrushDivider className="pb-8" />
+      <Say mood="happy" className="mb-10">
+        嗨，我是<b>小弓</b>，這裡的導覽員。每一關我都會在旁邊提醒重點；看不懂就多按幾次「下一步」，圖解不會累。
+        讀完一關、交了過關測驗，就能在下面的徽章牆收集一枚徽章。
+      </Say>
 
-      <section aria-labelledby="paths" className="pb-10">
-        <h2 id="paths" className="mb-4 text-xl font-bold">
-          從哪裡開始？
+      <section id="roadmap" aria-labelledby="roadmap-h" className="scroll-mt-20 pb-10">
+        <h2 id="roadmap-h" className="text-2xl font-bold">
+          修煉路線圖
         </h2>
-        <ol className="grid gap-4 md:grid-cols-3">
-          {PATHS.map((p) => (
-            <li key={p.who} className="rounded-2xl border border-line bg-surface p-5">
-              <p className="font-semibold">{p.who}</p>
-              <ol className="mt-3 space-y-2 text-sm">
-                {p.steps.map((s, i) => (
-                  <li key={s.label} className="flex items-center gap-2">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-wood-soft text-xs text-ink">{i + 1}</span>
-                    <Link href={s.href} className="text-ink underline decoration-line hover:text-wood">
-                      {s.label}
-                    </Link>
-                  </li>
-                ))}
-              </ol>
-            </li>
-          ))}
-        </ol>
+        <p className="mt-1 mb-5 text-muted">照順序走最順，也可以直接跳到想看的關卡。</p>
+        <Roadmap />
       </section>
 
-      <section aria-labelledby="modules" className="pb-10">
-        <h2 id="modules" className="mb-4 text-xl font-bold">
-          內容單元
+      <section id="badges" aria-labelledby="badges-h" className="scroll-mt-20 pb-10">
+        <h2 id="badges-h" className="text-2xl font-bold">
+          徽章牆
         </h2>
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {MODULES.map((m) => (
-            <li key={m.href}>
-              <Link
-                href={m.href}
-                className="block h-full rounded-2xl border border-line bg-surface p-5 text-ink no-underline shadow-sm transition hover:-translate-y-0.5 hover:border-wood hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <p lang="ja" className="text-sm text-wood">
-                    {m.ja}
-                  </p>
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-wood-soft/70 text-wood">
-                    <m.Icon className="h-6 w-6" />
-                  </span>
-                </div>
-                <h3 className="mt-1 text-lg font-bold">{m.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{m.desc}</p>
-              </Link>
+        <p className="mt-1 mb-5 text-muted">每一關的小節全部讀完、過關測驗也交卷，就能解鎖一枚徽章。</p>
+        <BadgeWall />
+      </section>
+
+      <section aria-label="怎麼使用這個網站" className="pb-10">
+        <ul className="grid gap-3 sm:grid-cols-3">
+          {HOWTO.map((h) => (
+            <li key={h.k} className="rounded-2xl bg-surface-2 px-4 py-3.5">
+              <p className="font-bold">{h.k}</p>
+              <p className="mt-1 text-sm leading-relaxed text-muted">{h.t}</p>
             </li>
           ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="tools-h" className="pb-10">
+        <h2 id="tools-h" className="text-2xl font-bold">
+          工具
+        </h2>
+        <p className="mt-1 mb-5 text-muted">不在路線上，但隨時用得到。</p>
+        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {TOOLS.map((t) => {
+            const { desc, Icon } = TOOL_INFO[t.href];
+            return (
+              <li key={t.href}>
+                <Link
+                  href={t.href}
+                  className="flex h-full gap-3 rounded-2xl border border-line bg-surface p-4 text-ink no-underline shadow-sm transition hover:-translate-y-0.5 hover:border-wood hover:shadow-md motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                >
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-wood-soft/70 text-wood">
+                    <Icon className="h-6 w-6" />
+                  </span>
+                  <span className="min-w-0">
+                    <span className="flex flex-wrap items-baseline gap-x-2">
+                      <b className="font-bold">{t.label}</b>
+                      <small lang="ja" className="text-xs text-wood">
+                        {t.ja}
+                      </small>
+                    </span>
+                    <span className="mt-1 block text-sm leading-relaxed text-muted">{desc}</span>
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </section>
 

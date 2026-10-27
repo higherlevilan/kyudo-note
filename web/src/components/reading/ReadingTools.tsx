@@ -5,9 +5,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  * Reading aids for the long article pages, built for one-handed phone use:
- * a progress bar under the header, a floating 「目錄」 button that opens a sheet with
+ * a progress bar under the top bar, a floating 「目錄」 button that opens a sheet with
  * the page's sections (current one highlighted), expand/collapse all 深入 layers,
  * a text-size setting (remembered on this device), and back-to-top.
+ * On lg+ the course sidebar already lists the sections, so the button becomes 「閱讀設定」
+ * and the sheet shows only the settings. Stays bottom-right; 小弓 (Companion) owns bottom-left.
  */
 
 // Pages that are apps rather than articles, or too short to need it.
@@ -27,7 +29,8 @@ function collectHeadings(): Heading[] {
   if (!main) return [];
   const out: Heading[] = [];
   main.querySelectorAll("h2").forEach((h) => {
-    const target = h.id ? h : h.closest<HTMLElement>("[id]");
+    // A course 小節 is the section itself (its h2 carries an id only for aria-labelledby).
+    const target = h.closest<HTMLElement>("[data-course-section]") ?? (h.id ? h : h.closest<HTMLElement>("[id]"));
     const label = h.textContent?.trim();
     if (target?.id && label && !out.some((o) => o.id === target.id)) out.push({ id: target.id, label });
   });
@@ -165,7 +168,7 @@ export default function ReadingTools() {
 
   return (
     <>
-      <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 top-[var(--header-h)] z-30 h-0.5">
+      <div aria-hidden="true" className="pointer-events-none fixed inset-x-0 top-[var(--header-h)] z-30 h-0.5 lg:left-[var(--side-w)]">
         <div ref={barRef} className="h-full origin-left bg-wood" style={{ transform: "scaleX(0)" }} />
       </div>
 
@@ -187,10 +190,14 @@ export default function ReadingTools() {
             setHeadings(collectHeadings());
             setOpen(true);
           }} aria-haspopup="dialog" aria-expanded={open} className={fab}>
-          <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4 fill-current">
+          <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4 fill-current lg:hidden">
             <path d="M2 3h2v2H2zm4 0h8v2H6zM2 7h2v2H2zm4 0h8v2H6zm-4 4h2v2H2zm4 0h8v2H6z" />
           </svg>
-          目錄
+          <span className="lg:hidden">目錄</span>
+          <span aria-hidden="true" className="hidden font-bold lg:inline">
+            Aa
+          </span>
+          <span className="hidden lg:inline">閱讀設定</span>
         </button>
       </div>
 
@@ -206,13 +213,16 @@ export default function ReadingTools() {
           >
             <div aria-hidden="true" className="mx-auto mb-3 h-1 w-10 rounded-full bg-line sm:hidden" />
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold">本頁目錄</h2>
+              <h2 className="text-lg font-bold">
+                <span className="lg:hidden">本頁目錄</span>
+                <span className="hidden lg:inline">閱讀設定</span>
+              </h2>
               <button type="button" onClick={close} className="flex h-11 w-11 items-center justify-center rounded-full text-xl text-muted hover:bg-surface-2" aria-label="關閉">
                 ×
               </button>
             </div>
             {headings.length > 0 ? (
-              <ol className="mt-2 space-y-1">
+              <ol className="mt-2 space-y-1 lg:hidden">
                 {headings.map((h) => (
                   <li key={h.id}>
                     <a
@@ -232,10 +242,10 @@ export default function ReadingTools() {
                 ))}
               </ol>
             ) : (
-              <p className="mt-2 text-sm text-muted">這一頁沒有分段標題。</p>
+              <p className="mt-2 text-sm text-muted lg:hidden">這一頁沒有分段標題。</p>
             )}
 
-            <div className="mt-5 border-t border-line pt-4">
+            <div className="mt-5 border-t border-line pt-4 lg:mt-3 lg:border-t-0 lg:pt-0">
               <p className="text-sm font-semibold text-muted">深入說明</p>
               <div className="mt-2 grid grid-cols-2 gap-2">
                 <button type="button" onClick={() => setDeep(true)} className="min-h-11 rounded-xl border border-field-border bg-surface text-sm text-ink hover:bg-surface-2">

@@ -1,20 +1,25 @@
 import type { Metadata } from "next";
+import type { Point } from "@/content/types";
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
-import { Callout, Cites, FaqList, LayeredCard, PageHeader, PointList, Section, SourceList, TagBadge, TocChips } from "@/components/content/Blocks";
+import { Callout, Cites, FaqList, LayeredCard, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
+import ChapterEnd from "@/components/course/ChapterEnd";
+import ChapterHero from "@/components/course/ChapterHero";
+import ChapterQuiz from "@/components/course/ChapterQuiz";
+import CourseSection from "@/components/course/CourseSection";
 import Topic from "@/components/etiquette/Topic";
 import KihonGrid from "@/components/etiquette/KihonGrid";
+import KihonTransition from "@/components/etiquette/KihonTransition";
 import ZashaStepper from "@/components/etiquette/ZashaStepper";
 import GyoshaTable from "@/components/etiquette/GyoshaTable";
 import { BowDiagram, ShajoDiagram } from "@/components/etiquette/Diagrams";
 import { CompareTable, DressTable, MythList, ShitsuTable, StandardTable, YaHoldTable, YatoriVersions } from "@/components/etiquette/Lists";
 import { KIHON } from "@/content/etiquette/kihontai";
+import { KIHON_STEPS } from "@/content/etiquette/kihon-steps";
 import { KEY_FIGURES } from "@/content/etiquette/figures";
 import { ZASHA_FLOW } from "@/content/etiquette/flow";
 import { MYTHS } from "@/content/etiquette/myths";
 import { ETIQUETTE_FAQS } from "@/content/etiquette/faqs";
-import QuickCheck from "@/components/practice/QuickCheck";
-import { QUICKCHECKS } from "@/content/practice/quickchecks";
 import { ANKF, BUDOKAN, ET, ETIQUETTE_SOURCES } from "@/content/etiquette/sources";
 import {
   DOJO_ENTER,
@@ -49,17 +54,14 @@ export const metadata: Metadata = pageMetadata({
   og: "etiquette",
 });
 
-const TOC = [
-  { id: "intro", label: "什麼是體配" },
-  { id: "kihontai", label: "基本體" },
-  { id: "toriyumi", label: "執弓與持箭" },
-  { id: "flow", label: "坐射一手" },
-  { id: "rissha", label: "立射與坐射" },
-  { id: "shinsa", label: "審查" },
-  { id: "dojo", label: "道場禮儀" },
-  { id: "safety", label: "安全與失" },
-  { id: "myths", label: "說法不一" },
-  { id: "faq", label: "常見問題" },
+/** 重點筆記 at the end of 〈基本體〉: a recap of the numbers that have a source (see KEY_FIGURES). */
+const KIHON_NOTES: Point[] = [
+  { text: "揖：上半身前屈約 10 公分（距離，不是角度）。", tag: "official", src: [ANKF.terminology] },
+  { text: "立禮：上半身約前屈 45 度，雙手指尖到膝頭。", tag: "guide", src: [BUDOKAN.ch4, BUDOKAN.ch5] },
+  { text: "左進右退：前進先出左腳，後退先退右腳。", tag: "official", src: [ANKF.terminology] },
+  { text: "坐下：右腳後退半足，身體垂直沉下；起身：踏出左腳，不破壞胴造り地站起。", tag: "guide", src: [BUDOKAN.ch4] },
+  { text: "跪坐：腳尖立起、雙膝著地、臀部坐在腳跟上；開き足在跪坐中轉 90 度。", tag: "official", src: [ANKF.terminology] },
+  { text: "細節（開き足的腳步、跪坐雙膝的寬度）沒有可引用的官方文字：以所屬道場與老師的教法為準。", tag: "note" },
 ];
 
 const RELATED = [
@@ -74,21 +76,19 @@ const RELATED = [
 export default function EtiquettePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-16">
-      <PageHeader kicker="基本動作" title="禮法與體配" ja="礼法・体配（たいはい）">
+      <ChapterHero chapter="etiquette">
         <p>
           射法八節之外，弓道還有一整套站、坐、走、行禮與進退的規矩，合稱「體配」。它是審查評分的一部分，也是在道場與他人一起練習的基礎。
-          這一頁從 12 項基本體開始，接著走一遍坐射一手的完整流程，再整理審查、道場禮儀與安全。
+          這一章從 12 項基本體開始，接著走一遍坐射一手的完整流程，再整理審查、道場禮儀與安全。
         </p>
         <p className="mt-2">
           每一點都標了出處等級；各道場做法不同的地方，請以
           <strong className="text-ink">所屬道場與老師的教法</strong>為準。
         </p>
-      </PageHeader>
-
-      <TocChips items={TOC} />
+      </ChapterHero>
 
       {/* ───── 入門 ───── */}
-      <Section id="intro" title="什麼是體配">
+      <CourseSection chapter="etiquette" id="intro" title="什麼是體配">
         <LayeredCard s={OVERVIEW} />
         <div>
           <h3 className="mb-3 text-lg font-semibold">有出處的數字</h3>
@@ -108,11 +108,13 @@ export default function EtiquettePage() {
             不在這張表裡的數字（例如揖幾度、幾步一息、跪坐雙膝開多寬），本站都沒有找到官方出處，不應寫成規定。
           </p>
         </div>
-      </Section>
+      </CourseSection>
 
       {/* ───── 基本體 ───── */}
-      <Section
+      <CourseSection
+        chapter="etiquette"
         id="kihontai"
+        quip
         title="基本體：4 種姿勢與 8 種動作"
         lead={
           <>
@@ -124,10 +126,14 @@ export default function EtiquettePage() {
       >
         <KihonGrid items={KIHON} />
         <BowDiagram />
-      </Section>
+        <KihonTransition steps={KIHON_STEPS} />
+        <Callout title="重點筆記">
+          <PointList points={KIHON_NOTES} />
+        </Callout>
+      </CourseSection>
 
       {/* ───── 執弓 ───── */}
-      <Section id="toriyumi" title="執弓の姿勢與持箭">
+      <CourseSection chapter="etiquette" id="toriyumi" title="執弓の姿勢與持箭">
         <Topic
           s={TORIYUMI}
           deepLabel="深入：武射系與禮射系"
@@ -141,11 +147,13 @@ export default function EtiquettePage() {
             </div>
           }
         />
-      </Section>
+      </CourseSection>
 
       {/* ───── 坐射一手 ───── */}
-      <Section
+      <CourseSection
+        chapter="etiquette"
         id="flow"
+        quip
         title="坐射一手的完整流程"
         lead="從入場口到退場，一步一步看。標示「本站整理」的息數與時間只是幫助理解的粗估，不是官方規定；實際節奏依各人呼吸，並以道場的教法為準。"
       >
@@ -162,10 +170,10 @@ export default function EtiquettePage() {
           本站粗估單人約 3～4 分鐘（不計等待前人弦音的時間）。這是本站整理的估計，沒有官方的秒數。
           <TagBadge tag="note" />
         </Callout>
-      </Section>
+      </CourseSection>
 
       {/* ───── 立射與坐射 ───── */}
-      <Section id="rissha" title="立射與坐射">
+      <CourseSection chapter="etiquette" id="rissha" title="立射與坐射">
         <Topic
           s={RISSHA}
           introExtra={<CompareTable rows={ZASHA_VS_RISSHA} a="坐射（ざしゃ）" b="立射（りっしゃ）" label="坐射與立射的比較" />}
@@ -183,10 +191,10 @@ export default function EtiquettePage() {
             </div>
           }
         />
-      </Section>
+      </CourseSection>
 
       {/* ───── 審查 ───── */}
-      <Section id="shinsa" title="審查時的體配">
+      <CourseSection chapter="etiquette" id="shinsa" title="審查時的體配" quip>
         <Topic
           s={SHINSA}
           introExtra={
@@ -216,19 +224,19 @@ export default function EtiquettePage() {
           }
         />
         <LayeredCard s={SHAREI} />
-      </Section>
+      </CourseSection>
 
       {/* ───── 道場禮儀 ───── */}
-      <Section id="dojo" title="道場禮儀" lead="以下是常見做法與各方的寫法。每個道場的規矩都可能不同，第一次去時先觀察、先問。">
+      <CourseSection chapter="etiquette" id="dojo" title="道場禮儀" quip lead="以下是常見做法與各方的寫法。每個道場的規矩都可能不同，第一次去時先觀察、先問。">
         <LayeredCard s={DOJO_ENTER} />
         <Topic s={YATORI_SECTION} introExtra={<YatoriVersions versions={YATORI} />} />
         <LayeredCard s={DOJO_YUMI} />
         <LayeredCard s={DOJO_OTHERS} />
         <Topic s={DRESS_SECTION} introExtra={<DressTable rows={DRESS} />} />
-      </Section>
+      </CourseSection>
 
       {/* ───── 安全與失 ───── */}
-      <Section id="safety" title="安全與「失」的處理">
+      <CourseSection chapter="etiquette" id="safety" title="安全與「失」的處理" quip>
         <Callout tone="warn" title="三條沒有例外的規則">
           <ul className="list-disc space-y-1 pl-5">
             <li>絕對不朝人拉弓——徒手練習、橡皮弓練習也一樣。</li>
@@ -241,14 +249,14 @@ export default function EtiquettePage() {
         </Callout>
         <LayeredCard s={SAFETY} />
         <Topic s={SHITSU} introExtra={<ShitsuTable rows={SHITSU_TABLE} />} />
-      </Section>
+      </CourseSection>
 
       {/* ───── 說法不一 ───── */}
-      <Section id="myths" title="常見迷思與說法不一" lead="網路與道場常聽到的說法，對照本站查到的出處。">
+      <CourseSection chapter="etiquette" id="myths" title="常見迷思與說法不一" lead="網路與道場常聽到的說法，對照本站查到的出處。">
         <MythList myths={MYTHS} />
-      </Section>
+      </CourseSection>
 
-      <QuickCheck set={QUICKCHECKS.etiquette} />
+      <ChapterQuiz chapter="etiquette" />
 
       <FaqList faqs={ETIQUETTE_FAQS} />
 
@@ -284,6 +292,8 @@ export default function EtiquettePage() {
           </>
         }
       />
+
+      <ChapterEnd chapter="etiquette" />
     </div>
   );
 }

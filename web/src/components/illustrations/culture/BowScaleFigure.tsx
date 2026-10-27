@@ -132,7 +132,7 @@ export default function BowScaleFigure() {
 
         <ul className="grid grid-cols-5 gap-x-1 text-center text-xs leading-snug" style={{ paddingLeft: `${(RULER_W / 340) * 100}%` }}>
           {COLS.map((c) => (
-            <li key={c.len}>
+            <li key={c.name.join("")}>
               <span lang={c.ja ? "ja" : undefined} className={`block font-semibold ${c.ja ? "text-wood" : ""}`}>
                 {c.name.map((n) => (
                   <span key={n} className="block whitespace-nowrap">

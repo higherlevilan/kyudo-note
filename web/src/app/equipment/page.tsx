@@ -2,21 +2,25 @@ import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Callout, Cites, FaqList, PageHeader, PointList, Section, SourceList, TagBadge, TocChips } from "@/components/content/Blocks";
+import { Callout, Cites, FaqList, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
+import ChapterEnd from "@/components/course/ChapterEnd";
+import ChapterHero from "@/components/course/ChapterHero";
+import ChapterQuiz from "@/components/course/ChapterQuiz";
+import CourseSection from "@/components/course/CourseSection";
 import BudgetBuilder from "@/components/equipment/BudgetBuilder";
 import DataTable from "@/components/equipment/DataTable";
 import TopicCard from "@/components/equipment/TopicCard";
+import TsuruSteps from "@/components/equipment/TsuruSteps";
 import YajakuCalculator from "@/components/equipment/YajakuCalculator";
-import YazukaDiagram from "@/components/equipment/YazukaDiagram";
+import YazukaSteps from "@/components/equipment/YazukaSteps";
 import BowLengthCompare from "@/components/illustrations/gear/BowLengthCompare";
 import KakeParts from "@/components/illustrations/gear/KakeParts";
 import { HayaOtoya, YaParts } from "@/components/illustrations/gear/YaParts";
 import YumiParts from "@/components/illustrations/gear/YumiParts";
 import { EQUIPMENT_FAQS } from "@/content/equipment/faqs";
-import QuickCheck from "@/components/practice/QuickCheck";
-import { QUICKCHECKS } from "@/content/practice/quickchecks";
 import { collectSources } from "@/content/equipment";
-import { PRICE_DATE } from "@/content/equipment/sources";
+import { ANKF, PRICE_DATE, RULES } from "@/content/equipment/sources";
+import { TSURU_STEPS, YAZUKA_STEPS } from "@/content/equipment/steps";
 import {
   BEFORE_BUYING,
   BORROW_FIRST,
@@ -25,7 +29,6 @@ import {
   DISPUTES,
   GOODS_TABLE,
   KAKE_TOPICS,
-  MEASURE_STEPS,
   OTHER_BUDGETS_TABLE,
   SHIPPING_NOTES,
   TAIWAN_CARE,
@@ -34,7 +37,7 @@ import {
   YA_TOPICS,
   YUMI_TOPICS,
 } from "@/content/equipment/topics";
-import type { Tag } from "@/content/types";
+import type { Point, Tag } from "@/content/types";
 
 export const metadata: Metadata = pageMetadata({
   path: "/equipment/",
@@ -44,19 +47,12 @@ export const metadata: Metadata = pageMetadata({
   og: "equipment",
 });
 
-const TOC = [
-  { id: "start", label: "先借再買" },
-  { id: "calc", label: "矢尺・弓長計算器" },
-  { id: "bow", label: "弓" },
-  { id: "arrow", label: "矢" },
-  { id: "string", label: "弦" },
-  { id: "glove", label: "弽" },
-  { id: "dress", label: "服裝" },
-  { id: "goods", label: "其他用品" },
-  { id: "budget", label: "預算試算" },
-  { id: "care", label: "保養" },
-  { id: "disputes", label: "說法不一" },
-  { id: "faq", label: "常見問題" },
+/** 重點筆記 at the end of 〈弓〉: a recap of the rules and official numbers in the cards above. */
+const BOW_NOTES: Point[] = [
+  { text: "弓長以 221 cm（七尺三寸，並寸）為標準，允許若干長短；握在從本弭算起約 1/3 處。", tag: "official", src: [ANKF.playRules] },
+  { text: "弓力：自己能肩入れ的弓力的 1/2 是標準，初學時 1/3〜1/4——寧弱勿強。", tag: "official", src: [ANKF.tool] },
+  { text: "一般大會允許玻纖、碳纖等新素材（競技規則第 20 條）；天皇盃等個別大會的要項另規定竹弓。", tag: "official", src: [ANKF.playRules, RULES.tennohai] },
+  { text: "店家的弓長對照表、弓力數字都是建議，不是規則；買之前請指導者看過你的射。", tag: "note" },
 ];
 
 const LEGEND: { tag: Tag; text: string }[] = [
@@ -101,15 +97,13 @@ const RELATED = [
 export default function EquipmentPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-16">
-      <PageHeader kicker="裝備百科" title="弓具" ja="きゅうぐ">
+      <ChapterHero chapter="equipment">
         <p>
           弓、矢、弦、弽與服裝的選法、規則和保養。數字類的建議——箭要多長、弓要多長、弓力多少——各來源常常不一樣，
-          本頁<strong className="text-ink">把它們並列</strong>，並標出哪些是全弓連的規定、哪些只是弓具店或坊間的說法。
+          這一章<strong className="text-ink">把它們並列</strong>，並標出哪些是全弓連的規定、哪些只是弓具店或坊間的說法。
           初學者最重要的一句話是：<strong className="text-ink">先借再買</strong>。
         </p>
-      </PageHeader>
-
-      <TocChips items={TOC} />
+      </ChapterHero>
 
       <details className="mb-2 rounded-xl border border-line bg-surface px-4 py-3 text-sm">
         <summary className="font-semibold text-wood">標籤怎麼讀</summary>
@@ -124,8 +118,10 @@ export default function EquipmentPage() {
       </details>
 
       {/* ───────── 先借再買 ───────── */}
-      <Section
+      <CourseSection
+        chapter="equipment"
         id="start"
+        quip
         title="先借再買"
         lead={
           <>
@@ -183,11 +179,13 @@ export default function EquipmentPage() {
             <PointList points={BEFORE_BUYING} />
           </div>
         </div>
-      </Section>
+      </CourseSection>
 
       {/* ───────── 計算器 ───────── */}
-      <Section
+      <CourseSection
+        chapter="equipment"
         id="calc"
+        quip
         title="矢尺・弓長計算器"
         lead={
           <>
@@ -196,66 +194,63 @@ export default function EquipmentPage() {
           </>
         }
       >
-        <div className="grid items-center gap-5 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <figure>
-            <YazukaDiagram />
-            <figcaption className="mt-1 text-xs text-muted">示意圖：量矢束的姿勢（本站繪製）</figcaption>
-          </figure>
-          <div>
-            <h3 className="mb-2 text-lg font-semibold">怎麼量矢束</h3>
-            <div className="text-[15px]">
-              <PointList points={MEASURE_STEPS} />
-            </div>
-          </div>
+        <div>
+          <h3 className="mb-2 text-lg font-semibold">怎麼量矢束、箭要多長</h3>
+          <YazukaSteps steps={YAZUKA_STEPS} />
         </div>
         <YajakuCalculator />
-      </Section>
+      </CourseSection>
 
       {/* ───────── 弓 ───────── */}
-      <Section id="bow" title="弓" lead="先認識弓的各部位名稱，再看弓長、弓力、弓材，以及比賽與審查的規定。">
+      <CourseSection chapter="equipment" id="bow" title="弓" quip lead="先認識弓的各部位名稱，再看弓長、弓力、弓材，以及比賽與審查的規定。">
         <YumiParts />
         {YUMI_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
-      </Section>
+        <Callout title="重點筆記">
+          <PointList points={BOW_NOTES} />
+        </Callout>
+      </CourseSection>
 
       {/* ───────── 矢 ───────── */}
-      <Section id="arrow" title="矢" lead="箭的部位與規定、甲矢與乙矢、箭桿規格、重量，以及羽的合法來源。">
+      <CourseSection chapter="equipment" id="arrow" title="矢" lead="箭的部位與規定、甲矢與乙矢、箭桿規格、重量，以及羽的合法來源。">
         {YA_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
-      </Section>
+      </CourseSection>
 
       {/* ───────── 弦 ───────── */}
-      <Section id="string" title="弦" lead="合成弦與麻弦、粗細、換弦時機與中仕掛。">
+      <CourseSection chapter="equipment" id="string" title="弦" quip lead="合成弦與麻弦、粗細、換弦時機與中仕掛。">
+        <TsuruSteps steps={TSURU_STEPS} />
         {TSURU_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
-      </Section>
+      </CourseSection>
 
       {/* ───────── 弽 ───────── */}
-      <Section id="glove" title="弽" lead="右手的鹿皮手套：規定、種類、尺寸、價格帶與相關小物。">
+      <CourseSection chapter="equipment" id="glove" title="弽" lead="右手的鹿皮手套：規定、種類、尺寸、價格帶與相關小物。">
         {KAKE_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}
-      </Section>
+      </CourseSection>
 
       {/* ───────── 服裝 ───────── */}
-      <Section id="dress" title="服裝">
+      <CourseSection chapter="equipment" id="dress" title="服裝">
         {WEAR_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} />
         ))}
-      </Section>
+      </CourseSection>
 
       {/* ───────── 其他用品 ───────── */}
-      <Section id="goods" title="其他用品" lead={`弓袋、矢筒、弦巻、ゴム弓等。價格是小山、山武、平安 ${PRICE_DATE} 的含稅標價。`}>
+      <CourseSection chapter="equipment" id="goods" title="其他用品" lead={`弓袋、矢筒、弦巻、ゴム弓等。價格是小山、山武、平安 ${PRICE_DATE} 的含稅標價。`}>
         <div className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
           <DataTable t={GOODS_TABLE} />
         </div>
-      </Section>
+      </CourseSection>
 
       {/* ───────── 預算 ───────── */}
-      <Section
+      <CourseSection
+        chapter="equipment"
         id="budget"
         title="預算試算"
         lead={
@@ -279,10 +274,10 @@ export default function EquipmentPage() {
         <div className="rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
           <DataTable t={OTHER_BUDGETS_TABLE} />
         </div>
-      </Section>
+      </CourseSection>
 
       {/* ───────── 保養 ───────── */}
-      <Section id="care" title="保養" lead="保養的關鍵字是「濕氣」：竹弓怕高溫高濕，弽怕汗。">
+      <CourseSection chapter="equipment" id="care" title="保養" quip lead="保養的關鍵字是「濕氣」：竹弓怕高溫高濕，弽怕汗。">
         {CARE_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} />
         ))}
@@ -291,10 +286,10 @@ export default function EquipmentPage() {
             <PointList points={TAIWAN_CARE} />
           </Callout>
         </div>
-      </Section>
+      </CourseSection>
 
       {/* ───────── 說法不一 ───────── */}
-      <Section id="disputes" title="說法不一・待查證" lead="本頁數字最不確定的地方。看到這些主題時，請以指導者與購買店家的說明為準。">
+      <CourseSection chapter="equipment" id="disputes" title="說法不一・待查證" lead="本頁數字最不確定的地方。看到這些主題時，請以指導者與購買店家的說明為準。">
         <ul className="grid gap-3 sm:grid-cols-2">
           {DISPUTES.map((d) => (
             <li key={d.title} className="rounded-xl border border-vermilion/30 bg-surface p-4">
@@ -308,9 +303,9 @@ export default function EquipmentPage() {
             </li>
           ))}
         </ul>
-      </Section>
+      </CourseSection>
 
-      <QuickCheck set={QUICKCHECKS.equipment} />
+      <ChapterQuiz chapter="equipment" />
 
       <FaqList faqs={EQUIPMENT_FAQS} />
 
@@ -340,6 +335,8 @@ export default function EquipmentPage() {
           </>
         }
       />
+
+      <ChapterEnd chapter="equipment" />
     </div>
   );
 }

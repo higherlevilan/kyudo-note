@@ -1,4 +1,5 @@
-import { TAG_LABEL, type Point, type ShahoSection, type Tag } from "@/content/shaho";
+import type { ReactNode } from "react";
+import { CUES, TAG_LABEL, type Point, type ShahoSection, type Tag } from "@/content/shaho";
 import { SOURCES, type SourceKey } from "@/content/sources";
 import SharedCites from "@/components/content/Cites";
 import { SHAHO_VIDEO, videoAt } from "@/content/shaho-video";
@@ -47,25 +48,69 @@ function Chevron() {
   );
 }
 
-export function SectionCard({ s }: { s: ShahoSection }) {
-  const start = SHAHO_VIDEO.starts[s.segment];
+/** 重點筆記: the short reminders for one segment (CUES, restating the section above). */
+export function KeyNotes({ segments }: { segments: { id: string; label?: string }[] }) {
+  const groups = segments.map((g) => ({ ...g, cues: CUES[g.id] ?? [] })).filter((g) => g.cues.length > 0);
+  if (groups.length === 0) return null;
   return (
-    <article id={s.id} className="scroll-mt-20 rounded-2xl border border-line bg-surface p-4 shadow-sm sm:p-6">
-      <header className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+    <aside className="mt-4 rounded-xl border border-wood/40 bg-wood-soft/40 p-3 text-[15px] leading-relaxed sm:p-4">
+      <p className="mb-1 font-bold">
+        重點筆記
+        <span className="ml-2 text-xs font-normal text-muted">本站整理自上方說明</span>
+      </p>
+      {groups.map((g) => (
+        <div key={g.id} className={groups.length > 1 ? "mt-1.5" : undefined}>
+          {g.label && (
+            <p lang="ja" className="text-sm font-semibold text-muted">
+              {g.label}
+            </p>
+          )}
+          <ul className="list-disc space-y-0.5 pl-5">
+            {g.cues.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </aside>
+  );
+}
+
+function VideoLink({ seconds, label }: { seconds: number; label: string }) {
+  return (
+    <a href={videoAt(SHAHO_VIDEO.url, seconds)} target="_blank" rel="noopener noreferrer" className="text-sm text-wood underline">
+      {label}（{seconds} 秒起）↗
+    </a>
+  );
+}
+
+/**
+ * The body of one 射法八節 小節 (the page wraps it in <CourseSection>, which owns the anchor id and
+ * the title): readings, 入門 with the figure, optional `children` (e.g. an animated diagram),
+ * 深入, the 重點筆記 and the links into the demonstration video. Extra segments (大三) get their
+ * own anchor (`#daisan`) and video link.
+ */
+export function SectionBody({ s, children }: { s: ShahoSection; children?: ReactNode }) {
+  const start = SHAHO_VIDEO.starts[s.segment];
+  const extras = s.extraSegments ?? [];
+  return (
+    <div>
+      <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
         {s.no != null ? (
           <span className="rounded-full bg-ink px-2.5 py-0.5 text-xs font-medium text-paper">第 {s.no} 節</span>
         ) : (
           <span className="rounded-full border border-line px-2.5 py-0.5 text-xs text-muted">補充</span>
         )}
-        <h3 className="text-2xl font-semibold">
-          <span lang="ja">{s.term}</span>
-        </h3>
         <span lang="ja" className="text-sm text-muted">
           {s.kana}
         </span>
         <span className="text-sm text-muted">{s.romaji}</span>
         <span className="text-base text-ink">{s.zh}</span>
-      </header>
+      </p>
+
+      {extras.map((e) => (
+        <span key={e.id} id={e.id} aria-hidden="true" className="block scroll-mt-24" />
+      ))}
 
       <details open className="group mt-4">
         <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
@@ -85,6 +130,8 @@ export function SectionCard({ s }: { s: ShahoSection }) {
         </div>
       </details>
 
+      {children && <div className="mt-4">{children}</div>}
+
       <details data-layer="deep" className="mt-3 border-t border-line pt-3">
         <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
           <Chevron />
@@ -101,18 +148,15 @@ export function SectionCard({ s }: { s: ShahoSection }) {
         </div>
       </details>
 
-      <div className="mt-4 flex flex-wrap items-center gap-2">
-        {start != null && (
-          <a
-            href={videoAt(SHAHO_VIDEO.url, start)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-wood underline"
-          >
-            在示範影片看這一節（{start} 秒起）↗
-          </a>
-        )}
+      <KeyNotes segments={[...extras.map((e) => ({ id: e.id, label: e.label })), { id: s.segment, label: extras.length > 0 ? s.term : undefined }]} />
+
+      <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+        {extras.map((e) => {
+          const t = SHAHO_VIDEO.starts[e.id];
+          return t != null ? <VideoLink key={e.id} seconds={t} label={`在示範影片看${e.label}`} /> : null;
+        })}
+        {start != null && <VideoLink seconds={start} label="在示範影片看這一節" />}
       </div>
-    </article>
+    </div>
   );
 }

@@ -1,7 +1,7 @@
-// One 射癖 card: 入門 (LayeredCard) → definitions with their authority → 深入 (studies, advice, when to ask).
+// One 射癖 小節: 入門 → definitions with their authority → 深入 (studies, advice, when to ask).
 
 import type { ReactNode } from "react";
-import { Cites, LayeredCard, PointList, TagBadge } from "@/components/content/Blocks";
+import { Cites, PointList, TagBadge } from "@/components/content/Blocks";
 import type { Fault, Study } from "@/content/shaguse/types";
 
 function Chevron() {
@@ -52,18 +52,48 @@ function SubHead({ children }: { children: ReactNode }) {
   return <h4 className="mb-1.5 text-sm font-bold text-muted">{children}</h4>;
 }
 
+/**
+ * One 射癖 小節 body. The page wraps it in <CourseSection>, which owns the anchor id and the
+ * title; the full card title and readings are shown here as a subtitle line.
+ */
 export default function FaultCard({ f }: { f: Fault }) {
-  const titleText = f.section.title;
+  const s = f.section;
+  const titleText = s.title;
   return (
-    <LayeredCard
-      s={f.section}
-      figure={
-        <div className="rounded-xl border border-line bg-surface-2/50 p-3 text-[15px] sm:p-4">
-          <p className="mb-1.5 text-sm font-bold text-muted">定義與用語</p>
-          <PointList points={f.defs} />
+    <div>
+      <p className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        <span className="font-semibold">{s.title}</span>
+        {s.ja && s.ja !== s.title && (
+          <span lang="ja" className="text-ink">
+            {s.ja}
+          </span>
+        )}
+        {s.kana && (
+          <span lang="ja" className="text-sm text-muted">
+            {s.kana}
+          </span>
+        )}
+      </p>
+      <details open className="group mt-3">
+        <summary className="flex items-center gap-1.5 text-sm font-semibold text-wood">
+          <Chevron />
+          入門
+        </summary>
+        <div className="mt-2 space-y-2 text-[15px] leading-relaxed">
+          {s.intro.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+          {s.introSrc && (
+            <p>
+              <Cites src={s.introSrc} />
+            </p>
+          )}
         </div>
-      }
-    >
+      </details>
+      <div className="mt-4 rounded-xl border border-line bg-surface-2/50 p-3 text-[15px] sm:p-4">
+        <p className="mb-1.5 text-sm font-bold text-muted">定義與用語</p>
+        <PointList points={f.defs} />
+      </div>
       <details data-layer="deep" className="mt-3 border-t border-line pt-3">
         <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
           <Chevron />
@@ -78,8 +108,8 @@ export default function FaultCard({ f }: { f: Fault }) {
             </SubHead>
             {f.studies.length > 0 ? (
               <ul className="grid gap-2.5 md:grid-cols-2">
-                {f.studies.map((s) => (
-                  <StudyItem key={s.who} s={s} />
+                {f.studies.map((st) => (
+                  <StudyItem key={st.who} s={st} />
                 ))}
               </ul>
             ) : (
@@ -101,6 +131,6 @@ export default function FaultCard({ f }: { f: Fault }) {
           </section>
         </div>
       </details>
-    </LayeredCard>
+    </div>
   );
 }

@@ -16,8 +16,20 @@
   --indigo: #34507a;
   --stage-a: #f7f5f1;
   --stage-b: #d8d4cc;
-  /* Sticky site header height; sticky sub-bars sit just below it. */
-  --header-h: 3.6rem;
+  /* 修煉路線 badge colours (traditional dyes): 萌黄, 山吹, 江戸紫. */
+  --moss: #5d7536;
+  --yamabuki: #a8740f;
+  --murasaki: #6a4a82;
+  /* Mobile top bar height; sticky sub-bars sit just below it. 0 on lg+, where the sidebar replaces it. */
+  --header-h: 3.25rem;
+  /* Course sidebar width on lg+ (the body is padded by it). */
+  --side-w: 17.5rem;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-h: 0px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -35,6 +47,9 @@
     --indigo: #9db7dd;
     --stage-a: #4a4640;
     --stage-b: #2a2723;
+    --moss: #a5bf72;
+    --yamabuki: #e3b552;
+    --murasaki: #b9a0d4;
   }
 }
 
@@ -50,6 +65,9 @@
   --color-wood-soft: var(--wood-soft);
   --color-vermilion: var(--vermilion);
   --color-indigo: var(--indigo);
+  --color-moss: var(--moss);
+  --color-yamabuki: var(--yamabuki);
+  --color-murasaki: var(--murasaki);
   --font-sans: var(--font-noto-sans-tc), "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, sans-serif;
   --font-jp: var(--font-noto-serif-jp), "Noto Serif JP", "Hiragino Mincho ProN", serif;
 }
@@ -87,6 +105,12 @@ body:has([data-fixed-bottom="always"]) > footer {
 @media (max-width: 639px) {
   body:has([data-fixed-bottom]) > footer {
     padding-bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+}
+/* On lg+ the course sidebar takes the left edge; full-width fixed bars start after it. */
+@media (min-width: 1024px) {
+  [data-fixed-bottom] {
+    left: var(--side-w);
   }
 }
 
@@ -128,4 +152,73 @@ details[open] > summary .chev {
   --indigo: #34507a;
   background: #fbf7ef;
   color: var(--ink);
+}
+
+/* ---------- 修煉路線 (course mode) ---------- */
+
+/* Progress ring: conic arc in wood, a vermilion 朱印 when the 關卡 is complete. Set --p (0..1). */
+.course-ring {
+  --p: 0;
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  border-radius: 9999px;
+  background: conic-gradient(var(--wood) calc(var(--p) * 360deg), var(--line) 0);
+}
+.course-ring::before {
+  content: "";
+  position: absolute;
+  inset: var(--ring-w, 3px);
+  border-radius: inherit;
+  background: var(--surface);
+}
+.course-ring > :not(.sr-only) {
+  position: relative;
+}
+.course-ring[data-done] {
+  background: var(--vermilion);
+}
+.course-ring[data-done]::before {
+  background: color-mix(in srgb, var(--vermilion) 12%, var(--surface));
+}
+
+@keyframes course-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.96);
+  }
+}
+@keyframes course-badge-in {
+  from {
+    opacity: 0;
+    transform: rotate(-14deg) scale(0.5);
+  }
+  60% {
+    transform: rotate(4deg) scale(1.08);
+  }
+}
+@keyframes course-drawer-in {
+  from {
+    transform: translateX(-100%);
+  }
+}
+@keyframes course-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .course-pop {
+    animation: course-pop 0.32s cubic-bezier(0.2, 1.2, 0.4, 1);
+  }
+  .course-badge-in {
+    animation: course-badge-in 0.8s cubic-bezier(0.2, 1.2, 0.4, 1);
+  }
+  dialog.course-drawer[open] {
+    animation: course-drawer-in 0.22s ease-out;
+  }
+  dialog.course-drawer[open]::backdrop {
+    animation: course-fade-in 0.22s ease-out;
+  }
 }

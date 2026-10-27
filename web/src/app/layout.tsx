@@ -3,6 +3,8 @@ import { Noto_Sans_TC, Noto_Serif_JP } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import ReadingTools from "@/components/reading/ReadingTools";
+import CourseToasts from "@/components/course/CourseToasts";
+import Companion from "@/components/mascot/Companion";
 import { SITE_DESCRIPTION, SITE_NAME, siteMetadata, websiteJsonLd } from "@/lib/seo";
 import "./globals.css";
 
@@ -39,14 +41,19 @@ export const viewport: Viewport = {
   ],
 };
 
+// lg+: the fixed 課程目錄 sidebar (SiteHeader) sits in the body's left padding (--side-w).
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="zh-Hant-TW" className={`${notoSansTC.variable} ${notoSerifJP.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col lg:pl-[var(--side-w)]">
         <SiteHeader />
-        <main className="flex-1">{children}</main>
+        <main id="main" tabIndex={-1} className="flex-1 outline-none">
+          {children}
+        </main>
         <SiteFooter />
         <ReadingTools />
+        <CourseToasts />
+        <Companion />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       </body>
     </html>

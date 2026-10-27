@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Kasumi from "@/components/home/Kasumi";
-import { NAV } from "@/lib/site";
+import { CHAPTERS, TOOLS } from "@/content/course/chapters";
+
+const LINKS = [...CHAPTERS.map((c) => ({ href: c.href, label: `${c.stage}・${c.title}` })), ...TOOLS.map((t) => ({ href: t.href, label: t.label }))];
 
 export const metadata: Metadata = {
   title: "找不到頁面",
@@ -35,7 +37,7 @@ export default function NotFound() {
               href="/guide/"
               className="rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-medium text-ink no-underline hover:bg-surface-2"
             >
-              從入門指南開始
+              從序章開始
             </Link>
           </div>
         </div>
@@ -43,10 +45,10 @@ export default function NotFound() {
 
       <nav aria-labelledby="nf-sections" className="border-t border-line pt-8">
         <h2 id="nf-sections" className="text-lg font-bold">
-          主要單元
+          修煉路線與工具
         </h2>
         <ul className="mt-4 grid gap-2 sm:grid-cols-3">
-          {NAV.map((item) => (
+          {LINKS.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}

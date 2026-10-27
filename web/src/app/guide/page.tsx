@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
-import { Callout, Cites, FaqList, LayeredCard, PageHeader, PointList, Section, SourceList, TagBadge, TocChips } from "@/components/content/Blocks";
+import { Callout, Cites, FaqList, LayeredCard, PointList, SourceList, TagBadge } from "@/components/content/Blocks";
+import ChapterEnd from "@/components/course/ChapterEnd";
+import ChapterHero from "@/components/course/ChapterHero";
+import ChapterQuiz from "@/components/course/ChapterQuiz";
+import CourseSection from "@/components/course/CourseSection";
 import ClubList from "@/components/guide/ClubList";
 import CompareTable from "@/components/guide/CompareTable";
 import CostEstimator from "@/components/guide/CostEstimator";
+import FirstVisitSteps from "@/components/guide/FirstVisitSteps";
 import Roadmap from "@/components/guide/Roadmap";
 import ShajoLayout from "@/components/illustrations/dojo/ShajoLayout";
 import { TargetFaces, TargetMount } from "@/components/illustrations/dojo/Targets";
@@ -30,9 +35,8 @@ import {
 } from "@/content/guide/content";
 import { COST_ITEMS, COST_SOURCES } from "@/content/guide/cost";
 import { GUIDE_FAQS } from "@/content/guide/faqs";
-import QuickCheck from "@/components/practice/QuickCheck";
-import { QUICKCHECKS } from "@/content/practice/quickchecks";
-import { CHECKED_ON, JPY_TWD_RATE, PRICE, TW_X } from "@/content/guide/sources";
+import { VISIT_STEPS } from "@/content/guide/visit-steps";
+import { CHECKED_ON, IKYF_X, JPY_TWD_RATE, PRICE, TW_X } from "@/content/guide/sources";
 import type { LayeredSection, Point, Source } from "@/content/types";
 
 export const metadata: Metadata = pageMetadata({
@@ -43,22 +47,19 @@ export const metadata: Metadata = pageMetadata({
   og: "guide",
 });
 
-const TOC = [
-  { id: "first-year", label: "第一年" },
-  { id: "first-visit", label: "第一次去道場" },
-  { id: "dojo-layout", label: "射場長什麼樣" },
-  { id: "taiwan", label: "在台灣哪裡學" },
-  { id: "safety", label: "安全守則" },
-  { id: "injury", label: "傷害預防" },
-  { id: "cost", label: "費用試算" },
-  { id: "shinsa", label: "審查入門" },
-  { id: "vs-archery", label: "弓道與射箭" },
-  { id: "topics", label: "其他常見疑問" },
-  { id: "faq", label: "常見問題" },
-];
-
 /** md stair offsets for the rank ladder (lowest rung first) */
 const STAIR = ["md:mt-24", "md:mt-18", "md:mt-12", "md:mt-6", "md:mt-0"];
+
+/** 重點筆記 at the end of 〈審查入門〉: a recap of facts already in the section above. */
+const SHINSA_NOTES: Point[] = [
+  { text: "初段射一手 2 支；原則上近的 28 m、5 人一立、坐射。", tag: "official", src: [ANKF.probationRules, ANKF.probationGyosha] },
+  { text: "初段、弐段不要求中靶；從参段起才要求「的中やや確実」。", tag: "official", src: [ANKF.probationStandard] },
+  { text: "合格門檻：行射得票 5 成以上，而且學科 60 分以上。", tag: "official", src: [ANKF.probationRules] },
+  { text: "不能個人直接寄給全弓連；在台灣經臺灣弓道協會報名。", tag: "official", src: [ANKF.probationRules, IKYF_X.shinsa, TAIWAN.shinsa] },
+];
+
+/** FIRST_VISIT cards whose points are shown in the step player instead */
+const IN_STEPS = new Set(["要穿什麼？", "要帶什麼？要先買弓嗎？", "一進門要做什麼？"]);
 
 const ntd = new Intl.NumberFormat("zh-TW", { maximumFractionDigits: 0 });
 const yen = new Intl.NumberFormat("ja-JP");
@@ -98,9 +99,9 @@ const PAGE_SOURCES: Source[] = [
 export default function GuidePage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pb-16">
-      <PageHeader kicker="入門指南" title="從零開始學弓道" ja="はじめに">
+      <ChapterHero chapter="guide">
         <p>
-          還沒碰過弓也沒關係。這一頁整理第一年會走的路、第一次去道場要準備什麼、在台灣可以去哪裡學、安全守則、要花多少錢，以及第一個段位「初段」考什麼。
+          還沒碰過弓也沒關係。這一章整理第一年會走的路、第一次去道場要準備什麼、在台灣可以去哪裡學、安全守則、要花多少錢，以及第一個段位「初段」考什麼。
         </p>
         <p className="mt-2 text-sm">
           重要說法都標出依據：
@@ -121,14 +122,14 @@ export default function GuidePage() {
           <TagBadge tag="disputed" />
           是說法不一或待查證。價格與社團資訊的查詢日期是 {CHECKED_ON}。
         </p>
-      </PageHeader>
-
-      <TocChips items={TOC} />
+      </ChapterHero>
 
       {/* ---------------------------------------------------------- */}
-      <Section
+      <CourseSection
+        chapter="guide"
         id="first-year"
         title="你的弓道第一年"
+        quip
         lead={
           <>
             弓道不是第一天就射靶。全弓連與指導書的順序，是從不拿弓的徒手練習開始，一步步加上阻力，最後才站上射場。每一步的動作，都是
@@ -140,12 +141,32 @@ export default function GuidePage() {
         }
       >
         <Roadmap steps={ROADMAP} examples={TIMING_EXAMPLES} />
-      </Section>
+      </CourseSection>
 
       {/* ---------------------------------------------------------- */}
-      <Section id="first-visit" title="第一次去道場" lead="以臺灣弓道協會的弓道教室與藏月弓道場的公開規範為主；社團或其他道場的規矩可能不同，去之前先問一聲最保險。">
+      <CourseSection
+        chapter="guide"
+        id="first-visit"
+        title="第一次去道場"
+        lead="以臺灣弓道協會的弓道教室與藏月弓道場的公開規範為主；社團或其他道場的規矩可能不同，去之前先問一聲最保險。"
+        quip
+      >
+        <FirstVisitSteps steps={VISIT_STEPS} />
+        <p className="text-sm text-muted">
+          裝備怎麼選，見
+          <Link href="/equipment/" className="mx-1 text-wood underline">
+            弓具
+          </Link>
+          ；完整的禮法，見
+          <Link href="/etiquette/" className="mx-1 text-wood underline">
+            禮法與體配
+          </Link>
+          。
+        </p>
+        <h3 className="text-lg font-semibold">去之前，還常有人問</h3>
         <div className="grid gap-4 md:grid-cols-2">
-          {FIRST_VISIT.map((v) => (
+          {/* 穿著、攜帶、進門的要點已在上方的步驟裡 */}
+          {FIRST_VISIT.filter((v) => !IN_STEPS.has(v.q)).map((v) => (
             <article key={v.q} className="rounded-2xl border border-line bg-surface p-5 shadow-sm">
               <h3 className="mb-2 text-lg font-semibold">{v.q}</h3>
               <div className="text-[15px]">
@@ -161,10 +182,11 @@ export default function GuidePage() {
             </article>
           ))}
         </div>
-      </Section>
+      </CourseSection>
 
       {/* ---------------------------------------------------------- */}
-      <Section
+      <CourseSection
+        chapter="guide"
         id="dojo-layout"
         title="射場長什麼樣"
         lead={
@@ -186,10 +208,11 @@ export default function GuidePage() {
           </div>
         </div>
         <TargetFaces />
-      </Section>
+      </CourseSection>
 
       {/* ---------------------------------------------------------- */}
-      <Section
+      <CourseSection
+        chapter="guide"
         id="taiwan"
         title="在台灣哪裡學"
         lead={`社會人士主要是臺灣弓道協會的弓道教室；學生可以看看學校有沒有弓道社。以下資料查詢日期 ${CHECKED_ON}，課程、時間與費用都可能改變，去之前請先聯絡對方確認。`}
@@ -260,11 +283,13 @@ export default function GuidePage() {
             </p>
           </div>
         </div>
-      </Section>
+      </CourseSection>
 
       {/* ---------------------------------------------------------- */}
-      <Section
+      <CourseSection
+        chapter="guide"
         id="safety"
+        quip
         title="安全守則"
         lead={
           <>
@@ -296,30 +321,33 @@ export default function GuidePage() {
         <div className="rounded-2xl border border-line bg-surface-2/60 p-4 text-[15px]">
           <PointList points={SAFETY_NOTES} />
         </div>
-      </Section>
+      </CourseSection>
 
       {/* ---------------------------------------------------------- */}
-      <Section id="injury" title="傷害預防">
+      <CourseSection chapter="guide" id="injury" title="傷害預防" quip>
         <Callout title="先看證據等級">
           <p>
             弓道專屬的傷害研究數量少、年代久（1971、1987 年的問卷是主要資料），多是問卷、小樣本或個案；沒有前瞻性研究，也沒有預防方法的隨機對照試驗。下面的建議是「合理的一般原則」，不是「已證實有效」。身體不適請找醫師，不要只靠網路資料。
           </p>
         </Callout>
         <LayeredCard s={INJURY_SECTION} />
-      </Section>
+      </CourseSection>
 
       {/* ---------------------------------------------------------- */}
-      <Section
+      <CourseSection
+        chapter="guide"
         id="cost"
         title="費用試算"
         lead="以臺灣弓道協會弓道教室為例，估算第一年與之後每年的花費。勾選、修改單價或數量，總額會即時更新；預設值的出處列在每一項下面。"
       >
         <CostEstimator items={COST_ITEMS} defaultRate={JPY_TWD_RATE} checkedOn={CHECKED_ON} />
-      </Section>
+      </CourseSection>
 
       {/* ---------------------------------------------------------- */}
-      <Section
+      <CourseSection
+        chapter="guide"
         id="shinsa"
+        quip
         title="審查入門"
         lead={
           <>
@@ -415,27 +443,33 @@ export default function GuidePage() {
             <Cites src={[ANKF.probationFee, PRICE.bot]} />
           </p>
         </div>
-      </Section>
+
+        <Callout title="重點筆記">
+          <PointList points={SHINSA_NOTES} />
+        </Callout>
+      </CourseSection>
 
       {/* ---------------------------------------------------------- */}
-      <Section
+      <CourseSection
+        chapter="guide"
         id="vs-archery"
+        quip
         title="弓道和現代射箭有什麼不同？"
         lead="兩者在台灣是不同體系：弓道屬臺灣弓道協會，現代射箭屬 World Archery 體系，另有各自的組織；台大也同時有弓道社和射箭協會。右欄是一般對照，不是本站查證的規則。"
       >
         <CompareTable rows={VS_ARCHERY} />
-      </Section>
+      </CourseSection>
 
       {/* ---------------------------------------------------------- */}
-      <Section id="topics" title="其他常見疑問">
+      <CourseSection chapter="guide" id="topics" title="其他常見疑問">
         <div className="grid gap-5 md:grid-cols-2">
           {SMALL_TOPICS.map((s) => (
             <LayeredCard key={s.id} s={s} />
           ))}
         </div>
-      </Section>
+      </CourseSection>
 
-      <QuickCheck set={QUICKCHECKS.guide} />
+      <ChapterQuiz chapter="guide" />
 
       <FaqList faqs={GUIDE_FAQS} />
 
@@ -447,6 +481,8 @@ export default function GuidePage() {
           </>
         }
       />
+
+      <ChapterEnd chapter="guide" />
     </div>
   );
 }

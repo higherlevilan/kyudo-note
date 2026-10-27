@@ -1,16 +1,24 @@
-import Link from "next/link";
+// Site shell: the 課程目錄 sidebar on lg+ (fixed; the body is padded by --side-w), and the compact
+// top bar + drawer below lg (NavLinks).
+import CourseNav from "./course/CourseNav";
 import NavLinks from "./NavLinks";
 
 export default function SiteHeader() {
   return (
-    <header className="sticky top-0 z-30 h-[var(--header-h)] border-b border-line bg-paper/90 backdrop-blur supports-[backdrop-filter]:bg-paper/75">
-      <div className="mx-auto flex max-w-5xl h-full items-center justify-between gap-3 px-4">
-        <Link href="/" className="group flex min-w-0 items-baseline gap-2 no-underline">
-          <span className="text-lg font-bold tracking-wide text-ink">弓道學習筆記</span>
-          <span className="hidden text-xs tracking-[0.2em] text-muted uppercase sm:inline">Kyudo Note</span>
-        </Link>
-        <NavLinks />
-      </div>
-    </header>
+    <>
+      <a
+        href="#main"
+        className="sr-only z-[70] rounded-xl bg-ink px-4 py-2 text-paper focus:not-sr-only focus:fixed focus:top-2 focus:left-2"
+      >
+        跳到主要內容
+      </a>
+      <aside
+        aria-label="課程目錄"
+        className="fixed inset-y-0 left-0 z-40 hidden w-[var(--side-w)] overflow-y-auto overscroll-contain border-r border-line bg-surface lg:block print:hidden"
+      >
+        <CourseNav />
+      </aside>
+      <NavLinks />
+    </>
   );
 }

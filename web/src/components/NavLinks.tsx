@@ -1,91 +1,105 @@
 "use client";
 
+// Mobile shell (below lg): a compact sticky top bar with the menu button, brand and total
+// progress ring, and a left drawer (<dialog>) holding the same 課程目錄 as the desktop sidebar.
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { NAV } from "@/lib/site";
-
-function useActive() {
-  const pathname = usePathname() ?? "/";
-  return (href: string) => pathname.startsWith(href.replace(/\/$/, ""));
-}
+import { useCallback, useEffect, useRef, useState } from "react";
+import Mascot from "@/components/mascot/Mascot";
+import CourseNav, { useCurrentChapter } from "@/components/course/CourseNav";
+import Ring from "@/components/course/Ring";
+import { pct, totalFraction, useCourseProgress } from "@/lib/course/progress";
 
 export default function NavLinks() {
-  const isActive = useActive();
-  const pathname = usePathname();
-  const menu = useRef<HTMLDetailsElement>(null);
+  const dlg = useRef<HTMLDialogElement>(null);
+  const menuBtn = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const p = useCourseProgress();
+  const total = pct(totalFraction(p));
+  const chapter = useCurrentChapter();
 
-  // Close the mobile menu after navigating.
+  const close = useCallback(() => dlg.current?.close(), []);
+
+  // Close after navigating, and if the viewport grows into the sidebar layout.
   useEffect(() => {
-    if (menu.current) menu.current.open = false;
-  }, [pathname]);
+    close();
+  }, [pathname, close]);
+  useEffect(() => {
+    const mq = matchMedia("(min-width: 1024px)");
+    const onChange = () => mq.matches && close();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [close]);
 
-  // While the menu is open: Escape or a press outside closes it.
+  // No page scrolling behind the open drawer.
   useEffect(() => {
     if (!open) return;
-    const el = menu.current;
-    if (!el) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== "Escape") return;
-      el.open = false;
-      el.querySelector("summary")?.focus();
-    };
-    const onPointer = (e: PointerEvent) => {
-      if (!el.contains(e.target as Node)) el.open = false;
-    };
-    document.addEventListener("keydown", onKey);
-    document.addEventListener("pointerdown", onPointer);
+    const html = document.documentElement;
+    const prev = html.style.overflow;
+    html.style.overflow = "hidden";
     return () => {
-      document.removeEventListener("keydown", onKey);
-      document.removeEventListener("pointerdown", onPointer);
+      html.style.overflow = prev;
     };
   }, [open]);
 
-  const linkClass = (active: boolean) =>
-    `rounded-full px-3 py-1.5 no-underline transition-colors ${
-      active ? "bg-wood-soft text-ink" : "text-muted hover:bg-surface-2 hover:text-ink"
-    }`;
-
   return (
     <>
-      <nav aria-label="主要導覽" className="hidden shrink-0 items-center gap-0.5 text-sm lg:flex">
-        {NAV.map((item) => {
-          const active = isActive(item.href);
-          return (
-            <Link key={item.href} href={item.href} aria-current={active ? "page" : undefined} className={linkClass(active)}>
-              {item.label}
-            </Link>
-          );
-        })}
-      </nav>
-
-      <details ref={menu} className="relative lg:hidden" onToggle={(e) => setOpen(e.currentTarget.open)}>
-        <summary className="flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-sm text-ink">
+      <div className="sticky top-0 z-30 flex h-[var(--header-h)] items-center gap-2.5 border-b border-line bg-paper/90 px-3 backdrop-blur supports-[backdrop-filter]:bg-paper/75 lg:hidden print:hidden">
+        <button
+          ref={menuBtn}
+          type="button"
+          aria-label="開啟課程目錄"
+          aria-haspopup="dialog"
+          aria-expanded={open}
+          aria-controls="course-drawer"
+          onClick={() => {
+            dlg.current?.showModal();
+            setOpen(true);
+          }}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-surface text-ink hover:bg-surface-2"
+        >
           <svg aria-hidden="true" viewBox="0 0 16 16" className="h-4 w-4 fill-current">
             <path d="M2 3.5h12v1.5H2zM2 7.25h12v1.5H2zM2 11h12v1.5H2z" />
           </svg>
-          選單
-        </summary>
-        <nav
-          aria-label="主要導覽"
-          className="absolute right-0 z-40 mt-2 grid w-56 gap-0.5 rounded-2xl border border-line bg-surface p-2 text-[15px] shadow-lg"
-        >
-          {NAV.map((item) => {
-            const active = isActive(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={active ? "page" : undefined}
-                className={`rounded-xl px-3 py-2 no-underline ${active ? "bg-wood-soft text-ink" : "text-ink hover:bg-surface-2"}`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-      </details>
+        </button>
+        <Link href="/" className="flex min-w-0 flex-1 items-center gap-2 text-ink no-underline">
+          <Mascot mood="happy" size={30} />
+          <span className="truncate text-[16px] font-bold tracking-wide">弓道學習筆記</span>
+          {chapter && (
+            <span className="hidden shrink-0 rounded-md bg-wood-soft px-1.5 py-0.5 text-[11px] text-ink min-[400px]:inline">
+              {chapter.tag} {chapter.title}
+            </span>
+          )}
+        </Link>
+        <Ring fraction={total / 100} size="sm" label={`總進度 ${total}%`}>
+          {total}%
+        </Ring>
+      </div>
+
+      <dialog
+        ref={dlg}
+        id="course-drawer"
+        aria-label="課程目錄"
+        onClose={() => setOpen(false)}
+        onClick={(e) => e.target === dlg.current && close()}
+        className="course-drawer fixed inset-y-0 right-auto left-0 m-0 h-dvh max-h-none w-[min(86vw,20rem)] max-w-none overflow-y-auto border-0 border-r border-line bg-surface p-0 text-ink shadow-2xl backdrop:bg-black/50 lg:hidden"
+      >
+        {open && (
+          <>
+            <button
+              type="button"
+              onClick={close}
+              aria-label="關閉課程目錄"
+              className="absolute top-3 right-3 z-10 flex h-10 w-10 items-center justify-center rounded-full text-xl text-muted hover:bg-surface-2"
+            >
+              ×
+            </button>
+            <CourseNav onNavigate={close} />
+          </>
+        )}
+      </dialog>
     </>
   );
 }

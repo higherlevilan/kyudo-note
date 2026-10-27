@@ -1,0 +1,241 @@
+/* 小弓 (mascot) — colours, motion and the corner companion's placement.
+   Global on purpose: these are stable hooks other components may target. */
+
+.mascot {
+  --m-line: #3a2e26;
+  --m-skin: #fbe2cc;
+  --m-blush: #f0a49a;
+  --m-hair: #2e2622;
+  --m-gi: #fffdf8;
+  --m-gi-shade: #e3d9c8;
+  --m-hakama: #262b3a;
+  --m-hakama-line: #4d5570;
+  --m-glove: #c89b67;
+  --m-mouth: #b4503f;
+  --m-sweat: #8cc4ea;
+  --m-spark: #d99a2b;
+  --m-bow: var(--wood);
+  --m-grip: var(--vermilion);
+  --m-string: var(--muted);
+  --m-shine: #ffffff;
+  flex: none;
+  overflow: visible;
+  vertical-align: middle;
+}
+
+/* Dark mode: a dimmer gi so it does not glow, lighter hair / hakama so the silhouette
+   still separates from the dark paper. */
+@media (prefers-color-scheme: dark) {
+  .mascot {
+    --m-line: #15110e;
+    --m-skin: #e6c6aa;
+    --m-blush: #d98a80;
+    --m-hair: #574437;
+    --m-gi: #d9d1c3;
+    --m-gi-shade: #b3aa9a;
+    --m-hakama: #434c66;
+    --m-hakama-line: #69738f;
+    --m-glove: #b48957;
+    --m-mouth: #a8473a;
+    --m-sweat: #7fb3d9;
+    --m-spark: #e0ad4a;
+    --m-shine: #f4efe6;
+  }
+}
+
+/* Illustration plates keep the light palette in dark mode. */
+.ill-plate .mascot {
+  --m-line: #3a2e26;
+  --m-skin: #fbe2cc;
+  --m-blush: #f0a49a;
+  --m-hair: #2e2622;
+  --m-gi: #fffdf8;
+  --m-gi-shade: #e3d9c8;
+  --m-hakama: #262b3a;
+  --m-hakama-line: #4d5570;
+  --m-glove: #c89b67;
+  --m-mouth: #b4503f;
+  --m-sweat: #8cc4ea;
+  --m-spark: #d99a2b;
+  --m-shine: #ffffff;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .mascot .mascot-eyes {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: mascot-blink 5.2s var(--mascot-blink-d, 0s) infinite;
+  }
+  .mascot.mascot-bob .mascot-body,
+  .mascot-bob .mascot .mascot-body {
+    animation: mascot-bob 3.6s ease-in-out infinite;
+  }
+  .mascot .mascot-look {
+    transition: translate 0.18s ease-out;
+  }
+  .mascot .mascot-sweat {
+    animation: mascot-drip 1.8s ease-in infinite;
+  }
+  .mascot .mascot-spark {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: mascot-twinkle 1.4s ease-in-out infinite;
+  }
+  .mascot .mascot-spark-2 {
+    animation-delay: 0.5s;
+  }
+  .mascot .mascot-dots circle {
+    animation: mascot-dots 1.8s ease-in-out infinite;
+  }
+  .mascot .mascot-dots circle:nth-child(2) {
+    animation-delay: 0.25s;
+  }
+  .mascot .mascot-dots circle:nth-child(3) {
+    animation-delay: 0.5s;
+  }
+  .mascot.mascot-jump {
+    animation: mascot-jump 0.7s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  .mascot-say[data-in] .mascot-say-bubble {
+    animation: mascot-say-in 0.45s cubic-bezier(0.2, 1.3, 0.4, 1);
+  }
+  .mascot-say[data-in] .mascot {
+    animation: mascot-jump 0.7s cubic-bezier(0.3, 1.6, 0.5, 1);
+  }
+  .mascot-companion-bubble {
+    animation: mascot-say-in 0.35s cubic-bezier(0.2, 1.3, 0.4, 1);
+    transform-origin: 1.5rem 100%;
+  }
+  .mascot-companion-btn {
+    transition: transform 0.2s;
+  }
+  .mascot-companion-btn:hover {
+    transform: translateY(-3px) scale(1.04);
+  }
+}
+
+@keyframes mascot-blink {
+  0%,
+  93%,
+  100% {
+    transform: scaleY(1);
+  }
+  95.5% {
+    transform: scaleY(0.1);
+  }
+}
+@keyframes mascot-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1.6px);
+  }
+}
+@keyframes mascot-drip {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(3px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(4px);
+    opacity: 0;
+  }
+}
+@keyframes mascot-twinkle {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.6) rotate(20deg);
+    opacity: 0.6;
+  }
+}
+@keyframes mascot-dots {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes mascot-jump {
+  0% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-14%);
+  }
+  65% {
+    transform: translateY(0) scale(1.04, 0.96);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes mascot-say-in {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.94);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- speech bubble (Say) ---- */
+.mascot-say-bubble {
+  position: relative;
+}
+/* tail pointing at the avatar */
+.mascot-say-bubble::before {
+  content: "";
+  position: absolute;
+  left: -6px;
+  top: 14px;
+  width: 10px;
+  height: 10px;
+  background: var(--surface);
+  border-left: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  transform: rotate(45deg);
+}
+.mascot-say-compact .mascot-say-bubble::before {
+  top: 10px;
+}
+
+/* ---- corner companion ---- */
+.mascot-companion {
+  bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+/* Sit above fixed bottom bars (稽古帳 tab bar on phones, the editor's save bar). */
+body:has([data-fixed-bottom="always"]) .mascot-companion {
+  bottom: calc(4.75rem + env(safe-area-inset-bottom));
+}
+@media (max-width: 639px) {
+  body:has([data-fixed-bottom]) .mascot-companion {
+    bottom: calc(4.75rem + env(safe-area-inset-bottom));
+  }
+}
+.mascot-companion-btn .mascot {
+  filter: drop-shadow(0 3px 5px rgb(42 37 32 / 0.22));
+}
+@media (prefers-color-scheme: dark) {
+  .mascot-companion-btn .mascot {
+    filter: drop-shadow(0 3px 6px rgb(0 0 0 / 0.5));
+  }
+}
+@media print {
+  .mascot-companion {
+    display: none;
+  }
+}
