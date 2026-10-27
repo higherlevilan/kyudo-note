@@ -13,9 +13,11 @@ import TopicCard from "@/components/equipment/TopicCard";
 import TsuruSteps from "@/components/equipment/TsuruSteps";
 import YajakuCalculator from "@/components/equipment/YajakuCalculator";
 import YazukaSteps from "@/components/equipment/YazukaSteps";
+import Yumi3D from "@/components/equipment/Yumi3D";
 import BowLengthCompare from "@/components/illustrations/gear/BowLengthCompare";
 import KakeParts from "@/components/illustrations/gear/KakeParts";
-import { HayaOtoya, YaParts } from "@/components/illustrations/gear/YaParts";
+import { YaParts } from "@/components/illustrations/gear/YaParts";
+import Ya3D from "@/components/equipment/Ya3D";
 import YumiParts from "@/components/illustrations/gear/YumiParts";
 import { EQUIPMENT_FAQS } from "@/content/equipment/faqs";
 import { collectSources } from "@/content/equipment";
@@ -71,7 +73,8 @@ const TOPIC_FIGURES: Record<string, ReactNode> = {
   "ya-rules": (
     <div className="space-y-4">
       <YaParts />
-      <HayaOtoya />
+      {/* 3D 甲矢・乙矢；不支援 WebGL 時顯示原本的 HayaOtoya 斷面圖 */}
+      <Ya3D />
     </div>
   ),
   tsuru: (
@@ -204,6 +207,7 @@ export default function EquipmentPage() {
       {/* ───────── 弓 ───────── */}
       <CourseSection chapter="equipment" id="bow" title="弓" quip lead="先認識弓的各部位名稱，再看弓長、弓力、弓材，以及比賽與審查的規定。">
         <YumiParts />
+        <Yumi3D />
         {YUMI_TOPICS.map((t) => (
           <TopicCard key={t.id} t={t} figure={TOPIC_FIGURES[t.id]} />
         ))}

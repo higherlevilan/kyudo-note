@@ -7,6 +7,7 @@ import { SHAHO_VIDEO } from "@/content/shaho-video";
 import HassetsuStrip from "@/components/illustrations/archer/HassetsuStrip";
 import HassetsuPlayer from "@/components/shaho/HassetsuPlayer";
 import ReleaseSequence from "@/components/shaho/ReleaseSequence";
+import Ashibumi3D from "@/components/shaho/Ashibumi3D";
 import ChapterHero from "@/components/course/ChapterHero";
 import CourseSection from "@/components/course/CourseSection";
 import ChapterQuiz from "@/components/course/ChapterQuiz";
@@ -55,6 +56,12 @@ export default function ShahoPage() {
       {[PRELUDE, ...SECTIONS, POSTLUDE].map((s) => (
         <CourseSection key={s.id} chapter="shaho" id={s.id} quip={QUIPS.has(s.id)}>
           <SectionBody s={s}>
+            {s.id === "ashibumi" && (
+              <div>
+                <h3 className="mb-1 text-base font-bold">兩腳怎麼踏開，一步一步看</h3>
+                <Ashibumi3D />
+              </div>
+            )}
             {s.id === "hanare" && (
               <div>
                 <h3 className="mb-1 text-base font-bold">会 → 離れ → 残心，一步一步看</h3>

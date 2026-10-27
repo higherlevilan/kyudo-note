@@ -11,6 +11,7 @@ import FaultTimeline from "@/components/shaguse/FaultTimeline";
 import MaeUshiro from "@/components/shaguse/MaeUshiro";
 import YadokoroDiagnosis from "@/components/shaguse/YadokoroDiagnosis";
 import YadokoroTable from "@/components/shaguse/YadokoroTable";
+import Yugaeri3D from "@/components/shaguse/Yugaeri3D";
 import {
   ASK_INSTRUCTOR,
   collectSources,
@@ -150,7 +151,7 @@ export default function ShagusePage() {
       {/* ───────── 射癖 ───────── */}
       {FAULTS.map((f) => (
         <CourseSection key={f.section.id} chapter="shaguse" id={f.section.id} quip={QUIPS.has(f.section.id)}>
-          <FaultCard f={f} />
+          <FaultCard f={f} figure={f.section.id === "yugaeri" ? <Yugaeri3D /> : undefined} />
         </CourseSection>
       ))}
 

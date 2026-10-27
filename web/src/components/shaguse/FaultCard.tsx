@@ -56,7 +56,7 @@ function SubHead({ children }: { children: ReactNode }) {
  * One 射癖 小節 body. The page wraps it in <CourseSection>, which owns the anchor id and the
  * title; the full card title and readings are shown here as a subtitle line.
  */
-export default function FaultCard({ f }: { f: Fault }) {
+export default function FaultCard({ f, figure }: { f: Fault; /** optional diagram shown after 定義與用語 */ figure?: ReactNode }) {
   const s = f.section;
   const titleText = s.title;
   return (
@@ -94,6 +94,7 @@ export default function FaultCard({ f }: { f: Fault }) {
         <p className="mb-1.5 text-sm font-bold text-muted">定義與用語</p>
         <PointList points={f.defs} />
       </div>
+      {figure && <div className="mt-4">{figure}</div>}
       <details data-layer="deep" className="mt-3 border-t border-line pt-3">
         <summary className="flex min-h-11 items-center gap-1.5 text-sm font-semibold text-wood">
           <Chevron />

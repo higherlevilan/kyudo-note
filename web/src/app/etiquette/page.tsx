@@ -11,7 +11,10 @@ import Topic from "@/components/etiquette/Topic";
 import KihonGrid from "@/components/etiquette/KihonGrid";
 import KihonTransition from "@/components/etiquette/KihonTransition";
 import ZashaStepper from "@/components/etiquette/ZashaStepper";
+import RisshaStepper from "@/components/etiquette/RisshaStepper";
+import YatoriSteps from "@/components/etiquette/YatoriSteps";
 import GyoshaTable from "@/components/etiquette/GyoshaTable";
+import TachiOrder3D from "@/components/etiquette/TachiOrder3D";
 import { BowDiagram, ShajoDiagram } from "@/components/etiquette/Diagrams";
 import { CompareTable, DressTable, MythList, ShitsuTable, StandardTable, YaHoldTable, YatoriVersions } from "@/components/etiquette/Lists";
 import { KIHON } from "@/content/etiquette/kihontai";
@@ -191,6 +194,7 @@ export default function EtiquettePage() {
             </div>
           }
         />
+        <RisshaStepper points={RISSHA_MATCH} />
       </CourseSection>
 
       {/* ───── 審查 ───── */}
@@ -210,6 +214,7 @@ export default function EtiquettePage() {
               <p className="text-xs text-muted">
                 依全弓連〈審査における行射の要領（５人立ち）〉，弓道衣與和服共通。競技規則的時機有些地方不同（例如下一組入場的信號），請分開看。
               </p>
+              <TachiOrder3D rows={GYOSHA} positions={POSITIONS} />
             </div>
           }
           deepExtra={
@@ -229,7 +234,15 @@ export default function EtiquettePage() {
       {/* ───── 道場禮儀 ───── */}
       <CourseSection chapter="etiquette" id="dojo" title="道場禮儀" quip lead="以下是常見做法與各方的寫法。每個道場的規矩都可能不同，第一次去時先觀察、先問。">
         <LayeredCard s={DOJO_ENTER} />
-        <Topic s={YATORI_SECTION} introExtra={<YatoriVersions versions={YATORI} />} />
+        <Topic
+          s={YATORI_SECTION}
+          introExtra={
+            <div className="space-y-4">
+              <YatoriSteps version={YATORI[0]} />
+              <YatoriVersions versions={YATORI} />
+            </div>
+          }
+        />
         <LayeredCard s={DOJO_YUMI} />
         <LayeredCard s={DOJO_OTHERS} />
         <Topic s={DRESS_SECTION} introExtra={<DressTable rows={DRESS} />} />

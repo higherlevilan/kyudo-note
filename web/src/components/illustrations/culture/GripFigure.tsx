@@ -1,7 +1,11 @@
+"use client";
+
 // 握把為什麼偏下：和弓（握把約在下方 1/3）與對稱弓的對照，四種假說用編號標在圖上。
+// 點一個假說（右側按鈕），圖上只亮起它的編號與相關標示，其餘變淡。
 // Facts: docs/research/01 §1.1（魏志倭人傳「木弓短下長上」；日本武道館出版物的四種推測）。
 // Shapes are schematic, both bows drawn at the same length; the grip height is approximate.
 
+import { useState } from "react";
 import { ANKF } from "@/content/common-sources";
 import { CS } from "@/content/culture/sources";
 import { FigureFrame, Num } from "./FigureFrame";
@@ -15,16 +19,20 @@ const G_BOT = 308;
 
 const T = { fontSize: 13 } as const;
 
-function Marker({ n, x, y }: { n: number; x: number; y: number }) {
+function Marker({ n, x, y, sel }: { n: number; x: number; y: number; sel: number | null }) {
+  const hot = sel === n;
   return (
-    <g aria-hidden="true">
-      <circle cx={x} cy={y} r={10} className="fill-surface stroke-vermilion" strokeWidth={1.4} />
-      <text x={x} y={y + 4.5} textAnchor="middle" fontSize={13} fontWeight={700} className="fill-vermilion">
+    <g aria-hidden="true" opacity={sel != null && !hot ? 0.3 : 1} className="motion-safe:transition-opacity">
+      <circle cx={x} cy={y} r={hot ? 12 : 10} className={hot ? "fill-vermilion stroke-vermilion" : "fill-surface stroke-vermilion"} strokeWidth={1.4} />
+      <text x={x} y={y + 4.5} textAnchor="middle" fontSize={13} fontWeight={700} className={hot ? "fill-paper" : "fill-vermilion"}>
         {n}
       </text>
     </g>
   );
 }
+
+/** fade the labels that belong to the other hypotheses */
+const fade = (sel: number | null, n: number) => (sel != null && sel !== n ? 0.3 : 1);
 
 /** Vertical dimension bracket with end ticks. */
 function Bracket({ x, y1, y2 }: { x: number; y1: number; y2: number }) {
@@ -39,6 +47,8 @@ const HYPOTHESES = [
 ];
 
 export default function GripFigure() {
+  const [sel, setSel] = useState<number | null>(null);
+  const cur = HYPOTHESES.find((h) => h.n === sel);
   return (
     <FigureFrame
       id="fig-grip"
@@ -46,7 +56,7 @@ export default function GripFigure() {
       badge="假說，沒有定論"
       caption={
         <>
-          左：和弓的握把約在弓身下方三分之一處，《魏志倭人傳》記為「木弓短下長上」；右：一般握把在正中央的弓，作為對照。兩把弓畫成同樣長度，形狀為示意。編號 ①～④ 是日本武道館出版物整理的四種推測，該資料也明說：至今沒有研究從史學上驗證過握把偏下的理由。
+          左：和弓的握把約在弓身下方三分之一處，《魏志倭人傳》記為「木弓短下長上」；右：一般握把在正中央的弓，作為對照。兩把弓畫成同樣長度，形狀為示意。編號 ①～④ 是日本武道館出版物整理的四種推測，該資料也明說：至今沒有研究從史學上驗證過握把偏下的理由。本站以程式繪製的示意圖。
         </>
       }
       sources={[CS.budokanBow, CS.yamada, ANKF.history]}
@@ -86,30 +96,32 @@ export default function GripFigure() {
           />
           <rect x={117} y={G_TOP} width={10} height={G_BOT - G_TOP} rx={2} className="fill-ink" />
           {/* arrow leaving slightly upward (③) */}
-          <path d={`M116 ${G_TOP - 1}L30 ${G_TOP - 11}`} className="stroke-ink" strokeWidth={1.4} />
-          <path d={`M30 ${G_TOP - 11}l8 -4.5l-1 9z`} className="fill-ink" />
-          <Marker n={3} x={44} y={G_TOP - 32} />
+          <g opacity={fade(sel, 3)} className={sel === 3 ? "text-vermilion" : "text-ink"}>
+            <path d={`M116 ${G_TOP - 1}L30 ${G_TOP - 11}`} className="stroke-current" strokeWidth={sel === 3 ? 2.2 : 1.4} />
+            <path d={`M30 ${G_TOP - 11}l8 -4.5l-1 9z`} className="fill-current" />
+          </g>
+          <Marker sel={sel} n={3} x={44} y={G_TOP - 32} />
 
           {/* ① root strong / tip weak */}
-          <text x={6} y={96} {...T} className="fill-ink">
+          <text x={6} y={96} {...T} opacity={fade(sel, 1)} className={sel === 1 ? "fill-vermilion" : "fill-ink"} fontWeight={sel === 1 ? 700 : 400}>
             梢・較弱
           </text>
-          <Marker n={1} x={76} y={91} />
-          <text x={6} y={404} {...T} className="fill-ink">
+          <Marker sel={sel} n={1} x={76} y={91} />
+          <text x={6} y={404} {...T} opacity={fade(sel, 1)} className={sel === 1 ? "fill-vermilion" : "fill-ink"} fontWeight={sel === 1 ? 700 : 400}>
             根・較強
           </text>
-          <Marker n={1} x={76} y={399} />
+          <Marker sel={sel} n={1} x={76} y={399} />
 
           {/* ④ antinode at centre, node near the grip */}
-          <text x={172} y={MID + 22} {...T} className="fill-ink">
+          <text x={172} y={MID + 22} {...T} opacity={fade(sel, 4)} className={sel === 4 ? "fill-vermilion" : "fill-ink"} fontWeight={sel === 4 ? 700 : 400}>
             「腹」
           </text>
-          <Marker n={4} x={224} y={MID + 17} />
-          <text x={6} y={G_BOT + 26} {...T} className="fill-ink">
+          <Marker sel={sel} n={4} x={224} y={MID + 17} />
+          <text x={6} y={G_BOT + 26} {...T} opacity={fade(sel, 4)} className={sel === 4 ? "fill-vermilion" : "fill-ink"} fontWeight={sel === 4 ? 700 : 400}>
             近「節」
           </text>
-          <Marker n={4} x={70} y={G_BOT + 21} />
-          <path d={`M100 ${G_BOT + 10}l8 8m0 -8l-8 8`} className="stroke-ink" strokeWidth={1.2} aria-hidden="true" />
+          <Marker sel={sel} n={4} x={70} y={G_BOT + 21} />
+          <path d={`M100 ${G_BOT + 10}l8 8m0 -8l-8 8`} opacity={fade(sel, 4)} className={sel === 4 ? "stroke-vermilion" : "stroke-ink"} strokeWidth={1.2} aria-hidden="true" />
 
           {/* lengths */}
           <Bracket x={166} y1={TOP} y2={G_TOP - 4} />
@@ -123,13 +135,13 @@ export default function GripFigure() {
             握り
           </text>
           <Bracket x={166} y1={G_BOT + 4} y2={BOTTOM} />
-          <text x={172} y={360} {...T} className="fill-ink">
+          <text x={172} y={360} {...T} className={sel === 2 ? "fill-vermilion" : "fill-ink"} fontWeight={sel === 2 ? 700 : 400}>
             下段
           </text>
-          <text x={172} y={378} {...T} fontWeight={700} className="fill-ink">
+          <text x={172} y={378} {...T} fontWeight={700} className={sel === 2 ? "fill-vermilion" : "fill-ink"}>
             短
           </text>
-          <Marker n={2} x={212} y={404} />
+          <Marker sel={sel} n={2} x={212} y={404} />
 
           {/* ---------- 對稱弓 ---------- */}
           <line x1={300} y1={TOP} x2={300} y2={BOTTOM} className="stroke-muted" strokeWidth={1} />
@@ -165,16 +177,37 @@ export default function GripFigure() {
           <p className="mb-2 font-bold">
             四種推測 <span className="font-normal text-vermilion">（都只是假說，學界沒有定論）</span>
           </p>
-          <ol className="space-y-2">
+          <p className="mb-2 text-muted">點一個推測，圖上只亮起它的編號與相關標示；再點一次取消。</p>
+          <ol className="space-y-1.5">
             {HYPOTHESES.map((h) => (
-              <li key={h.n} className="flex gap-2">
-                <Num n={h.n} className="mt-0.5" />
-                <span>
-                  <span className="font-semibold">{h.name}</span>：{h.text}
-                </span>
+              <li key={h.n}>
+                <button
+                  type="button"
+                  aria-pressed={sel === h.n}
+                  onClick={() => setSel(sel === h.n ? null : h.n)}
+                  className="flex min-h-11 w-full items-start gap-2 rounded-lg border border-line bg-surface px-2.5 py-2 text-left hover:border-wood aria-pressed:border-vermilion aria-pressed:bg-vermilion/10"
+                >
+                  <Num n={h.n} className="mt-0.5" />
+                  <span>
+                    <span className="font-semibold">{h.name}</span>：{h.text}
+                  </span>
+                </button>
               </li>
             ))}
           </ol>
+          <p aria-live="polite" className="mt-2 min-h-11 rounded-lg bg-surface px-3 py-2">
+            {cur ? (
+              <>
+                圖上亮起
+                <span className="mx-1 font-semibold text-vermilion">
+                  {cur.n}・{cur.name}
+                </span>
+                的位置。<span className="text-muted">這只是推測之一，沒有定論。</span>
+              </>
+            ) : (
+              <span className="text-muted">還沒選。四種都只是推測：該資料明說，至今沒有研究從史學上驗證過握把偏下的理由。</span>
+            )}
+          </p>
           <p className="mt-3 text-muted">
             附：實測上下弦長比約 1:1.616，接近黃金比例；但同一份資料說這是偶然的一致，不能當作成因。《弓道教本》「不忍捨棄長大之尊嚴」的說法，也被認為是後人追加的理由。
           </p>

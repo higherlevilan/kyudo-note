@@ -8,16 +8,16 @@ import { ANKF, BUDOKAN } from "@/content/common-sources";
 import FigureFrame from "./FigureFrame";
 import { monotone, r1, range } from "./geom";
 
-const L = 221; // 並寸 cm
+export const L = 221; // 並寸 cm
 const S = 2.6; // svg units per cm
 const TOP = 26;
 const XS = 200; // string x
-const GRIP_C = L / 3; // 握 at about 1/3 from 本弭
+export const GRIP_C = L / 3; // 握 at about 1/3 from 本弭
 const Y = (cm: number) => r1(TOP + (L - cm) * S);
 const X = (d: number) => r1(XS - d * S);
 
 /** distance (cm) from the string to the belly (内竹 face), by height above the 本弭 tip */
-const belly = monotone([
+export const belly = monotone([
   [0, 0.5],
   [3, 0],
   [8, 1.0],
@@ -39,7 +39,7 @@ const belly = monotone([
   [221, 0.5],
 ]);
 /** limb thickness (cm), exaggerated ×1.5 when drawn */
-const thick = monotone([
+export const thick = monotone([
   [0, 1.2],
   [20, 1.9],
   [GRIP_C, 3.0],
@@ -75,7 +75,7 @@ const sekiita = (y1: number, y2: number) => {
 const SEKI_UP = sekiita(207, 215);
 const SEKI_DN = sekiita(5, 11);
 
-type PartId = "urahazu" | "uwaseki" | "himezori" | "toriuchi" | "yazuri" | "togashira" | "nigiri" | "shimoseki" | "motohazu" | "tsuru" | "naka" | "tsuruwa";
+export type PartId = "urahazu" | "uwaseki" | "himezori" | "toriuchi" | "yazuri" | "togashira" | "nigiri" | "shimoseki" | "motohazu" | "tsuru" | "naka" | "tsuruwa";
 
 interface Part {
   id: PartId;
@@ -94,10 +94,10 @@ interface Part {
 const backAt = (cm: number): [number, number] => [X(belly(cm) + T(cm)), Y(cm)];
 const bellyAt = (cm: number): [number, number] => [X(belly(cm)), Y(cm)];
 
-const N_LO = 78;
-const N_HI = 86;
+export const N_LO = 78;
+export const N_HI = 86;
 
-const PARTS: Part[] = [
+export const PARTS: Part[] = [
   { id: "urahazu", name: "末弭（上弭）", kana: "うらはず（うわはず）", text: "弓的上端，掛弦輪的地方。", side: "L", ly: 36, at: backAt(219.5), hl: [band(216, L, 0, 1, 0.3)] },
   { id: "uwaseki", name: "上関板", kana: "うわせきいた", text: "黏在弓上端內竹側（靠弦那一面）的木片。指導書：調整弦長，讓上関板不碰到弦。", side: "R", ly: 60, at: bellyAt(211), hl: [SEKI_UP] },
   { id: "himezori", name: "姫反り", kana: "ひめぞり", text: "上切詰籐以下、彎曲變緩的一段。", side: "L", ly: 92, at: backAt(197), hl: [band(188, 205, 0, 1, 0.3)] },

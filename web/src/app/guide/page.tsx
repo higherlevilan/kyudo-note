@@ -9,8 +9,10 @@ import CourseSection from "@/components/course/CourseSection";
 import ClubList from "@/components/guide/ClubList";
 import CompareTable from "@/components/guide/CompareTable";
 import CostEstimator from "@/components/guide/CostEstimator";
+import Dojo3D from "@/components/guide/Dojo3D";
 import FirstVisitSteps from "@/components/guide/FirstVisitSteps";
 import Roadmap from "@/components/guide/Roadmap";
+import SafetyZones from "@/components/guide/SafetyZones";
 import ShajoLayout from "@/components/illustrations/dojo/ShajoLayout";
 import { TargetFaces, TargetMount } from "@/components/illustrations/dojo/Targets";
 import Yadokoro from "@/components/illustrations/dojo/Yadokoro";
@@ -200,6 +202,7 @@ export default function GuidePage() {
           </>
         }
       >
+        <Dojo3D />
         <div className="grid gap-5 md:grid-cols-2 md:items-start">
           <ShajoLayout />
           <div className="space-y-5">
@@ -318,6 +321,7 @@ export default function GuidePage() {
             </li>
           ))}
         </ol>
+        <SafetyZones />
         <div className="rounded-2xl border border-line bg-surface-2/60 p-4 text-[15px]">
           <PointList points={SAFETY_NOTES} />
         </div>
